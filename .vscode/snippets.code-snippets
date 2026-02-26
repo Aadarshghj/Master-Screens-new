@@ -1,0 +1,50 @@
+{
+  "button": {
+    "scope": "typescriptreact",
+    "prefix": "button",
+    "body": ["<Button>", "${TM_SELECTED_TEXT}", "</Button>"],
+  },
+  "useTransition": {
+    "scope": "typescriptreact",
+    "prefix": "transition",
+    "body": ["const [isPending, startTransition] = useTransition();"],
+  },
+  "useState": {
+    "scope": "typescriptreact",
+    "prefix": "state",
+    "body": ["const [state, setState] = useState();"],
+  },
+  "useEffect": {
+    "scope": "typescriptreact",
+    "prefix": "effect",
+    "body": ["useEffect(()=>{},[])"],
+  },
+  "ref": {
+    "scope": "typescriptreact",
+    "prefix": "ref",
+    "body": ["const ref = useRef<HTMLElement | null>(null);"],
+  },
+  "useSearchParams": {
+    "scope": "typescriptreact",
+    "prefix": "searchParams",
+    "body": ["const searchParams = useSearchParams();"],
+  },
+  "newSearchParams": {
+    "scope": "typescriptreact",
+    "prefix": "newSearchParams",
+    "body": [
+      "const newSearchParams = new URLSearchParams(searchParams.toString());",
+      "newSearchParams.set('q', e.target.value);",
+    ],
+  },
+  "optimistic": {
+    "scope": "typescriptreact",
+    "prefix": "optimistic",
+    "body": "const [optimistic, setOptimistic] = useOptimistic();",
+  },
+  "inrEntity": {
+    "scope": "typescriptreact",
+    "prefix": "inr",
+    "body": "&#8377;",
+  },
+}

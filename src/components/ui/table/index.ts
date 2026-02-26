@@ -1,0 +1,15 @@
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+  type TableProps,
+  type TableHeaderProps,
+  type TableRowProps,
+  type TableHeadProps,
+  type TableCellProps,
+} from "./table";

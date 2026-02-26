@@ -1,0 +1,32 @@
+import type { NomineeFormData } from "@/types";
+
+export const DEFAULT_FORM_VALUES: NomineeFormData = {
+  fullName: "",
+  relationship: "",
+  dob: "",
+  contactNumber: "",
+  percentageShare: 0,
+  isMinor: false,
+  guardianName: "",
+  guardianDob: "",
+  guardianEmail: "",
+  guardianContactNumber: "",
+  isSameAddress: false,
+  addressTypeId: "",
+  doorNumber: "",
+  addressLine1: "",
+  landmark: "",
+  placeName: "",
+  city: "",
+  district: "",
+  state: "",
+  country: "India",
+  pincode: "",
+  postOfficeId: "",
+  latitude: "",
+  longitude: "",
+  digipin: "",
+  // File upload and UI state moved to useForm
+  selectedFile: null,
+  dmsFileData: null,
+};
