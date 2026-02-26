@@ -39,6 +39,7 @@ import { userReg } from "./customer-management/user-reg";
 import { riskAssessmentType } from "./customer-management/risk-assessment-type.ts";
 import { adminUnitType } from "./customer-management/admin-unit-type";
 import { branchType } from "./customer-management/branch-type.ts";
+import { designationRoleMapping } from "./customer-management/designationRoleMapping.ts";
 
 
 export const api = { 
@@ -83,6 +84,7 @@ export const api = {
   userReg,
   riskAssessmentType,
   branchType,
+  designationRoleMapping,
 };
 
 export {

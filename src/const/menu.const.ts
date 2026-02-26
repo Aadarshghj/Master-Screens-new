@@ -162,6 +162,11 @@ export const menu = [
             title: "Asset Item Master",
             path: "/customer-management/master/asset-item",
           },
+          {
+            id: "designation-role-mapping",
+            title: "Designation Role Mapping Master",
+            path: "/customer-management/master/designation-role-mapping",
+          },
         ],
       },
     ],

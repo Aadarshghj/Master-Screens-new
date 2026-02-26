@@ -50,6 +50,7 @@ import { UserRegPage } from "@/pages/customer-management/user-reg";
 import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
 import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
+import DesignationRoleMappingPage from "@/pages/designation-mapping";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -231,8 +232,8 @@ export const protectedRoutesList: RouteObject[] = [
         element: <BranchContactPage />,
       },
       {
-        path:"/customer-management/master/branch-type",
-        element: <BranchTypePage/>,
+        path: "/customer-management/master/branch-type",
+        element: <BranchTypePage />,
       },
       {
         path: "/customer-management/master/customer-category",
@@ -245,6 +246,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/user-reg",
         element: <UserRegPage />,
+      },
+      {
+        path: "/customer-management/master/designation-role-mapping",
+        element: <DesignationRoleMappingPage />,
       },
       {
         path: "/customer-management/master/risk-assessment-type-history",
