@@ -8,6 +8,7 @@ export const apiInstance = createApi({
     baseUrl: ENV.VITE_BACKEND_BASE_URL,
   }),
   tagTypes: [
+    "AdminUnitType",
     "CustomerPhoto",
     "Customer",
     "Photo",

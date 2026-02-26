@@ -48,6 +48,7 @@ import { AssetItemPage } from "@/pages/customer-management/asset-management/asse
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
 import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
+import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -199,6 +200,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/loan-management/Approval-workflow/workflow-rolemapping",
         element: <ApproverRoleMappingPage />,
+      },
+      {
+        path: "/customer-management/master/admin-unit-type",
+        element: <AdminUnitTypePage />,
       },
       {
         path: "/customer-management/master/firm-type",

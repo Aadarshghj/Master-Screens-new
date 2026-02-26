@@ -37,8 +37,10 @@ import { UserRoleMaster } from "./customer-management/userRoleMaster.ts";
 import { roleManagement } from "./customer-management/roleManagement";
 import { userReg } from "./customer-management/user-reg";
 import { riskAssessmentType } from "./customer-management/risk-assessment-type.ts";
+import { adminUnitType } from "./customer-management/admin-unit-type";
 
-export const api = {
+
+export const api = { 
   auth,
   customer,
   master,
@@ -53,6 +55,7 @@ export const api = {
   occupation,
   purposes,
   customerGroup,
+  adminUnitType, 
   agentMaster,
   industryCategory,
   sitePremise,

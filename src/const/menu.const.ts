@@ -32,6 +32,11 @@ export const menu = [
             path: "/customer-management/master/document-type",
           },
           {
+            id: "admin-unit-type",
+            title: "Admin Unit Type Master",
+            path: "/customer-management/master/admin-unit-type",
+          },
+          {
             id: "firm-type",
             title: "Firm Type Master",
             path: "/customer-management/master/firm-type",
