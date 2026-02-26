@@ -57,6 +57,11 @@ export const menu = [
             path: "/customer-management/master/bank",
           },
           {
+            id:"branch-type",
+            title: "Branch-Type Master",
+            path:"/customer-management/master/branch-type",
+          },
+          {
             id: "industry-category",
             title: "Industry Category Master",
             path: "/customer-management/master/industry-category",

@@ -2,6 +2,7 @@ import type {
   UserRegType,
   UserRegRequestDto,
   UserRegResponseDto,
+  UserSearchResponseDto,
 } from "@/types/customer-management/user-reg";
 import { apiInstance } from "../../api-instance";
 import { api } from "@/api";
@@ -80,7 +81,7 @@ searchUsers: build.query<UserRegType[], { userCode?: string; userName?: string; 
   providesTags: ["UserReg"],
 }),
 
-searchUserReg: build.query<unknown, string>({
+searchUserReg: build.query<UserSearchResponseDto, string>({
   query: (userName) => ({
     url: userReg.search({ userName }),
     method: "GET",

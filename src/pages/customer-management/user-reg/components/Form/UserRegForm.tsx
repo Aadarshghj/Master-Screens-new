@@ -98,7 +98,7 @@ export const UserRegForm: React.FC<UserRegProps> = ({
                       if (editingUser?.userName === value) return;
                       try {
                         const res = await triggerSearchUser(value).unwrap();
-                        if (res?.content?.length > 0) {
+                        if (res.content.length > 0) {
                           setError("userName", {
                             type: "manual",
                             message: "Username already exists",

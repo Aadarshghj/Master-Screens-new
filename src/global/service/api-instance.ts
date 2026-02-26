@@ -78,6 +78,8 @@ export const apiInstance = createApi({
     "UserRole",
     "RiskAssessmentType",
     "RoleManagement",
+    "UserReg",
+    "branchType"
     ],
   endpoints: () => ({}),
 });

@@ -37,3 +37,6 @@ export interface Option {
   label: string;
 }
 
+export interface UserSearchResponseDto {
+  content: UserRegResponseDto[];
+}
