@@ -147,6 +147,12 @@ export const menu = [
             title: "Customer Category Master",
             path: "/customer-management/master/customer-category",
           },
+{
+            id: "tenant",
+            title: "Tenant Master",
+            path: "/customer-management/master/tenant",
+          },
+
           {
             id: "risk-assessment-type-history",
             title: "Risk Assessment Type History Master",

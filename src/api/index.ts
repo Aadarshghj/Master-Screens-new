@@ -40,9 +40,11 @@ import { riskAssessmentType } from "./customer-management/risk-assessment-type.t
 import { adminUnitType } from "./customer-management/admin-unit-type";
 import { branchType } from "./customer-management/branch-type.ts";
 import { designationRoleMapping } from "./customer-management/designationRoleMapping.ts";
+import { tenant } from "./customer-management/tenant";
 
 
 export const api = { 
+  tenant,
   auth,
   customer,
   master,

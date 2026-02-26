@@ -51,6 +51,7 @@ import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-
 import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/designation-mapping";
+import { TenantPage } from "@/pages/customer-management/tenant";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -394,6 +395,17 @@ export const protectedRoutesList: RouteObject[] = [
           },
         ],
       },
+ {
+        path: "/customer-management/master/tenant",
+        children: [
+          {
+            index: true,
+            element: <TenantPage />,
+          },
+        ],
+      },
+
+
     ],
   },
 ];
