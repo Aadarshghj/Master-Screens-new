@@ -34,6 +34,7 @@ import { customerCategory } from "./customer-management/customer-category";
 import { loanMaster } from "./master/loan-master.api";
 import { loanStepper } from "./loan/loanStepper.api";
 import { UserRoleMaster } from "./customer-management/userRoleMaster.ts";
+import { roleManagement } from "./customer-management/roleManagement";
 
 export const api = {
   auth,
@@ -72,6 +73,7 @@ export const api = {
   loanStepper,
   loanMaster,
   UserRoleMaster,
+  roleManagement,
 };
 
 export {

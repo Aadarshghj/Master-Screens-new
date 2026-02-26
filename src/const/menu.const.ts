@@ -72,6 +72,12 @@ export const menu = [
             path: "/customer-management/master/sectoral-performance",
           },
           {
+            id: "role-management",
+            title: "Role Management",
+            path: "/customer-management/master/role-management",
+          },
+
+          {
             id: "firm-role",
             title: "Firm Role Master",
             path: "/customer-management/master/firm-role",
