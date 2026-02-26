@@ -46,6 +46,7 @@ import { ChargeMasterPage } from "@/pages/loan-product-and-scheme-masters/charge
 import { UserRoleMappingContainer } from "@/pages/user-mapping/components/Form/UserRoleMappingContainer";
 import { AssetItemPage } from "@/pages/customer-management/asset-management/asset-group";
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
+import { UserRegPage } from "@/pages/customer-management/user-reg";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -229,6 +230,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/role-management",
         element: <RoleManagementPage />,
+      },
+      {
+        path: "/customer-management/master/user-reg",
+        element: <UserRegPage />,
       },
       {
         path: "/customer-management/master/user-role-mapping",

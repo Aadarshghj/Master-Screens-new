@@ -76,6 +76,11 @@ export const menu = [
             title: "Role Management",
             path: "/customer-management/master/role-management",
           },
+          {
+            id: "user-reg",
+            title: "User Registration",
+            path: "/customer-management/master/user-reg",
+          },
 
           {
             id: "firm-role",
