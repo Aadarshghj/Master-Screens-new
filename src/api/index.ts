@@ -36,6 +36,7 @@ import { loanStepper } from "./loan/loanStepper.api";
 import { UserRoleMaster } from "./customer-management/userRoleMaster.ts";
 import { roleManagement } from "./customer-management/roleManagement";
 import { userReg } from "./customer-management/user-reg";
+import { riskAssessmentType } from "./customer-management/risk-assessment-type.ts";
 
 export const api = {
   auth,
@@ -76,6 +77,7 @@ export const api = {
   UserRoleMaster,
   roleManagement,
   userReg,
+  riskAssessmentType,
 };
 
 export {

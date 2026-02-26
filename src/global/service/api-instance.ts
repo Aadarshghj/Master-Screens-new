@@ -74,7 +74,9 @@ export const apiInstance = createApi({
     "ChargeSlabs",
     "BusinessRule",
     "Staff",
-    "UserRole"
+    "UserRole",
+    "RiskAssessmentType",
+    "RoleManagement",
     ],
   endpoints: () => ({}),
 });

@@ -47,6 +47,7 @@ import { UserRoleMappingContainer } from "@/pages/user-mapping/components/Form/U
 import { AssetItemPage } from "@/pages/customer-management/asset-management/asset-group";
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
+import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -234,6 +235,15 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/user-reg",
         element: <UserRegPage />,
+      },
+      {
+        path: "/customer-management/master/risk-assessment-type-history",
+        children: [
+          {
+            index: true,
+            element: <RiskAssessmentTypeHistoryPage />,
+          },
+        ],
       },
       {
         path: "/customer-management/master/user-role-mapping",

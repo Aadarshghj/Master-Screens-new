@@ -138,6 +138,11 @@ export const menu = [
             path: "/customer-management/master/customer-category",
           },
           {
+            id: "risk-assessment-type-history",
+            title: "Risk Assessment Type History Master",
+            path: "/customer-management/master/risk-assessment-type-history",
+          },
+          {
             id: "user-role-mapping",
             title: "User Role Mapping Master",
             path: "/customer-management/master/user-role-mapping",
