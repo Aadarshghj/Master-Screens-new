@@ -50,7 +50,6 @@ export const UserRoleMappingContainer: React.FC = () => {
 
   return (
     <div className="h-screen w-full overflow-hidden bg-[#f8fafc] font-sans">
-      {/* Save Modal */}
       <ConfirmationModal
         isOpen={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
@@ -62,7 +61,6 @@ export const UserRoleMappingContainer: React.FC = () => {
         type="warning"
       />
 
-      {/* Clear Pending Modal */}
       <ConfirmationModal
         isOpen={isClearModalOpen}
         onCancel={() => setIsClearModalOpen(false)}
@@ -74,7 +72,6 @@ export const UserRoleMappingContainer: React.FC = () => {
         type="warning"
       />
 
-      {/* 👇 2. Add the Remove Role Confirmation Modal */}
       <ConfirmationModal
         isOpen={!!roleToRemove}
         onCancel={() => setRoleToRemove(null)}
@@ -83,7 +80,7 @@ export const UserRoleMappingContainer: React.FC = () => {
         message={`Are you sure you want to remove the "${roleToRemove?.title}" role? This will revoke their permissions immediately.`}
         confirmText="Yes, Remove"
         cancelText="Cancel"
-        type="warning" // Change to "danger" if your modal component supports a red theme
+        type="warning"
       />
 
       <div className="flex flex-col items-start justify-between gap-4 px-6 pt-4 pb-2 md:flex-row md:items-center">
@@ -150,7 +147,7 @@ export const UserRoleMappingContainer: React.FC = () => {
           <AssignedColumn
             roles={assignedRoles}
             pendingCount={pendingCount}
-            onRemove={removeRole} // 👈 Stays exactly the same!
+            onRemove={removeRole}
             onClear={() => setIsClearModalOpen(true)}
             onSave={() => pendingCount > 0 && setIsModalOpen(true)}
           />
