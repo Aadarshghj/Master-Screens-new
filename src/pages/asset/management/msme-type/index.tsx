@@ -50,7 +50,7 @@ export const MsmeTypePage: React.FC = () => {
       <PageWrapper
         variant="default"
         padding="xl"
-        maxWidth="2xl"
+        maxWidth="full"
         contentPadding="sm"
         className="m-0 min-h-fit pb-4"
       >

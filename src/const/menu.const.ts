@@ -440,6 +440,11 @@ export const menu = [
         title:"Contact Type",
         path:"/asset/management/contact-type",
       },
+      {
+        id:"product-req-list",
+        title:"Product Request List",
+        path:"/asset/management/product-req-list"
+      }
     ],
   },
   {
