@@ -57,9 +57,9 @@ export const menu = [
             path: "/customer-management/master/bank",
           },
           {
-            id:"branch-type",
+            id: "branch-type",
             title: "Branch-Type Master",
-            path:"/customer-management/master/branch-type",
+            path: "/customer-management/master/branch-type",
           },
           {
             id: "industry-category",
@@ -147,7 +147,7 @@ export const menu = [
             title: "Customer Category Master",
             path: "/customer-management/master/customer-category",
           },
-{
+          {
             id: "tenant",
             title: "Tenant Master",
             path: "/customer-management/master/tenant",

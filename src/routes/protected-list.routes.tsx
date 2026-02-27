@@ -52,6 +52,7 @@ import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
+import UserRoleMappingPage from "@/pages/user-mapping";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -263,7 +264,7 @@ export const protectedRoutesList: RouteObject[] = [
       },
       {
         path: "/customer-management/master/user-role-mapping",
-        element: <UserRoleMappingContainer />,
+        element: <UserRoleMappingPage />,
       },
       {
         path: "/customer-management/master/asset-item",
