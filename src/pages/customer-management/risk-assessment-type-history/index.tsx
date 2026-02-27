@@ -12,15 +12,11 @@ import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-butto
 import { RiskAssessmentTypeHistoryForm } from "./components/Form/RiskAssessmentTypeHistoryForm";
 import { RiskAssessmentTypeHistoryTable } from "./components/Table/RiskAssessmentTypeHistoryTable";
 import { useRiskAssessmentType } from "./components/Hooks/useRiskAssessmentTypeHistoryForm";
-// import { string } from "yup";
 import type { RiskAssessmentTypeHistory } from "@/types/customer-management/risk-assessment-type-history";
-// import { useLazyGetRiskAssessmentTypeByIdQuery } from "@/global/service/end-points/customer-management/risk-assessment-type";
-// import { useRiskAssessmentTypeHistoryTable } from "./components/Hooks/useRiskAssessmentTypeHistoryTable";
 
 export const RiskAssessmentTypeHistoryPage: React.FC = () => {
   const formRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
-  // const [fetchRiskAssessmentTypeById] = useLazyGetRiskAssessmentTypeByIdQuery();
 const [showForm, setShowForm] = useState(false);
 const [selectedRow, setSelectedRow] = useState<RiskAssessmentTypeHistory | null>(null);
 // const isEdit = !!selectedRow;
@@ -38,9 +34,6 @@ const [selectedRow, setSelectedRow] = useState<RiskAssessmentTypeHistory | null>
 
   } = useRiskAssessmentType(selectedRow??undefined);
 
-// const {
-//   openDeleteModal
-// } = useRiskAssessmentTypeHistoryTable();
    const handleShowForm = () => {
     setShowForm(true);
   };
@@ -134,7 +127,6 @@ const [selectedRow, setSelectedRow] = useState<RiskAssessmentTypeHistory | null>
           />
 
           <RiskAssessmentTypeHistoryTable
-          // openDeleteModal={openDeleteModal} 
           onEdit={onEdit}/>
         </section>
       </PageWrapper>

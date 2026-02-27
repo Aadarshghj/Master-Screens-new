@@ -1,6 +1,5 @@
 import { logger } from "@/global/service";
 import { useDeleteRiskAssessmentTypeMutation, useGetMasterRiskAssessmentTypeQuery } from "@/global/service/end-points/customer-management/risk-assessment-type";
-//import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useCallback, useState } from "react";
 
 export const useRiskAssessmentTypeHistoryTable = () => {

@@ -35,27 +35,6 @@ transformResponse : (
     })),
     }),
 
-    
-// getRiskAssessmentTypeById: build.query<
-//   RiskAssessmentTypeHistory,
-//   string
-// >({
-//   query: (identity) => ({
-//     url: api.riskAssessmentType.getbyid(identity),
-//     method: "GET",
-//   }),
-//   providesTags: ["RiskAssessmentType"],
-//   transformResponse: (
-//     response: RiskAssessTypeResponseDto
-//   ): RiskAssessmentTypeHistory => ({
-//     riskAssessmentType: response.riskAssessmentType,
-//     description: response.description,
-//     isActive: response.isActive,
-//     identity: response.identity,
-//   }),
-// }),
-
-
   updateRiskAssessmentType: build.mutation<
   RiskAssessmentTypeHistory,
   { identity: string; payload: RiskAssessTypeRequestDto }
@@ -88,7 +67,6 @@ transformResponse : (
 });
 export const {
     useSaveRiskAssessmentTypeMutation,
-    // useLazyGetRiskAssessmentTypeByIdQuery,
     useGetMasterRiskAssessmentTypeQuery,
     useUpdateRiskAssessmentTypeMutation,
     useDeleteRiskAssessmentTypeMutation
