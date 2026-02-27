@@ -424,6 +424,23 @@ export const menu = [
     title: "Asset Management System",
     icon: "TrendingUp",
     path: "/asset-management",
+    children: [
+      {
+        id:"asset-category",
+            title:"Asset Category",
+            path: "/asset/management/asset-category",
+      },
+      {
+        id:"msme-type",
+        title: "MSME Type",
+        path:"/asset/management/msme-type",
+      },
+      {
+        id:"contact-type",
+        title:"Contact Type",
+        path:"/asset/management/contact-type",
+      },
+    ],
   },
   {
     id: "financial-accounting",

@@ -52,6 +52,9 @@ import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
+import { AssetCategoryPage } from "@/pages/asset/management/asset-category";
+import { MsmeTypePage } from "@/pages/asset/management/msme-type";
+import { ContactTypePage } from "@/pages/asset/management/contact-type";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -219,6 +222,32 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/firm-role",
         element: <FirmRolePage />,
+      },
+      {
+        path: "asset/management/asset-category",
+        children:[
+          {
+            index: true,
+            element: <AssetCategoryPage />,
+         },
+        ]
+      },
+      {
+        path:"asset/management/msme-type",
+        children:[ {
+          index: true,
+          element: <MsmeTypePage/>,
+         },
+        ],
+      },
+      {
+        path:"asset/management/contact-type",
+        children:[ 
+          {
+          index: true,
+          element: <ContactTypePage/>,
+         },
+        ],
       },
       {
         path: "/customer-management/master/staffs",
