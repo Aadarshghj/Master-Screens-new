@@ -1,0 +1,44 @@
+import type { AssetModelType } from "@/types/asset-management-system/asset-model";
+
+export const ASSET_MODEL_SAMPLE_DATA:AssetModelType[]=[
+    {
+        assetItem:"Mouse",
+        assetModelCode:"Fingers",
+        description:"------------"
+    },
+    {
+        assetItem:"Laptop",
+        assetModelCode:"DELL",
+        description:"------------"
+    },
+    {
+        assetItem:"Mouse",
+        assetModelCode:"Fingers",
+        description:"------------"
+    },
+    {
+        assetItem:"Laptop",
+        assetModelCode:"DELL",
+        description:"------------"
+    },
+    {
+        assetItem:"Mouse",
+        assetModelCode:"Fingers",
+        description:"------------"
+    },
+    {
+        assetItem:"Laptop",
+        assetModelCode:"DELL",
+        description:"------------"
+    },
+    {
+        assetItem:"Mouse",
+        assetModelCode:"Fingers",
+        description:"------------"
+    },
+    {
+        assetItem:"Laptop",
+        assetModelCode:"DELL",
+        description:"------------"
+    },
+]

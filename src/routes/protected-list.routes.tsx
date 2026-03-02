@@ -58,6 +58,8 @@ import UserRoleMappingPage from "@/pages/user-mapping";
   import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
 
   import BranchStaffMappingPage from "@/pages/branch-staff-mapping";
+import { AssetModelPage } from "@/pages/asset-management-system/asset-model";
+import { TdsSectionPage } from "@/pages/asset-management-system/tds-section";
   
 
 export const protectedRoutesList: RouteObject[] = [
@@ -432,6 +434,16 @@ export const protectedRoutesList: RouteObject[] = [
             path:"/asset-management/gst-cost-master",
             index: true,
             element: <GstCostMasterPage />,
+          },
+          {
+            path:"/asset-management/asset-model",
+            index:true,
+            element:<AssetModelPage/>
+          },
+          {
+            path:"/asset-management/tds-section",
+            index:true,
+            element:<TdsSectionPage/>
           },
         ],
       },
