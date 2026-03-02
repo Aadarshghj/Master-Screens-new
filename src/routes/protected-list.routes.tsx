@@ -43,7 +43,6 @@ import { ManageUserDelegations } from "@/pages/approval-workflow/user-deligation
 import { WorkflowActionsPage } from "@/pages/approval-workflow/workflow-actions";
 import { ApproverRoleMappingPage } from "@/pages/approval-workflow/approver-role-mapping";
 import { ChargeMasterPage } from "@/pages/loan-product-and-scheme-masters/charge-master";
-import { UserRoleMappingContainer } from "@/pages/user-mapping/components/Form/UserRoleMappingContainer";
 import { AssetItemPage } from "@/pages/customer-management/asset-management/asset-group";
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
@@ -53,6 +52,7 @@ import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
 import UserRoleMappingPage from "@/pages/user-mapping";
+import BranchStaffMappingPage from "@/pages/branch-staff-mapping";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -252,6 +252,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/designation-role-mapping",
         element: <DesignationRoleMappingPage />,
+      },
+      {
+        path:"/customer-management/master/branch-staff-mapping",
+        element:< BranchStaffMappingPage/>
       },
       {
         path: "/customer-management/master/risk-assessment-type-history",
