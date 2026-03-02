@@ -335,6 +335,7 @@ export const menu = [
         icon: "DollarSign",
         path: "/loan-management/loan-application",
       },
+
       {
         id: "loan-onboarding",
         title: "Loan Product and Scheme ",
@@ -371,6 +372,12 @@ export const menu = [
             title: "Loan Charge Master",
             path: "/loan-management/schema-master/charge-master",
           },
+          {
+            id: "co-loan-scheme-mapping",
+            title: "Scheme Mapping",
+            path: "/loan-management/schema-master/co-loan-scheme-mapping",
+          },
+
         ],
       },
       {

@@ -1,5 +1,5 @@
 export const roleManagement = {
-  save: () => "/api/v1/users/role",
+  save: () => "/api/v1/roles/",
   get: () => "/api/v1/users/role",
   delete: (identity: string) => `/api/v1/users/role/${identity}`,
   update: (identity: string) => `/api/v1/users/role/${identity}`,

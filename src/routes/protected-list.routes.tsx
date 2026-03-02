@@ -51,17 +51,21 @@ import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
+
+import { CoLendingSchemeMapPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-scheme-map/Index";
+import BranchStaffMappingPage from "@/pages/branch-staff-mapping";
+
 import UserRoleMappingPage from "@/pages/user-mapping";
   
   import { GstCostMasterPage } from "@/pages/asset-management-system/gst-cost-master";
   import { DepreciationMethodsPage } from "@/pages/asset-management-system/depreciation-methods";
   import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
 
-  import BranchStaffMappingPage from "@/pages/branch-staff-mapping";
 import { AssetModelPage } from "@/pages/asset-management-system/asset-model";
 import { TdsSectionPage } from "@/pages/asset-management-system/tds-section";
 import { AssetGroupPage } from "@/pages/asset-management-system/asset-group";
   
+
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -72,6 +76,7 @@ export const protectedRoutesList: RouteObject[] = [
         path: "home",
         element: <Home />,
       },
+      
       {
         path: "customer/management/onboarding",
         children: [
@@ -94,15 +99,8 @@ export const protectedRoutesList: RouteObject[] = [
           },
         ],
       },
-      // {
-      //   path: "/loan-management/loan-application",
-      //   children: [
-      //     {
-      //       index: true,
-      //       element: <LoanApplicationPage />,
-      //     },
-      //   ],
-      // },
+     
+      
       {
         path: "/customer/lead-sales/lead-details",
         element: <LeadDetailsPage />,
@@ -128,6 +126,8 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/loan-management/schema-master/charge-master",
         element: <ChargeMasterPage />,
       },
+     
+
       {
         path: "firm/management/onboarding",
         children: [
@@ -192,6 +192,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/loan-management/Approval-workflow/workflow-stages-setup",
         element: <WorkflowStagesSetupPage />,
+      },
+        {
+        path: "/loan-management/schema-master/co-loan-scheme-mapping",
+        element: <CoLendingSchemeMapPage/>,
       },
       {
         path: "/loan-management/Approval-workflow/workflow-amountrules",
@@ -457,4 +461,5 @@ export const protectedRoutesList: RouteObject[] = [
 
     ],
   },
+  
 ];
