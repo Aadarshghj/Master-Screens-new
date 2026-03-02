@@ -14,17 +14,13 @@ export const useBranchStaffMapping = () => {
   const [branchSearchQuery, setBranchSearchQuery] = useState<string>("");
   const [staffSearchQuery, setStaffSearchQuery] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
   const [branchAssignments, setBranchAssignments] = useState<Record<string, AssignedStaff[]>>({});
   const [staffToRemove, setStaffToRemove] = useState<AssignedStaff | null>(null);
-
   const { data: allStaff = [], isLoading: allStaffLoading } = useGetAllStaffQuery();
   const { data: branchesData = [] } = useGetAllBranchesQuery();
   const { data: assignedStaffBackend = [] } = useGetAssignedStaffQuery(selectedBranchId, { skip: !selectedBranchId });
-
   const [saveBranchStaffMapping] = useSaveBranchStaffMappingMutation();
   const [deleteBranchStaffMapping] = useDeleteBranchStaffMappingMutation();
-
   const selectedBranch = useMemo(
     () => branchesData.find(b => b.id === selectedBranchId) || null,
     [branchesData, selectedBranchId]
@@ -54,7 +50,6 @@ export const useBranchStaffMapping = () => {
     return map;
   }, [assignedStaffBackend, selectedBranchId]);
 
-
   const combinedAssignments = useMemo(() => {
     const keys = new Set([...Object.keys(backendAssignments), ...Object.keys(branchAssignments)]);
     const map: Record<string, AssignedStaff[]> = {};
@@ -64,12 +59,8 @@ export const useBranchStaffMapping = () => {
     return map;
   }, [backendAssignments, branchAssignments]);
 
-
   const assignedStaff = useMemo(() => combinedAssignments[selectedBranchId] || [], [combinedAssignments, selectedBranchId]);
-
   const pendingCount = assignedStaff.filter(s => s.status === "Pending").length;
-
- 
   const availableStaff = useMemo(() => {
     const assignedIds = new Set(assignedStaff.map(s => s.staffIdentity));
     const lower = staffSearchQuery.toLowerCase().trim();
@@ -102,28 +93,28 @@ export const useBranchStaffMapping = () => {
   };
 
   const removeStaff = (staff: AssignedStaff) => {
-    if (!selectedBranchId) return;
+  if (!selectedBranchId) return;
+  setStaffToRemove(staff);
+};
 
-    if (staff.status === "Pending") {
-     
+  const confirmRemoveStaff = async () => {
+  if (!staffToRemove || !selectedBranchId) return;
+
+  try {
+    if (staffToRemove.status === "Pending") {
       setBranchAssignments(prev => ({
         ...prev,
         [selectedBranchId]: (prev[selectedBranchId] || []).filter(
-          s => s.staffIdentity !== staff.staffIdentity
+          s => s.staffIdentity !== staffToRemove.staffIdentity
         ),
       }));
     } else {
-      
-      setStaffToRemove(staff);
-    }
-  };
+      await deleteBranchStaffMapping(staffToRemove.identity).unwrap();
 
-  const confirmRemoveStaff = async () => {
-    if (!staffToRemove) return;
-
-    try {
-      await deleteBranchStaffMapping(staffToRemove.identity).unwrap(); // use backend mapping id
-      logger.info(`Staff ${staffToRemove.staffName} removed successfully!`, { toast: true });
+      logger.info(
+        `Staff ${staffToRemove.staffName} removed successfully!`,
+        { toast: true }
+      );
 
       setBranchAssignments(prev => ({
         ...prev,
@@ -131,13 +122,17 @@ export const useBranchStaffMapping = () => {
           s => s.staffIdentity !== staffToRemove.staffIdentity
         ),
       }));
-
-      setStaffToRemove(null);
-    } catch (err) {
-      logger.error(`Failed to remove staff ${staffToRemove.staffName}`, { toast: true });
-      console.log(err);
     }
-  };
+
+    setStaffToRemove(null);
+  } catch (err) {
+    logger.error(
+      `Failed to remove staff ${staffToRemove.staffName}`,
+      { toast: true }
+    );
+    console.log(err);
+  }
+};
 
   const clearAssignedStaff = () => {
     if (!selectedBranchId) return;
@@ -186,6 +181,7 @@ export const useBranchStaffMapping = () => {
     pendingCount,
     isModalOpen,
     staffToRemove,
+    setStaffToRemove,
     setBranchSearchQuery,
     setStaffSearchQuery,
     handleBranchSelect,
