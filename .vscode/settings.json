@@ -3,8 +3,10 @@
         "aadhaar",
         "Aadhar",
         "Ckyc",
+        "Deprecition",
         "Digipin",
         "ekyc",
+        "Neumorphic",
         "Pincode"
     ],
     "postman.settings.dotenv-detection-notification-visibility": false
