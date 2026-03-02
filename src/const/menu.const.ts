@@ -57,9 +57,9 @@ export const menu = [
             path: "/customer-management/master/bank",
           },
           {
-            id:"branch-type",
+            id: "branch-type",
             title: "Branch-Type Master",
-            path:"/customer-management/master/branch-type",
+            path: "/customer-management/master/branch-type",
           },
           {
             id: "industry-category",
@@ -147,7 +147,7 @@ export const menu = [
             title: "Customer Category Master",
             path: "/customer-management/master/customer-category",
           },
-{
+          {
             id: "tenant",
             title: "Tenant Master",
             path: "/customer-management/master/tenant",
@@ -330,6 +330,7 @@ export const menu = [
         icon: "DollarSign",
         path: "/loan-management/loan-application",
       },
+
       {
         id: "loan-onboarding",
         title: "Loan Product and Scheme ",
@@ -366,6 +367,12 @@ export const menu = [
             title: "Loan Charge Master",
             path: "/loan-management/schema-master/charge-master",
           },
+          {
+            id: "co-loan-scheme-mapping",
+            title: "Scheme Mapping",
+            path: "/loan-management/schema-master/co-loan-scheme-mapping",
+          },
+
         ],
       },
       {

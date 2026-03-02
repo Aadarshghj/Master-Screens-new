@@ -1,34 +1,41 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import type { SourceOfIncomeFormData } from "@/types/customer-management/source-income";
-import { SOURCE_OF_INCOME_DEFAULT_VALUES } from "../constants/SourceOfIncomeDefault";
+import type { SourceOfIncomeData, SourceOfIncomeFormData } from "@/types/customer-management/source-income";
+
 import { sourceOfIncomeSchema } from "@/global/validation/customer-management-master/source-income";
 import {
   useCreateSourceOfIncomeMutation,
   useDeleteSourceOfIncomeMutation,
   useGetSourceOfIncomeDetailsQuery,
+  useUpdateSourceOfIncomeMutation,
 } from "@/global/service/end-points/customer-management/source-of-income";
 import { logger } from "@/global/service";
-import { handleApiError } from "@/utils/error-handler";
+import { SOURCE_OF_INCOME_DEFAULT_VALUES } from "../../constants/SourceOfIncomeDefault";
 
-export const useSourceOfIncomeFormController = () => {
+
+export const useSourceOfIncomeFormController = (editData?:SourceOfIncomeData) => {
   const [showForm, setShowForm] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [identity, setIdentity] = useState("");
-  const {
-    control,
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<SourceOfIncomeFormData>({
-    defaultValues: SOURCE_OF_INCOME_DEFAULT_VALUES,
-    resolver: yupResolver(
-      sourceOfIncomeSchema
-    ) as Resolver<SourceOfIncomeFormData>,
-    mode: "onBlur",
-  });
+ const {
+  control,
+  register,
+  handleSubmit,
+  reset,
+  formState: { errors, isSubmitting },
+} = useForm<SourceOfIncomeFormData>({
+  defaultValues: editData
+    ? {
+        name: editData.name,
+        code: editData.code,
+      }
+    : SOURCE_OF_INCOME_DEFAULT_VALUES,
+  resolver: yupResolver(
+    sourceOfIncomeSchema
+  ) as Resolver<SourceOfIncomeFormData>,
+  mode: "onBlur",
+});
   const handleShowForm = () => {
     setShowForm(true);
   };
@@ -39,25 +46,36 @@ export const useSourceOfIncomeFormController = () => {
   } = useGetSourceOfIncomeDetailsQuery();
   const [createSourceOfIncome] = useCreateSourceOfIncomeMutation();
   const [deleteSourceOfIncome] = useDeleteSourceOfIncomeMutation();
-  const onSubmit = async (data: SourceOfIncomeFormData) => {
-    try {
-      const payload = {
-        name: data.name.toLocaleUpperCase(),
-        code: data.code.toLocaleUpperCase(),
-      };
-      await createSourceOfIncome(payload).unwrap();
-      logger.info("Source of income created successfully", { toast: true });
-      refetch();
-    } catch (error: unknown) {
-      const errorMessage = handleApiError(error);
-      logger.error(errorMessage, {
-        toast: true,
-        pushLog: false,
-      });
-    } finally {
-      reset(SOURCE_OF_INCOME_DEFAULT_VALUES);
-    }
+  const [updateSourceOfIncome]=useUpdateSourceOfIncomeMutation();
+const onSubmit = async (data: SourceOfIncomeFormData) => {
+  const name = "Source of Income";
+
+  const payload = {
+    name: data.name.toUpperCase(),
+    code: data.code.toUpperCase(),
   };
+
+  try {
+    if (editData?.identity) {
+      await updateSourceOfIncome({
+        identity: editData.identity,
+        payload,
+      }).unwrap();
+
+      logger.info(`${name} updated successfully`, { toast: true });
+    } else {
+      await createSourceOfIncome(payload).unwrap();
+      logger.info(`${name} added successfully`, { toast: true });
+    }
+
+    reset(SOURCE_OF_INCOME_DEFAULT_VALUES);
+  } catch {
+    logger.error(
+      "Source of income with this name or code already exists",
+      { toast: true }
+    );
+  }
+};
 
   const onReset = () => reset(SOURCE_OF_INCOME_DEFAULT_VALUES);
   const handleHideForm = () => {
@@ -102,5 +120,6 @@ export const useSourceOfIncomeFormController = () => {
     handleConfirmDelete,
     handleDelete,
     isLoading,
+    reset
   };
 };
