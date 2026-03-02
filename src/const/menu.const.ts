@@ -456,6 +456,11 @@ export const menu = [
             title:"Asset Model",
             path:"/asset-management/asset-model",
           },
+          {
+            id: "asset-group",
+            title: "Asset Group",
+            path: "/asset-management/asset-group",
+          },
             ]
   },
   {

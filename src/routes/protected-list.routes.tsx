@@ -60,6 +60,7 @@ import UserRoleMappingPage from "@/pages/user-mapping";
   import BranchStaffMappingPage from "@/pages/branch-staff-mapping";
 import { AssetModelPage } from "@/pages/asset-management-system/asset-model";
 import { TdsSectionPage } from "@/pages/asset-management-system/tds-section";
+import { AssetGroupPage } from "@/pages/asset-management-system/asset-group";
   
 
 export const protectedRoutesList: RouteObject[] = [
@@ -444,6 +445,11 @@ export const protectedRoutesList: RouteObject[] = [
             path:"/asset-management/tds-section",
             index:true,
             element:<TdsSectionPage/>
+          },
+           {
+        path: "/asset-management/asset-group",
+            index: true,
+            element: <AssetGroupPage />,
           },
         ],
       },
