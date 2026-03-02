@@ -16,7 +16,6 @@ interface Props {
   onUserSelect: (id: string) => void;
 }
 
-
 export const UsersColumn: React.FC<Props> = ({
   users,
   assignments,
@@ -26,7 +25,7 @@ export const UsersColumn: React.FC<Props> = ({
   onUserSelect,
 }) => {
   console.log(users);
-  
+
   return (
     <KanbanColumn
       title="Users"

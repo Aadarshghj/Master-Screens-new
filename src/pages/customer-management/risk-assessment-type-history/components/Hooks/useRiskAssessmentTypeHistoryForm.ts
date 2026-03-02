@@ -63,7 +63,6 @@ const [updateRiskAssessmentType]= useUpdateRiskAssessmentTypeMutation()
   [reset, saveRiskAssessmentType, updateRiskAssessmentType]
 );
     
-   
 const onCancel = useCallback( () => {
     reset(RISK_ASSESSMENT_TYPE_DEFAULT_VALUES);
   },[reset]);

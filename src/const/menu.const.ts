@@ -173,6 +173,11 @@ export const menu = [
             title: "Designation Role Mapping Master",
             path: "/customer-management/master/designation-role-mapping",
           },
+           {
+            id: "branch-staff-mapping",
+            title: "Branch Staff Mapping",
+            path: "/customer-management/master/branch-staff-mapping",
+          },
         ],
       },
     ],
@@ -426,11 +431,44 @@ export const menu = [
     ],
   },
 
+
   {
     id: "asset-mgmt",
     title: "Asset Management System",
     icon: "TrendingUp",
     path: "/asset-management",
+     children: [
+            {
+            id: "unit-of-measure",
+            title: "Unit of Measure",
+            path: "/asset-management/unit-of-measure",
+          },
+            {
+            id: "depreciation-methods",
+            title: "Depreciation Methods",
+            path: "/asset-management/depreciation-methods",
+          },
+            {
+            id: "gst-cost-master",
+            title: "GST Cost Master",
+            path: "/asset-management/gst-cost-master",
+          },
+          {
+            id:"tds-section",
+            title:"TDS Section",
+            path:"/asset-management/tds-section",
+          },
+           {
+            id:"asset-model",
+            title:"Asset Model",
+            path:"/asset-management/asset-model",
+          },
+          {
+            id: "asset-group",
+            title: "Asset Group",
+            path: "/asset-management/asset-group",
+          },
+            ]
   },
   {
     id: "financial-accounting",

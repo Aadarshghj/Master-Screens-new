@@ -30,7 +30,6 @@ export const useUserRoleMapping = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isClearModalOpen, setIsClearModalOpen] = useState(false);
 
-  // 👇 1. New State for the Remove Modal
   const [roleToRemove, setRoleToRemove] = useState<AssignedRole | null>(null);
 
   const [assignments, setAssignments] = useState<
@@ -84,7 +83,7 @@ export const useUserRoleMapping = () => {
     if (!apiUsers || !Array.isArray(apiUsers)) return [];
     const uniqueUsersMap = new Map<string, UserCardData>();
     const typedApiUsers = apiUsers as unknown as ApiRoleData[];
- 
+
     typedApiUsers.forEach(u => {
       const userId = u.identity || u.userIdentity || u.value;
       if (!userId) return;
@@ -309,13 +308,11 @@ export const useUserRoleMapping = () => {
       return;
     }
 
-    // If it's an active role, open the modal instead of deleting!
     if (roleToDelete) {
       setRoleToRemove(roleToDelete);
     }
   };
 
-  // 👇 3. Add this function to handle the actual database deletion
   const confirmRemoveRole = async () => {
     if (!roleToRemove) return;
     try {

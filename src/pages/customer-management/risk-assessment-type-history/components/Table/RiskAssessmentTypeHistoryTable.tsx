@@ -11,13 +11,9 @@ import type {
 import { Pencil, Trash2 } from "lucide-react";
 import { useRiskAssessmentTypeHistoryTable } from "../Hooks/useRiskAssessmentTypeHistoryTable";
 
-//import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-//import {Tooltip, TooltipTrigger,TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
-
 const columnHelper = createColumnHelper<RiskAssessmentTypeHistory>();
 
 interface RiskAssessmentTypeTableProps{
-  // openDeleteModal : (identity:RiskAssessmentTypeHistory) => void;
   onEdit:(identity:RiskAssessmentTypeHistory) =>void;
 }
 export const RiskAssessmentTypeHistoryTable: React.FC<RiskAssessmentTypeTableProps> = ({
@@ -25,7 +21,6 @@ export const RiskAssessmentTypeHistoryTable: React.FC<RiskAssessmentTypeTablePro
 })=>{
    const {
       data,
-      // isFetching,
       showDeleteModal,
       openDeleteModal,
       closeDeleteModal,
@@ -62,8 +57,6 @@ export const RiskAssessmentTypeHistoryTable: React.FC<RiskAssessmentTypeTablePro
           )
         }
       }),
-
-      
 
       columnHelper.display({
         id: "actions",
@@ -124,8 +117,6 @@ export const RiskAssessmentTypeHistoryTable: React.FC<RiskAssessmentTypeTablePro
             type="error"
             size="compact"
           />
-      
-     
     </>
   );
 };

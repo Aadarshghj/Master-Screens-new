@@ -21,7 +21,7 @@ interface Props {
   onSearchChange: (q: string) => void;
   onSetAccess: (id: string, type: AccessType) => void;
   onMove: (role: AvailableRole) => void;
-  isDisabled?: boolean; 
+  isDisabled?: boolean;
 }
 
 export const AvailableColumn: React.FC<Props> = ({
@@ -86,7 +86,7 @@ export const AvailableColumn: React.FC<Props> = ({
               <input
                 type="checkbox"
                 checked={isExpanded}
-                disabled={isDisabled} // 👈 Disable checkbox
+                disabled={isDisabled}
                 onClick={e => e.stopPropagation()}
                 onChange={() => toggleExpand(role.id)}
                 className={cn(
@@ -127,7 +127,7 @@ export const AvailableColumn: React.FC<Props> = ({
                       {accessOptions.map((option: AccessOption) => (
                         <button
                           key={option.value}
-                          disabled={isDisabled} // 👈 Disable access buttons
+                          disabled={isDisabled}
                           onClick={e => {
                             e.stopPropagation();
                             onSetAccess(role.id, option.value);
@@ -148,14 +148,14 @@ export const AvailableColumn: React.FC<Props> = ({
               </div>
 
               <button
-                disabled={isDisabled} // 👈 Disable Add button
+                disabled={isDisabled}
                 onClick={e => {
                   e.stopPropagation();
                   onMove(role);
                 }}
                 className={cn(
                   "flex items-center gap-1 rounded-md border px-2 py-1 text-[10px] font-bold whitespace-nowrap shadow-sm transition-all",
-                  // 👇 Grays out the button if disabled
+
                   isDisabled
                     ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400"
                     : "border-slate-200 bg-slate-50 text-slate-600 hover:border-blue-600 hover:bg-blue-600 hover:text-white"

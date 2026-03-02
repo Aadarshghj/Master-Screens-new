@@ -40,7 +40,6 @@ export const userRoleApiService = apiInstance.injectEndpoints({
       providesTags: ["UserRole"],
     }),
 
-    // 3. CREATE
     createUserRole: build.mutation<void, SaveRolePayload>({
       query: payload => ({
         url: UserRoleMaster.save(),
@@ -60,7 +59,7 @@ export const userRoleApiService = apiInstance.injectEndpoints({
         "UserRole",
       ],
     }),
-    // 4. UPDATE
+
     updateUserRole: build.mutation<
       void,
       { id: string; data: Partial<AssignedRole> }
@@ -76,7 +75,6 @@ export const userRoleApiService = apiInstance.injectEndpoints({
       ],
     }),
 
-    // 5. DELETE
     deleteUserRole: build.mutation<void, string>({
       query: identity => ({
         url: UserRoleMaster.Delete(identity),

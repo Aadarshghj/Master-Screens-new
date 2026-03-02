@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import {  useState } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { SourceOfIncomeData, SourceOfIncomeFormData } from "@/types/customer-management/source-income";
