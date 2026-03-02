@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Shield, Trash2, Save, Clock, X, Loader2 } from "lucide-react";
 import { KanbanColumn } from "@/components/ui/kanban/KanbanColumn";
-import { ConfirmationModal } from "@/components/ui/confirmation-modal";
 import { cn } from "@/utils";
 import type { AssignedStaff } from "@/types/branch-staff-mapping/branch-staff";
 
@@ -22,28 +21,8 @@ export const AssignedColumn: React.FC<Props> = ({
   onSave,
   isLoading,
 }) => {
-  const [staffToRemove, setStaffToRemove] = useState<AssignedStaff | null>(null);
-
-  const handleConfirmRemove = () => {
-    if (staffToRemove) {
-      onRemove(staffToRemove);
-      setStaffToRemove(null);
-    }
-  };
-
   return (
     <>
-      <ConfirmationModal
-        isOpen={!!staffToRemove}
-        onCancel={() => setStaffToRemove(null)}
-        onConfirm={handleConfirmRemove}
-        title="Remove Staff"
-        message={`Are you sure you want to remove ${staffToRemove?.staffName}?`}
-        confirmText="Yes, Remove"
-        cancelText="Cancel"
-        type="warning"
-      />
-
       <KanbanColumn
         title="Assigned Staffs"
         icon={<Shield size={18} className="text-green-500" />}
@@ -103,7 +82,7 @@ export const AssignedColumn: React.FC<Props> = ({
               >
                
                 <button
-                  onClick={() => setStaffToRemove(item)}
+                  onClick={() => onRemove(item)}
                   className="absolute right-2 top-2 rounded-full p-1 text-slate-500 hover:bg-red-100 hover:text-red-600"
                 >
                   <X size={12} strokeWidth={3} />
@@ -148,7 +127,7 @@ export const AssignedColumn: React.FC<Props> = ({
 
                 <div className="mt-2">
                   <button
-                    onClick={() => setStaffToRemove(item)}
+                    onClick={() => onRemove(item)}
                     className="rounded border border-red-200 bg-red-50 px-2 py-0.5 text-[10px] font-semibold text-red-600 hover:bg-red-100"
                   >
                     Remove
