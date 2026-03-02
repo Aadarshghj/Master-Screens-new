@@ -43,7 +43,6 @@ import { ManageUserDelegations } from "@/pages/approval-workflow/user-deligation
 import { WorkflowActionsPage } from "@/pages/approval-workflow/workflow-actions";
 import { ApproverRoleMappingPage } from "@/pages/approval-workflow/approver-role-mapping";
 import { ChargeMasterPage } from "@/pages/loan-product-and-scheme-masters/charge-master";
-import { UserRoleMappingContainer } from "@/pages/user-mapping/components/Form/UserRoleMappingContainer";
 import { AssetItemPage } from "@/pages/customer-management/asset-management/asset-group";
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
