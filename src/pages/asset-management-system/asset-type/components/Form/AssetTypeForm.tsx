@@ -10,20 +10,18 @@ import { Flex, Input, Textarea, Label, Switch } from "@/components/ui";
 import { FormContainer } from "@/components/ui/form-container";
 import { Form } from "@/components";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-import type { RoleManagementType } from "@/types/customer-management/role-management";
-
-interface RoleManagementProps {
-  control: Control<RoleManagementType>;
-  errors: FieldErrors<RoleManagementType>;
-  register: UseFormRegister<RoleManagementType>;
+import type { AssetType } from "@/types/asset-management-system/asset-type";
+interface AssetTypeProps {
+  control: Control<AssetType>;
+  errors: FieldErrors<AssetType>;
+  register: UseFormRegister<AssetType>;
   isSubmitting: boolean;
   onSubmit: () => void;
   onCancel: () => void;
   onReset: () => void;
-  isEdit: boolean;
 }
-
-export const RoleManagementForm: React.FC<RoleManagementProps> = ({
+const isEdit = false
+export const AssetTypeForm: React.FC<AssetTypeProps> = ({
   control,
   errors,
   register,
@@ -31,18 +29,29 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
   onSubmit,
   onCancel,
   onReset,
-  isEdit,
 }) => {
   return (
-    <FormContainer className="px-0">
+    <FormContainer className="px-0 " >   
       <Form onSubmit={onSubmit}>
         <div className="mt-2">
           <Form.Row>
-            <Form.Col lg={3} md={6} span={12}>
-              <Form.Field label="Role Name" required error={errors.roleName}>
+            <Form.Col lg={2} md={6} span={12}>
+              <Form.Field label="Asset Type Code" >
                 <Input
-                  {...register("roleName")}
-                  placeholder="Enter Role Name"
+                  {...register("assetTypeCode")}
+                  placeholder="Auto Generated"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
+                  disabled
+                />
+              </Form.Field>
+            </Form.Col>
+            <Form.Col lg={3} md={6} span={12}>
+              <Form.Field label="Asset Type Name" required error={errors.assetTypeName}>
+                <Input
+                  {...register("assetTypeName")}
+                  placeholder="Enter Asset type name"
                   size="form"
                   variant="form"
                   className="uppercase"
@@ -50,29 +59,25 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
               </Form.Field>
             </Form.Col>
 
-            <Form.Col lg={4} md={12} span={12}>
-              <Form.Field label="Description" error={errors.roleShortDesc}>
+            <Form.Col lg={3} md={12} span={12} >
+              <Form.Field label="Asset Type Description" error={errors.description} >
                 <Textarea
-                  {...register("roleShortDesc")}
-                  placeholder="Enter Description"
+                  {...register("description")}
                   size="form"
                   variant="form"
                   className="uppercase"
                   rows={3}
+
                 />
               </Form.Field>
             </Form.Col>
 
             <Form.Col lg={2} md={6} span={12}>
-              <Flex
-                direction="col"
-                gap={2}
-                style={{ marginLeft: "25px", marginTop: "20px" }}
-              >
+              <Flex direction="col" gap={2} style={{ marginLeft: "10px", marginTop: "20px" }}>
                 <Flex align="center" gap={2}>
                   <Controller
                     control={control}
-                    name="isActive"
+                    name="status"
                     render={({ field }) => (
                       <Switch
                         checked={!!field.value}
@@ -82,6 +87,25 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
                     )}
                   />
                   <Label>Active Status</Label>
+                </Flex>
+              </Flex>
+            </Form.Col>
+
+            <Form.Col lg={2} md={6} span={12}>
+              <Flex direction="col" gap={2} style={{ marginLeft: "-45px", marginTop: "20px" }}>
+                <Flex align="center" gap={2}>
+                  <Controller
+                    control={control}
+                    name="depreciable"
+                    render={({ field }) => (
+                      <Switch
+                        checked={!!field.value}
+                        onCheckedChange={field.onChange}
+                        disabled={!isEdit}
+                      />
+                    )}
+                  />
+                  <Label>Depreciable</Label>
                 </Flex>
               </Flex>
             </Form.Col>
@@ -117,17 +141,17 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
               disabled={isSubmitting}
             >
               <Save className="h-3 w-3" />
-              {isSubmitting
-                ? isEdit
-                  ? "Updating..."
-                  : "Saving..."
-                : isEdit
-                  ? "Update Role"
-                  : "Save Role"}
+              {isSubmitting ? "Saving..." : "Save Asset Type"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>
       </Form>
     </FormContainer>
+
   );
 };
+
+
+
+
+

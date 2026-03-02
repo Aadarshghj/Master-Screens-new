@@ -10,20 +10,18 @@ import { Flex, Input, Textarea, Label, Switch } from "@/components/ui";
 import { FormContainer } from "@/components/ui/form-container";
 import { Form } from "@/components";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-import type { RoleManagementType } from "@/types/customer-management/role-management";
-
-interface RoleManagementProps {
-  control: Control<RoleManagementType>;
-  errors: FieldErrors<RoleManagementType>;
-  register: UseFormRegister<RoleManagementType>;
+import type { TermsAndConditionType } from "@/types/asset-management-system/terms-and-condition";
+interface TermsandConditionProps {
+  control: Control<TermsAndConditionType>;
+  errors: FieldErrors<TermsAndConditionType>;
+  register: UseFormRegister<TermsAndConditionType>;
   isSubmitting: boolean;
   onSubmit: () => void;
   onCancel: () => void;
   onReset: () => void;
-  isEdit: boolean;
 }
-
-export const RoleManagementForm: React.FC<RoleManagementProps> = ({
+const isEdit = false
+export const TermsAndConditionForm: React.FC<TermsandConditionProps> = ({
   control,
   errors,
   register,
@@ -31,48 +29,46 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
   onSubmit,
   onCancel,
   onReset,
-  isEdit,
 }) => {
   return (
-    <FormContainer className="px-0">
+    <FormContainer className="px-0 " >
+      
       <Form onSubmit={onSubmit}>
         <div className="mt-2">
           <Form.Row>
             <Form.Col lg={3} md={6} span={12}>
-              <Form.Field label="Role Name" required error={errors.roleName}>
+              <Form.Field label="Terms & Condition Code" required>
                 <Input
-                  {...register("roleName")}
-                  placeholder="Enter Role Name"
+                  {...register("termsandconditioncode")}
+                 placeholder="Enter Terms and Condition Code"
                   size="form"
                   variant="form"
                   className="uppercase"
+                
                 />
               </Form.Field>
             </Form.Col>
+           
 
-            <Form.Col lg={4} md={12} span={12}>
-              <Form.Field label="Description" error={errors.roleShortDesc}>
+            <Form.Col lg={4} md={12} span={12} className="ms-6" >
+              <Form.Field label="Terms & Condition Name" error={errors.termsandconditionname} required >
                 <Textarea
-                  {...register("roleShortDesc")}
-                  placeholder="Enter Description"
+                  {...register("termsandconditionname")}
                   size="form"
                   variant="form"
                   className="uppercase"
                   rows={3}
+
                 />
               </Form.Field>
             </Form.Col>
 
             <Form.Col lg={2} md={6} span={12}>
-              <Flex
-                direction="col"
-                gap={2}
-                style={{ marginLeft: "25px", marginTop: "20px" }}
-              >
+              <Flex direction="col" gap={2} style={{ marginLeft: "10px", marginTop: "20px" }}>
                 <Flex align="center" gap={2}>
                   <Controller
                     control={control}
-                    name="isActive"
+                    name="status"
                     render={({ field }) => (
                       <Switch
                         checked={!!field.value}
@@ -81,10 +77,13 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
                       />
                     )}
                   />
-                  <Label>Active Status</Label>
+                  <Label>Active</Label>
                 </Flex>
               </Flex>
             </Form.Col>
+
+           
+
           </Form.Row>
 
           <Flex.ActionGroup className="mt-2 justify-end gap-4">
@@ -117,17 +116,17 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
               disabled={isSubmitting}
             >
               <Save className="h-3 w-3" />
-              {isSubmitting
-                ? isEdit
-                  ? "Updating..."
-                  : "Saving..."
-                : isEdit
-                  ? "Update Role"
-                  : "Save Role"}
+              {isSubmitting ? "Saving..." : "Save Terms And Conditions"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>
       </Form>
     </FormContainer>
+
   );
 };
+
+
+
+
+
