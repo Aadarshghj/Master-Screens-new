@@ -446,6 +446,16 @@ export const menu = [
             title: "GST Cost Master",
             path: "/asset-management/gst-cost-master",
           },
+          {
+            id:"tds-section",
+            title:"TDS Section",
+            path:"/asset-management/tds-section",
+          },
+           {
+            id:"asset-model",
+            title:"Asset Model",
+            path:"/asset-management/asset-model",
+          },
             ]
   },
   {
