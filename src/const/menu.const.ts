@@ -173,6 +173,11 @@ export const menu = [
             title: "Designation Role Mapping Master",
             path: "/customer-management/master/designation-role-mapping",
           },
+           {
+            id: "branch-staff-mapping",
+            title: "Branch Staff Mapping",
+            path: "/customer-management/master/branch-staff-mapping",
+          },
         ],
       },
     ],

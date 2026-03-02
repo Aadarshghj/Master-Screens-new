@@ -52,9 +52,13 @@ import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
 import UserRoleMappingPage from "@/pages/user-mapping";
-import { GstCostMasterPage } from "@/pages/asset-management-system/gst-cost-master";
-import { DepreciationMethodsPage } from "@/pages/asset-management-system/depreciation-methods";
-import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
+  
+  import { GstCostMasterPage } from "@/pages/asset-management-system/gst-cost-master";
+  import { DepreciationMethodsPage } from "@/pages/asset-management-system/depreciation-methods";
+  import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
+
+  import BranchStaffMappingPage from "@/pages/branch-staff-mapping";
+  
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -254,6 +258,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/designation-role-mapping",
         element: <DesignationRoleMappingPage />,
+      },
+      {
+        path:"/customer-management/master/branch-staff-mapping",
+        element:< BranchStaffMappingPage/>
       },
       {
         path: "/customer-management/master/risk-assessment-type-history",
