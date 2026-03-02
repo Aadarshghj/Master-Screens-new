@@ -419,11 +419,29 @@ export const menu = [
     ],
   },
 
+
   {
     id: "asset-mgmt",
     title: "Asset Management System",
     icon: "TrendingUp",
     path: "/asset-management",
+     children: [
+            {
+            id: "unit-of-measure",
+            title: "Unit of Measure",
+            path: "/asset-management/unit-of-measure",
+          },
+            {
+            id: "depreciation-methods",
+            title: "Depreciation Methods",
+            path: "/asset-management/depreciation-methods",
+          },
+            {
+            id: "gst-cost-master",
+            title: "GST Cost Master",
+            path: "/asset-management/gst-cost-master",
+          },
+            ]
   },
   {
     id: "financial-accounting",

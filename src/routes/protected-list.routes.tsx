@@ -53,6 +53,9 @@ import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
 import UserRoleMappingPage from "@/pages/user-mapping";
+import { GstCostMasterPage } from "@/pages/asset-management-system/gst-cost-master";
+import { DepreciationMethodsPage } from "@/pages/asset-management-system/depreciation-methods";
+import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -402,6 +405,26 @@ export const protectedRoutesList: RouteObject[] = [
           {
             index: true,
             element: <TenantPage />,
+          },
+        ],
+      },
+      {
+        path: "/asset-management",
+        children: [
+          {
+            path:"/asset-management/unit-of-measure",
+            index: true,
+            element: <UnitOfMeasurePage />,
+          },
+          {
+            path:"/asset-management/depreciation-methods",
+            index: true,
+            element: <DepreciationMethodsPage />,
+          },
+          {
+            path:"/asset-management/gst-cost-master",
+            index: true,
+            element: <GstCostMasterPage />,
           },
         ],
       },
