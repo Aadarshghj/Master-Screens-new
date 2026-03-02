@@ -64,6 +64,9 @@ import UserRoleMappingPage from "@/pages/user-mapping";
 import { AssetModelPage } from "@/pages/asset-management-system/asset-model";
 import { TdsSectionPage } from "@/pages/asset-management-system/tds-section";
 import { AssetGroupPage } from "@/pages/asset-management-system/asset-group";
+import { AssetTypePage } from "@/pages/asset-management-system/asset-type/Index";
+import { TermsAndConditionPage } from "@/pages/asset-management-system/terms-and-conditions";
+import { SupplierRiskPage } from "@/pages/asset-management-system/supplier-risk-category/Index";
   
 
 
@@ -455,6 +458,21 @@ export const protectedRoutesList: RouteObject[] = [
             index: true,
             element: <AssetGroupPage />,
           },
+          {
+             path: "/asset-management/asset-type",
+            index: true,
+            element: <AssetTypePage />
+          },
+          {
+            path: "/asset-management/terms-and-conditions",
+            index: true,
+            element: <TermsAndConditionPage />
+          },
+          {
+                path: "/asset-management/supplier-risk-category",
+            index: true,
+            element: <SupplierRiskPage />
+          }
         ],
       },
 

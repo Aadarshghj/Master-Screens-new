@@ -468,6 +468,21 @@ export const menu = [
             title: "Asset Group",
             path: "/asset-management/asset-group",
           },
+           {
+                id: "asset-type",
+                title: "Asset Type",
+                path: "/asset-management/asset-type"
+              },
+              {
+                id: "terms-and-conditions",
+                title: "Terms And Conditions",
+                path: "/asset-management/terms-and-conditions"
+              },
+              {
+                id: "supplier-risk-category",
+                title: "Supplier Risk Category",
+                path: "/asset-management/supplier-risk-category"
+              },
             ]
   },
   {

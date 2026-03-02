@@ -95,7 +95,7 @@ export const SourceOfIncomePage: React.FC = () => {
         size="compact"
       />
 
-      {/* FORM SECTION */}
+
       <PageWrapper
         variant="default"
         padding="xl"
@@ -136,7 +136,7 @@ export const SourceOfIncomePage: React.FC = () => {
         </section>
       </PageWrapper>
 
-      {/* TABLE SECTION */}
+
       <PageWrapper
         variant="default"
         padding="xl"
