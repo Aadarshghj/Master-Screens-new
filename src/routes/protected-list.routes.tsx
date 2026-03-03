@@ -49,17 +49,17 @@ import { UserRegPage } from "@/pages/customer-management/user-reg";
 import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
 import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
-import DesignationRoleMappingPage from "@/pages/designation-mapping";
+import DesignationRoleMappingPage from "@/pages/customer-management/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
 
 import { CoLendingSchemeMapPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-scheme-map/Index";
 import BranchStaffMappingPage from "@/pages/branch-staff-mapping";
 
-import UserRoleMappingPage from "@/pages/user-mapping";
-  
-  import { GstCostMasterPage } from "@/pages/asset-management-system/gst-cost-master";
-  import { DepreciationMethodsPage } from "@/pages/asset-management-system/depreciation-methods";
-  import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
+import UserRoleMappingPage from "@/pages/customer-management/user-mapping";
+
+import { GstCostMasterPage } from "@/pages/asset-management-system/gst-cost-master";
+import { DepreciationMethodsPage } from "@/pages/asset-management-system/depreciation-methods";
+import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
 
 import { AssetModelPage } from "@/pages/asset-management-system/asset-model";
 import { TdsSectionPage } from "@/pages/asset-management-system/tds-section";
@@ -67,8 +67,6 @@ import { AssetGroupPage } from "@/pages/asset-management-system/asset-group";
 import { AssetTypePage } from "@/pages/asset-management-system/asset-type/Index";
 import { TermsAndConditionPage } from "@/pages/asset-management-system/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/asset-management-system/supplier-risk-category/Index";
-  
-
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -79,7 +77,7 @@ export const protectedRoutesList: RouteObject[] = [
         path: "home",
         element: <Home />,
       },
-      
+
       {
         path: "customer/management/onboarding",
         children: [
@@ -102,8 +100,7 @@ export const protectedRoutesList: RouteObject[] = [
           },
         ],
       },
-     
-      
+
       {
         path: "/customer/lead-sales/lead-details",
         element: <LeadDetailsPage />,
@@ -129,7 +126,6 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/loan-management/schema-master/charge-master",
         element: <ChargeMasterPage />,
       },
-     
 
       {
         path: "firm/management/onboarding",
@@ -196,9 +192,9 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/loan-management/Approval-workflow/workflow-stages-setup",
         element: <WorkflowStagesSetupPage />,
       },
-        {
+      {
         path: "/loan-management/schema-master/co-loan-scheme-mapping",
-        element: <CoLendingSchemeMapPage/>,
+        element: <CoLendingSchemeMapPage />,
       },
       {
         path: "/loan-management/Approval-workflow/workflow-amountrules",
@@ -270,8 +266,8 @@ export const protectedRoutesList: RouteObject[] = [
         element: <DesignationRoleMappingPage />,
       },
       {
-        path:"/customer-management/master/branch-staff-mapping",
-        element:< BranchStaffMappingPage/>
+        path: "/customer-management/master/branch-staff-mapping",
+        element: <BranchStaffMappingPage />,
       },
       {
         path: "/customer-management/master/risk-assessment-type-history",
@@ -286,7 +282,7 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/customer-management/master/user-role-mapping",
         element: <UserRoleMappingPage />,
       },
-     
+
       {
         path: "/customer-management/master/document-master",
         children: [
@@ -413,7 +409,7 @@ export const protectedRoutesList: RouteObject[] = [
           },
         ],
       },
- {
+      {
         path: "/customer-management/master/tenant",
         children: [
           {
@@ -426,59 +422,56 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/asset-management",
         children: [
           {
-            path:"/asset-management/unit-of-measure",
+            path: "/asset-management/unit-of-measure",
             index: true,
             element: <UnitOfMeasurePage />,
           },
           {
-            path:"/asset-management/depreciation-methods",
+            path: "/asset-management/depreciation-methods",
             index: true,
             element: <DepreciationMethodsPage />,
           },
-           {
-        path: "/asset-management/asset-item",
-        element: <AssetItemPage />,
-      },
           {
-            path:"/asset-management/gst-cost-master",
+            path: "/asset-management/asset-item",
+            element: <AssetItemPage />,
+          },
+          {
+            path: "/asset-management/gst-cost-master",
             index: true,
             element: <GstCostMasterPage />,
           },
           {
-            path:"/asset-management/asset-model",
-            index:true,
-            element:<AssetModelPage/>
+            path: "/asset-management/asset-model",
+            index: true,
+            element: <AssetModelPage />,
           },
           {
-            path:"/asset-management/tds-section",
-            index:true,
-            element:<TdsSectionPage/>
+            path: "/asset-management/tds-section",
+            index: true,
+            element: <TdsSectionPage />,
           },
-           {
-        path: "/asset-management/asset-group",
+          {
+            path: "/asset-management/asset-group",
             index: true,
             element: <AssetGroupPage />,
           },
           {
-             path: "/asset-management/asset-type",
+            path: "/asset-management/asset-type",
             index: true,
-            element: <AssetTypePage />
+            element: <AssetTypePage />,
           },
           {
             path: "/asset-management/terms-and-conditions",
             index: true,
-            element: <TermsAndConditionPage />
+            element: <TermsAndConditionPage />,
           },
           {
-                path: "/asset-management/supplier-risk-category",
+            path: "/asset-management/supplier-risk-category",
             index: true,
-            element: <SupplierRiskPage />
-          }
+            element: <SupplierRiskPage />,
+          },
         ],
       },
-
-
     ],
   },
-  
 ];
