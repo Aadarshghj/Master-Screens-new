@@ -4,8 +4,15 @@ export interface SourceOfIncomeData {
   identity: string;
 }
 
-export interface SourceOfIncomeFormData {
+export interface SourceOfIncomeFormData 
+extends Record<string,unknown>{
   name: string;
   code: string;
-  // isActive: boolean
+
+
+}
+export interface SourceOfIncomeResponseFormData {
+  name: string;
+  code: string;
+  identity: string;
 }

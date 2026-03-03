@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { LayoutGrid, Table as TableIcon } from "lucide-react";
-
 import { useBranchStaffMapping } from "../Hooks/useBranchStaffForm";
 import { useBranchStaffMappingTable } from "../Hooks/useBranchStaffTable";
-
 import { ConfirmationModal } from "@/components/ui/confirmation-modal";
 import { cn } from "@/utils";
-
 import { KanbanBoard } from "../../../../components/ui/kanban/KanbanBoard";
 import { BranchColumn } from "./kanban/BranchColumn";
 import { AssignedColumn } from "./kanban/AssignedStaff";
@@ -27,7 +24,7 @@ export const BranchStaffMappingContainer = () => {
     pendingCount,
     isModalOpen,
     staffToRemove,
-
+    setStaffToRemove,
     setBranchSearchQuery,
     setStaffSearchQuery,
     handleBranchSelect,
@@ -76,7 +73,7 @@ export const BranchStaffMappingContainer = () => {
 
       <ConfirmationModal
         isOpen={!!staffToRemove}
-        onCancel={() => removeStaff(staffToRemove!)}
+        onCancel={() => setStaffToRemove(null)}
         onConfirm={confirmRemoveStaff}
         title="Remove Staff"
         message={`Are you sure you want to remove ${staffToRemove?.staffName}?`}

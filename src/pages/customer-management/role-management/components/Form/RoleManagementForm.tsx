@@ -23,8 +23,6 @@ interface RoleManagementProps {
   isEdit: boolean;
 }
 
-// const isEdit = false
-
 export const RoleManagementForm: React.FC<RoleManagementProps> = ({
   control,
   errors,

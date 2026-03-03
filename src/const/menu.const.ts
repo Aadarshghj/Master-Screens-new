@@ -335,6 +335,7 @@ export const menu = [
         icon: "DollarSign",
         path: "/loan-management/loan-application",
       },
+
       {
         id: "loan-onboarding",
         title: "Loan Product and Scheme ",
@@ -371,6 +372,12 @@ export const menu = [
             title: "Loan Charge Master",
             path: "/loan-management/schema-master/charge-master",
           },
+          {
+            id: "co-loan-scheme-mapping",
+            title: "Scheme Mapping",
+            path: "/loan-management/schema-master/co-loan-scheme-mapping",
+          },
+
         ],
       },
       {
@@ -456,6 +463,26 @@ export const menu = [
             title:"Asset Model",
             path:"/asset-management/asset-model",
           },
+          {
+            id: "asset-group",
+            title: "Asset Group",
+            path: "/asset-management/asset-group",
+          },
+           {
+                id: "asset-type",
+                title: "Asset Type",
+                path: "/asset-management/asset-type"
+              },
+              {
+                id: "terms-and-conditions",
+                title: "Terms And Conditions",
+                path: "/asset-management/terms-and-conditions"
+              },
+              {
+                id: "supplier-risk-category",
+                title: "Supplier Risk Category",
+                path: "/asset-management/supplier-risk-category"
+              },
             ]
   },
   {
