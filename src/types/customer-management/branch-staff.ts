@@ -38,6 +38,7 @@ export interface AssignedStaff {
   identity: string;
   staffName: string;
   staffIdentity: string;
+  staffCode:string;
   branchName: string;
   branchIdentity: string;
   status: "Active" | "Pending";

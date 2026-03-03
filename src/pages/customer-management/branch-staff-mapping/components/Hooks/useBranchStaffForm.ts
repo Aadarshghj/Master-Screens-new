@@ -131,6 +131,7 @@ export const useBranchStaffMapping = () => {
       identity: staff.id,
       staffIdentity: staff.id,
       staffName: staff.staffName,
+      staffCode:staff.staffCode,
       branchIdentity: selectedBranchId,
       branchName: selectedBranch?.branchName || "",
       isActive: false,
