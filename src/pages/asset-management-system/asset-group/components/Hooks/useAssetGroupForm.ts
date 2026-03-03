@@ -11,6 +11,7 @@ export const useAssetGroupForm = () => {
   const {
     control,
     register,
+    watch,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
@@ -42,6 +43,8 @@ export const useAssetGroupForm = () => {
     [reset]
   );
 
+  const assetTypeValues = watch("assetType")
+
   const onCancel = useCallback(() => {
     reset(ASSET_GROUP_DEFAULT_VALUES);
   }, [reset]);
@@ -54,8 +57,10 @@ export const useAssetGroupForm = () => {
     control,
     register,
     handleSubmit,
+    watch,
     errors,
     isSubmitting,
+    assetTypeValues,
     assetTypeOptions:ASSET_TYPE_OPTIONS,
     onSubmit,
     onCancel,
