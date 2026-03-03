@@ -4,7 +4,7 @@ import { CommonTable } from "@/components";
 import type {
   UserProfile,
   AssignedRole,
-} from "@/types/user-role-mapping/user-mapping";
+} from "@/types/customer-management/user-mapping.ts";
 import { useUserRoleMappingTable } from "../Hooks/useUserRoleMappingTable.tsx";
 
 interface UserRoleMappingTableProps {
@@ -58,7 +58,7 @@ export const UserRoleMappingTable: React.FC<UserRoleMappingTableProps> = ({
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center bg-white/50">
             <div className="max-w-sm rounded-lg border border-slate-200 bg-slate-50 p-4 text-center text-xs text-slate-500">
               <AlertCircle className="mx-auto mb-2 h-5 w-5 text-slate-400" />
-              <strong>No active designations found.</strong>
+              <strong>No active data found.</strong>
               <br />
               Assign roles in the "Assignment View" to populate this table.
             </div>

@@ -5,7 +5,7 @@ import { cn } from "@/utils";
 import type {
   AvailableRole,
   AccessType,
-} from "@/types/user-role-mapping/user-mapping";
+} from "@/types/customer-management/user-mapping";
 
 export interface AccessOption {
   label: string;

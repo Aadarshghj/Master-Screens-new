@@ -4,4 +4,5 @@ export const ROLE_MANAGEMENT_DEFAULT_VALUES: RoleManagementType = {
   roleName: "",
   roleShortDesc: "",
   isActive: true,
+  identity:""
 };

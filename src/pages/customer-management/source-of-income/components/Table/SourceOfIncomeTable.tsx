@@ -15,14 +15,14 @@ interface TableProps {
   data: SourceOfIncomeData[] | undefined;
   isLoading: boolean;
   handleDelete: (identity: string) => void;
-  onEdit: (identity: SourceOfIncomeData) => void;   // ✅ added
+  onEdit: (identity: SourceOfIncomeData) => void;  
 }
 
 export const SourceOfIncomeTable: React.FC<TableProps> = ({
   data,
   isLoading,
   handleDelete,
-  onEdit,     // ✅ properly destructured
+  onEdit,     
 }) => {
   const tableData = data || [];
 
@@ -71,7 +71,7 @@ export const SourceOfIncomeTable: React.FC<TableProps> = ({
         },
       }),
     ],
-    [handleDelete, onEdit]   // ✅ important dependency
+    [handleDelete, onEdit]  
   );
 
   const getNoDataText = () => {

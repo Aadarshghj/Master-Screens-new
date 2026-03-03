@@ -8,7 +8,7 @@ import {
 import type {
   UserProfile,
   AssignedRole,
-} from "@/types/user-role-mapping/user-mapping";
+} from "@/types/customer-management/user-mapping";
 
 interface UseUserRoleMappingTableProps {
   users: UserProfile[];

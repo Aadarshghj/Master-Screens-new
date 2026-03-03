@@ -2,7 +2,7 @@ import React from "react";
 import { Shield, Trash2, Save, Clock, X, Loader2 } from "lucide-react";
 import { KanbanColumn } from "@/components/ui/kanban/KanbanColumn";
 import { cn } from "@/utils";
-import type { AssignedRole } from "@/types/user-role-mapping/user-mapping";
+import type { AssignedRole } from "@/types/customer-management/user-mapping";
 
 interface Props {
   roles: AssignedRole[];
