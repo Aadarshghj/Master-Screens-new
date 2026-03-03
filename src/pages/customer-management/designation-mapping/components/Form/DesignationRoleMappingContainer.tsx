@@ -1,49 +1,49 @@
 import React, { useState } from "react";
 import { LayoutGrid, Table as TableIcon } from "lucide-react";
 
-import { useUserRoleMapping } from "../Hooks/UseUserRoleMapping";
+import { useDesignationRoleMapping } from "../Hook/UseDesignationRoleMapping";
+import { useDesignationRoleMappingTable } from "../Hook/useDesignationRoleMappingTable";
+
 import { ConfirmationModal } from "@/components/ui/confirmation-modal";
 import { cn } from "@/utils";
 
-import { KanbanBoard } from "../../../../components/ui/kanban/KanbanBoard";
-import { UsersColumn } from "./kanban/UserColumn";
+import { KanbanBoard } from "../../../../../components/ui/kanban/KanbanBoard";
+import { DesignationsColumn } from "./kanban/DesignationColumn";
 import { AssignedColumn } from "./kanban/AssignedRoles";
 import { AvailableColumn } from "./kanban/AvailableRows";
 
-import { UserRoleMappingTable } from "../Table/UserRoleMappingTable";
+import { DesignationRoleMappingTable } from "../Table/DesignationRoleMappingTable";
 
-export const UserRoleMappingContainer: React.FC = () => {
+export const DesignationRoleMappingContainer: React.FC = () => {
   const {
-    users,
+    designations,
     assignedRoles,
-    assignments,
     availableRoles,
-    selectedUser,
-    selectedUserId,
-    userSearchQuery,
+    selectedDesignation,
+    selectedDesignationId,
+    designationSearchQuery,
     roleSearchQuery,
     tempAccessTypes,
     pendingCount,
     isModalOpen,
-    accessOptions,
-
-    roleToRemove,
-    setRoleToRemove,
-    confirmRemoveRole,
-
-    setUserSearchQuery,
+    combinedAssignments,
+    setDesignationSearchQuery,
     setRoleSearchQuery,
-    handleUserSelect,
+    handleDesignationSelect,
     setAccessTypeForAvailable,
     moveRoleToPending,
     removeRole,
-    isClearModalOpen,
     clearAssignedRoles,
-    setIsClearModalOpen,
     setIsModalOpen,
     confirmAssignment,
-  } = useUserRoleMapping();
+  } = useDesignationRoleMapping();
 
+  const {
+    designations: tableDesignations,
+    designationAssignments: tableAssignments,
+  } = useDesignationRoleMappingTable();
+
+  const [isClearModalOpen, setIsClearModalOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"assignment" | "overview">(
     "assignment"
   );
@@ -64,21 +64,13 @@ export const UserRoleMappingContainer: React.FC = () => {
       <ConfirmationModal
         isOpen={isClearModalOpen}
         onCancel={() => setIsClearModalOpen(false)}
-        onConfirm={clearAssignedRoles}
-        title="Clear Pending Roles"
-        message={`Are you sure you want to remove ${pendingCount} unsaved pending roles?`}
+        onConfirm={() => {
+          clearAssignedRoles();
+          setIsClearModalOpen(false);
+        }}
+        title="Clear Assigned Roles"
+        message="Are you sure you want to clear all assigned roles?"
         confirmText="Yes, Clear"
-        cancelText="Cancel"
-        type="warning"
-      />
-
-      <ConfirmationModal
-        isOpen={!!roleToRemove}
-        onCancel={() => setRoleToRemove(null)}
-        onConfirm={confirmRemoveRole}
-        title="Remove Assigned Role"
-        message={`Are you sure you want to remove the "${roleToRemove?.title}" role? This will revoke their permissions immediately.`}
-        confirmText="Yes, Remove"
         cancelText="Cancel"
         type="warning"
       />
@@ -90,7 +82,7 @@ export const UserRoleMappingContainer: React.FC = () => {
             className={cn(
               "flex items-center gap-2 rounded-md px-5 py-2 text-[11px] font-medium shadow-sm transition-all",
               viewMode === "assignment"
-                ? "bg-blue-600 text-white shadow-sm"
+                ? "bg-blue-600 text-white"
                 : "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
             )}
           >
@@ -103,12 +95,12 @@ export const UserRoleMappingContainer: React.FC = () => {
             className={cn(
               "flex items-center gap-2 rounded-md px-5 py-2 text-[11px] font-medium shadow-sm transition-all",
               viewMode === "overview"
-                ? "bg-blue-600 text-white shadow-sm"
+                ? "bg-blue-600 text-white"
                 : "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
             )}
           >
             <TableIcon size={14} />
-            User Roles Overview
+            All Designations Overview
           </button>
         </div>
 
@@ -116,32 +108,32 @@ export const UserRoleMappingContainer: React.FC = () => {
           <div className="rounded-lg border border-slate-200 bg-white px-5 py-2 text-sm font-medium text-slate-500 shadow-sm">
             Managing:
             <span className="ml-2 font-bold text-blue-700">
-              {selectedUser?.name || "Select a User"}
+              {selectedDesignation?.name || "Select a Designation"}
             </span>
           </div>
         )}
       </div>
 
       {viewMode === "overview" ? (
-        <div className="relative flex-1 overflow-auto p-3">
-          <UserRoleMappingTable
-            users={users}
-            assignments={assignments}
-            onManageUser={userId => {
-              handleUserSelect(userId);
+        <div className="h-[calc(100vh-140px)] px-6">
+          <DesignationRoleMappingTable
+            designations={tableDesignations}
+            designationAssignments={tableAssignments}
+            onManageDesignation={(designationId: string) => {
+              handleDesignationSelect(designationId);
               setViewMode("assignment");
             }}
           />
         </div>
       ) : (
         <KanbanBoard>
-          <UsersColumn
-            users={users}
-            assignments={assignments}
-            selectedUserId={selectedUserId}
-            searchQuery={userSearchQuery}
-            onSearchChange={setUserSearchQuery}
-            onUserSelect={handleUserSelect}
+          <DesignationsColumn
+            designations={designations}
+            assignments={combinedAssignments}
+            selectedDesignationId={selectedDesignationId}
+            searchQuery={designationSearchQuery}
+            onSearchChange={setDesignationSearchQuery}
+            onDesignationSelect={handleDesignationSelect}
           />
 
           <AssignedColumn
@@ -156,11 +148,10 @@ export const UserRoleMappingContainer: React.FC = () => {
             roles={availableRoles}
             searchQuery={roleSearchQuery}
             tempAccessTypes={tempAccessTypes}
-            accessOptions={accessOptions}
             onSearchChange={setRoleSearchQuery}
             onSetAccess={setAccessTypeForAvailable}
             onMove={moveRoleToPending}
-            isDisabled={!selectedUserId}
+            selectedDesignationId={selectedDesignationId}
           />
         </KanbanBoard>
       )}
