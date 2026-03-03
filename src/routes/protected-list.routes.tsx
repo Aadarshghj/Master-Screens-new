@@ -286,10 +286,7 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/customer-management/master/user-role-mapping",
         element: <UserRoleMappingPage />,
       },
-      {
-        path: "/customer-management/master/asset-item",
-        element: <AssetItemPage />,
-      },
+     
       {
         path: "/customer-management/master/document-master",
         children: [
@@ -438,6 +435,10 @@ export const protectedRoutesList: RouteObject[] = [
             index: true,
             element: <DepreciationMethodsPage />,
           },
+           {
+        path: "/asset-management/asset-item",
+        element: <AssetItemPage />,
+      },
           {
             path:"/asset-management/gst-cost-master",
             index: true,

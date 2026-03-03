@@ -8,7 +8,7 @@ import type {
   UserCardData,
   ApiUserRoleMapping,
   ApiMasterRole,
-} from "@/types/user-role-mapping/user-mapping";
+} from "@/types/customer-management/user-mapping";
 import { logger } from "@/global/service";
 import { AVATAR_COLORS } from "../../constants/index";
 
