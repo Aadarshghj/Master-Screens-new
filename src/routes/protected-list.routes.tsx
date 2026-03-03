@@ -53,7 +53,7 @@ import DesignationRoleMappingPage from "@/pages/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
 
 import { CoLendingSchemeMapPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-scheme-map/Index";
-import BranchStaffMappingPage from "@/pages/branch-staff-mapping";
+import BranchStaffMappingPage from "@/pages/customer-management/branch-staff-mapping";
 
 import UserRoleMappingPage from "@/pages/user-mapping";
   

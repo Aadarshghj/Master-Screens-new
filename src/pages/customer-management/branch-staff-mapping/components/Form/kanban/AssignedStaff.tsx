@@ -2,7 +2,7 @@ import React from "react";
 import { Shield, Trash2, Save, Clock, X, Loader2 } from "lucide-react";
 import { KanbanColumn } from "@/components/ui/kanban/KanbanColumn";
 import { cn } from "@/utils";
-import type { AssignedStaff } from "@/types/branch-staff-mapping/branch-staff";
+import type { AssignedStaff } from "@/types/customer-management/branch-staff";
 
 interface Props {
   staff: AssignedStaff[];

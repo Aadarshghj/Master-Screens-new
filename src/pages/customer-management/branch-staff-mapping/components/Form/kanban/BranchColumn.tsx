@@ -2,8 +2,8 @@ import React from "react";
 import { Briefcase, Check } from "lucide-react";
 import { KanbanColumn } from "@/components/ui/kanban/KanbanColumn";
 import { cn } from "@/utils";
-import type { Branch, AssignedStaff } from "@/types/branch-staff-mapping/branch-staff";
-import { useGetAssignedStaffQuery } from "@/global/service/end-points/branch-staff-mapping/branch-staff-mapping";
+import type { Branch, AssignedStaff } from "@/types/customer-management/branch-staff";
+import { useGetAssignedStaffQuery } from "@/global/service/end-points/customer-management/branch-staff-mapping";
 
 interface BranchColumnProps {
   branch: Branch[];

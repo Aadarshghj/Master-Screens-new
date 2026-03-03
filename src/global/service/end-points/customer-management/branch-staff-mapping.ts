@@ -11,6 +11,7 @@ import type {
 
 import { apiInstance } from "../../api-instance";
 import { api } from "@/api";
+import type { AdminUnitType } from "@/types/customer-management/admin-unit-type";
 
 export const BranchStaffMappingApi = apiInstance.injectEndpoints({
   endpoints: (build) => ({
@@ -68,8 +69,15 @@ export const BranchStaffMappingApi = apiInstance.injectEndpoints({
           id: item.identity,
           branchName: item.branchName,
           branchCode: item.branchCode,
+          adminUnitTypeIdentity:item.adminUnitTypeIdentity
         })),
     }),
+    getAdminUnitTypes: build.query<AdminUnitType[], void>({
+  query: () => ({
+    url: api.BranchStaffMapping.getadminunittype(),
+    method: "GET",
+  }),
+}),
 
     getAllStaff: build.query<AvailableStaff[], void>({
       query: () => ({
@@ -111,6 +119,7 @@ export const {
   useSaveBranchStaffMappingMutation,
   useGetAllBranchStaffMappingsQuery,
   useGetAllBranchesQuery,
+  useGetAdminUnitTypesQuery,
   useGetAllStaffQuery,
   useGetAssignedStaffQuery,
   useUpdateBranchStaffMappingMutation,

@@ -41,7 +41,7 @@ import { adminUnitType } from "./customer-management/admin-unit-type";
 import { branchType } from "./customer-management/branch-type.ts";
 import { designationRoleMapping } from "./customer-management/designationRoleMapping.ts";
 import { tenant } from "./customer-management/tenant";
-import { BranchStaffMapping } from "./branch-staff-mapping/branch-staff-api.ts";
+import { BranchStaffMapping } from "./customer-management/branch-staff-api.ts";
 
 
 export const api = { 
