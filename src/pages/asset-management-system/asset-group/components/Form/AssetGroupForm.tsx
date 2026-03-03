@@ -2,6 +2,7 @@ import React from "react";
 import { RotateCcw, Save, X } from "lucide-react";
 import {
   Controller,
+  useWatch,
   type Control,
   type FieldErrors,
   type UseFormRegister,
@@ -10,9 +11,8 @@ import {
 import { FormContainer } from "@/components/ui/form-container";
 import { Flex, Input, Label, Select, Switch } from "@/components/ui";
 import { Form, Textarea } from "@/components";
-import type { AssetGroupType } from "@/types/asset-management/asset-group.types";
+import type { AssetGroupType } from "@/types/asset-management-system/asset-group.types";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-// import { Select } from "react-day-picker";
 import type { Option } from "@/types/customer-management/designation";
 
 interface AssetGroupProps {
@@ -36,6 +36,8 @@ export const AssetGroupForm: React.FC<AssetGroupProps> = ({
   onReset,
   assetTypeOptions,
 }) => {
+  const assetTypeValue = useWatch({ control, name: "assetType" });
+  const enableAssetCode = !!assetTypeValue;
   return (
     <FormContainer className="px-0">
       <Form onSubmit={onSubmit}>
@@ -44,13 +46,13 @@ export const AssetGroupForm: React.FC<AssetGroupProps> = ({
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field
                 label="Asset Group Code"
-                disabled
+                disabled={!enableAssetCode}
                 error={errors.assetCode}
               >
                 <Input
                   {...register("assetCode")}
-                  disabled
                   placeholder="Enter Asset Code"
+                  disabled={!enableAssetCode}
                   size="form"
                   variant="form"
                   className="uppercase"
