@@ -68,6 +68,7 @@ export const useBranchStaffMapping = () => {
         identity: s.identity,
         staffIdentity: s.staffIdentity,
         staffName: s.staffName,
+        staffCode: s.staffCode, 
         branchIdentity: s.branchIdentity,
         branchName: s.branchName,
         isActive: s.isActive,

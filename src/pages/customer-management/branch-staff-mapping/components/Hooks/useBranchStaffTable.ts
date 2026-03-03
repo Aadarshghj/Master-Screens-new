@@ -34,7 +34,7 @@ export const useBranchStaffMappingTable = () => {
       map[item.branchIdentity].staff.push({
         identity: item.identity,
         staffName: item.staffName,
-        staffIdentity: item.staffIdentity,
+        staffIdentity:item.staffIdentity,
         branchName: item.branchName,
         branchIdentity: item.branchIdentity,
         status: item.isActive ? "Active" : "Pending",

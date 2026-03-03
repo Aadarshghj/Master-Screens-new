@@ -31,7 +31,7 @@ export const BranchStaffMappingTable: React.FC<
       const staff = branchAssignments[branch.id] || [];
       return staff.length > 0;
     });
-  
+
   }, [branches, branchAssignments]);
 
   
@@ -87,9 +87,14 @@ export const BranchStaffMappingTable: React.FC<
                   key={member.identity}
                   className="inline-flex items-center rounded border border-blue-100 bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700"
                 >
-                  {member.staffName}
+                 <div className="flex flex-col leading-tight">
+                 <span>{member.staffName}</span>
+                 
+        
+                 </div>
                  
                 </span>
+                
               ))}
             </div>
           );
