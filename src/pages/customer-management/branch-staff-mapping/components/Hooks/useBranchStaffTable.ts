@@ -3,10 +3,10 @@ import type {
   AssignedStaff,
   Branch,
   assignedStaffApiResponse,
-} from "@/types/branch-staff-mapping/branch-staff";
+} from "@/types/customer-management/branch-staff";
 import {
   useGetAllBranchStaffMappingsQuery,
-} from "@/global/service/end-points/branch-staff-mapping/branch-staff-mapping";
+} from "@/global/service/end-points/customer-management/branch-staff-mapping";
 
 export const useBranchStaffMappingTable = () => {
   const { data: mappingData = [] } =
@@ -34,7 +34,7 @@ export const useBranchStaffMappingTable = () => {
       map[item.branchIdentity].staff.push({
         identity: item.identity,
         staffName: item.staffName,
-        staffIdentity: item.staffIdentity,
+        staffIdentity:item.staffIdentity,
         branchName: item.branchName,
         branchIdentity: item.branchIdentity,
         status: item.isActive ? "Active" : "Pending",
@@ -50,6 +50,7 @@ export const useBranchStaffMappingTable = () => {
       id: b.id,
       branchName: b.name,
       branchCode: "",
+      adminUnitTypeIdentity:""
     }));
   }, [groupedData]);
 

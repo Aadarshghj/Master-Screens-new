@@ -4,7 +4,7 @@ import { useBranchStaffMapping } from "../Hooks/useBranchStaffForm";
 import { useBranchStaffMappingTable } from "../Hooks/useBranchStaffTable";
 import { ConfirmationModal } from "@/components/ui/confirmation-modal";
 import { cn } from "@/utils";
-import { KanbanBoard } from "../../../../components/ui/kanban/KanbanBoard";
+import { KanbanBoard } from "@/components/ui/kanban/KanbanBoard";
 import { BranchColumn } from "./kanban/BranchColumn";
 import { AssignedColumn } from "./kanban/AssignedStaff";
 import { AvailableColumn } from "./kanban/AvailableStaff";
@@ -38,6 +38,7 @@ export const BranchStaffMappingContainer = () => {
 
   const { branches: tableBranches, branchAssignments: tableAssignments } =
     useBranchStaffMappingTable();
+    
 
   const [isClearModalOpen, setIsClearModalOpen] = useState(false);
   const [viewMode, setViewMode] = useState<"assignment" | "overview">(
@@ -156,6 +157,7 @@ export const BranchStaffMappingContainer = () => {
             onSearchChange={setStaffSearchQuery}
             onMove={moveStaffToPending}
             isLoading={allStaffLoading}
+            isBranchSelected={!!selectedBranch}
           />
         </KanbanBoard>
       )}

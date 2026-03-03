@@ -2,7 +2,7 @@ import React from "react";
 import { Shield, Plus } from "lucide-react";
 import { KanbanColumn } from "@/components/ui/kanban/KanbanColumn";
 import { cn } from "@/utils";
-import type { AvailableStaff } from "@/types/branch-staff-mapping/branch-staff";
+import type { AvailableStaff } from "@/types/customer-management/branch-staff";
 
 interface Props {
   staff: AvailableStaff[];
@@ -10,6 +10,7 @@ interface Props {
   onSearchChange: (q: string) => void;
   onMove: (staff: AvailableStaff) => void;
   isLoading?: boolean; 
+  isBranchSelected: boolean;
 }
 
 export const AvailableColumn: React.FC<Props> = ({
@@ -18,6 +19,8 @@ export const AvailableColumn: React.FC<Props> = ({
   onSearchChange,
   onMove,
   isLoading = false,
+  isBranchSelected,
+  
 }) => {
   return (
     <KanbanColumn
@@ -60,15 +63,20 @@ export const AvailableColumn: React.FC<Props> = ({
                 </p>
               </div>
 
-              <button
-                onClick={() => onMove(item)}
-                className={cn(
-                  "flex items-center gap-1 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-[10px] font-bold whitespace-nowrap text-slate-600 shadow-sm transition-all hover:border-blue-600 hover:bg-blue-600 hover:text-white"
-                )}
-              >
-                <Plus size={10} strokeWidth={3} />
-                Add
-              </button>
+             <button
+  onClick={() => onMove(item)}
+  disabled={!isBranchSelected}
+  // title="Select branch"
+  className={cn(
+    "flex items-center gap-1 rounded-md border px-2 py-1 text-[10px] font-bold whitespace-nowrap shadow-sm transition-all",
+    !isBranchSelected
+      ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400"
+      : "border-slate-200 bg-slate-50 text-slate-600 hover:border-blue-600 hover:bg-blue-600 hover:text-white"
+  )}
+>
+  <Plus size={10} strokeWidth={3} />
+  Add
+</button>
             </div>
           </div>
         ))
