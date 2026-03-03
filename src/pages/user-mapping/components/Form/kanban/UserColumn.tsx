@@ -5,7 +5,7 @@ import { cn } from "@/utils";
 import type {
   UserProfile,
   AssignedRole,
-} from "@/types/user-role-mapping/user-mapping";
+} from "@/types/customer-management/user-mapping";
 
 interface Props {
   users: UserProfile[];

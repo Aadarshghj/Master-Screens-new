@@ -163,11 +163,7 @@ export const menu = [
             title: "User Role Mapping Master",
             path: "/customer-management/master/user-role-mapping",
           },
-          {
-            id: "asset-item",
-            title: "Asset Item Master",
-            path: "/customer-management/master/asset-item",
-          },
+          
           {
             id: "designation-role-mapping",
             title: "Designation Role Mapping Master",
@@ -447,6 +443,11 @@ export const menu = [
             id: "depreciation-methods",
             title: "Depreciation Methods",
             path: "/asset-management/depreciation-methods",
+          },
+          {
+            id: "asset-item",
+            title: "Asset Item",
+            path: "/asset-management/asset-item",
           },
             {
             id: "gst-cost-master",

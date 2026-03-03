@@ -5,8 +5,8 @@ import type {
   ApiUserRoleMapping,
   AssignedRole,
   SaveRolePayload,
-} from "@/types/user-role-mapping/user-mapping";
-import type { ApiPermissionType } from "@/types/user-role-mapping/user-mapping";
+} from "@/types/customer-management/user-mapping";
+import type { ApiPermissionType } from "@/types/customer-management/user-mapping";
 
 export const userRoleApiService = apiInstance.injectEndpoints({
   endpoints: build => ({

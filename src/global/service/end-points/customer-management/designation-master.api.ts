@@ -2,7 +2,7 @@ import type {
   DesignationRoleMappingRequestDto,
   DesignationRoleMappingResponseDto,
   RoleDto,
-} from "@/types/designation-role-mapping/designation-mapping";
+} from "@/types/customer-management/designation-mapping";
 
 import { apiInstance } from "../../api-instance";
 import { api } from "@/api";
