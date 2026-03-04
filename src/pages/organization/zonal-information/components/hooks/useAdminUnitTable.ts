@@ -38,8 +38,11 @@ export const useAdminUnitTable = ({
   }, [externalUnitType]);
 
   const adminUnitTypeOptions = useMemo(
-    () => rawUnitTypeOptions,
-    [rawUnitTypeOptions.length]
+    () =>
+      [...rawUnitTypeOptions].sort(
+        (a, b) => (a.hierarchyLevel ?? 0) - (b.hierarchyLevel ?? 0)
+      ),
+    [rawUnitTypeOptions]
   );
 
   const selectedUnitLabel =

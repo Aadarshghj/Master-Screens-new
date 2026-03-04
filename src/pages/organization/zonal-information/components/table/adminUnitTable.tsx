@@ -5,24 +5,34 @@ import {
   ConfirmationModal,
   Button,
   Select,
+  Flex,
+  Form,
 } from "@/components";
+import { FormContainer } from "@/components/ui/form-container";
 import {
   createColumnHelper,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Pencil, Trash2, Eye } from "lucide-react";
+import { Pencil, Trash2, Eye, Filter } from "lucide-react";
 import type { BranchResponseDto } from "@/types/organisation/admin-unit";
 import { useAdminUnitTable, ALL_UNIT_TYPES } from "../hooks/useAdminUnitTable";
+import {
+  useGetBranchStatusQuery,
+  useGetBranchCategoryQuery,
+} from "@/global/service/end-points/organisation/branches.api";
 import { AdminUnitViewModal } from "./AdminUnitViewModal";
 import { Pagination } from "@/components/ui/paginationUp";
+import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
 const columnHelper = createColumnHelper<BranchResponseDto>();
 
 const UpperCell = ({ value }: { value: unknown }) => (
   <span className="uppercase">{String(value ?? "")}</span>
 );
+
+const ALL_STATUSES = "ALL";
 
 interface AdminUnitTableProps {
   onEdit: (identity: string) => void;
@@ -45,6 +55,34 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
     closeDeleteModal,
     confirmDeleteAdminUnit,
   } = useAdminUnitTable({ externalUnitType });
+
+  const { data: rawStatusOptions = [] } = useGetBranchStatusQuery();
+
+  const { data: categoryOptions = [] } = useGetBranchCategoryQuery();
+
+  const statusDropdownOptions = useMemo(
+    () => [
+      { label: "All", value: ALL_STATUSES },
+      ...rawStatusOptions.map(o => ({ label: o.label, value: o.value })),
+    ],
+    [rawStatusOptions]
+  );
+
+  const [pendingUnitType, setPendingUnitType] = useState<string>(
+    externalUnitType ?? ALL_UNIT_TYPES
+  );
+  const [pendingStatus, setPendingStatus] = useState<string>(ALL_STATUSES);
+  const [appliedStatus, setAppliedStatus] = useState<string>(ALL_STATUSES);
+
+  const handleFilter = () => {
+    setSelectedUnitType(pendingUnitType);
+    setAppliedStatus(pendingStatus);
+  };
+
+  const filteredData = useMemo<BranchResponseDto[]>(() => {
+    if (appliedStatus === ALL_STATUSES) return data;
+    return data.filter(row => row.branchStatusIdentity === appliedStatus);
+  }, [data, appliedStatus]);
 
   const [viewRow, setViewRow] = useState<BranchResponseDto | null>(null);
 
@@ -71,54 +109,83 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         header: "S.No",
         cell: ({ row }) => row.index + 1,
       }),
+
       columnHelper.accessor("branchCode", {
         header: `${selectedUnitLabel} Code`,
         cell: info => <UpperCell value={info.getValue()} />,
       }),
+
       columnHelper.accessor("branchName", {
         header: `${selectedUnitLabel} Name`,
         cell: info => <UpperCell value={info.getValue()} />,
       }),
-      columnHelper.accessor("branchShortName", {
-        header: "Short Name",
-        cell: info => <UpperCell value={info.getValue()} />,
+
+      columnHelper.accessor("parentBranchName", {
+        header: "Parent Branch",
+        cell: info => <UpperCell value={info.getValue() ?? "—"} />,
       }),
-      columnHelper.accessor("districtName", {
-        header: "District",
-        cell: info => <UpperCell value={info.getValue()} />,
+
+      columnHelper.display({
+        id: "category",
+        header: "Category",
+        cell: ({ row }) => {
+          const match = categoryOptions.find(
+            o => o.value === row.original.branchCategoryIdentity
+          );
+          return <UpperCell value={match?.label ?? "—"} />;
+        },
       }),
-      columnHelper.accessor("stateName", {
-        header: "State",
-        cell: info => <UpperCell value={info.getValue()} />,
+
+      columnHelper.display({
+        id: "address",
+        header: "Address",
+        cell: ({ row }) => {
+          const door = row.original.doorNumber ?? "";
+          const line1 = row.original.addressLine1 ?? "";
+          const combined = [door, line1].filter(Boolean).join(", ");
+          return <UpperCell value={combined || "—"} />;
+        },
       }),
-      columnHelper.accessor("postOffice", {
-        header: "Post Office",
-        cell: info => <UpperCell value={info.getValue()} />,
-      }),
+
       columnHelper.accessor("pincode", {
         header: "PIN Code",
         cell: info => <UpperCell value={info.getValue()} />,
       }),
-      columnHelper.accessor("isActive", {
-        header: "Status",
-        cell: info => (
-          <span
-            className={
-              info.getValue()
-                ? "font-medium text-green-600"
-                : "font-medium text-red-500"
-            }
-          >
-            {info.getValue() ? "ACTIVE" : "INACTIVE"}
-          </span>
-        ),
+
+      columnHelper.accessor("stateName", {
+        header: "State",
+        cell: info => <UpperCell value={info.getValue()} />,
       }),
+
+      columnHelper.display({
+        id: "status",
+        header: "Status",
+        cell: ({ row }) => {
+          const match = rawStatusOptions.find(
+            o => o.value === row.original.branchStatusIdentity
+          );
+          const label = match?.label?.toUpperCase() ?? "—";
+          const isActive = row.original.isActive;
+          return (
+            <span
+              className={
+                isActive
+                  ? "font-medium text-green-600"
+                  : "font-medium text-red-500"
+              }
+            >
+              {label}
+            </span>
+          );
+        },
+      }),
+
+      // Actions
       columnHelper.display({
         id: "actions",
         header: "Actions",
         cell: ({ row }) => (
           <div className="flex items-center gap-2">
-            {/* View */}
             <Button
               variant="ghost"
               size="xs"
@@ -130,7 +197,6 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
               <Eye className="h-3 w-3" />
             </Button>
 
-            {/* Edit */}
             <Button
               variant="ghost"
               size="xs"
@@ -143,7 +209,6 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
               <Pencil className="h-3 w-3" />
             </Button>
 
-            {/* Delete */}
             <Button
               variant="ghost"
               title="Delete"
@@ -158,18 +223,24 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         ),
       }),
     ],
-    [openDeleteModal, onEdit, selectedUnitLabel]
+    [
+      openDeleteModal,
+      onEdit,
+      selectedUnitLabel,
+      categoryOptions,
+      rawStatusOptions,
+    ]
   );
 
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     initialState: {
       pagination: {
         pageIndex: 0,
-        pageSize: 5,
+        pageSize: 10,
       },
     },
   });
@@ -182,26 +253,63 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-between gap-4">
-        <p className="text-muted-foreground text-sm">
-          {selectedUnitType !== ALL_UNIT_TYPES
-            ? `Showing: ${selectedUnitLabel}`
-            : "Showing all unit types"}
-        </p>
+      <FormContainer className="px-0">
+        <Form onSubmit={e => e.preventDefault()}>
+          <div className="mt-2">
+            <Form.Row>
+              <Form.Col lg={2} md={6} span={12}>
+                <Form.Field label="Unit Type">
+                  <Select
+                    value={pendingUnitType}
+                    onValueChange={setPendingUnitType}
+                    options={dropdownOptions}
+                    placeholder="Filter by Type"
+                    size="form"
+                    variant="form"
+                    fullWidth
+                    itemVariant="form"
+                  />
+                </Form.Field>
+              </Form.Col>
 
-        <div className="w-48">
-          <Select
-            value={selectedUnitType}
-            onValueChange={setSelectedUnitType}
-            options={dropdownOptions}
-            placeholder="Filter by Type"
-            size="form"
-            variant="form"
-            fullWidth
-            itemVariant="form"
-          />
-        </div>
-      </div>
+              <Form.Col lg={2} md={6} span={12}>
+                <Form.Field label="Status">
+                  <Select
+                    value={pendingStatus}
+                    onValueChange={setPendingStatus}
+                    options={statusDropdownOptions}
+                    placeholder="Filter by Status"
+                    size="form"
+                    variant="form"
+                    fullWidth
+                    itemVariant="form"
+                  />
+                </Form.Field>
+              </Form.Col>
+
+              {/* Filter button */}
+              <Form.Col lg={1} md={6} span={12}>
+                <Flex.ActionGroup className="mt-4 flex items-center justify-end">
+                  <NeumorphicButton
+                    variant="default"
+                    type="button"
+                    onClick={handleFilter}
+                  >
+                    <Filter className="h-5 w-4" />
+                    Filter
+                  </NeumorphicButton>
+                </Flex.ActionGroup>
+              </Form.Col>
+            </Form.Row>
+          </div>
+        </Form>
+      </FormContainer>
+
+      <p className="text-muted-foreground mb-4 text-sm">
+        {selectedUnitType !== ALL_UNIT_TYPES
+          ? `Showing: ${selectedUnitLabel}`
+          : "Showing all unit types"}
+      </p>
 
       <Grid>
         <Grid.Item>

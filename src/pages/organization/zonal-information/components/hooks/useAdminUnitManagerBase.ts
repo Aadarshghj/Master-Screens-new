@@ -40,6 +40,14 @@ export const toTitleCase = (str: string): string =>
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
+const toUpperCasePayload = <T extends Record<string, unknown>>(obj: T): T =>
+  Object.fromEntries(
+    Object.entries(obj).map(([key, val]) => [
+      key,
+      typeof val === "string" ? val.toUpperCase() : val,
+    ])
+  ) as T;
+
 const UNIT_CODE_CONFIG: Record<string, { prefix: string; pad: number }> = {
   CORPORATE: { prefix: "CO", pad: 4 },
   STATE: { prefix: "ST", pad: 4 },
@@ -80,42 +88,34 @@ export const buildParentOptions = (
 ): Option[] => {
   if (!currentUnitTypeIdentity) return [];
 
-  // Find current unit type's hierarchy level
   const currentType = adminUnitTypeOptions.find(
     o => o.value === currentUnitTypeIdentity
   );
   if (!currentType || (currentType.hierarchyLevel ?? 0) <= 1) {
-    // Corporate (L1) or unknown — no valid parents
     return [];
   }
 
   const currentLevel = currentType.hierarchyLevel ?? 0;
 
-  // Collect all unit types that are valid parents (level < current),
-  // sorted from nearest (currentLevel - 1) down to top (1)
   const validParentTypes = adminUnitTypeOptions
     .filter(o => (o.hierarchyLevel ?? 0) < currentLevel)
     .sort((a, b) => (b.hierarchyLevel ?? 0) - (a.hierarchyLevel ?? 0));
-  // ↑ descending so nearest level (highest number below current) comes first
 
   const result: Option[] = [];
 
   for (const parentType of validParentTypes) {
-    // Find all registered units of this parent type
     const units = allBranches.filter(
       b => b.adminUnitTypeIdentity === parentType.value
     );
 
     if (units.length === 0) continue;
 
-    // Divider row (disabled, not selectable)
     result.push({
       label: `── ${toTitleCase(parentType.label)} ──`,
       value: `__divider__${parentType.value}`,
       disabled: true,
     } as Option & { disabled: boolean });
 
-    // Actual selectable options for this parent type
     for (const unit of units) {
       result.push({
         label: `${unit.branchCode} — ${unit.branchName}`,
@@ -126,10 +126,6 @@ export const buildParentOptions = (
 
   return result;
 };
-
-// ---------------------------------------------------------------------------
-// Blank form
-// ---------------------------------------------------------------------------
 
 const BLANK_FORM: AdminUnitDetails = {
   identity: "",
@@ -201,11 +197,6 @@ const BLANK_FORM: AdminUnitDetails = {
   dedicatedIssueOperations: "",
 };
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
-/** Unit-type codes that have dedicated pages. "ZONE" is intentionally excluded. */
 export const UNIT_TYPE_CODES_WITH_PAGES = [
   "CORPORATE",
   "STATE",
@@ -217,44 +208,28 @@ export const UNIT_TYPE_CODES_WITH_PAGES = [
 export type UnitTypeCode = (typeof UNIT_TYPE_CODES_WITH_PAGES)[number];
 
 export interface UseAdminUnitManagerOptions {
-  /**
-   * When provided, the hook locks the admin-unit type to this code and the
-   * dropdown becomes a read-only display.  Used by unit-specific pages.
-   */
   lockedUnitTypeCode?: UnitTypeCode;
   editIdentity?: string;
 }
-
-// ---------------------------------------------------------------------------
-// The shared hook
-// ---------------------------------------------------------------------------
 
 export const useAdminUnitManagerBase = ({
   lockedUnitTypeCode,
   editIdentity,
 }: UseAdminUnitManagerOptions = {}) => {
-  // ── API queries ─────────────────────────────────────────────────────────────
   const {
     data: rawAdminUnitTypeOptions = [] as AdminUnitTypeOption[],
     isLoading: isUnitTypesLoading,
   } = useGetAdminUnitTypesQuery();
 
-  // Sort by hierarchy level; apply title-case formatting to labels
   const adminUnitTypeOptions = useMemo(
     () =>
       [...rawAdminUnitTypeOptions]
         .sort((a, b) => (a.hierarchyLevel ?? 0) - (b.hierarchyLevel ?? 0))
-        .map(o => ({
-          ...o,
-          label: toTitleCase(o?.label ?? o?.code ?? ""),
-        })),
+        .map(o => ({ ...o, label: toTitleCase(o.label) })),
     [rawAdminUnitTypeOptions]
   );
 
-  // Single source of truth for all registered units — used both for code
-  // generation AND for building parent options without extra API calls.
   const { data: allBranchList = [] } = useGetAllBranchesQuery();
-
   const { data: statusOptions = [] } = useGetBranchStatusQuery();
   const { data: categoryOptions = [] } = useGetBranchCategoryQuery();
   const { data: branchTypeOptions = [] } = useGetBranchTypesQuery();
@@ -265,7 +240,6 @@ export const useAdminUnitManagerBase = ({
   const [saveBranch, { isLoading: isSaving }] = useSaveBranchMutation();
   const [updateBranch, { isLoading: isUpdating }] = useUpdateBranchMutation();
 
-  // ── Post-office state ───────────────────────────────────────────────────────
   const [postOfficeOptions, setPostOfficeOptions] = useState<DropdownOption[]>(
     []
   );
@@ -276,7 +250,6 @@ export const useAdminUnitManagerBase = ({
     useState<DropdownOption | null>(null);
   const pincodeRecordRef = useRef<PincodeApiResponse | null>(null);
 
-  // ── Form ────────────────────────────────────────────────────────────────────
   const schema = useMemo(() => adminUnitRegistrationSchema(), []);
 
   const {
@@ -299,7 +272,6 @@ export const useAdminUnitManagerBase = ({
   const selectedStatus = watch("branchStatusIdentity");
   const pincodeValue = watch("pincode");
 
-  // Resolve the *code* string (e.g. "BRANCH") for the currently selected type
   const selectedUnitCode = useMemo(
     () =>
       (adminUnitTypeOptions as AdminUnitTypeOption[]).find(
@@ -320,7 +292,6 @@ export const useAdminUnitManagerBase = ({
     [allBranchList, adminUnitTypeOptions, selectedUnitType]
   );
 
-  // ── Stable refs ─────────────────────────────────────────────────────────────
   const allBranchListRef = useRef(allBranchList);
   const adminUnitTypeOptsRef = useRef(adminUnitTypeOptions);
   const setValueRef = useRef(setValue);
@@ -333,12 +304,6 @@ export const useAdminUnitManagerBase = ({
   resetRef.current = reset;
   selectedUnitCodeRef.current = selectedUnitCode;
 
-  // ── applyNextCode ────────────────────────────────────────────────────────────
-  /**
-   * Sets branchCode to the next sequential value for the given unit-type code.
-   * Pass `overrideUnitCode` when calling before `selectedUnitCode` (derived
-   * via watch) has had a chance to propagate through the render cycle.
-   */
   const applyNextCode = useCallback((overrideUnitCode?: string) => {
     const unitCode = overrideUnitCode ?? selectedUnitCodeRef.current;
     const allCodes = allBranchListRef.current.map(
@@ -347,7 +312,6 @@ export const useAdminUnitManagerBase = ({
     setValueRef.current("branchCode", computeNextCode(allCodes, unitCode));
   }, []);
 
-  // ── buildReset ───────────────────────────────────────────────────────────────
   const buildReset = useCallback(
     (unitTypeIdentity?: string): AdminUnitDetails => {
       const opts = adminUnitTypeOptsRef.current as AdminUnitTypeOption[];
@@ -367,7 +331,6 @@ export const useAdminUnitManagerBase = ({
     [lockedUnitTypeCode]
   );
 
-  // ── Init effect (CREATE mode) ────────────────────────────────────────────────
   const initialisedRef = useRef(false);
 
   useEffect(() => {
@@ -383,20 +346,12 @@ export const useAdminUnitManagerBase = ({
 
     if (targetOption) {
       setValueRef.current("adminUnitTypeIdentity", targetOption.value);
-      // Pass code directly — selectedUnitCode hasn't propagated via watch yet
       applyNextCode(targetOption.code);
     }
-  }, [
-    editIdentity,
-    adminUnitTypeOptions.length,
-    applyNextCode,
-    lockedUnitTypeCode,
-  ]);
+  }, [editIdentity, adminUnitTypeOptions, applyNextCode, lockedUnitTypeCode]);
 
-  // ── Auto-select English as default language ──────────────────────────────────
   useEffect(() => {
     if (languageOptions.length === 0) return;
-    // Don't overwrite a value already set (e.g. in edit mode)
     const currentLanguage = watch("language");
     if (currentLanguage) return;
 
@@ -408,17 +363,14 @@ export const useAdminUnitManagerBase = ({
     }
   }, [languageOptions]);
 
-  // ── Auto-select branch type when only one option exists ──────────────────────
   useEffect(() => {
     if (branchTypeOptions.length !== 1) return;
-    // Don't overwrite a value already set (e.g. in edit mode)
     const currentType = watch("branchTypeIdentity");
     if (currentType) return;
 
     setValueRef.current("branchTypeIdentity", branchTypeOptions[0].value);
   }, [branchTypeOptions]);
 
-  // ── Clear dependents + regenerate code when unit type changes ────────────────
   const prevUnitTypeRef = useRef<string>("");
 
   useEffect(() => {
@@ -437,13 +389,11 @@ export const useAdminUnitManagerBase = ({
 
     applyNextCode(selectedUnitCodeRef.current);
 
-    // Re-apply single branch type default after unit type change clears the field
     if (branchTypeOptions.length === 1) {
       setValueRef.current("branchTypeIdentity", branchTypeOptions[0].value);
     }
   }, [selectedUnitType, applyNextCode, branchTypeOptions]);
 
-  // ── Edit mode ────────────────────────────────────────────────────────────────
   const { data: branchData } = useGetBranchByIdQuery(editIdentity!, {
     skip: !editIdentity,
   });
@@ -480,7 +430,6 @@ export const useAdminUnitManagerBase = ({
     });
   }, [branchData]);
 
-  // ── Post-office selection fills address fields ────────────────────────────
   useEffect(() => {
     if (!selectedPostOffice) return;
     const record = pincodeRecordRef.current;
@@ -505,7 +454,6 @@ export const useAdminUnitManagerBase = ({
     setShowPostOfficeDropdown(false);
   }, [selectedPostOffice]);
 
-  // ── Pincode search ──────────────────────────────────────────────────────────
   const onPincodeSearch = useCallback(async (): Promise<void> => {
     if (!pincodeValue || pincodeValue.length < 6) return;
 
@@ -533,8 +481,6 @@ export const useAdminUnitManagerBase = ({
 
       setPostOfficeOptions(offices);
 
-      // Auto-select if only one post office returned — reuses the existing
-      // selectedPostOffice → useEffect to fill district / state / country
       if (offices.length === 1) {
         setSelectedPostOffice(offices[0]);
         setShowPostOfficeDropdown(false);
@@ -553,10 +499,9 @@ export const useAdminUnitManagerBase = ({
     setSelectedPostOffice(option);
   }, []);
 
-  // ── Backend payload mapper ──────────────────────────────────────────────────
   const mapToBackend = useCallback(
-    (data: AdminUnitDetails): BranchCreatePayload =>
-      ({
+    (data: AdminUnitDetails): BranchCreatePayload => {
+      const raw = {
         branchCode: data.branchCode ?? "",
         branchName: data.branchName ?? "",
         branchStatusIdentity: data.branchStatusIdentity ?? "",
@@ -588,6 +533,7 @@ export const useAdminUnitManagerBase = ({
         bsrCode: data.bsrCode || null,
         language:
           languageOptions.find(l => l.value === data.language)?.label || null,
+
         isMainBranchInLocation: data.isMainBranchInLocation ?? false,
         isSplitPremises: data.isSplitPremises ?? false,
         localClearingMember: data.localClearingMember ?? false,
@@ -600,11 +546,13 @@ export const useAdminUnitManagerBase = ({
         authForeignCurrencyDeposit: data.authForeignCurrencyDeposit ?? false,
         ddIssueAllowed: data.ddIssueAllowed ?? false,
         ttIssueAllowed: data.ttIssueAllowed ?? false,
-      }) as unknown as BranchCreatePayload,
-    []
+      };
+
+      return toUpperCasePayload(raw) as unknown as BranchCreatePayload;
+    },
+    [languageOptions]
   );
 
-  // ── Submit ──────────────────────────────────────────────────────────────────
   const onSubmit = useCallback(
     async (data: AdminUnitDetails): Promise<void> => {
       try {
@@ -643,7 +591,6 @@ export const useAdminUnitManagerBase = ({
     ]
   );
 
-  // ── Reset ───────────────────────────────────────────────────────────────────
   const onReset = useCallback((): void => {
     resetRef.current(buildReset(selectedUnitType));
     applyNextCode(selectedUnitCodeRef.current);
@@ -653,7 +600,6 @@ export const useAdminUnitManagerBase = ({
     setSelectedPostOffice(null);
     pincodeRecordRef.current = null;
 
-    // Re-apply auto-defaults after reset
     if (languageOptions.length > 0) {
       const english = languageOptions.find(o =>
         o.label.toLowerCase().includes("english")
@@ -674,7 +620,6 @@ export const useAdminUnitManagerBase = ({
     branchTypeOptions,
   ]);
 
-  // ── Return ──────────────────────────────────────────────────────────────────
   return {
     control,
     register,

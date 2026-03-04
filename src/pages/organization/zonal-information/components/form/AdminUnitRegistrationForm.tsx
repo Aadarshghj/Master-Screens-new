@@ -28,7 +28,6 @@ interface AdminUnitRegistrationProps {
   isSubmitting: boolean;
   isBranch: boolean;
   selectedStatus?: string;
-  /** When true the Admin Unit Type field is shown as a read-only label */
   isUnitTypeLocked?: boolean;
   onSubmit: () => void;
   onReset: () => void;
@@ -80,7 +79,6 @@ export const AdminUnitRegistrationForm: React.FC<
   const selectedUnitType = watch("adminUnitTypeIdentity");
   const selectedPostOffice = watch("postOfficeIdentity");
 
-  // Label is already title-cased by the hook; fall back to "Branch"
   const selectedUnitLabel =
     adminUnitTypeOptions.find(o => o.value === selectedUnitType)?.label ??
     "Branch";
@@ -100,7 +98,6 @@ export const AdminUnitRegistrationForm: React.FC<
     )?.code ?? "";
   const isCorporate = selectedUnitCode.toUpperCase() === "CORPORATE";
 
-  // Convert postOfficeOptions (DropdownOption[]) to Select-compatible Option[]
   const postOfficeSelectOptions: Option[] = postOfficeOptions.map(o => ({
     label: o.label,
     value: o.value,
@@ -116,7 +113,6 @@ export const AdminUnitRegistrationForm: React.FC<
       <Form onSubmit={onSubmit}>
         <div className="mt-2">
           <Form.Row>
-            {/* Admin Unit Type — read-only badge when locked, dropdown otherwise */}
             <Form.Col lg={2} md={6} span={12}>
               <Form.Field
                 label="Admin Unit Type"
@@ -124,7 +120,6 @@ export const AdminUnitRegistrationForm: React.FC<
                 error={errors.adminUnitTypeIdentity}
               >
                 {isUnitTypeLocked ? (
-                  /* Locked: show the resolved label as a disabled input */
                   <Input
                     value={selectedUnitLabel}
                     size="form"
@@ -153,7 +148,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Field>
             </Form.Col>
 
-            {/* Code */}
             <Form.Col lg={2} md={6} span={12}>
               <Form.Field
                 label={`${selectedUnitLabel} Code`}
@@ -171,7 +165,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Field>
             </Form.Col>
 
-            {/* Name */}
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field
                 label={`${selectedUnitLabel} Name`}
@@ -188,7 +181,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Field>
             </Form.Col>
 
-            {/* Short Name */}
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field
                 label={`${selectedUnitLabel} Short Name`}
@@ -204,7 +196,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Field>
             </Form.Col>
 
-            {/* Status */}
             <Form.Col lg={2} md={6} span={12}>
               <Form.Field
                 label="Status"
@@ -230,7 +221,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Field>
             </Form.Col>
 
-            {/* Parent — hidden only for Corporate (L1, root) and CREATED status */}
             {!isCreated && !isCorporate && (
               <Form.Col lg={2} md={6} span={12}>
                 <Form.Field
@@ -244,7 +234,6 @@ export const AdminUnitRegistrationForm: React.FC<
                       <Select
                         value={field.value ?? ""}
                         onValueChange={val => {
-                          // Prevent divider header rows from being selected
                           if (val.startsWith("__divider__")) return;
                           field.onChange(val);
                         }}
@@ -266,7 +255,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Col>
             )}
 
-            {/* Type */}
             <Form.Col lg={2} md={6} span={12}>
               <Form.Field
                 label={`${selectedUnitLabel} Type`}
@@ -292,7 +280,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Field>
             </Form.Col>
 
-            {/* Category — hidden when CREATED */}
             {!isCreated && (
               <Form.Col lg={2} md={6} span={12}>
                 <Form.Field
@@ -320,7 +307,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Col>
             )}
 
-            {/* Registration Date */}
             <Form.Col lg={2} md={6} span={12}>
               <Form.Field label="Registration Date" required>
                 <Controller
@@ -343,7 +329,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Field>
             </Form.Col>
 
-            {/* Opening Date */}
             <Form.Col lg={2} md={6} span={12}>
               <Form.Field label="Opening Date" required>
                 <Controller
@@ -366,7 +351,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Field>
             </Form.Col>
 
-            {/* Closing Date — CLOSED only */}
             {isClosed && (
               <Form.Col lg={2} md={6} span={12}>
                 <Form.Field label="Closing Date">
@@ -391,7 +375,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Col>
             )}
 
-            {/* Date of Shift — SHIFTED only */}
             {isShifted && (
               <Form.Col lg={2} md={6} span={12}>
                 <Form.Field label="Date of Shift">
@@ -416,7 +399,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Col>
             )}
 
-            {/* Merged On / Merged To — MERGED only */}
             {isMerged && (
               <>
                 <Form.Col lg={2} md={6} span={12}>
@@ -464,7 +446,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </>
             )}
 
-            {/* Language */}
             <Form.Col lg={2} md={6} span={12}>
               <Form.Field label="Language" error={errors.language}>
                 <Controller
@@ -486,7 +467,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Field>
             </Form.Col>
 
-            {/* Main toggle */}
             <Form.Col lg={2} md={6} span={12}>
               <Flex
                 direction="col"
@@ -512,7 +492,6 @@ export const AdminUnitRegistrationForm: React.FC<
           </Form.Row>
         </div>
 
-        {/* ── Address ───────────────────────────────────────────────────────── */}
         <section>
           <div className="flex items-center justify-between">
             <TitleHeader title="Address" className="py-4" />
@@ -641,7 +620,6 @@ export const AdminUnitRegistrationForm: React.FC<
                 </Form.Field>
               </Form.Col>
 
-              {/* District — auto-filled */}
               <Form.Col lg={3} md={6} span={12}>
                 <Form.Field
                   label="District"
@@ -659,7 +637,6 @@ export const AdminUnitRegistrationForm: React.FC<
                 </Form.Field>
               </Form.Col>
 
-              {/* State — auto-filled */}
               <Form.Col lg={3} md={6} span={12}>
                 <Form.Field label="State" error={errors.stateName} required>
                   <Input
@@ -673,7 +650,6 @@ export const AdminUnitRegistrationForm: React.FC<
                 </Form.Field>
               </Form.Col>
 
-              {/* Country — always INDIA */}
               <Form.Col lg={2} md={6} span={12}>
                 <Form.Field label="Country" error={errors.countryName}>
                   <Input
