@@ -486,6 +486,44 @@ export const menu = [
               },
             ]
   },
+   {
+    id: "organization-management-system",
+    title: "Organization Management System",
+    icon: "Users",
+    children: [
+      {
+        id: "organization",
+        title: "Organization",
+        children: [
+          {
+            id: "org-branch",
+            title: "Branch Information",
+            path: "/organization-management-system/branch",
+          },
+          {
+            id: "org-area",
+            title: "Area Information",
+            path: "/organization-management-system/area",
+          },
+          {
+            id: "org-region",
+            title: "Region Information",
+            path: "/organization-management-system/region",
+          },
+          {
+            id: "org-state",
+            title: "State Information",
+            path: "/organization-management-system/state",
+          },
+          {
+            id: "org-corporate",
+            title: "Corporate Information",
+            path: "/organization-management-system/corporate",
+          },
+        ],
+      },
+    ],
+  },
   {
     id: "financial-accounting",
     title: "Financial Accounting Management System",
