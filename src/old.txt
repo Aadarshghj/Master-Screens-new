@@ -1,0 +1,2210 @@
+Folder PATH listing
+Volume serial number is 70A3-4F51
+C:.
+|   app.tsx
+|   global.css
+|   old.txt
+|   root.tsx
+|   vite-env.d.ts
+|   
++---api
+|   |   index.ts
+|   |   
+|   +---approval-workflow
+|   |       workflow.api.ts
+|   |       
+|   +---auth
+|   |       auth.api.ts
+|   |       
+|   +---customer
+|   |   |   customer.api.ts
+|   |   |   
+|   |   \---files
+|   |           files.api.ts
+|   |           
+|   +---customer-management
+|   |       agentMaster.ts
+|   |       bank.ts
+|   |       branch-contact.ts
+|   |       customer-category.ts
+|   |       designation.ts
+|   |       designationRoleMapping.ts
+|   |       documentMaster.ts
+|   |       documentType.ts
+|   |       firm-role.ts
+|   |       firm-type.ts
+|   |       groupMaster.ts
+|   |       industryCategoryMaster.ts
+|   |       lead-sources.ts
+|   |       occupation.ts
+|   |       productService.ts
+|   |       purpose.ts
+|   |       referral-sources.ts
+|   |       risk-category.ts
+|   |       sectoral-performances.ts
+|   |       sitePremise.ts
+|   |       source-of-income.ts
+|   |       staff.ts
+|   |       
+|   +---digilocker
+|   |       digilocker.api.ts
+|   |       
+|   +---dms
+|   |       dms.api.ts
+|   |       
+|   +---files
+|   |       files.api.ts
+|   |       
+|   +---firm
+|   |       firm.api.ts
+|   |       
+|   +---lead
+|   |       lead.api.ts
+|   |       
+|   +---loan
+|   |       loan.api.ts
+|   |       loanStepper.api.ts
+|   |       
+|   +---master
+|   |       firm-master.api.ts
+|   |       lead-master.api.ts
+|   |       loan-master.api.ts
+|   |       master.api.ts
+|   |       
+|   +---organisation
+|   |       branches.ts
+|   |       unit-type.ts
+|   |       
+|   \---workflow
+|           rules.ts
+|           stages.api.ts
+|           
++---assets
+|   |   email.svg
+|   |   favicon.ico
+|   |   incede-logo-white.png
+|   |   incede-logo.png
+|   |   incede.png
+|   |   indel-money-logo-round.png
+|   |   indel-money-logo.png
+|   |   landing-page-banner-empty.png
+|   |   landing-page-banner.png
+|   |   login.svg
+|   |   map.html
+|   |   map.png
+|   |   map.svg
+|   |   menuicon.png
+|   |   mobile.svg
+|   |   react.svg
+|   |   slanding-page-banner-empty.png
+|   |   userlogo.png
+|   |   watsup.svg
+|   |   
+|   \---shapes
+|           rectangle.png
+|           
++---components
+|   |   index.ts
+|   |   
+|   +---auth
+|   |       LogoutButton.tsx
+|   |       
+|   +---error-boundary
+|   |       index.ts
+|   |       provider.tsx
+|   |       
+|   +---filterDataView
+|   |       DynamicSearchForm.tsx
+|   |       DynamicSearchResultsTable.tsx
+|   |       
+|   +---shared
+|   |   |   DynamicDefaultValue.tsx
+|   |   |   
+|   |   \---file-upload
+|   |           FilePreview.tsx
+|   |           FileUpload.tsx
+|   |           
+|   +---toast
+|   |       index.ts
+|   |       toast.tsx
+|   |       
+|   \---ui
+|       |   index.ts
+|       |   
+|       +---alert-dialog
+|       |       alert-dialog.tsx
+|       |       index.tsx
+|       |       variants.ts
+|       |       
+|       +---app-version
+|       |       app-version.tsx
+|       |       
+|       +---badge
+|       |       badge.tsx
+|       |       index.ts
+|       |       variants.ts
+|       |       
+|       +---breadcrumb
+|       |       breadcrumb.tsx
+|       |       index.tsx
+|       |       variants.ts
+|       |       
+|       +---button
+|       |       Button.stories.tsx
+|       |       button.tsx
+|       |       index.ts
+|       |       variant.tsx
+|       |       
+|       +---calendar
+|       |       calendar.tsx
+|       |       index.ts
+|       |       
+|       +---capsule-button
+|       |       capsule-button.tsx
+|       |       
+|       +---card
+|       |       card.tsx
+|       |       index.ts
+|       |       variant.ts
+|       |       
+|       +---checkbox
+|       |       index.tsx
+|       |       
+|       +---common-variants
+|       |       variant.ts
+|       |       
+|       +---confirmation-modal
+|       |       ConfirmationModal.tsx
+|       |       index.ts
+|       |       
+|       +---customerExtractionModal
+|       |       CustomerExtractionModal.tsx
+|       |       
+|       +---data-table
+|       |       index.tsx
+|       |       
+|       +---date-picker
+|       |       date-picker.tsx
+|       |       index.ts
+|       |       variant.ts
+|       |       
+|       +---file-upload
+|       |       s3-file-upload.tsx
+|       |       
+|       +---file-viewer
+|       |       FileViewer.tsx
+|       |       index.ts
+|       |       
+|       +---flex
+|       |       index.tsx
+|       |       
+|       +---form
+|       |       form.tsx
+|       |       index.ts
+|       |       
+|       +---form-container
+|       |       FormContainer.tsx
+|       |       index.ts
+|       |       
+|       +---form-dialog
+|       |       formDialog.icons.tsx
+|       |       FormDialog.tsx
+|       |       formDialog.types.ts
+|       |       formDialog.variants.ts
+|       |       index.ts
+|       |       
+|       +---grid
+|       |       index.tsx
+|       |       
+|       +---header-wrapper
+|       |       HeaderWrapper.tsx
+|       |       index.ts
+|       |       
+|       +---input
+|       |       index.ts
+|       |       input.stories.tsx
+|       |       input.tsx
+|       |       variants.tsx
+|       |       
+|       +---input-with-search
+|       |       index.ts
+|       |       input-with-search.tsx
+|       |       variant.tsx
+|       |       
+|       +---kanban
+|       |       KanbanBoard.tsx
+|       |       KanbanColumn.tsx
+|       |       
+|       +---label
+|       |       index.ts
+|       |       label.tsx
+|       |       
+|       +---landing-page-template
+|       |   +---banner
+|       |   |       banner-wrapper.tsx
+|       |   |       
+|       |   +---content
+|       |   |       content.tsx
+|       |   |       
+|       |   +---header
+|       |   |       header.tsx
+|       |   |       
+|       |   \---template
+|       |           template.tsx
+|       |           
+|       +---loading
+|       |       index.ts
+|       |       loading.tsx
+|       |       
+|       +---masked-input
+|       |       index.ts
+|       |       masked-input.tsx
+|       |       variants.tsx
+|       |       
+|       +---modal
+|       |       index.ts
+|       |       modal.tsx
+|       |       variants.tsx
+|       |       
+|       +---multi-select
+|       |       index.ts
+|       |       multi-select.tsx
+|       |       
+|       +---neumorphic-button
+|       |       neumorphic-button.tsx
+|       |       varients.ts
+|       |       
+|       +---otp-field
+|       |       index.ts
+|       |       input-otp.tsx
+|       |       
+|       +---otp-modal
+|       |       index.ts
+|       |       OTPModal.tsx
+|       |       
+|       +---page-wrapper
+|       |       index.ts
+|       |       page-wrapper.tsx
+|       |       variant.tsx
+|       |       
+|       +---pagination
+|       |       index.ts
+|       |       pagination.tsx
+|       |       variants.ts
+|       |       
+|       +---paginationUp
+|       |       index.ts
+|       |       pagination.tsx
+|       |       variants.ts
+|       |       
+|       +---photo-details-tooltip
+|       |       index.ts
+|       |       PhotoDetailsTooltip.tsx
+|       |       
+|       +---photo-gallery
+|       |       PhotoGalleryMenu.tsx
+|       |       PhotoGalleryModal.tsx
+|       |       
+|       +---popover
+|       |       index.ts
+|       |       popover.tsx
+|       |       
+|       +---progress
+|       |       index.tsx
+|       |       
+|       +---refresh-confirmation-modal
+|       |       index.ts
+|       |       RefreshConfirmationModal.tsx
+|       |       
+|       +---select
+|       |       index.ts
+|       |       select.tsx
+|       |       variants.ts
+|       |       
+|       +---separator
+|       |       index.tsx
+|       |       
+|       +---shadcn
+|       |   \---spinner
+|       |           index.tsx
+|       |           
+|       +---skeleton
+|       |       index.ts
+|       |       skeleton.tsx
+|       |       
+|       +---star-rating
+|       |       index.tsx
+|       |       variant.ts
+|       |       
+|       +---status-badge
+|       |       index.ts
+|       |       status-badge.tsx
+|       |       variants.ts
+|       |       
+|       +---stepper
+|       |       index.tsx
+|       |       
+|       +---switch
+|       |       index.ts
+|       |       switch.module.css
+|       |       switch.tsx
+|       |       variants.ts
+|       |       
+|       +---table
+|       |       index.ts
+|       |       table.tsx
+|       |       variants.ts
+|       |       
+|       +---textarea
+|       |       index.ts
+|       |       textarea.tsx
+|       |       variants.ts
+|       |       
+|       +---title-header
+|       |       index.ts
+|       |       TitleHeader.tsx
+|       |       
+|       +---toggle
+|       |       index.ts
+|       |       toggle.tsx
+|       |       variants.tsx
+|       |       
+|       +---tooltip
+|       |       index.tsx
+|       |       tooltip.tsx
+|       |       variants.ts
+|       |       
+|       \---verification-status
+|               verification-status.tsx
+|               
++---config
+|       env.config.ts
+|       index.ts
+|       s3.config.ts
+|       
++---const
+|       common-codes.const.ts
+|       common-options.const.ts
+|       document-authority.const.ts
+|       menu.const.ts
+|       
++---contexts
+|   |   AuthContext.ts
+|   |   AuthContext.tsx
+|   |   AuthProvider.tsx
+|   |   index.ts
+|   |   useAuthContext.ts
+|   |   
+|   \---loading
+|           index.ts
+|           LoadingContext.ts
+|           LoadingProvider.tsx
+|           useGlobalLoading.ts
+|           
++---docs
+|       S3_DMS_UPLOAD_IMPLEMENTATION.md
+|       S3_FILE_UPLOAD_IMPLEMENTATION.md
+|       
++---global
+|   +---reducers
+|   |   |   approval-confirmation.reducer.ts
+|   |   |   auth.reducer.ts
+|   |   |   form-dirty-modal-view.reducer.ts
+|   |   |   form-dirty-modal.reducer.ts
+|   |   |   form-dirty-view.reducer.ts
+|   |   |   form-dirty.reducer.ts
+|   |   |   form-disable-next.-view-reducer.ts
+|   |   |   form-disable-next.reducer.ts
+|   |   |   form-forward-page.reducer.ts
+|   |   |   form-unsaved-warning.reducer.ts
+|   |   |   form-warning-modal-view.reducer.ts
+|   |   |   form-warning-modal.reducer.ts
+|   |   |   index.ts
+|   |   |   menu.reducer.ts
+|   |   |   view-form-unsaved-warning.reducer.ts
+|   |   |   
+|   |   +---approval-workflow
+|   |   |       approval-view-modal.reducer.ts
+|   |   |       approver-role-mapping.reducer.ts
+|   |   |       workflow-actions.reducer.ts
+|   |   |       workflow-definitions.reducer.ts
+|   |   |       
+|   |   +---customer
+|   |   |       additional.reducer.ts
+|   |   |       address.reducer.ts
+|   |   |       bank.reducer.ts
+|   |   |       basicinfo.reducer.ts
+|   |   |       contact.reducer.ts
+|   |   |       customer-details.reducer.ts
+|   |   |       customer-identity-view.reducer.ts
+|   |   |       customer-identity.reducer.ts
+|   |   |       customer-onboard-form-dirty.reducer.ts
+|   |   |       customer-onboard-view.reducer.ts
+|   |   |       customer-onboard.reducer.ts
+|   |   |       form60-identity.reducer.ts
+|   |   |       form60.reducer.ts
+|   |   |       kyc.reducer.ts
+|   |   |       nominee.reducer.ts
+|   |   |       pan-card-status.reducer-view.ts
+|   |   |       pan-card-status.reducer.ts
+|   |   |       photo.reducer.ts
+|   |   |       prefill-kyc-data.reducer.ts
+|   |   |       
+|   |   +---firm
+|   |   |       firmOnboarding.reducer.ts
+|   |   |       
+|   |   +---lead
+|   |   |       lead-assignment.reducer.ts
+|   |   |       lead-details.reducer.ts
+|   |   |       
+|   |   +---loan
+|   |   |       business-rules.reducer.ts
+|   |   |       charge-master.reducer.ts
+|   |   |       gl-account-types.reducer.ts
+|   |   |       loan-scheme-attributes.reducer.ts
+|   |   |       loan-scheme-properties.reducer.ts
+|   |   |       
+|   |   \---loan-stepper
+|   |           loan-form-dirty.reducer.ts
+|   |           loan-product.reducer.ts
+|   |           
+|   +---service
+|   |   |   api-instance.ts
+|   |   |   axios-instance.ts
+|   |   |   base-instance.ts
+|   |   |   base-query.ts
+|   |   |   index.ts
+|   |   |   
+|   |   +---end-points
+|   |   |   |   auth.ts
+|   |   |   |   index.ts
+|   |   |   |   
+|   |   |   +---approval-workflow
+|   |   |   |       approval-queue.ts
+|   |   |   |       approver-role-mapping.ts
+|   |   |   |       stage-setup.ts
+|   |   |   |       user-delegation.ts
+|   |   |   |       user-leave-status.ts
+|   |   |   |       workflow-actions.ts
+|   |   |   |       workflow-amount.ts
+|   |   |   |       workflow-definitions.ts
+|   |   |   |       
+|   |   |   +---customer
+|   |   |   |       additional.ts
+|   |   |   |       address.ts
+|   |   |   |       all-details.ts
+|   |   |   |       bank.ts
+|   |   |   |       basic.ts
+|   |   |   |       canvasser.ts
+|   |   |   |       contact.ts
+|   |   |   |       customer.ts
+|   |   |   |       form60.ts
+|   |   |   |       kyc.ts
+|   |   |   |       nominee.ts
+|   |   |   |       photo.ts
+|   |   |   |       
+|   |   |   +---customer-extraction
+|   |   |   |       customer-extraction.service.ts
+|   |   |   |       
+|   |   |   +---customer-management
+|   |   |   |       agent-master.api.ts
+|   |   |   |       bank.ts
+|   |   |   |       branch-contact.ts
+|   |   |   |       customer-category.ts
+|   |   |   |       customer-group.api.ts
+|   |   |   |       designation-master.api.ts
+|   |   |   |       designation.ts
+|   |   |   |       document-master.api.ts
+|   |   |   |       document-type.api.ts
+|   |   |   |       firm-role.ts
+|   |   |   |       firm-type.ts
+|   |   |   |       industry-category.api.ts
+|   |   |   |       lead-sources.ts
+|   |   |   |       occupation.ts
+|   |   |   |       product-service.api.ts
+|   |   |   |       purpose.ts
+|   |   |   |       referral-sources.ts
+|   |   |   |       risk-categories.ts
+|   |   |   |       sectoral-performances.ts
+|   |   |   |       site-premise.api.ts
+|   |   |   |       source-of-income.ts
+|   |   |   |       staff.ts
+|   |   |   |       
+|   |   |   +---digilocker
+|   |   |   |       digilocker.api.ts
+|   |   |   |       
+|   |   |   +---dms
+|   |   |   |       dms.api.ts
+|   |   |   |       
+|   |   |   +---files
+|   |   |   |       dms-upload.ts
+|   |   |   |       s3-upload.ts
+|   |   |   |       
+|   |   |   +---Firm
+|   |   |   |       addressDetails.ts
+|   |   |   |       BusinessDetails.ts
+|   |   |   |       firm-photo.ts
+|   |   |   |       firmDetails-fixed.ts
+|   |   |   |       firmDetails.ts
+|   |   |   |       FirmProfile.ts
+|   |   |   |       index.ts
+|   |   |   |       
+|   |   |   +---lead
+|   |   |   |       lead-assignment.ts
+|   |   |   |       lead-details.ts
+|   |   |   |       lead-followup.ts
+|   |   |   |       
+|   |   |   +---loan-product-and-scheme
+|   |   |   |       business-rules.ts
+|   |   |   |       charge-slabs.ts
+|   |   |   |       document-requirements.ts
+|   |   |   |       gl-mappings.ts
+|   |   |   |       interest-slab.ts
+|   |   |   |       loan-approval.ts
+|   |   |   |       loan-attribute-value.ts
+|   |   |   |       loan-product-scheme.ts
+|   |   |   |       loan-scheme-property-values.ts
+|   |   |   |       ltv-slabs.ts
+|   |   |   |       recovery-priorities.ts
+|   |   |   |       
+|   |   |   +---loan-product-and-service-masters
+|   |   |   |       business-rules.ts
+|   |   |   |       charge-master.ts
+|   |   |   |       gl-account-types.ts
+|   |   |   |       loan-masters.ts
+|   |   |   |       loan-scheme-attributes.ts
+|   |   |   |       loan-scheme-properties.ts
+|   |   |   |       
+|   |   |   +---master
+|   |   |   |       firm-master.ts
+|   |   |   |       lead-master.ts
+|   |   |   |       loan-master.ts
+|   |   |   |       master.ts
+|   |   |   |       
+|   |   |   +---menu
+|   |   |   |       menu.ts
+|   |   |   |       
+|   |   |   +---organisation
+|   |   |   |       branches.api.ts
+|   |   |   |       unit-type.api.ts
+|   |   |   |       
+|   |   |   +---verification
+|   |   |   |       document-verification.ts
+|   |   |   |       
+|   |   |   \---workflow
+|   |   |           workflow-master-api.ts
+|   |   |           workflow-stages.api.ts
+|   |   |           
+|   |   \---logger
+|   |           error.logger.ts
+|   |           index.ts
+|   |           info.logger.ts
+|   |           warn.logger.ts
+|   |           
+|   +---store
+|   |       index.ts
+|   |       root-reducer.ts
+|   |       
+|   \---validation
+|       +---admin
+|       |       approver-role-map.ts
+|       |       workflow-amount-rules.ts
+|       |       workflow-stagesetup.ts
+|       |       
+|       +---approval-workflow
+|       |       approverRoleMapping-schema.ts
+|       |       user-delegation-schema.ts
+|       |       user-leave-status.ts
+|       |       workflowActions-schema.ts
+|       |       workflowAmountRules-schema.ts
+|       |       workflowDefinitions-schema.ts
+|       |       workflowStageStetup-schema.ts
+|       |       
+|       +---customer
+|       |       additionalOptional-schema.ts
+|       |       address-schema.ts
+|       |       bankAccount-schema.ts
+|       |       basicinfo-schema.ts
+|       |       ckycSearch-schema.ts
+|       |       contact-schma.ts
+|       |       contact-validation-schema.ts
+|       |       customer-search-schema.ts
+|       |       form60-schema.ts
+|       |       kyc-schema.ts
+|       |       kycCustomerSearch-schema.ts
+|       |       nominee-schema.ts
+|       |       photoLiveliness-schema.ts
+|       |       
+|       +---customer-management-master
+|       |       agent-master.ts
+|       |       asset-items.ts
+|       |       bank.ts
+|       |       branch-contact.ts
+|       |       customer-category.ts
+|       |       customer-group-master.ts
+|       |       designation.ts
+|       |       document-master.ts
+|       |       document-type.ts
+|       |       firm-role.ts
+|       |       firm-type.ts
+|       |       industry-category.ts
+|       |       lead-source.ts
+|       |       occupation.ts
+|       |       product-service.ts
+|       |       purpose.ts
+|       |       referral-source.ts
+|       |       risk-category.ts
+|       |       sectoral-performance.ts
+|       |       site-premise.ts
+|       |       source-income.ts
+|       |       staffs.ts
+|       |       
+|       +---firm
+|       |       firmAddress.schema.ts
+|       |       firmBankDetails.schema.ts
+|       |       firmBusinessInfo.schema.ts
+|       |       firmDetails-schema.ts
+|       |       firmDocument.schema.ts
+|       |       
+|       +---lead
+|       |       leadAssignment-schema.ts
+|       |       leadDetails-schema.ts
+|       |       leadFollowup-schema.ts
+|       |       
+|       +---loan-management
+|       |       collateral.ts
+|       |       customerInfo.ts
+|       |       loanApplication.ts
+|       |       paymentMode.ts
+|       |       
+|       +---loan-product-and-scheme
+|       |       businessRules.ts
+|       |       chargeSlabs.ts
+|       |       documentRequired.ts
+|       |       glHeads.ts
+|       |       interestSlab.ts
+|       |       loanAttributeValue.ts
+|       |       loanProductScheme.ts
+|       |       loanPropertyValue.ts
+|       |       ltvSlabs.ts
+|       |       recoveryPriority.ts
+|       |       
+|       +---loan-product-and-scheme-masters
+|       |       businessRules-schema.ts
+|       |       chargeMaster-schema.ts
+|       |       glAccountTypes-schema.ts
+|       |       loanSchemeAttributes-schema.ts
+|       |       loanSchemeProperties-schema.ts
+|       |       
+|       \---zonal-information
+|               admin-unit.ts
+|               zonal-information.ts
+|               
++---hooks
+|       customer-onboard.reducer.ts
+|       loan-stepper.reducer.ts
+|       store.ts
+|       useAuth.ts
+|       useAuthContext.ts
+|       useCustomerExtraction.ts
+|       useCustomerIdentity.ts
+|       useCustomerOnboardState.ts
+|       useDisableState.ts
+|       useDMSFileUpload.ts
+|       useFileUpload.ts
+|       useFileViewer.ts
+|       useFirmOnboardState.ts
+|       useFormDirtyState.ts
+|       useFormUnsavedChanges.ts
+|       useHydration.ts
+|       useLeadTemplateDownload.ts
+|       useLoanFormDirtyState.ts
+|       useMenu.ts
+|       useMobile.ts
+|       useOutSideClick.ts
+|       useRefreshConfirmation.ts
+|       useResendTimer.ts
+|       useS3FileUpload.ts
+|       useTemplateDownload.ts
+|       useUnsavedFormWaringState.ts
+|       useViewDocument.ts
+|       
++---layout
+|       AuthLayout.tsx
+|       BasePageLayout.tsx
+|       index.ts
+|       MainLayout.tsx
+|       
++---mocks
+|   +---admin
+|   |       approverFlowOptions.ts
+|   |       approverRoleMap.ts
+|   |       workflowAmountRules.ts
+|   |       
+|   +---customer-management-master
+|   |       agent-master.ts
+|   |       asset-item.ts
+|   |       bank.ts
+|   |       customer-group-master.ts
+|   |       designation.ts
+|   |       document-master.ts
+|   |       document-type.ts
+|   |       industry-category.ts
+|   |       lead-source.ts
+|   |       occupation.ts
+|   |       product-service.ts
+|   |       purpose.ts
+|   |       referral-source.ts
+|   |       risk-category.ts
+|   |       site-premise.ts
+|   |       staffs.ts
+|   |       
+|   +---firm
+|   |       firmMasterHandlers.ts
+|   |       
+|   +---loan
+|   |       appraiserInfo.ts
+|   |       charge-details.ts
+|   |       collateral-details.ts
+|   |       contact-info.ts
+|   |       loan-application.ts
+|   |       other-details.ts
+|   |       payment-mode.ts
+|   |       required-doc.ts
+|   |       scheme-details.ts
+|   |       
+|   +---organization
+|   |       admin-data.ts
+|   |       adminunit.ts
+|   |       zonal-information.ts
+|   |       
+|   \---user-role-data
+|           user-role-mapping-data.ts
+|           
++---pages
+|   +---admin
+|   |   |   index.tsx
+|   |   |   
+|   |   +---approval-workflow
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Filter
+|   |   |   |   |       ApproverRoleMapFilter.tsx
+|   |   |   |   |       
+|   |   |   |   +---Form
+|   |   |   |   |       ApproverRoleMapSetup.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           ApproverRoleMapTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           approverRoleMap-default.ts
+|   |   |           
+|   |   +---workflow-amount-rules
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Filter
+|   |   |   |   |       WorkFlowAmountRulesFilter.tsx
+|   |   |   |   |       
+|   |   |   |   +---Form
+|   |   |   |   |       WorkflowAmountRules.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           WorkflowAmountRulesTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           amountrule-defaultvalues.ts
+|   |   |           ApprovalFlowOptions.ts
+|   |   |           
+|   |   \---workflow-stages-setup
+|   |       |   index.tsx
+|   |       |   
+|   |       +---components
+|   |       |   +---Filter
+|   |       |   |       StageSetupFilter.tsx
+|   |       |   |       
+|   |       |   +---Form
+|   |       |   |       StagesSetup.tsx
+|   |       |   |       
+|   |       |   +---hooks
+|   |       |   |       useWorkflowMasterdata.ts
+|   |       |   |       useWorkflowStagesForm.ts
+|   |       |   |       useWorkflowStagesTable.ts
+|   |       |   |       
+|   |       |   \---Table
+|   |       |           StageSetupTable.tsx
+|   |       |           
+|   |       \---constants
+|   |               form.constants.ts
+|   |               
+|   +---approval-workflow
+|   |   +---approver-role-mapping
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       ApproverRoleMapping.tsx
+|   |   |   |   |       ApproverRoleMappingFilter.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           ApproverRoleMapping.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       form.constants.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useApproverRoleMappingFilter.ts
+|   |   |           useApproverRoleMappingForm.ts
+|   |   |           
+|   |   +---components
+|   |   |       WorkflowNavigation.tsx
+|   |   |       
+|   |   +---user-deligation
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       UserDelegation.tsx
+|   |   |   |   |       
+|   |   |   |   +---hooks
+|   |   |   |   |       index.ts
+|   |   |   |   |       useUserDelegation.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           UserDelegation.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           form.constants.ts
+|   |   |           
+|   |   +---workflow-actions
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       WorkflowActions.tsx
+|   |   |   |   |       WorkflowActionsFilter.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           WorkflowActions.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       form.constants.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useWorkflowActionsFilter.ts
+|   |   |           useWorkflowActionsForm.ts
+|   |   |           
+|   |   +---workflow-amount-rules
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       AmountRules.tsx
+|   |   |   |   |       AmountRulesFilter.tsx
+|   |   |   |   |       
+|   |   |   |   +---hooks
+|   |   |   |   |       index.ts
+|   |   |   |   |       useAmountRules.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           AmountRules.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           form.constants.ts
+|   |   |           
+|   |   +---workflow-approval-queue
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---filter
+|   |   |   |   |       ApprovalQueueFilter.tsx
+|   |   |   |   |       
+|   |   |   |   +---modal
+|   |   |   |   |       ApprovalQueueViewModal.tsx
+|   |   |   |   |       
+|   |   |   |   \---table
+|   |   |   |           ApprovalQueueTable.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       filter.constants.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useApprovalQueueFilter.ts
+|   |   |           useApprovalQueuePage.ts
+|   |   |           useApprovalQueueTable.tsx
+|   |   |           
+|   |   +---workflow-definitions
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       WorkflowDefinitions.tsx
+|   |   |   |   |       WorkflowDefinitionsFilter.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           WorkflowDefinitions.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       form.constants.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useWorkflowDefinitionsFilter.ts
+|   |   |           useWorkflowDefinitionsForm.ts
+|   |   |           
+|   |   +---workflow-stages-setup
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       StagesFilter.tsx
+|   |   |   |   |       StagesStep.tsx
+|   |   |   |   |       
+|   |   |   |   +---hooks
+|   |   |   |   |       index.ts
+|   |   |   |   |       useStageForm.ts
+|   |   |   |   |       useStageSetup.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           StagesStep.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           form.constants.ts
+|   |   |           
+|   |   \---workflow-user-leave-status
+|   |       |   index.tsx
+|   |       |   
+|   |       +---components
+|   |       |   +---filter
+|   |       |   |       UserLeaveStatusFilter.tsx
+|   |       |   |       
+|   |       |   +---form
+|   |       |   |       UserLeaveStatusForm.tsx
+|   |       |   |       
+|   |       |   +---modal
+|   |       |   |       LeaveStatusHistoryDetailView.tsx
+|   |       |   |       LeaveStatusHistoryModal.tsx
+|   |       |   |       LeaveStatusImportModal.tsx
+|   |       |   |       
+|   |       |   \---table
+|   |       |           UserLeaveStatusTable.tsx
+|   |       |           
+|   |       +---constants
+|   |       |       form.constants.ts
+|   |       |       
+|   |       \---hooks
+|   |               useLeaveStatus.ts
+|   |               useLeaveStatusHistory.ts
+|   |               useLeaveStatusHistoryDetail.ts
+|   |               useLeaveStatusImport.ts
+|   |               useLeaveStatusTableColumns.tsx
+|   |               useUserLeaveStatusFilter.ts
+|   |               useUserLeaveStatusForm.ts
+|   |               
+|   +---auth
+|   |   |   index.ts
+|   |   |   login-template.tsx
+|   |   |   login.tsx
+|   |   |   
+|   |   \---constants
+|   |           page-constants.ts
+|   |           
+|   +---customer
+|   |   |   index.tsx
+|   |   |   
+|   |   \---management
+|   |       \---onboading
+|   |           |   index.tsx
+|   |           |   
+|   |           +---additional-optional-details
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   \---Form
+|   |           |   |           AdditionalOptional.tsx
+|   |           |   |           MoreDetailsSection.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           index.ts
+|   |           |           
+|   |           +---address-details
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   \---Form
+|   |           |   |           Address.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---bank-account-details
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       BankAccount.tsx
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           BankAccount.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           index.ts
+|   |           |           
+|   |           +---basic-information
+|   |           |   |   index.ts
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   |   index.tsx
+|   |           |   |   |   
+|   |           |   |   \---Form
+|   |           |   |           BasicInformation.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           index.ts
+|   |           |           
+|   |           +---components
+|   |           |   |   CompletionModal.tsx
+|   |           |   |   PrefillDetectedModal.tsx
+|   |           |   |   
+|   |           |   +---Modal
+|   |           |   |       CompletionModal.tsx
+|   |           |   |       
+|   |           |   \---Table
+|   |           |           HistoryTable.tsx
+|   |           |           
+|   |           +---constants
+|   |           |       page-constants.ts
+|   |           |       
+|   |           +---contact-notification
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       Contact.tsx
+|   |           |   |   |       Notification.tsx
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           Contact.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.contants.ts
+|   |           |           
+|   |           +---customer-view
+|   |           |       onboarding-view.tsx
+|   |           |       
+|   |           +---form-60
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       Form60.tsx
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           Form60.tsx
+|   |           |   |           index.ts
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           index.ts
+|   |           |           
+|   |           +---helper
+|   |           |       page-helper.ts
+|   |           |       
+|   |           +---kyc-document
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       Kyc.tsx
+|   |           |   |   |       
+|   |           |   |   +---Modal
+|   |           |   |   |       CKYCSearchModal.tsx
+|   |           |   |   |       CustomerSearchModal.tsx
+|   |           |   |   |       OTPModal.tsx
+|   |           |   |   |       SearchModal.tsx
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           Kyc.tsx
+|   |           |   |           
+|   |           |   +---constants
+|   |           |   |       form.constants.ts
+|   |           |   |       index.ts
+|   |           |   |       
+|   |           |   \---hooks
+|   |           |           useDrivingLicenseDate.ts
+|   |           |           
+|   |           +---nominee-details
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       Nominee.tsx
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           Nominee.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           index.ts
+|   |           |           
+|   |           \---photo-liveliness
+|   |               |   index.tsx
+|   |               |   
+|   |               +---components
+|   |               |   |   DMSTestUpload.tsx
+|   |               |   |   
+|   |               |   +---Form
+|   |               |   |       PhotoLiveliness.tsx
+|   |               |   |       
+|   |               |   \---Table
+|   |               |           PhotoLiveliness.tsx
+|   |               |           
+|   |               \---constants
+|   |                       form.constants.ts
+|   |                       index.ts
+|   |                       
+|   +---customer-management
+|   |   |   index.tsx
+|   |   |   
+|   |   +---agent-master
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       AgentMasterForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useAgentMaster.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           AgentMasterTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           AgentMasterDefault.ts
+|   |   |           
+|   |   +---asset-management
+|   |   |   \---asset-group
+|   |   |       |   index.tsx
+|   |   |       |   
+|   |   |       +---components
+|   |   |       |   +---form
+|   |   |       |   |       AssetItemForm.tsx
+|   |   |       |   |       
+|   |   |       |   +---hook
+|   |   |       |   |       useAssetItem.tsx
+|   |   |       |   |       
+|   |   |       |   \---table
+|   |   |       |           AssetItemTable.tsx
+|   |   |       |           
+|   |   |       \---constants
+|   |   |               AssetItemDefault.ts
+|   |   |               
+|   |   +---banks
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       BanksForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useBanksForm.ts
+|   |   |   |   |       useBanksTable.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           BanksTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           Banks.ts
+|   |   |           
+|   |   +---branch-contacts
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       BranchContactForm.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           BranchContactTable.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       BranchContactsDefault.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useBranchContactForm.ts
+|   |   |           
+|   |   +---customer-category
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       CustomerCategoryForm.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           CustomerCategoryTable.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       CustomerCategoryDefault.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useCustomerCategoryForm.ts
+|   |   |           
+|   |   +---customer-group-master
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       CustomerGroupMasterForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useCustomerGroupMaster.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           CustomerGroupMasterTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           CustomerGroupMasterDefault.ts
+|   |   |           
+|   |   +---designation
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       DesignationForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useDesignationForm.ts
+|   |   |   |   |       useDesignationTable.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           DesignationTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           DesignationDefault.ts
+|   |   |           
+|   |   +---document-master
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       DocumentMasterForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useDocMaster.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           DocumentMasterTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           DocumentMasterFormDefault.ts
+|   |   |           
+|   |   +---document-type
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       DocumentTypeForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useDocumentType.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           DocumentTypeTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           DocumentTypeDefault.ts
+|   |   |           
+|   |   +---firm-role
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       FirmRoleForm.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           FirmRoleTable.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       FirmRoleDefault.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useFirmRoleForm.ts
+|   |   |           
+|   |   +---firm-type
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Forms
+|   |   |   |   |       FirmTypeForm.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           FirmTypeTable.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       FirmTypeDefault.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useFirmForm.ts
+|   |   |           
+|   |   +---industry-category
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       IndustryCategoryForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useIndustryCategory.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           IndustryCategoryTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           IndustryCategoryDefault.ts
+|   |   |           
+|   |   +---lead-source
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       LeadSourceForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useLeadSourceForm.ts
+|   |   |   |   |       useLeadSourceTable.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           LeadSourceTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           LeadSourceDefault.ts
+|   |   |           
+|   |   +---occupation
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       OccupationForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useOccupationForm.ts
+|   |   |   |   |       useOccupationTable.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           OccupationTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           OccupationDefault.ts
+|   |   |           
+|   |   +---product-service
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       ProductServiceForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useProductService.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           ProductServiceTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           ProdcuctServiceDefault.ts
+|   |   |           
+|   |   +---purpose
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       PurposeForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       usePurposeForm.ts
+|   |   |   |   |       usePurposeTable.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           PurposeTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           PurposeDefault.ts
+|   |   |           
+|   |   +---referal-sources
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       ReferralSourcesForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useReferralSources.ts
+|   |   |   |   |       useReferralSourcesTable.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           ReferralSourcesTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           ReferralSourceDefault.ts
+|   |   |           
+|   |   +---risk-category
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       RiskCategoryForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useRiskCategoryForm.ts
+|   |   |   |   |       useRiskCategoryTable.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           RiskCategoryTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           RiskCategoryDefault.ts
+|   |   |           
+|   |   +---sectoral-performance
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       SectoralPerformanceForm.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           SectoralPerformanceTable.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       SectoralPerformanceDefault.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useSectoralPerformanceForm.ts
+|   |   |           
+|   |   +---site-premise
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       SitePremiseForm.tsx
+|   |   |   |   |       
+|   |   |   |   +---Hooks
+|   |   |   |   |       useSitePremise.ts
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           SitePremiseTable.tsx
+|   |   |   |           
+|   |   |   \---constants
+|   |   |           SitePremiseDefault.tsx
+|   |   |           
+|   |   +---source-of-income
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       SourceOfIncomeForm.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           SourceOfIncomeTable.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       SourceOfIncomeDefault.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useSourceOfIncomeForm.ts
+|   |   |           
+|   |   \---staffs
+|   |       |   index.tsx
+|   |       |   
+|   |       +---components
+|   |       |   +---Form
+|   |       |   |       StaffsForm.tsx
+|   |       |   |       
+|   |       |   \---Table
+|   |       |           StaffsTable.tsx
+|   |       |           
+|   |       +---constants
+|   |       |       StaffsDefault.ts
+|   |       |       
+|   |       \---hooks
+|   |               useStaffForm.ts
+|   |               
+|   +---designation-mapping
+|   |   |   index.tsx
+|   |   |   
+|   |   +---components
+|   |   |   +---Form
+|   |   |   |   |   DesignationRoleMappingContainer.tsx
+|   |   |   |   |   
+|   |   |   |   \---kanban
+|   |   |   |           AssignedRoles.tsx
+|   |   |   |           AvailableRows.tsx
+|   |   |   |           DesignationColumn.tsx
+|   |   |   |           
+|   |   |   +---Hooks
+|   |   |   |       UseDesignationRoleMapping.ts
+|   |   |   |       useDesignationRoleMappingTable.ts
+|   |   |   |       
+|   |   |   \---Table
+|   |   |           DesignationRoleMappingTable.tsx
+|   |   |           
+|   |   \---constants
+|   |           index.ts
+|   |           
+|   +---digilocker
+|   |       DigilockerCallback.tsx
+|   |       
+|   +---firm
+|   |   |   index.tsx
+|   |   |   
+|   |   \---management
+|   |       \---onboarding
+|   |           |   index.tsx
+|   |           |   
+|   |           +---address-details
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   |   AddressDetails.tsx
+|   |           |   |   |   
+|   |           |   |   +---constants
+|   |           |   |   |       form.constants.tsx
+|   |           |   |   |       
+|   |           |   |   \---Form
+|   |           |   |           AddressDetailsSection.tsx
+|   |           |   |           AddressForm.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---bank-details
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       bank-details.tsx
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           bank-details.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---business-information
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   |   BusinessInformationContainer.tsx
+|   |           |   |   |   
+|   |           |   |   \---Form
+|   |           |   |           BusinessInformation.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---components
+|   |           |   \---Modal
+|   |           |           CompletionModal.tsx
+|   |           |           
+|   |           +---document-upload
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       Firm-Photo-Upload.tsx
+|   |           |   |   |       KYCDocument.tsx
+|   |           |   |   |       
+|   |           |   |   +---Modal
+|   |           |   |   |       CabinViewModal.tsx
+|   |           |   |   |       CapturePhotoModal.tsx
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           KYCDocument.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---firm-details
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       AssociatedPersonInfoSection.tsx
+|   |           |   |   |       CreateCustomer.tsx
+|   |           |   |   |       FirmDetails.tsx
+|   |           |   |   |       ProfileDetails.tsx
+|   |           |   |   |       
+|   |           |   |   +---Modal
+|   |           |   |   |       AssosiateSearch.tsx
+|   |           |   |   |       CustomerOnboardingModal.tsx
+|   |           |   |   |       FirmSearch.tsx
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           FirmDetailsTable.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           \---firm-view
+|   |                   FirmView.tsx
+|   |                   
+|   +---home
+|   |   |   index.tsx
+|   |   |   
+|   |   \---components
+|   |       |   Footer.tsx
+|   |       |   Header.tsx
+|   |       |   
+|   |       \---menu
+|   |               iconMap.ts
+|   |               index.ts
+|   |               MenuDropdown.tsx
+|   |               MenuHeader.tsx
+|   |               MenuItem.tsx
+|   |               MultiLevelMenu.tsx
+|   |               
+|   +---landing-page
+|   |   |   index.tsx
+|   |   |   
+|   |   \---constants
+|   |           page-constants.ts
+|   |           
+|   +---lead
+|   |   \---lead-and-sales
+|   |       +---lead-assignment
+|   |       |   |   index.tsx
+|   |       |   |   
+|   |       |   \---components
+|   |       |       +---constants
+|   |       |       |       form.constants.ts
+|   |       |       |       
+|   |       |       +---Form
+|   |       |       |       LeadAssignment.tsx
+|   |       |       |       
+|   |       |       +---Modal
+|   |       |       |       LeadAssignment.tsx
+|   |       |       |       
+|   |       |       \---Table
+|   |       |               LeadAssignment.tsx
+|   |       |               ModalLeadAssignment.tsx
+|   |       |               
+|   |       +---lead-details
+|   |       |   |   index.tsx
+|   |       |   |   
+|   |       |   +---components
+|   |       |   |   +---Form
+|   |       |   |   |       AdditionalReferenceSection.tsx
+|   |       |   |   |       AddressDetailsSection.tsx
+|   |       |   |   |       LeadDetails.tsx
+|   |       |   |   |       
+|   |       |   |   \---Modal
+|   |       |   |           ImportDetails.tsx
+|   |       |   |           ImportHistory.tsx
+|   |       |   |           LeadDetails.tsx
+|   |       |   |           LeadImport.tsx
+|   |       |   |           LeadSearch.tsx
+|   |       |   |           LeadSuccess.tsx
+|   |       |   |           
+|   |       |   \---constants
+|   |       |           form.constants.ts
+|   |       |           
+|   |       \---lead-followup
+|   |           |   index.tsx
+|   |           |   
+|   |           +---components
+|   |           |   +---Form
+|   |           |   |       LeadFollowupDetails.tsx
+|   |           |   |       LeadFollowupHistory.tsx
+|   |           |   |       LeadSingleFollowup.tsx
+|   |           |   |       
+|   |           |   +---Modal
+|   |           |   |       LeadFollowupHistory.tsx
+|   |           |   |       UnSavedChanges.tsx
+|   |           |   |       
+|   |           |   \---Table
+|   |           |           LeadFollowup.tsx
+|   |           |           LeadFollowupHistory.tsx
+|   |           |           
+|   |           \---constants
+|   |                   form.constants.ts
+|   |                   
+|   +---loan-product-and-scheme-masters
+|   |   +---business-rules-loan
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       BusinessRules.tsx
+|   |   |   |   |       BusinessRulesFilter.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           BusinessRules.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       form.constants.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useBusinessRulesFilter.ts
+|   |   |           useBusinessRulesForm.ts
+|   |   |           
+|   |   +---charge-master
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   \---components
+|   |   |       +---Form
+|   |   |       |       CalculationLogicForm.tsx
+|   |   |       |       ChargeDetailsForm.tsx
+|   |   |       |       ChargeMasterTabs.tsx
+|   |   |       |       StateCheckboxGrid.tsx
+|   |   |       |       StateSpecificConfiguration.tsx
+|   |   |       |       StateZoneSelector.tsx
+|   |   |       |       TaxConfiguration.tsx
+|   |   |       |       TaxConfigurationForm.tsx
+|   |   |       |       TaxSwitchSection.tsx
+|   |   |       |       
+|   |   |       +---Modal
+|   |   |       |       ChargeSearchModal.tsx
+|   |   |       |       
+|   |   |       \---Table
+|   |   |               CalculationLogicTable.tsx
+|   |   |               
+|   |   +---gl-account-types-loan
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       GlAccountTypes.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           GlAccountTypes.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       form.constants.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useGlAccountTypesForm.ts
+|   |   |           
+|   |   +---loan-scheme-attributes
+|   |   |   |   index.tsx
+|   |   |   |   
+|   |   |   +---components
+|   |   |   |   +---Form
+|   |   |   |   |       LoanSchemeAttributeFilter.tsx
+|   |   |   |   |       LoanSchemeAttributes.tsx
+|   |   |   |   |       
+|   |   |   |   \---Table
+|   |   |   |           LoanSchemeAttributes.tsx
+|   |   |   |           
+|   |   |   +---constants
+|   |   |   |       form.constants.ts
+|   |   |   |       
+|   |   |   \---hooks
+|   |   |           useLoanSchemeAttributeFilter.ts
+|   |   |           useLoanSchemeAttributesForm.ts
+|   |   |           
+|   |   \---loan-scheme-properties
+|   |       |   index.tsx
+|   |       |   
+|   |       +---components
+|   |       |   +---Form
+|   |       |   |       LoanSchemeProperties.tsx
+|   |       |   |       LoanSchemePropertiesFilter.tsx
+|   |       |   |       
+|   |       |   \---Table
+|   |       |           LoanSchemeProperties.tsx
+|   |       |           
+|   |       +---constants
+|   |       |       form.constants.ts
+|   |       |       
+|   |       \---hooks
+|   |               useLoanSchemePropertyFilter.ts
+|   |               useLoanSchemePropertyForm.ts
+|   |               
+|   +---loan-product-and-scheme-stepper
+|   |   |   index.tsx
+|   |   |   
+|   |   \---management
+|   |       \---onboarding
+|   |           |   index.tsx
+|   |           |   
+|   |           +---assignAttributeValue
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       AssignAtttributeValue.tsx
+|   |           |   |   |       
+|   |           |   |   \---hooks
+|   |           |   |           useAttributeValue.ts
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---assignPropertyValue
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       AssignPropertyValue.tsx
+|   |           |   |   |       
+|   |           |   |   +---hooks
+|   |           |   |   |       useAssignProperty.ts
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           AssignPropertyValue.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---businessRule
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       businessRule.tsx
+|   |           |   |   |       
+|   |           |   |   +---hooks
+|   |           |   |   |       useBusinessRule.ts
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           businessRule.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---chargeSlab
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       ChargeSlab.tsx
+|   |           |   |   |       
+|   |           |   |   +---hooks
+|   |           |   |   |       useChargeSlab.ts
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           ChargeSlab.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---components
+|   |           |   \---Modal
+|   |           |           CompletionModal.tsx
+|   |           |           
+|   |           +---configureGLHeads
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       GLHeads.tsx
+|   |           |   |   |       
+|   |           |   |   +---hooks
+|   |           |   |   |       useGLMapping.ts
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           GLHeads.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---createLoanScheme
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       CreateLoanScheme.tsx
+|   |           |   |   |       
+|   |           |   |   +---hooks
+|   |           |   |   |       useLoanScheme.ts
+|   |           |   |   |       
+|   |           |   |   \---Modal
+|   |           |   |           ReverseSearch.tsx
+|   |           |   |           SchemeSearch.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---createLTVSlabs
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       LTVSlabs.tsx
+|   |           |   |   |       
+|   |           |   |   +---hooks
+|   |           |   |   |       useLTVSlab.ts
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           LTVSlabs.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---documentRequirement
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       documentRequirement.tsx
+|   |           |   |   |       
+|   |           |   |   +---hooks
+|   |           |   |   |       useDocumentRequirement.ts
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           documentRequirement.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           +---interestSlabs
+|   |           |   |   index.tsx
+|   |           |   |   
+|   |           |   +---components
+|   |           |   |   +---Form
+|   |           |   |   |       InterestSlabs.tsx
+|   |           |   |   |       
+|   |           |   |   +---hooks
+|   |           |   |   |       useInterestSlab.ts
+|   |           |   |   |       
+|   |           |   |   \---Table
+|   |           |   |           InterestSlabs.tsx
+|   |           |   |           
+|   |           |   \---constants
+|   |           |           form.constants.ts
+|   |           |           
+|   |           \---recoveryPriority
+|   |               +---components
+|   |               |   +---Form
+|   |               |   |       RecoveryPriority.tsx
+|   |               |   |       
+|   |               |   +---hooks
+|   |               |   |       useRecoveryPriority.ts
+|   |               |   |       
+|   |               |   \---Table
+|   |               |           RecoveryPriority.tsx
+|   |               |           
+|   |               \---constants
+|   |                       form.constants.ts
+|   |                       
+|   +---not-found
+|   |       index.tsx
+|   |       
+|   \---zonal-information
+|       |   index.tsx
+|       |   
+|       +---components
+|       |   +---form
+|       |   |       AdminUnitRegistrationForm.tsx
+|       |   |       
+|       |   +---hooks
+|       |   |       useAdminTypeSelector.ts
+|       |   |       useAdminUnitManager.ts
+|       |   |       useAdminUnitTable.ts
+|       |   |       
+|       |   \---table
+|       |           adminUnitTable.tsx
+|       |           
+|       \---constants
+|               ZoneInformationConstants.ts
+|               
++---providers
+|       global-provider.tsx
+|       index.ts
+|       
++---routes
+|       auth.routes.tsx
+|       index.ts
+|       main.routes.tsx
+|       protected-list.routes.tsx
+|       protected.route.tsx
+|       public-list.routes.tsx
+|       root-redirect.tsx
+|       with-auth-redirection.tsx
+|       
++---services
+|   \---firm
+|           businessInformationService.ts
+|           
++---stories
+|   |   Configure.mdx
+|   |   
+|   \---assets
+|           accessibility.png
+|           accessibility.svg
+|           addon-library.png
+|           assets.png
+|           avif-test-image.avif
+|           context.png
+|           discord.svg
+|           docs.png
+|           figma-plugin.png
+|           github.svg
+|           share.png
+|           styling.png
+|           testing.png
+|           theming.png
+|           tutorials.svg
+|           youtube.svg
+|           
++---types
+|   |   api-error.ts
+|   |   index.ts
+|   |   
+|   +---admin
+|   |   |   amountrules.ts
+|   |   |   approverrolemap.ts
+|   |   |   workflow-stages.ts
+|   |   |   
+|   |   \---admin
+|   |           amountrules.ts
+|   |           approverrolemap.ts
+|   |           workflow-stages.ts
+|   |           
+|   +---api
+|   |       index.ts
+|   |       
+|   +---approval-workflow
+|   |       approval-queue.types.ts
+|   |       approver-role-mapping.types.ts
+|   |       user-delegation.types.ts
+|   |       user-leave-status.types.ts
+|   |       workflow-actions.types.ts
+|   |       workflow-amount.types.ts
+|   |       workflow-definitions.types.ts
+|   |       workflow-stagesetup.ts
+|   |       
+|   +---customer
+|   |       additional.types.ts
+|   |       address.types.ts
+|   |       address.types.zip
+|   |       bank.types.ts
+|   |       basic.types.ts
+|   |       common.types.ts
+|   |       contact.types.ts
+|   |       customer.types.ts
+|   |       form60.types.ts
+|   |       index.ts
+|   |       kyc.types.ts
+|   |       nominee.types.ts
+|   |       photo.types.ts
+|   |       shared.types.ts
+|   |       
+|   +---customer-management
+|   |       agent-master.ts
+|   |       asset-item.ts
+|   |       bank.ts
+|   |       branch-contact.ts
+|   |       customer-category.ts
+|   |       customer-group-master.ts
+|   |       designation.ts
+|   |       document-master.ts
+|   |       document-type.ts
+|   |       firm-role.ts
+|   |       firm-type.ts
+|   |       industry-category.ts
+|   |       lead-source.ts
+|   |       occupation.ts
+|   |       product-service.ts
+|   |       purpose.ts
+|   |       referral-sources.ts
+|   |       risk-category.ts
+|   |       sectoral-performance.ts
+|   |       site-premise.ts
+|   |       source-income.ts
+|   |       staffs.ts
+|   |       
+|   +---designation-role-mapping
+|   |       designation-mapping.ts
+|   |       
+|   +---device
+|   |       index.ts
+|   |       
+|   +---firm
+|   |       firm-address.types.ts
+|   |       firm-bankDetails.ts
+|   |       firm-businessInfo.ts
+|   |       firm-details.types.ts
+|   |       firm-document.types.ts
+|   |       firm-onboarding.types.ts
+|   |       
+|   +---hooks
+|   |       index.ts
+|   |       
+|   +---lead
+|   |       index.ts
+|   |       lead-assignment.types.ts
+|   |       lead-details.types.ts
+|   |       lead-followup.types.ts
+|   |       
+|   +---loan-management
+|   |       application-form-type.ts
+|   |       charge-details.ts
+|   |       collateral-detail-table.ts
+|   |       contact-info-form.ts
+|   |       payment-mode.ts
+|   |       required-documents.ts
+|   |       scheme-details.ts
+|   |       
+|   +---loan-product-and schema Stepper
+|   |       assign-attribute.types.ts
+|   |       assign-property.types.ts
+|   |       business-rules.types.ts
+|   |       charge-slab.types.ts
+|   |       create-loan-and-product.types.ts
+|   |       document-requirements.types.ts
+|   |       gl-mappings.types.ts
+|   |       index.ts
+|   |       interest-slabs.types.ts
+|   |       ltv-slabs.types.ts
+|   |       recovery-priority.ts
+|   |       scheme-data.types.ts
+|   |       
+|   +---loan-product-and-scheme-masters
+|   |       business-rules.types.ts
+|   |       charge-master.types.ts
+|   |       gl-account-types.types.ts
+|   |       loan-scheme-attributes.types.ts
+|   |       loan-scheme-properties.types.ts
+|   |       
+|   +---location
+|   |       index.ts
+|   |       
+|   +---menu
+|   |       index.ts
+|   |       
+|   +---organisation
+|   |       admin-unit.ts
+|   |       branch-registration.ts
+|   |       
+|   +---pages
+|   |       index.ts
+|   |       landing-template.ts
+|   |       onboarding.ts
+|   |       
+|   +---user
+|   |       index.ts
+|   |       
+|   \---zonal-information
+|           zonal-information.ts
+|           
+\---utils
+    |   age.utils.ts
+    |   api-debug.ts
+    |   charge-master-utils.ts
+    |   date-formatter.ts
+    |   digilocker-session.utils.ts
+    |   download.utils.ts
+    |   error-handler.ts
+    |   error.utils.ts
+    |   extractedCustomerSession.ts
+    |   file.utils.ts
+    |   form.utils.ts
+    |   format-date-to-DDMMYYYY.util.ts
+    |   get-jwt-data.ts
+    |   get-mime-type-from-file-name.util.ts
+    |   index.ts
+    |   kyc-diagnostic.ts
+    |   kyc-file-validation.ts
+    |   maskingUtils.ts
+    |   ocr.utils.ts
+    |   parseDuplicateIdentifierError.utils.ts
+    |   query.utils.ts
+    |   short-name-generator.ts
+    |   storage.utils.ts
+    |   tailwind.utils.ts
+    |   token.utils.ts
+    |   url.utils.ts
+    |   
+    +---device
+    |       device.utils.ts
+    |       index.ts
+    |       
+    \---location
+            digipin.utils.ts
+            

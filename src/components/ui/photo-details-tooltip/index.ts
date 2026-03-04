@@ -1,0 +1,1 @@
+export { PhotoDetailsTooltip } from "./PhotoDetailsTooltip";

@@ -1,0 +1,1 @@
+export { OTPModal } from "./OTPModal";
