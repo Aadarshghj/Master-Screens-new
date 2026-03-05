@@ -36,15 +36,16 @@ import { loanStepper } from "./loan/loanStepper.api";
 import { UserRoleMaster } from "./customer-management/userRoleMaster.ts";
 import { roleManagement } from "./customer-management/roleManagement";
 import { userReg } from "./customer-management/user-reg";
+import { menuModuleMapping } from "./customer-management/menu-module-mapping.ts";
+import { menuDetails } from "./customer-management/menu-module-mapping.ts";
+import { modules } from "./customer-management/menu-module-mapping.ts";
 import { riskAssessmentType } from "./customer-management/risk-assessment-type.ts";
 import { adminUnitType } from "./customer-management/admin-unit-type";
 import { branchType } from "./customer-management/branch-type.ts";
 import { designationRoleMapping } from "./customer-management/designationRoleMapping.ts";
 import { tenant } from "./customer-management/tenant";
-import { BranchStaffMapping } from "./branch-staff-mapping/branch-staff-api.ts";
+import { BranchStaffMapping } from "./customer-management/branch-staff-api.ts";
 import { subModule } from "./customer-management/sub-module";
-
-
 import { moduleApi } from "./customer-management/sub-module";
 
 export const api = {
@@ -88,6 +89,9 @@ export const api = {
   UserRoleMaster,
   roleManagement,
   userReg,
+  menuModuleMapping,
+  menuDetails,
+  modules,
   riskAssessmentType,
   branchType,
   designationRoleMapping,

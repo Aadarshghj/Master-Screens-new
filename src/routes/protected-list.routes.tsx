@@ -53,13 +53,14 @@ import DesignationRoleMappingPage from "@/pages/customer-management/designation-
 import { TenantPage } from "@/pages/customer-management/tenant";
 
 import { CoLendingSchemeMapPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-scheme-map/Index";
-import BranchStaffMappingPage from "@/pages/branch-staff-mapping";
+import BranchStaffMappingPage from "@/pages/customer-management/branch-staff-mapping";
 
 import UserRoleMappingPage from "@/pages/customer-management/user-mapping";
 
 import { GstCostMasterPage } from "@/pages/asset-management-system/gst-cost-master";
 import { DepreciationMethodsPage } from "@/pages/asset-management-system/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
+import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
 import { AssetModelPage } from "@/pages/asset-management-system/asset-model";
 import { TdsSectionPage } from "@/pages/asset-management-system/tds-section";
@@ -265,6 +266,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/user-reg",
         element: <UserRegPage />,
+      },
+      {
+        path: "/customer-management/master/menu-module-mapping",
+        element: <MenuModuleMappingPage />,
       },
       {
         path: "/customer-management/master/designation-role-mapping",

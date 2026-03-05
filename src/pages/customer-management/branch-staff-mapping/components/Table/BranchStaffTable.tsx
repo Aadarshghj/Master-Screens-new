@@ -1,16 +1,8 @@
 import React, { useMemo, useState } from "react";
-import { Search, AlertCircle } from "lucide-react";
-import {
-  createColumnHelper,
-  getCoreRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-
+import { Search } from "lucide-react";
+import { createColumnHelper, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { CommonTable } from "@/components";
-import type {
-  Branch,
-  AssignedStaff,
-} from "@/types/branch-staff-mapping/branch-staff";
+import type { Branch, AssignedStaff } from "@/types/customer-management/branch-staff";
 
 interface BranchStaffMappingTableProps {
   branches: Branch[];
@@ -20,34 +12,31 @@ interface BranchStaffMappingTableProps {
 
 const columnHelper = createColumnHelper<Branch>();
 
-export const BranchStaffMappingTable: React.FC<
-  BranchStaffMappingTableProps
-> = ({ branches, branchAssignments, onManageBranch }) => {
+export const BranchStaffMappingTable: React.FC<BranchStaffMappingTableProps> = ({
+  branches,
+  branchAssignments,
+  onManageBranch,
+}) => {
   const [globalFilter, setGlobalFilter] = useState("");
 
- 
-  const activeBranches = useMemo(() => {
-    return branches.filter((branch) => {
-      const staff = branchAssignments[branch.id] || [];
-      return staff.length > 0;
-    });
-  }, [branches, branchAssignments]);
+  const activeBranches = useMemo(
+    () => branches.filter((b) => (branchAssignments[b.id] || []).length > 0),
+    [branches, branchAssignments]
+  );
 
-  
   const filteredBranches = useMemo(() => {
     if (!globalFilter) return activeBranches;
 
     const lower = globalFilter.toLowerCase();
-
     return activeBranches.filter((branch) => {
       const branchMatch =
         branch.branchName.toLowerCase().includes(lower) ||
         branch.branchCode?.toLowerCase().includes(lower);
 
-      const staff = branchAssignments[branch.id] || [];
-
-      const staffMatch = staff.some((member) =>
-        member.staffName.toLowerCase().includes(lower)
+      const staffMatch = (branchAssignments[branch.id] || []).some(
+        (member) =>
+          member.staffName.toLowerCase().includes(lower) ||
+          member.staffCode.toLowerCase().includes(lower)
       );
 
       return branchMatch || staffMatch;
@@ -62,37 +51,29 @@ export const BranchStaffMappingTable: React.FC<
         cell: (info) => info.row.index + 1,
         size: 60,
       }),
-
-      columnHelper.accessor("branchName", {
-        header: "Branch",
-        cell: (info) => (
-          <span className="text-xs font-medium text-slate-700">
-            {info.getValue()}
-          </span>
-        ),
-      }),
-
+      columnHelper.accessor("branchName", { header: "Branch" }),
       columnHelper.display({
         id: "assignedStaff",
         header: "Assigned Staff",
         cell: ({ row }) => {
           const staff = branchAssignments[row.original.id] || [];
-
           return (
             <div className="flex flex-wrap gap-1.5">
               {staff.map((member) => (
                 <span
                   key={member.identity}
-                  className="inline-flex items-center rounded border border-blue-100 bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700"
+                  className="inline-flex items-center rounded border border-blue-100 bg-blue-50 px-2 py-1 text-[10px] font-medium text-blue-700"
                 >
-                  {member.staffName}
+                <div className="flex items-center gap-1 text-[10px] font-medium text-blue-700">
+             <span>{member.staffName}</span>
+               {member.staffCode && <span>- {member.staffCode}</span>}
+              </div>
                 </span>
               ))}
             </div>
           );
         },
       }),
-
       columnHelper.display({
         id: "actions",
         header: "Action",
@@ -118,18 +99,11 @@ export const BranchStaffMappingTable: React.FC<
   const isEmpty = filteredBranches.length === 0;
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
-
+    <div className="flex flex-col rounded-lg border border-slate-200 bg-white shadow-sm">
       <div className="flex items-center justify-between border-b border-slate-100 bg-white p-3">
-        <h3 className="text-sm font-semibold text-slate-700">
-          Branch Staff Overview
-        </h3>
-
+        <h3 className="text-sm font-semibold text-slate-700">Branch Staff Overview</h3>
         <div className="relative w-64">
-          <Search
-            className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
-            size={14}
-          />
+          <Search className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400" size={14} />
           <input
             type="text"
             placeholder="Search branch or staff..."
@@ -140,21 +114,11 @@ export const BranchStaffMappingTable: React.FC<
         </div>
       </div>
 
-      
-      <div className="relative flex-1 overflow-hidden p-3">
-        <CommonTable
-          table={table}
-          noDataText=""
-          className="h-full border-none"
-          size="default"
-        />
-
+      <div className="relative p-7">
+        <CommonTable table={table} noDataText="" className="h-full border-none" size="default" />
         {isEmpty && (
-          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center bg-white/50">
-            <div className="max-w-sm rounded-lg border border-slate-200 bg-slate-50 p-4 text-center text-xs text-slate-500">
-              <AlertCircle className="mx-auto mb-2 h-5 w-5 text-slate-400" />
-              <strong>No branch staff overview found.</strong>
-            </div>
+          <div className="py-10 text-center text-xs font-medium text-slate-500">
+            No branch staff overview found.
           </div>
         )}
       </div>
