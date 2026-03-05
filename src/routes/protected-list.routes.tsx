@@ -62,11 +62,11 @@ import { DepreciationMethodsPage } from "@/pages/customer-management/asset-maste
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
-import { AssetModelPage } from "@/pages/asset-management-system/asset-model";
-import { TdsSectionPage } from "@/pages/asset-management-system/tds-section";
+import { AssetModelPage } from "@/pages/customer-management/asset-master/asset-model";
+import { TdsSectionPage } from "@/pages/customer-management/asset-master/tds-section";
 import { AssetGroupPage } from "@/pages/asset-management-system/asset-group";
 import { AssetTypePage } from "@/pages/asset-management-system/asset-type/Index";
-import { TermsAndConditionPage } from "@/pages/asset-management-system/terms-and-conditions";
+import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/asset-management-system/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
 
