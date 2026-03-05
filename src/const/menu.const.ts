@@ -87,6 +87,12 @@ export const menu = [
             path: "/customer-management/master/role-management",
           },
           {
+            id: "sub-module-management",
+            title: "Sub Module Management",
+            path: "/customer-management/master/sub-module-management",
+          },
+
+          {
             id: "user-reg",
             title: "User Registration",
             path: "/customer-management/master/user-reg",
@@ -168,13 +174,13 @@ export const menu = [
             title: "User Role Mapping Master",
             path: "/customer-management/master/user-role-mapping",
           },
-          
+
           {
             id: "designation-role-mapping",
             title: "Designation Role Mapping Master",
             path: "/customer-management/master/designation-role-mapping",
           },
-           {
+          {
             id: "branch-staff-mapping",
             title: "Branch Staff Mapping",
             path: "/customer-management/master/branch-staff-mapping",
@@ -435,7 +441,6 @@ export const menu = [
             title: "Scheme Mapping",
             path: "/loan-management/schema-master/co-loan-scheme-mapping",
           },
-
         ],
       },
       {
@@ -488,7 +493,6 @@ export const menu = [
       },
     ],
   },
-
 
   {
     id: "asset-mgmt",
