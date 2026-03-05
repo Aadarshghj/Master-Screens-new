@@ -42,9 +42,12 @@ import { branchType } from "./customer-management/branch-type.ts";
 import { designationRoleMapping } from "./customer-management/designationRoleMapping.ts";
 import { tenant } from "./customer-management/tenant";
 import { BranchStaffMapping } from "./branch-staff-mapping/branch-staff-api.ts";
+import { subModule } from "./customer-management/sub-module";
 
 
-export const api = { 
+import { moduleApi } from "./customer-management/sub-module";
+
+export const api = {
   tenant,
   auth,
   customer,
@@ -60,7 +63,7 @@ export const api = {
   occupation,
   purposes,
   customerGroup,
-  adminUnitType, 
+  adminUnitType,
   agentMaster,
   industryCategory,
   sitePremise,
@@ -89,6 +92,8 @@ export const api = {
   branchType,
   designationRoleMapping,
   BranchStaffMapping,
+  subModule,
+  module: moduleApi,
 };
 
 export {

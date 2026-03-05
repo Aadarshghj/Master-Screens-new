@@ -67,6 +67,7 @@ import { AssetGroupPage } from "@/pages/asset-management-system/asset-group";
 import { AssetTypePage } from "@/pages/asset-management-system/asset-type/Index";
 import { TermsAndConditionPage } from "@/pages/asset-management-system/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/asset-management-system/supplier-risk-category/Index";
+import { SubModulePage } from "@/pages/customer-management/sub-module-management";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -256,6 +257,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/role-management",
         element: <RoleManagementPage />,
+      },
+      {
+         path: "/customer-management/master/sub-module-management",
+        element: <SubModulePage />,
       },
       {
         path: "/customer-management/master/user-reg",
