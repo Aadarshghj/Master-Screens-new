@@ -10,7 +10,7 @@ import { Form, Textarea } from "@/components";
 import type {
   UnitOfMeasureType,
 
-} from "@/types/asset-management-system/unit-of-measure";
+} from "@/types/customer-management/asset-master/unit-of-measure";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
 interface UnitOfMeasureProps {

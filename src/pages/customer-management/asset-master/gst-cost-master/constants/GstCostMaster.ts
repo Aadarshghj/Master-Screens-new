@@ -1,4 +1,4 @@
-import type { GstCostMasterType } from "@/types/asset-management-system/gst-cost-master";
+import type { GstCostMasterType } from "@/types/customer-management/asset-master/gst-cost-master";
 
 export const DEFAULT_VALUES: GstCostMasterType = {
   id: "",

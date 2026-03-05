@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-table";
 import { SquarePen } from "lucide-react";
 import { useGstCostMasterTable } from "../Hooks/useGstCostMasterTable";
-import type { GstCostMasterType } from "@/types/asset-management-system/gst-cost-master";
+import type { GstCostMasterType } from "@/types/customer-management/asset-master/gst-cost-master";
 
 const columnHelper = createColumnHelper<GstCostMasterType>();
 

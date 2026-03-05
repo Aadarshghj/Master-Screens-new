@@ -3,9 +3,9 @@ import { useForm, type Resolver } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type {
   GstCostMasterType
-} from "@/types/asset-management-system/gst-cost-master";
+} from "@/types/customer-management/asset-master/gst-cost-master";
 import { logger } from "@/global/service";
-import { gstCostMasterSchema } from "@/global/validation/asset-management-system/gst-cost-master";
+import { gstCostMasterSchema } from "@/global/validation/customer-management-master/asset-master/gst-cost-master";
 import { DEFAULT_VALUES } from "../../constants/GstCostMaster";
 
 export const useGstCostMasterForm = () => {

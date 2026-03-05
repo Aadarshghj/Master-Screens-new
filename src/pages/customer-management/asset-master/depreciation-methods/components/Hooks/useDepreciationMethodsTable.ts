@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { DEPRECIATIONMETHODS_SAMPLE_DATA } from "@/mocks/asset-management-system/depreciation-methods";
-import type {DepreciationMethodsType} from "@/types/asset-management-system/depreciation-methods"
+import { DEPRECIATIONMETHODS_SAMPLE_DATA } from "@/mocks/customer-management-master/asset-master/depreciation-methods";
+import type {DepreciationMethodsType} from "@/types/customer-management/asset-master/depreciation-methods"
 
 export const useDepreciationMethodsTable  = () => {
 
