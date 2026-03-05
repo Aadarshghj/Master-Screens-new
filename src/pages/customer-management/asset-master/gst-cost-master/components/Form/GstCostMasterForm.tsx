@@ -12,7 +12,7 @@ import { Form, Textarea } from "@/components";
 import type {
   GstCostMasterType,
 
-} from "@/types/asset-management-system/gst-cost-master";
+} from "@/types/customer-management/asset-master/gst-cost-master";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 import { InputWithSearch } from "@/components/ui/input-with-search";
 

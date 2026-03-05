@@ -12,7 +12,7 @@ import { Form, Textarea } from "@/components";
 import type {
   DepreciationMethodsType,
 
-} from "@/types/asset-management-system/depreciation-methods";
+} from "@/types/customer-management/asset-master/depreciation-methods";
 
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 

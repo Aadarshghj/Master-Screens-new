@@ -1,4 +1,4 @@
-import type { DepreciationMethodsType } from "@/types/asset-management-system/depreciation-methods";
+import type { DepreciationMethodsType } from "@/types/customer-management/asset-master/depreciation-methods";
 
 export const DEFAULT_VALUES: DepreciationMethodsType = {
   id: "",

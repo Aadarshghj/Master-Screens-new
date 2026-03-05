@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-table";
 import { SquarePen } from "lucide-react";
 import { useUnitOfMeasureTable } from "../Hooks/useUnitOfMeasureTable";
-import type { UnitOfMeasureType } from "@/types/asset-management-system/unit-of-measure";
+import type { UnitOfMeasureType } from "@/types/customer-management/asset-master/unit-of-measure";
 
 const columnHelper = createColumnHelper<UnitOfMeasureType>();
 

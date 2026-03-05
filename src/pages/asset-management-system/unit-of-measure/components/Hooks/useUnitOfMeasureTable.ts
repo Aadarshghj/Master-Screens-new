@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { UNITOFMEASURE_SAMPLE_DATA } from "@/mocks/asset-management-system/unit-of-measure";
-import type {UnitOfMeasureType} from "@/types/asset-management-system/unit-of-measure"
+import { UNITOFMEASURE_SAMPLE_DATA } from "@/mocks/customer-management-master/asset-master/unit-of-measure";
+import type {UnitOfMeasureType} from "@/types/customer-management/asset-master/unit-of-measure"
 
 export const useUnitOfMeasureTable  = () => {
 

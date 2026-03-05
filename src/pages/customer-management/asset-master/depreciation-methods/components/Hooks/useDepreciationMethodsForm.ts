@@ -3,9 +3,9 @@ import { useForm, type Resolver } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type {
   DepreciationMethodsType
-} from "@/types/asset-management-system/depreciation-methods";
+} from "@/types/customer-management/asset-master/depreciation-methods";
 import { logger } from "@/global/service";
-import { depreciationMethodsSchema } from "@/global/validation/asset-management-system/depreciation-methods"
+import { depreciationMethodsSchema } from "@/global/validation/customer-management-master/asset-master/depreciation-methods"
 import { DEFAULT_VALUES } from "../../constants/DepreciationMethods";
 export const useDepreciationMethodsForm = () => {
 
