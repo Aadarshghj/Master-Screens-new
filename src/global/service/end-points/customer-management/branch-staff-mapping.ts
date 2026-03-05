@@ -7,11 +7,11 @@ import type {
   BranchStaffRequestDto,
   BranchStaffResponseDto,
   staffApiResponse,
-} from "@/types/branch-staff-mapping/branch-staff";
+} from "@/types/customer-management/branch-staff";
 
 import { apiInstance } from "../../api-instance";
 import { api } from "@/api";
-import type { AdminUnitType } from "@/types/customer-management/admin-unit-type";
+import type { AdminUnitType } from "@/types/customer-management/branch-staff";
 
 export const BranchStaffMappingApi = apiInstance.injectEndpoints({
   endpoints: (build) => ({
@@ -69,7 +69,8 @@ export const BranchStaffMappingApi = apiInstance.injectEndpoints({
           id: item.identity,
           branchName: item.branchName,
           branchCode: item.branchCode,
-          adminUnitTypeIdentity:item.adminUnitTypeIdentity
+          adminUnitTypeIdentity:item.adminUnitTypeIdentity,
+          adminUnitTypeName:item.adminUnitTypeName,
         })),
     }),
     getAdminUnitTypes: build.query<AdminUnitType[], void>({
@@ -108,6 +109,7 @@ export const BranchStaffMappingApi = apiInstance.injectEndpoints({
           branchName: item.branchName,
           staffIdentity: item.staffIdentity,
           staffName: item.staffName,
+          staffCode:"",
           isActive: item.isActive,
           status: item.isActive ? "Active" : "Pending",
         })),
