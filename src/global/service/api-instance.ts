@@ -75,11 +75,11 @@ export const apiInstance = createApi({
     "RecoveryPriority",
     "ChargeSlabs",
     "BusinessRule",
-    "Staff",
     "UserRole",
     "RiskAssessmentType",
     "RoleManagement",
     "UserReg",
+
     "MenuModuleMapping",
     "branchType",
     "Branch",
@@ -89,6 +89,9 @@ export const apiInstance = createApi({
     "Timezone",
     "PermissionType",
     "Language",
+    "BranchStaffMapping",
+    "Branch",
+    "Staff",
   ],
   endpoints: () => ({}),
 });

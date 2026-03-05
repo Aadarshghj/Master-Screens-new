@@ -87,6 +87,12 @@ export const menu = [
             path: "/customer-management/master/role-management",
           },
           {
+            id: "sub-module-management",
+            title: "Sub Module Management",
+            path: "/customer-management/master/sub-module-management",
+          },
+
+          {
             id: "user-reg",
             title: "User Registration",
             path: "/customer-management/master/user-reg",
@@ -179,6 +185,63 @@ export const menu = [
             title: "Branch Staff Mapping",
             path: "/customer-management/master/branch-staff-mapping",
           },
+        ],
+      },
+      {
+        id: "asset-master",
+        title: "Asset Master",
+        icon: "User",
+        children: [
+           {
+            id: "unit-of-measure",
+            title: "Unit of Measure",
+            path: "/customer-management/asset-master/unit-of-measure",
+          },
+            {
+            id: "depreciation-methods",
+            title: "Depreciation Methods",
+            path: "/customer-management/asset-master/depreciation-methods",
+          },
+          {
+            id: "asset-item",
+            title: "Asset Item",
+            path: "/customer-management/asset-master/asset-item",
+          },
+            {
+            id: "gst-cost-master",
+            title: "GST Cost Master",
+            path: "/customer-management/asset-master/gst-cost-master",
+          },
+          {
+            id:"tds-section",
+            title:"TDS Section",
+            path:"/customer-management/asset-master/tds-section",
+          },
+           {
+            id:"asset-model",
+            title:"Asset Model",
+            path:"/customer-management/asset-master/asset-model",
+          },
+          {
+            id: "asset-group",
+            title: "Asset Group",
+            path: "/customer-management/asset-master/asset-group",
+          },
+           {
+                id: "asset-type",
+                title: "Asset Type",
+                path: "/customer-management/asset-master/asset-type"
+              },
+              {
+                id: "terms-and-conditions",
+                title: "Terms And Conditions",
+                path: "/customer-management/asset-master/terms-and-conditions"
+              },
+              {
+                id: "supplier-risk-category",
+                title: "Supplier Risk Category",
+                path: "/customer-management/asset-master/supplier-risk-category"
+              },
         ],
       },
     ],

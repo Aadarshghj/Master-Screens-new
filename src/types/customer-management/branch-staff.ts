@@ -3,6 +3,7 @@ export interface Branch {
   branchName: string;
   branchCode: string;
   adminUnitTypeIdentity: string;
+  adminUnitTypeName:string;
 }
 
 export interface AvailableStaff {
@@ -50,6 +51,7 @@ export interface BranchApiResponse {
   branchName: string;
   branchCode: string;
   adminUnitTypeIdentity: string;
+  adminUnitTypeName:string;
 }
 
 export interface staffApiResponse {

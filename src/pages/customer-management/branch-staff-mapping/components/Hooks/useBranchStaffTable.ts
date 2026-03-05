@@ -2,8 +2,6 @@ import { useMemo } from "react";
 import type {
   AssignedStaff,
   Branch,
-  staffApiResponse,
-  assignedStaffApiResponse,
 } from "@/types/customer-management/branch-staff";
 import {
   useGetAllBranchStaffMappingsQuery,
@@ -15,14 +13,16 @@ export const useBranchStaffMappingTable = () => {
   const { data: allStaff = [] } = useGetAllStaffQuery();
   const { data: mappingData = [] } = useGetAllBranchStaffMappingsQuery();
 
-
   const staffCodeMap = useMemo(() => {
     const map: Record<string, string> = {};
-    (allStaff as staffApiResponse[]).forEach((staff) => {
-      map[staff.identity] = staff.staffCode;
+
+    allStaff.forEach((staff) => {
+      map[staff.id] = staff.staffCode;
     });
+
     return map;
   }, [allStaff]);
+
 
   const groupedData = useMemo(() => {
     const map: Record<
@@ -30,7 +30,7 @@ export const useBranchStaffMappingTable = () => {
       { id: string; name: string; staff: AssignedStaff[] }
     > = {};
 
-    (mappingData as assignedStaffApiResponse[]).forEach((item) => {
+    mappingData.forEach((item) => {
       if (!map[item.branchIdentity]) {
         map[item.branchIdentity] = {
           id: item.branchIdentity,
@@ -40,9 +40,7 @@ export const useBranchStaffMappingTable = () => {
       }
 
       const staffCode =
-        staffCodeMap[item.staffIdentity] ||
-        allStaff.find((s) => s.staffName === item.staffName)?.staffCode ||
-        "";
+        staffCodeMap[item.staffIdentity] || "";
 
       map[item.branchIdentity].staff.push({
         identity: item.identity,
@@ -57,8 +55,7 @@ export const useBranchStaffMappingTable = () => {
     });
 
     return Object.values(map);
-  }, [mappingData, staffCodeMap, allStaff]);
-
+  }, [mappingData, staffCodeMap]);
 
   const branches: Branch[] = useMemo(
     () =>
@@ -67,16 +64,18 @@ export const useBranchStaffMappingTable = () => {
         branchName: b.name,
         branchCode: "",
         adminUnitTypeIdentity: "",
+        adminUnitTypeName:" "
       })),
     [groupedData]
   );
 
-
   const branchAssignments: Record<string, AssignedStaff[]> = useMemo(() => {
     const record: Record<string, AssignedStaff[]> = {};
+
     groupedData.forEach((b) => {
       record[b.id] = b.staff;
     });
+
     return record;
   }, [groupedData]);
 

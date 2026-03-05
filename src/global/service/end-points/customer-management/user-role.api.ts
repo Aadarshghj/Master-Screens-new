@@ -74,10 +74,11 @@ export const userRoleApiService = apiInstance.injectEndpoints({
         { type: "UserRole", id },
       ],
     }),
-
-    deleteUserRole: build.mutation<void, string>({
-      query: identity => ({
-        url: UserRoleMaster.Delete(identity),
+// 5. DELETE
+    deleteUserRole: build.mutation<void, { userId: string; roleId: string }>({
+      query: ({ userId, roleId }) => ({
+        // 👇 Now we pass both IDs into your Master function
+        url: UserRoleMaster.Delete(userId, roleId), 
         method: "DELETE",
       }),
       invalidatesTags: ["UserRole"],
