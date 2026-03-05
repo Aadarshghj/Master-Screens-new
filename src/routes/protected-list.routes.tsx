@@ -57,8 +57,8 @@ import BranchStaffMappingPage from "@/pages/customer-management/branch-staff-map
 
 import UserRoleMappingPage from "@/pages/customer-management/user-mapping";
 
-import { GstCostMasterPage } from "@/pages/asset-management-system/gst-cost-master";
-import { DepreciationMethodsPage } from "@/pages/asset-management-system/depreciation-methods";
+import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-cost-master";
+import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
