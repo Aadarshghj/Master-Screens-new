@@ -9,17 +9,17 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { SquarePen } from "lucide-react";
-import type { GstCostMasterType } from "@/types/asset-management-system/gst-cost-master";
-import { useGstCostMasterTable } from "@/pages/customer-management/asset-master/gst-cost-master/components/Hooks/useGstCostMasterTable";
+import { useUnitOfMeasureTable } from "../Hooks/useUnitOfMeasureTable";
+import type { UnitOfMeasureType } from "@/types/customer-management/asset-master/unit-of-measure";
 
-const columnHelper = createColumnHelper<GstCostMasterType>();
+const columnHelper = createColumnHelper<UnitOfMeasureType>();
 
-export const GstCostMasterTable: React.FC=()  => {
+export const UnitOfMeasureTable: React.FC=()  => {
   const {
     data,
     isFetching,
    onEdit,
-  } = useGstCostMasterTable();
+  } = useUnitOfMeasureTable();
 
   const columns = useMemo(
     () => [
@@ -29,28 +29,13 @@ export const GstCostMasterTable: React.FC=()  => {
         size:20,
         cell: ({ row }) => row.index + 1,
       }),
-      columnHelper.accessor("gstBreakup", {
-        header: "GST Breakup",
-        size:80
-      }),
-      columnHelper.accessor("gl", {
-        header: "GL",
+      columnHelper.accessor("unitCode", {
+        header: "Unit Code",
         size:80
       }),
       columnHelper.accessor("description", {
         header: "Description",
         size:300
-      }),
-      columnHelper.accessor("isActive", {
-        header: "Status",
-        cell:info=>{
-          const isActive = Boolean(info.getValue());
-          return(
-            <span className={`text-xs font-medium ${isActive?"text-green-600":"text-red-600"}`}>
-              {isActive ? "ACTIVE":"INACTIVE"}
-
-            </span>
-          )}
       }),
 
       columnHelper.display({
@@ -63,7 +48,7 @@ export const GstCostMasterTable: React.FC=()  => {
               className="text-primary hover:bg-primary/40 h-6 w-6 p-0"
               title="Edit"
               onClick={()=>onEdit(row.original)}
-              >
+            >
               <SquarePen size={13} />
             </Button>
         ),
@@ -115,7 +100,7 @@ export const GstCostMasterTable: React.FC=()  => {
         currentPage={table.getState().pagination.pageIndex}
         totalPages={table.getPageCount()}
         onPageChange={(page) => table.setPageIndex(page)}
- 
+
         onPreviousPage={() => table.previousPage()}
         onNextPage={() => table.nextPage()}
 

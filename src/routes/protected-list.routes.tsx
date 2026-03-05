@@ -59,7 +59,7 @@ import UserRoleMappingPage from "@/pages/customer-management/user-mapping";
 
 import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-cost-master";
 import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
-import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
+import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
 import { AssetModelPage } from "@/pages/asset-management-system/asset-model";

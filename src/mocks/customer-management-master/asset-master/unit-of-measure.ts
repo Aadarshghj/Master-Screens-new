@@ -1,4 +1,4 @@
-import type { UnitOfMeasureType } from "@/types/asset-management-system/unit-of-measure";
+import type { UnitOfMeasureType } from "@/types/customer-management/asset-master/unit-of-measure";
 
 export const UNITOFMEASURE_SAMPLE_DATA: UnitOfMeasureType[] = [
    { id: "1", unitCode: "Nos", description: "Number of items" },

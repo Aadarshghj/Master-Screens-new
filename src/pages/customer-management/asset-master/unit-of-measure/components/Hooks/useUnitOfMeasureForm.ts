@@ -3,9 +3,9 @@ import { useForm, type Resolver } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type {
   UnitOfMeasureType
-} from "@/types/asset-management-system/unit-of-measure";
+} from "@/types/customer-management/asset-master/unit-of-measure";
 import { logger } from "@/global/service";
-import { unitOfMeasureSchema } from "@/global/validation/asset-management-system/unit-of-measure";
+import { unitOfMeasureSchema } from "@/global/validation/customer-management-master/asset-master/unit-of-measure";
 import { DEFAULT_VALUES } from "../../constants/UnitOfMeasure";
 
 export const useUnitOfMeasureForm = () => {
