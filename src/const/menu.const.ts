@@ -87,6 +87,12 @@ export const menu = [
             path: "/customer-management/master/role-management",
           },
           {
+            id: "sub-module-management",
+            title: "Sub Module Management",
+            path: "/customer-management/master/sub-module-management",
+          },
+
+          {
             id: "user-reg",
             title: "User Registration",
             path: "/customer-management/master/user-reg",
@@ -168,13 +174,13 @@ export const menu = [
             title: "User Role Mapping Master",
             path: "/customer-management/master/user-role-mapping",
           },
-          
+
           {
             id: "designation-role-mapping",
             title: "Designation Role Mapping Master",
             path: "/customer-management/master/designation-role-mapping",
           },
-           {
+          {
             id: "branch-staff-mapping",
             title: "Branch Staff Mapping",
             path: "/customer-management/master/branch-staff-mapping",
@@ -378,7 +384,6 @@ export const menu = [
             title: "Scheme Mapping",
             path: "/loan-management/schema-master/co-loan-scheme-mapping",
           },
-
         ],
       },
       {
@@ -432,64 +437,63 @@ export const menu = [
     ],
   },
 
-
   {
     id: "asset-mgmt",
     title: "Asset Management System",
     icon: "TrendingUp",
     path: "/asset-management",
-     children: [
-            {
-            id: "unit-of-measure",
-            title: "Unit of Measure",
-            path: "/asset-management/unit-of-measure",
-          },
-            {
-            id: "depreciation-methods",
-            title: "Depreciation Methods",
-            path: "/asset-management/depreciation-methods",
-          },
-          {
-            id: "asset-item",
-            title: "Asset Item",
-            path: "/asset-management/asset-item",
-          },
-            {
-            id: "gst-cost-master",
-            title: "GST Cost Master",
-            path: "/asset-management/gst-cost-master",
-          },
-          {
-            id:"tds-section",
-            title:"TDS Section",
-            path:"/asset-management/tds-section",
-          },
-           {
-            id:"asset-model",
-            title:"Asset Model",
-            path:"/asset-management/asset-model",
-          },
-          {
-            id: "asset-group",
-            title: "Asset Group",
-            path: "/asset-management/asset-group",
-          },
-           {
-                id: "asset-type",
-                title: "Asset Type",
-                path: "/asset-management/asset-type"
-              },
-              {
-                id: "terms-and-conditions",
-                title: "Terms And Conditions",
-                path: "/asset-management/terms-and-conditions"
-              },
-              {
-                id: "supplier-risk-category",
-                title: "Supplier Risk Category",
-                path: "/asset-management/supplier-risk-category"
-              },
-            ]
+    children: [
+      {
+        id: "unit-of-measure",
+        title: "Unit of Measure",
+        path: "/asset-management/unit-of-measure",
+      },
+      {
+        id: "depreciation-methods",
+        title: "Depreciation Methods",
+        path: "/asset-management/depreciation-methods",
+      },
+      {
+        id: "asset-item",
+        title: "Asset Item",
+        path: "/asset-management/asset-item",
+      },
+      {
+        id: "gst-cost-master",
+        title: "GST Cost Master",
+        path: "/asset-management/gst-cost-master",
+      },
+      {
+        id: "tds-section",
+        title: "TDS Section",
+        path: "/asset-management/tds-section",
+      },
+      {
+        id: "asset-model",
+        title: "Asset Model",
+        path: "/asset-management/asset-model",
+      },
+      {
+        id: "asset-group",
+        title: "Asset Group",
+        path: "/asset-management/asset-group",
+      },
+      {
+        id: "asset-type",
+        title: "Asset Type",
+        path: "/asset-management/asset-type",
+      },
+      {
+        id: "terms-and-conditions",
+        title: "Terms And Conditions",
+        path: "/asset-management/terms-and-conditions",
+      },
+      {
+        id: "supplier-risk-category",
+        title: "Supplier Risk Category",
+        path: "/asset-management/supplier-risk-category",
+      },
+    ],
   },
   {
     id: "financial-accounting",

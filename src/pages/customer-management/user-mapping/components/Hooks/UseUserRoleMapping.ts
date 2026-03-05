@@ -314,11 +314,16 @@ export const useUserRoleMapping = () => {
   };
 
   const confirmRemoveRole = async () => {
-    if (!roleToRemove) return;
+    if (!roleToRemove || !selectedUserId) return;
+
     try {
-      await deleteRole(roleToRemove.id).unwrap();
+      await deleteRole({
+        userId: selectedUserId,
+        roleId: roleToRemove.roleId || "",
+      }).unwrap();
+
       logger.info("Role removed successfully", { toast: true });
-      setRoleToRemove(null); // Close the modal on success
+      setRoleToRemove(null); 
     } catch (error) {
       logger.error("Failed to remove role", { toast: true });
       console.log(error);

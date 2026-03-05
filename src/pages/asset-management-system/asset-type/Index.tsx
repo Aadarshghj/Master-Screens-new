@@ -23,17 +23,16 @@ export const AssetTypePage: React.FC = () => {
     isSubmitting,
     onSubmit,
     onReset,
-    onCancel
-
+    onCancel,
   } = useAssetType();
 
   const handleShowForm = () => {
-    setShowform(true)
-  }
+    setShowform(true);
+  };
   const handleCancelClick = () => {
-    onCancel()
-    setShowform(false)
-  }
+    onCancel();
+    setShowform(false);
+  };
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", href: "/", onClick: () => navigate("/") },
     {
@@ -68,7 +67,6 @@ export const AssetTypePage: React.FC = () => {
               <PlusCircle width={13} />
               Add Asset Type
             </NeumorphicButton>
-
           </div>
 
           {showForm && (
@@ -80,12 +78,9 @@ export const AssetTypePage: React.FC = () => {
               onSubmit={handleSubmit(onSubmit)}
               onCancel={handleCancelClick}
               onReset={onReset}
-
             />
           )}
-
         </section>
-
       </PageWrapper>
 
       <PageWrapper
@@ -99,7 +94,6 @@ export const AssetTypePage: React.FC = () => {
           <AssetTypeTable />
         </section>
       </PageWrapper>
-
     </div>
   );
-}
+};

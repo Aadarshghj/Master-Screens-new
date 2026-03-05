@@ -1,55 +1,75 @@
 import React from "react";
 import { RotateCcw, Save, X } from "lucide-react";
 import {
+  Controller,
   type Control,
   type FieldErrors,
   type UseFormRegister,
 } from "react-hook-form";
-import { Controller } from "react-hook-form";
-import { Flex, Input, Textarea, Label, Switch } from "@/components/ui";
+import { Flex, Input, Label, Select, Switch } from "@/components/ui";
 import { FormContainer } from "@/components/ui/form-container";
 import { Form } from "@/components";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-import type { SubModule } from "@/types/customer-management/sub-module-management-type";
 
-interface SubModuleProps {
-  control: Control<SubModule>;
-  errors: FieldErrors<SubModule>;
-  register: UseFormRegister<SubModule>;
+import type { SubModuleFormValues } from "../Hooks/UseSubModuleForm";
+
+interface SubModuleFormProps {
+  control: Control<SubModuleFormValues>;
+  errors: FieldErrors<SubModuleFormValues>;
+  register: UseFormRegister<SubModuleFormValues>;
   isSubmitting: boolean;
-  onSubmit: () => void;
+  isEdit: boolean;
+  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
   onCancel: () => void;
   onReset: () => void;
+  moduleOptions: { label: string; value: string }[];
+  isLoadingModules: boolean;
 }
-const isEdit = false;
-export const AssetTypeForm: React.FC<SubModuleProps
-> = ({
+
+export const SubModuleForm: React.FC<SubModuleFormProps> = ({
   control,
   errors,
   register,
   isSubmitting,
+  isEdit,
   onSubmit,
   onCancel,
   onReset,
+  moduleOptions,
+  isLoadingModules,
 }) => {
   return (
-    <FormContainer className="px-0 ">
+    <FormContainer className="px-0">
       <Form onSubmit={onSubmit}>
         <div className="mt-2">
           <Form.Row>
-            <Form.Col lg={2} md={6} span={12}>
-              <Form.Field label="Module">
-                <Input
-                  {...register("module")}
-                  placeholder="Auto Generated"
-                  size="form"
-                  variant="form"
-                  className="uppercase"
-                  disabled
+            <Form.Col lg={4} md={6} span={12}>
+              {/* Optional: if your Form.Field expects a string, you might need errors.module?.message */}
+              <Form.Field label="Module" required error={errors.module}>
+                <Controller
+                  name="module"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      options={moduleOptions}
+                      placeholder={
+                        isLoadingModules
+                          ? "Loading Modules..."
+                          : "Select Module"
+                      }
+                      size="form"
+                      variant="form"
+                      fullWidth
+                      itemVariant="form"
+                    />
+                  )}
                 />
               </Form.Field>
             </Form.Col>
-            <Form.Col lg={3} md={6} span={12}>
+
+            <Form.Col lg={4} md={6} span={12}>
               <Form.Field
                 label="Sub Module Code"
                 required
@@ -61,35 +81,37 @@ export const AssetTypeForm: React.FC<SubModuleProps
                   size="form"
                   variant="form"
                   className="uppercase"
+                  disabled={isEdit} // Keeps code immutable during edits
+                />
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={4} md={6} span={12}>
+              <Form.Field
+                label="Sub Module Name"
+                required
+                error={errors.subModuleName}
+              >
+                <Input
+                  {...register("subModuleName")}
+                  size="form"
+                  variant="form"
+                  className="uppercase"
                 />
               </Form.Field>
             </Form.Col>
 
             <Form.Col lg={3} md={12} span={12}>
               <Form.Field
-                label="Sub Module Name"
-                error={errors.subModuleName}
-              >
-                <Textarea
-                  {...register("subModuleName")}
-                  size="form"
-                  variant="form"
-                  className="uppercase"
-                  rows={3}
-                />
-              </Form.Field>
-            </Form.Col>
- <Form.Col lg={3} md={12} span={12}>
-              <Form.Field
                 label="Sub Module Description"
+                required
                 error={errors.subModuleDescription}
               >
-                <Textarea
+                <Input
                   {...register("subModuleDescription")}
                   size="form"
                   variant="form"
                   className="uppercase"
-                  rows={3}
                 />
               </Form.Field>
             </Form.Col>
@@ -108,7 +130,6 @@ export const AssetTypeForm: React.FC<SubModuleProps
                       <Switch
                         checked={!!field.value}
                         onCheckedChange={field.onChange}
-                        disabled={!isEdit}
                       />
                     )}
                   />
@@ -116,7 +137,7 @@ export const AssetTypeForm: React.FC<SubModuleProps
                 </Flex>
               </Flex>
             </Form.Col>
-</Form.Row>
+          </Form.Row>
 
           <Flex.ActionGroup className="mt-2 justify-end gap-4">
             <NeumorphicButton
@@ -126,8 +147,7 @@ export const AssetTypeForm: React.FC<SubModuleProps
               onClick={onCancel}
               disabled={isSubmitting}
             >
-              <X className="h-3 w-3" />
-              Cancel
+              <X className="h-3 w-3" /> Cancel
             </NeumorphicButton>
 
             <NeumorphicButton
@@ -137,8 +157,7 @@ export const AssetTypeForm: React.FC<SubModuleProps
               onClick={onReset}
               disabled={isSubmitting}
             >
-              <RotateCcw className="h-3 w-3" />
-              Reset
+              <RotateCcw className="h-3 w-3" /> Reset
             </NeumorphicButton>
 
             <NeumorphicButton
@@ -148,7 +167,11 @@ export const AssetTypeForm: React.FC<SubModuleProps
               disabled={isSubmitting}
             >
               <Save className="h-3 w-3" />
-              {isSubmitting ? "Saving..." : "Save Asset Type"}
+              {isSubmitting
+                ? "Saving..."
+                : isEdit
+                  ? "Update Sub Module"
+                  : "Save Sub Module"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>
