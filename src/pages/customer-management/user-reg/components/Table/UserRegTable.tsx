@@ -6,7 +6,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import type {
-  UserRegType
+  UserRegResponseDto,
+  //UserRegType
 } from "@/types/customer-management/user-reg";
 
 
@@ -14,10 +15,10 @@ import type {
 import { Pencil, Trash2 } from "lucide-react";
 import { useUserRegTable } from "../hooks/useUserRegTable";
 import { USER_TYPE_OPTIONS } from "@/mocks/customer-management-master/user-reg";
-const columnHelper = createColumnHelper<UserRegType>();
+const columnHelper = createColumnHelper<UserRegResponseDto>();
 
-interface UserRegTableProps{
-  onEdit:(identity:UserRegType)=>void;
+interface UserRegTableProps {
+  onEdit: (data: UserRegResponseDto) => void;
 }
 export const UserRegTable: React.FC<UserRegTableProps> = ({onEdit,}) => {
 
@@ -84,37 +85,37 @@ export const UserRegTable: React.FC<UserRegTableProps> = ({onEdit,}) => {
 
       
 
-      columnHelper.display({
-        id: "actions",
-        header: "Actions",
-        cell: ({row}) => {
-          const userId =row.original.id
-          return(
-             <div className="flex gap-2">
+      // columnHelper.display({
+      //   id: "actions",
+      //   header: "Actions",
+      //   cell: ({row}) => {
+      //     const userId =row.original.userId
+      //     return(
+      //        <div className="flex gap-2">
 
-            <Button
-              variant="ghost"
-              className="text-primary hover:bg-primary/40 h-6 w-6 p-0"
-              title="Edit user"
-              onClick={()=>onEdit(row.original)}
-            >
-              <Pencil size={13} />
-            </Button>
+      //       <Button
+      //         variant="ghost"
+      //         className="text-primary hover:bg-primary/40 h-6 w-6 p-0"
+      //         title="Edit user"
+      //         onClick={()=>onEdit(row.original)}
+      //       >
+      //         <Pencil size={13} />
+      //       </Button>
 
-            <button
-              title="Delete"
-            onClick={() => {if (!userId) return; openDeleteModal(userId)}}
-            className="text-destructive hover:opacity-80"
+      //       <button
+      //         title="Delete"
+      //       onClick={() => {if (!userId) return; openDeleteModal(userId)}}
+      //       className="text-destructive hover:opacity-80"
               
-            >
-              <Trash2 size={13} />
-            </button>
-          </div>
-          );
-        },
+      //       >
+      //         <Trash2 size={13} />
+      //       </button>
+      //     </div>
+      //     );
+      //   },
          
         
-      }),
+      // }),
     ],
     [openDeleteModal]
   );

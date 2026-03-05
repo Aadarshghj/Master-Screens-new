@@ -91,6 +91,11 @@ export const menu = [
             title: "User Registration",
             path: "/customer-management/master/user-reg",
           },
+          {
+            id: "menu-module-mapping",
+            title: "Menu Module Mapping",
+            path: "/customer-management/master/menu-module-mapping",
+          },
 
           {
             id: "firm-role",

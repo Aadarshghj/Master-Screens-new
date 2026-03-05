@@ -38,19 +38,18 @@ const onSubmit = useCallback(
       userName: data.userName.toUpperCase(),
       email: data.email,
       phoneNumber: data.phoneNumber,
-      userType: Number(data.userType),
+      userTypeIdentity: data.userType,
       fullName:data.fullName.toUpperCase(),
       isActive: data.isActive,
     };
     console.log(payload);
 
     try {
-      if(data.id){
-        await updateUserReg({identity:data.id,payload}).unwrap();
-      }
-      else{
-         await saveUserReg(payload).unwrap();
-      }
+      if (data.id && data.id.trim() !== "") {
+  await updateUserReg({ identity: data.id, payload }).unwrap();
+} else {
+  await saveUserReg(payload).unwrap();
+}
        logger.info("User saved successfully", { toast: true });
        reset(DEFAULT_VALUES);
     

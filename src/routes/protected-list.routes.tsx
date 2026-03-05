@@ -55,6 +55,7 @@ import UserRoleMappingPage from "@/pages/user-mapping";
 import { GstCostMasterPage } from "@/pages/asset-management-system/gst-cost-master";
 import { DepreciationMethodsPage } from "@/pages/asset-management-system/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/asset-management-system/unit-of-measure";
+import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -250,6 +251,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/user-reg",
         element: <UserRegPage />,
+      },
+      {
+        path: "/customer-management/master/menu-module-mapping",
+        element: <MenuModuleMappingPage />,
       },
       {
         path: "/customer-management/master/designation-role-mapping",

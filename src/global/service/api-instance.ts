@@ -80,6 +80,7 @@ export const apiInstance = createApi({
     "RiskAssessmentType",
     "RoleManagement",
     "UserReg",
+    "MenuModuleMapping",
     "branchType"
     ],
   endpoints: () => ({}),

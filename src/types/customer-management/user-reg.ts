@@ -1,5 +1,6 @@
 export interface UserRegType  {
     id?:string;
+    
     userCode: string;
     userName: string;
     email: string;
@@ -12,16 +13,16 @@ export interface UserRegType  {
 
 export interface UserRegRequestDto
   extends Record<string, unknown> {
-
     userCode: string;
     userName: string;
     email: string;
     phoneNumber: string;
-    userType: number;
+    userTypeIdentity: string;
     fullName:string;
   isActive: boolean;
 }
 export interface UserRegResponseDto{
+    userId:string;
     identity:string,
     userCode: string;
     userName: string;

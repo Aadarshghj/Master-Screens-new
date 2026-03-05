@@ -22,7 +22,7 @@ export const USER_REG_SAMPLE_DATA: UserRegType[] =[
 ]
 
 export const USER_TYPE_OPTIONS = [
-  { value: "1", label: "SYSTEM USER" },
-  { value: "2", label: "CUSTOMER" },
-  { value: "3", label: "STAFF" },
+  { value: "SYSTEM USER", label: "SYSTEM USER" },
+  { value: "CUSTOMER", label: "CUSTOMER" },
+  { value: "STAFF", label: "STAFF" },
 ];
