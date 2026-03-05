@@ -7,10 +7,11 @@ import {
   type BreadcrumbItem,
   PageWrapper,
 } from "@/components";
+
+import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 import { useDepreciationMethodsForm } from "./components/Hooks/useDepreciationMethodsForm";
 import { DepreciationMethodsForm } from "./components/Form/DepreciationMethodsForm";
 import { DepreciationMethodsTable } from "./components/Table/DepreciationMethodsTable";
-import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
 export const DepreciationMethodsPage: React.FC = () => {
   const navigate = useNavigate();
