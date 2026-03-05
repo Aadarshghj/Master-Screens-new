@@ -56,6 +56,7 @@ import { AssetCategoryPage } from "@/pages/asset/management/asset-category";
 import { MsmeTypePage } from "@/pages/asset/management/msme-type";
 import { ContactTypePage } from "@/pages/asset/management/contact-type";
 import { ProductReqListPage } from "@/pages/asset/management/product-req-list";
+import { PurchaseRequestPage } from "@/pages/asset/management/product-req-list/purchase-req";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -258,6 +259,10 @@ export const protectedRoutesList: RouteObject[] = [
           element: <ProductReqListPage/>,
          },
         ],
+      },
+      {
+        path:"/asset/manageemnt/product-req-list/purchase-req",
+        element: <PurchaseRequestPage/>
       },
       {
         path: "/customer-management/master/staffs",

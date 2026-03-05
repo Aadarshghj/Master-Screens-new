@@ -444,7 +444,7 @@ export const menu = [
         id:"product-req-list",
         title:"Product Request List",
         path:"/asset/management/product-req-list"
-      }
+      },
     ],
   },
   {
