@@ -1,12 +1,12 @@
 import type {
-  UserRegType,
+  // UserRegType,
   UserRegRequestDto,
   UserRegResponseDto,
-  UserSearchResponseDto,
+  // UserSearchResponseDto,
 } from "@/types/customer-management/user-reg";
 import { apiInstance } from "../../api-instance";
 import { api } from "@/api";
-import { userReg } from "@/api/customer-management/user-reg";
+//import { userReg } from "@/api/customer-management/user-reg";
 
 export const userRegistrationApiService = apiInstance.injectEndpoints({
   endpoints: build => ({
@@ -22,30 +22,16 @@ export const userRegistrationApiService = apiInstance.injectEndpoints({
       invalidatesTags: ["UserReg"],
     }),
 
-    getMasterUserReg: build.query<UserRegType[], void>({
-      query: () => ({
-        url: api.userReg.get(),
-        method: "GET",
-      }),
-      providesTags: ["UserReg"],
-
-      transformResponse: (
-        response: UserRegResponseDto[]
-      ): UserRegType[] =>
-        response.map(item => ({
-          id:item.identity,
-          userCode: item.userCode,
-          userName: item.userName,
-          fullName: item.fullName,
-          email: item.email,
-          phoneNumber: item.phoneNumber,
-          userType: item.userType,
-          isActive:item.isActive
-        })),
-    }),
+    getMasterUserReg: build.query<UserRegResponseDto[], void>({
+  query: () => ({
+    url: api.userReg.get(),
+    method: "GET",
+  }),
+  providesTags: ["UserReg"],
+}),
 
   updateUserReg: build.mutation<
-  UserRegResponseDto,
+  void,
   { identity: string; payload: UserRegRequestDto }
 >({
   query: ({ identity, payload }) => ({
@@ -56,37 +42,27 @@ export const userRegistrationApiService = apiInstance.injectEndpoints({
   invalidatesTags: ["UserReg"],
 }),
 
-getUserById: build.query<UserRegType, string>({
+getUserById: build.query<UserRegResponseDto, string>({
   query: identity => ({
     url: api.userReg.getById(identity),
     method: "GET",
   }),
-  transformResponse: (item: UserRegResponseDto): UserRegType => ({
-    id: item.identity,
-    userCode: item.userCode,
-    userName: item.userName,
-    fullName: item.fullName,
-    email: item.email,
-    phoneNumber: item.phoneNumber,
-    userType: item.userType,
-    isActive: item.isActive
-  }),
 }),
 
-searchUsers: build.query<UserRegType[], { userCode?: string; userName?: string; page?: number }>({
-  query: params => ({
-    url: api.userReg.search(params),
-    method: "GET",
-  }),
-  providesTags: ["UserReg"],
-}),
+// searchUsers: build.query<UserRegType[], { userCode?: string; userName?: string; page?: number }>({
+//   query: params => ({
+//     url: api.userReg.search(params),
+//     method: "GET",
+//   }),
+//   providesTags: ["UserReg"],
+// }),
 
-searchUserReg: build.query<UserSearchResponseDto, string>({
-  query: (userName) => ({
-    url: userReg.search({ userName }),
-    method: "GET",
-  }),
-}),
+// searchUserReg: build.query<UserSearchResponseDto, string>({
+//   query: (userName) => ({
+//     url: userReg.search({ userName }),
+//     method: "GET",
+//   }),
+// }),
 
 
     deleteUserReg: build.mutation<void, string>({
@@ -108,6 +84,6 @@ export const {
   
   useLazyGetMasterUserRegQuery,
   useDeleteUserRegMutation,
-  useSearchUserRegQuery,
-  useLazySearchUserRegQuery
+  // useSearchUserRegQuery,
+  // useLazySearchUserRegQuery
 } = userRegistrationApiService;

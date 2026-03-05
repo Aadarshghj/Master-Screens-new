@@ -80,10 +80,15 @@ export const apiInstance = createApi({
     "RiskAssessmentType",
     "RoleManagement",
     "UserReg",
+<<<<<<< HEAD
+    "MenuModuleMapping",
+    "branchType"
+=======
     "branchType",
     "BranchStaffMapping",
     "Branch",
     "Staff",
+>>>>>>> main
     ],
   endpoints: () => ({}),
 });
