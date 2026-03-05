@@ -30,7 +30,6 @@ import {
   DEFAULT_COUNTRY,
   DEFAULT_CURRENCY,
   DEFAULT_TIMEZONE,
-  TOAST_MESSAGES,
 } from "../../constants/ZoneInformationConstants";
 
 export const toTitleCase = (str: string): string =>
@@ -467,7 +466,7 @@ export const useAdminUnitManagerBase = ({
       const results = await fetchPincodeDetails(pincodeValue).unwrap();
       const record = results?.[0];
       if (!record) {
-        setPostOfficeError(TOAST_MESSAGES.PINCODE_NO_DATA);
+        setPostOfficeError("No data found for this PIN code.");
         setShowPostOfficeDropdown(true);
         return;
       }
@@ -487,8 +486,12 @@ export const useAdminUnitManagerBase = ({
       } else {
         setShowPostOfficeDropdown(true);
       }
-    } catch {
-      setPostOfficeError(TOAST_MESSAGES.PINCODE_NOT_FOUND);
+    } catch (error: unknown) {
+      const message =
+        typeof error === "object" && error !== null && "data" in error
+          ? (error as { data?: { message?: string } }).data?.message
+          : undefined;
+      setPostOfficeError(message ?? "PIN code not found. Please try again.");
       setShowPostOfficeDropdown(true);
     } finally {
       setPostOfficeLoading(false);
@@ -560,11 +563,11 @@ export const useAdminUnitManagerBase = ({
         console.log("Submitting payload:", JSON.stringify(payload, null, 2));
 
         if (editIdentity) {
-          await updateBranch({ id: editIdentity, payload }).unwrap();
-          toast.success(TOAST_MESSAGES.UPDATE_SUCCESS);
+          const result = await updateBranch({ id: editIdentity, payload }).unwrap();
+          toast.success(result?.message ?? "Updated successfully");
         } else {
-          await saveBranch(payload).unwrap();
-          toast.success(TOAST_MESSAGES.SAVE_SUCCESS);
+          const result = await saveBranch(payload).unwrap();
+          toast.success(result?.message ?? "Saved successfully");
         }
 
         resetRef.current(buildReset(data.adminUnitTypeIdentity));
@@ -576,9 +579,12 @@ export const useAdminUnitManagerBase = ({
 
         applyNextCode(savedUnitCode);
       } catch (error: unknown) {
-        const errData = (error as { data?: { message?: string } })?.data;
-        console.error("Backend error:", errData);
-        toast.error(errData?.message ?? TOAST_MESSAGES.SAVE_FAIL);
+        const message =
+          typeof error === "object" && error !== null && "data" in error
+            ? (error as { data?: { message?: string } }).data?.message
+            : undefined;
+        console.error("Backend error:", error);
+        toast.error(message ?? "Failed to save. Please try again.");
       }
     },
     [

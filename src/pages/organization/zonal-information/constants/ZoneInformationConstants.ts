@@ -31,17 +31,6 @@ export const PINCODE_MIN_LENGTH = 6;
 export const PINCODE_MIN_VALUE = 110001;
 export const PINCODE_MAX_VALUE = 999999;
 
-export const TOAST_MESSAGES = {
-  SAVE_SUCCESS: "Branch saved successfully",
-  UPDATE_SUCCESS: "Branch updated successfully",
-  SAVE_FAIL: "Failed to save. Please try again.",
-  DUPLICATE_BRANCH_CODE:
-    "Branch code already exists. Please use a different code.",
-  PINCODE_NOT_FOUND: "PIN code not found. Please try again.",
-  PINCODE_NO_DATA: "No data found for this PIN code.",
-  CODE_CHECK_WARN: "Branch code check unavailable, allowing submission:",
-} as const;
-
 export const VALIDATION_MESSAGES = {
   REQUIRED: "This field is required",
   DUPLICATE_CODE: "Branch code already exists",
@@ -84,20 +73,6 @@ export const VALIDATION_MESSAGES = {
   AUTH_DEALER_CODE_MAX: "Maximum 10 characters allowed",
   TBA_MAIN_KEY_MAX: "Maximum 20 characters allowed",
   REG_DIR_CODE_MAX: "Maximum 10 characters allowed",
-  CURRENCY_MAX: "Maximum 3 characters allowed",
-  CURRENCY_PATTERN: "Currency code must be uppercase letters only",
-  SIZE_MAX: "Maximum value is 9999",
-  EXT_COUNTERS_MAX: "Maximum value is 9999",
-  SPLIT_PREMISES_MAX: "Maximum value is 9999",
-  OFFICERS_MAX: "Maximum value is 99999",
-  NUMBER_MIN: "Cannot be negative",
-  NUMBER_TYPE: "Must be a number",
-  LAT_TYPE: "Latitude must be a number",
-  LAT_MIN: "Latitude must be between -90 and 90",
-  LAT_MAX: "Latitude must be between -90 and 90",
-  LNG_TYPE: "Longitude must be a number",
-  LNG_MIN: "Longitude must be between -180 and 180",
-  LNG_MAX: "Longitude must be between -180 and 180",
 } as const;
 
 export const BREADCRUMB = {

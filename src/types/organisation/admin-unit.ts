@@ -47,6 +47,7 @@ export interface ParentBranchDto {
 
 export interface BranchResponseDto {
   identity: string;
+  message: string;
   branchCode: string;
   branchName: string;
   branchShortName: string;

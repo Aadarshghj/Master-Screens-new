@@ -190,7 +190,7 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
               variant="ghost"
               size="xs"
               onClick={() => setViewRow(row.original)}
-              className="h-6 w-6 p-0 text-blue-500 hover:bg-blue-50"
+              className="h-6 w-6 p-0 text-blue-500 hover:bg-blue-50 hover:text-blue-700"
               title="View"
               aria-label={`View ${row.original.branchCode}`}
             >

@@ -1,28 +1,27 @@
 import type { AdminUnitDetails } from "@/types/organisation/admin-unit";
 import * as yup from "yup";
+import {
+  VALIDATION_MESSAGES,
+  PINCODE_MIN_VALUE,
+  PINCODE_MAX_VALUE,
+} from "@/pages/organization/zonal-information/constants/ZoneInformationConstants";
 
 const noTripleConsecutive = (value: string | undefined): boolean => {
   if (!value) return true;
   return !/(.)\1\1/i.test(value);
 };
-const noTripleConsecutiveMsg =
-  "Three or more identical consecutive characters are not allowed";
 
 const notAllSameChar = (value: string | undefined): boolean => {
   if (!value || value.length <= 1) return true;
   return !/^(.)\1+$/.test(value.trim());
 };
-const notAllSameCharMsg = "Value cannot consist of a single repeated character";
 
 const namePattern = /^[a-zA-Z0-9 \-/]+$/;
-const namePatternMsg =
-  "Only letters, numbers, spaces, hyphens, and slashes are allowed";
 
 const hasAtLeastOneLetter = (value: string | undefined): boolean => {
   if (!value) return true;
   return /[a-zA-Z]/.test(value);
 };
-const hasAtLeastOneLetterMsg = "Value must contain at least one letter";
 
 const isNonEmpty = (val: string | null | undefined) =>
   val !== null && val !== undefined && val.trim() !== "";
@@ -36,46 +35,32 @@ export const adminUnitRegistrationSchema = (): yup.ObjectSchema<
   return yup.object({
     identity: yup.string().defined(),
 
-    adminUnitTypeIdentity: yup.string().required("This field is required"),
+    adminUnitTypeIdentity: yup.string().required(VALIDATION_MESSAGES.REQUIRED),
 
-    // ✅ Removed: no-triple-consecutive and not-all-same tests
-    // Branch code is auto-generated (e.g. BR001) and must not be blocked
-    // by repeated character rules.
     branchCode: yup
       .string()
-      .required("This field is required")
-      .max(10, "Maximum 10 characters allowed")
-      .matches(
-        /^[A-Za-z0-9]+$/,
-        "Branch code must contain only letters and numbers"
-      ),
+      .required(VALIDATION_MESSAGES.REQUIRED)
+      .max(10, VALIDATION_MESSAGES.BRANCH_CODE_MAX)
+      .matches(/^[A-Za-z0-9]+$/, VALIDATION_MESSAGES.BRANCH_CODE_PATTERN),
 
     branchName: yup
       .string()
-      .required("This field is required")
-      .max(100, "Maximum 100 characters allowed")
-      .min(2, "Minimum 2 characters required")
-      .matches(namePattern, namePatternMsg)
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      )
-      .test("not-all-same", notAllSameCharMsg, notAllSameChar)
-      .test("has-letter", hasAtLeastOneLetterMsg, hasAtLeastOneLetter),
+      .required(VALIDATION_MESSAGES.REQUIRED)
+      .max(100, VALIDATION_MESSAGES.BRANCH_NAME_MAX)
+      .min(2, VALIDATION_MESSAGES.BRANCH_NAME_MIN)
+      .matches(namePattern, VALIDATION_MESSAGES.NAME_PATTERN)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive)
+      .test("not-all-same", VALIDATION_MESSAGES.NOT_ALL_SAME, notAllSameChar)
+      .test("has-letter", VALIDATION_MESSAGES.HAS_LETTER, hasAtLeastOneLetter),
 
     branchShortName: yup
       .string()
       .optional()
-      .max(50, "Maximum 50 characters allowed")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      )
-      .test("not-all-same", notAllSameCharMsg, notAllSameChar),
+      .max(50, VALIDATION_MESSAGES.SHORT_NAME_MAX)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive)
+      .test("not-all-same", VALIDATION_MESSAGES.NOT_ALL_SAME, notAllSameChar),
 
-    branchStatusIdentity: yup.string().required("This field is required"),
+    branchStatusIdentity: yup.string().required(VALIDATION_MESSAGES.REQUIRED),
 
     branchTypeIdentity: yup.string().optional(),
 
@@ -91,91 +76,64 @@ export const adminUnitRegistrationSchema = (): yup.ObjectSchema<
     registrationDate: yup
       .string()
       .nullable()
-      .test("required", "This field is required", isNonEmpty),
+      .test("required", VALIDATION_MESSAGES.REQUIRED, isNonEmpty),
 
     openingDate: yup
       .string()
       .nullable()
-      .test("required", "This field is required", isNonEmpty),
+      .test("required", VALIDATION_MESSAGES.REQUIRED, isNonEmpty),
 
     closingDate: yup.string().nullable().optional(),
     dateOfShift: yup.string().nullable().optional(),
 
     doorNumber: yup
       .string()
-      .required("This field is required")
-      .max(50, "Maximum 50 characters allowed")
-      .matches(
-        /^[a-zA-Z0-9/ -]+$/,
-        "Only letters, numbers, spaces, hyphens, and slashes are allowed"
-      )
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      ),
+      .required(VALIDATION_MESSAGES.REQUIRED)
+      .max(50, VALIDATION_MESSAGES.DOOR_NUMBER_MAX)
+      .matches(/^[a-zA-Z0-9/ -]+$/, VALIDATION_MESSAGES.DOOR_NUMBER_PATTERN)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive),
 
     addressLine1: yup
       .string()
-      .required("This field is required")
-      .max(100, "Maximum 100 characters allowed")
-      .min(5, "Minimum 5 characters required")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      )
-      .test("not-all-same", notAllSameCharMsg, notAllSameChar),
+      .required(VALIDATION_MESSAGES.REQUIRED)
+      .max(100, VALIDATION_MESSAGES.ADDRESS1_MAX)
+      .min(5, VALIDATION_MESSAGES.ADDRESS1_MIN)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive)
+      .test("not-all-same", VALIDATION_MESSAGES.NOT_ALL_SAME, notAllSameChar),
 
     addressLine2: yup
       .string()
-      .required("This field is required")
-      .max(100, "Maximum 100 characters allowed")
-      .min(3, "Minimum 3 characters required")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      )
-      .test("not-all-same", notAllSameCharMsg, notAllSameChar),
+      .required(VALIDATION_MESSAGES.REQUIRED)
+      .max(100, VALIDATION_MESSAGES.ADDRESS2_MAX)
+      .min(3, VALIDATION_MESSAGES.ADDRESS2_MIN)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive)
+      .test("not-all-same", VALIDATION_MESSAGES.NOT_ALL_SAME, notAllSameChar),
 
     landmark: yup
       .string()
-      .required("This field is required")
-      .max(100, "Maximum 100 characters allowed")
-      .min(3, "Minimum 3 characters required")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      )
-      .test("not-all-same", notAllSameCharMsg, notAllSameChar),
+      .required(VALIDATION_MESSAGES.REQUIRED)
+      .max(100, VALIDATION_MESSAGES.LANDMARK_MAX)
+      .min(3, VALIDATION_MESSAGES.LANDMARK_MIN)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive)
+      .test("not-all-same", VALIDATION_MESSAGES.NOT_ALL_SAME, notAllSameChar),
 
     placeName: yup
       .string()
-      .required("This field is required")
-      .max(100, "Maximum 100 characters allowed")
-      .min(2, "Minimum 2 characters required")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      )
-      .test("not-all-same", notAllSameCharMsg, notAllSameChar),
+      .required(VALIDATION_MESSAGES.REQUIRED)
+      .max(100, VALIDATION_MESSAGES.PLACE_NAME_MAX)
+      .min(2, VALIDATION_MESSAGES.PLACE_NAME_MIN)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive)
+      .test("not-all-same", VALIDATION_MESSAGES.NOT_ALL_SAME, notAllSameChar),
 
     pincode: yup
       .string()
-      .required("This field is required")
-      .matches(/^[1-9][0-9]{5}$/, "Pincode must be exactly 6 digits")
-      .test(
-        "valid-range",
-        "Pincode must be between 110001 and 999999",
-        value => {
-          if (!value) return false;
-          const num = Number(value);
-          return num >= 110001 && num <= 999999;
-        }
-      ),
+      .required(VALIDATION_MESSAGES.REQUIRED)
+      .matches(/^[1-9][0-9]{5}$/, VALIDATION_MESSAGES.PINCODE_PATTERN)
+      .test("valid-range", VALIDATION_MESSAGES.PINCODE_RANGE, value => {
+        if (!value) return false;
+        const num = Number(value);
+        return num >= PINCODE_MIN_VALUE && num <= PINCODE_MAX_VALUE;
+      }),
 
     pincodeIdentity: yup.string().optional(),
     postOfficeIdentity: yup.string().optional(),
@@ -211,131 +169,101 @@ export const adminUnitRegistrationSchema = (): yup.ObjectSchema<
     locationCode: yup
       .string()
       .optional()
-      .max(20, "Maximum 20 characters allowed")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      ),
+      .max(20, VALIDATION_MESSAGES.LOCATION_CODE_MAX)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive),
 
     parentAdminCode: yup
       .string()
       .optional()
-      .max(20, "Maximum 20 characters allowed")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      ),
+      .max(20, VALIDATION_MESSAGES.PARENT_ADMIN_CODE_MAX)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive),
 
     micrCode: yup
       .string()
       .optional()
-      .max(9, "MICR code must be exactly 9 digits")
-      .matches(/^[0-9]*$/, "MICR code must contain only digits")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      ),
+      .max(9, VALIDATION_MESSAGES.MICR_MAX)
+      .matches(/^[0-9]*$/, VALIDATION_MESSAGES.MICR_PATTERN)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive),
 
     ifscCode: yup
       .string()
       .optional()
-      .max(11, "IFSC code must be 11 characters")
-      .matches(
-        /^[A-Z]{4}0[A-Z0-9]{6}$|^$/,
-        "IFSC code must be in format: XXXX0XXXXXX (4 letters, 0, 6 alphanumeric)"
-      ),
+      .max(11, VALIDATION_MESSAGES.IFSC_MAX)
+      .matches(/^[A-Z]{4}0[A-Z0-9]{6}$|^$/, VALIDATION_MESSAGES.IFSC_PATTERN),
 
     swiftBicCode: yup
       .string()
       .optional()
-      .max(11, "SWIFT/BIC code must be 8 or 11 characters")
-      .matches(
-        /^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$|^$/,
-        "SWIFT/BIC code must be 8 or 11 characters (letters and numbers only)"
-      ),
+      .max(11, VALIDATION_MESSAGES.SWIFT_MAX)
+      .matches(/^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$|^$/, VALIDATION_MESSAGES.SWIFT_PATTERN),
 
     bsrCode: yup
       .string()
       .optional()
-      .max(7, "BSR code must be 7 digits")
-      .matches(/^[0-9]*$/, "BSR code must contain only digits"),
+      .max(7, VALIDATION_MESSAGES.BSR_MAX)
+      .matches(/^[0-9]*$/, VALIDATION_MESSAGES.BSR_PATTERN),
 
     authDealerCode: yup
       .string()
       .optional()
-      .max(10, "Maximum 10 characters allowed")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      ),
+      .max(10, VALIDATION_MESSAGES.AUTH_DEALER_CODE_MAX)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive),
 
     tbaMainKey: yup
       .string()
       .optional()
-      .max(20, "Maximum 20 characters allowed")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      ),
+      .max(20, VALIDATION_MESSAGES.TBA_MAIN_KEY_MAX)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive),
 
     regDirectoryCode: yup
       .string()
       .optional()
-      .max(10, "Maximum 10 characters allowed")
-      .test(
-        "no-triple-consecutive",
-        noTripleConsecutiveMsg,
-        noTripleConsecutive
-      ),
+      .max(10, VALIDATION_MESSAGES.REG_DIR_CODE_MAX)
+      .test("no-triple-consecutive", VALIDATION_MESSAGES.NO_TRIPLE_CONSECUTIVE, noTripleConsecutive),
 
     sizeId: yup
       .number()
       .nullable()
       .optional()
-      .typeError("Must be a number")
-      .min(0, "Cannot be negative")
-      .max(9999, "Maximum value is 9999"),
+      .typeError("Size must be a number")
+      .min(0, "Size cannot be negative")
+      .max(9999, "Size maximum value is 9999"),
 
     numExtensionCounters: yup
       .number()
       .nullable()
       .optional()
-      .typeError("Must be a number")
-      .min(0, "Cannot be negative")
-      .max(9999, "Maximum value is 9999"),
+      .typeError("Extension counters must be a number")
+      .min(0, "Extension counters cannot be negative")
+      .max(9999, "Extension counters maximum value is 9999"),
 
     linkServiceMainBranchId: yup
       .number()
       .nullable()
       .optional()
-      .typeError("Must be a number")
-      .min(0, "Cannot be negative"),
+      .typeError("Link service branch must be a number")
+      .min(0, "Link service branch cannot be negative"),
 
     numSplitPremises: yup
       .number()
       .nullable()
       .optional()
-      .typeError("Must be a number")
-      .min(0, "Cannot be negative")
-      .max(9999, "Maximum value is 9999"),
+      .typeError("Split premises must be a number")
+      .min(0, "Split premises cannot be negative")
+      .max(9999, "Split premises maximum value is 9999"),
 
     numOfficersAvailable: yup
       .number()
       .nullable()
       .optional()
-      .typeError("Must be a number")
-      .min(0, "Cannot be negative")
-      .max(99999, "Maximum value is 99999"),
+      .typeError("Officers available must be a number")
+      .min(0, "Officers available cannot be negative")
+      .max(99999, "Officers available maximum value is 99999"),
 
     baseCurrency: yup
       .string()
       .optional()
-      .max(3, "Maximum 3 characters allowed")
+      .max(3, "Currency code must be at most 3 characters")
       .matches(/^[A-Z]*$/, "Currency code must be uppercase letters only"),
 
     isMainBranchInLocation: yup.boolean().optional(),
