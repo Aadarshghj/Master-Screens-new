@@ -69,6 +69,7 @@ import { AssetTypePage } from "@/pages/customer-management/asset-master/asset-ty
 import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
+import { SupplierListPage } from "@/pages/asset-management-system/supplier-management/supplier-list";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -480,6 +481,10 @@ export const protectedRoutesList: RouteObject[] = [
             index: true,
             element: <SupplierRiskPage />,
           },
+          {
+  path: "/customer-management/asset-master/supplier-list-master",
+  element: <SupplierListPage />,
+},
         ],
       },
       {

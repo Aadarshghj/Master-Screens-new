@@ -242,6 +242,11 @@ export const menu = [
                 title: "Supplier Risk Category",
                 path: "/customer-management/asset-master/supplier-risk-category"
               },
+              {
+  id: "supplier-list-master",
+  title: "Supplier List Master",
+  path: "/customer-management/asset-master/supplier-list-master"
+},
         ],
       },
     ],
