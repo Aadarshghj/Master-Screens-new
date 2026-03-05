@@ -9,8 +9,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { SquarePen } from "lucide-react";
-import { useGstCostMasterTable } from "../Hooks/useGstCostMasterTable";
 import type { GstCostMasterType } from "@/types/customer-management/asset-master/gst-cost-master";
+import { useGstCostMasterTable } from "@/pages/customer-management/asset-master/gst-cost-master/components/Hooks/useGstCostMasterTable";
 
 const columnHelper = createColumnHelper<GstCostMasterType>();
 
