@@ -181,6 +181,63 @@ export const menu = [
           },
         ],
       },
+      {
+        id: "asset-master",
+        title: "Asset Master",
+        icon: "User",
+        children: [
+           {
+            id: "unit-of-measure",
+            title: "Unit of Measure",
+            path: "/customer-management/asset-master/unit-of-measure",
+          },
+            {
+            id: "depreciation-methods",
+            title: "Depreciation Methods",
+            path: "/customer-management/asset-master/depreciation-methods",
+          },
+          {
+            id: "asset-item",
+            title: "Asset Item",
+            path: "/customer-management/asset-master/asset-item",
+          },
+            {
+            id: "gst-cost-master",
+            title: "GST Cost Master",
+            path: "/customer-management/asset-master/gst-cost-master",
+          },
+          {
+            id:"tds-section",
+            title:"TDS Section",
+            path:"/customer-management/asset-master/tds-section",
+          },
+           {
+            id:"asset-model",
+            title:"Asset Model",
+            path:"/customer-management/asset-master/asset-model",
+          },
+          {
+            id: "asset-group",
+            title: "Asset Group",
+            path: "/customer-management/asset-master/asset-group",
+          },
+           {
+                id: "asset-type",
+                title: "Asset Type",
+                path: "/customer-management/asset-master/asset-type"
+              },
+              {
+                id: "terms-and-conditions",
+                title: "Terms And Conditions",
+                path: "/customer-management/asset-master/terms-and-conditions"
+              },
+              {
+                id: "supplier-risk-category",
+                title: "Supplier Risk Category",
+                path: "/customer-management/asset-master/supplier-risk-category"
+              },
+        ],
+      },
     ],
   },
   {
@@ -439,56 +496,7 @@ export const menu = [
     icon: "TrendingUp",
     path: "/asset-management",
      children: [
-            {
-            id: "unit-of-measure",
-            title: "Unit of Measure",
-            path: "/asset-management/unit-of-measure",
-          },
-            {
-            id: "depreciation-methods",
-            title: "Depreciation Methods",
-            path: "/asset-management/depreciation-methods",
-          },
-          {
-            id: "asset-item",
-            title: "Asset Item",
-            path: "/asset-management/asset-item",
-          },
-            {
-            id: "gst-cost-master",
-            title: "GST Cost Master",
-            path: "/asset-management/gst-cost-master",
-          },
-          {
-            id:"tds-section",
-            title:"TDS Section",
-            path:"/asset-management/tds-section",
-          },
-           {
-            id:"asset-model",
-            title:"Asset Model",
-            path:"/asset-management/asset-model",
-          },
-          {
-            id: "asset-group",
-            title: "Asset Group",
-            path: "/asset-management/asset-group",
-          },
-           {
-                id: "asset-type",
-                title: "Asset Type",
-                path: "/asset-management/asset-type"
-              },
-              {
-                id: "terms-and-conditions",
-                title: "Terms And Conditions",
-                path: "/asset-management/terms-and-conditions"
-              },
-              {
-                id: "supplier-risk-category",
-                title: "Supplier Risk Category",
-                path: "/asset-management/supplier-risk-category"
-              },
+          
             ]
   },
   {
