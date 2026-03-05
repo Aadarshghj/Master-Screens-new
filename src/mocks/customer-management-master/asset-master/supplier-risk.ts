@@ -1,4 +1,4 @@
-import type { SupplierRiskType } from "@/types/asset-management-system/supplier-risk";
+import type { SupplierRiskType } from "@/types/customer-management/asset-master/supplier-risk";
 
 
 export const SUPPLIER_RISK_SAMPLE_DATA: SupplierRiskType[] = [

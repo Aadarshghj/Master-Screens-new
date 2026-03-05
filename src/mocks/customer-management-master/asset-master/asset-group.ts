@@ -1,4 +1,4 @@
-import type { AssetGroupType } from "@/types/asset-management-system/asset-group.types";
+import type { AssetGroupType } from "@/types/customer-management/asset-master/asset-group.types";
 
 export const ASSET_GROUP_SAMPLE_DATA: AssetGroupType[] = [
   {

@@ -2,10 +2,10 @@ import { useCallback } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { logger } from "@/global/service";
-import { assetgroupSchema } from "@/global/validation/asset-management-system/asset-group";
+import { assetgroupSchema } from "@/global/validation/customer-management-master/asset-master/asset-group";
 import { ASSET_GROUP_DEFAULT_VALUES } from "../../constants/AssetGroupDefault";
-import { ASSET_TYPE_OPTIONS } from "@/mocks/asset-management-system/asset-group";
-import type { AssetGroupType } from "@/types/asset-management-system/asset-group.types";
+import { ASSET_TYPE_OPTIONS } from "@/mocks/customer-management-master/asset-master/asset-group";
+import type { AssetGroupType } from "@/types/customer-management/asset-master/asset-group.types";
 
 export const useAssetGroupForm = () => {
   const {

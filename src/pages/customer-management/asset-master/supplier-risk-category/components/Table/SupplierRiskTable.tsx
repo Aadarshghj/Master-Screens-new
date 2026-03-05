@@ -8,8 +8,8 @@ import {
 import { Pencil } from "@mynaui/icons-react";
 // import { Trash2 } from "lucide-react";
 import { Pagination } from "@/components/ui/paginationUp";
-import type { SupplierRiskType } from "@/types/asset-management-system/supplier-risk";
-import { SUPPLIER_RISK_SAMPLE_DATA } from "@/mocks/asset-management-system/supplier-risk";
+import type { SupplierRiskType } from "@/types/customer-management/asset-master/supplier-risk";
+import { SUPPLIER_RISK_SAMPLE_DATA } from "@/mocks/customer-management-master/asset-master/supplier-risk";
 
 
 const columnHelper = createColumnHelper<SupplierRiskType>();

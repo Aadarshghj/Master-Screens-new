@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import { ASSET_TYPE_DEFAULT_VALUE } from "../../constants/AssetTypeDefault";
-import { assetTypeSchema } from "@/global/validation/asset-management-system/asset-type";
-import type { AssetType, AssetTypeDto } from "@/types/asset-management-system/asset-type";
+import { assetTypeSchema } from "@/global/validation/customer-management-master/asset-master/asset-type";
+import type { AssetType, AssetTypeDto } from "@/types/customer-management/asset-master/asset-type";
 
 
 export const useAssetType = () => {

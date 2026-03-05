@@ -11,7 +11,7 @@ import {
 import { FormContainer } from "@/components/ui/form-container";
 import { Flex, Input, Label, Select, Switch } from "@/components/ui";
 import { Form, Textarea } from "@/components";
-import type { AssetGroupType } from "@/types/asset-management-system/asset-group.types";
+import type { AssetGroupType } from "@/types/customer-management/asset-master/asset-group.types";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 import type { Option } from "@/types/customer-management/designation";
 

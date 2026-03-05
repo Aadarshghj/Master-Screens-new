@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import { SUPPLIER_RISK_DEFAULT_VALUE } from "../../constants/SupplierRiskDefault";
-import { SupplierRiskSchema } from "@/global/validation/asset-management-system/supplier-risk";
-import type { SupplierRiskType, SupplierRiskTypeDto } from "@/types/asset-management-system/supplier-risk";
+import { SupplierRiskSchema } from "@/global/validation/customer-management-master/asset-master/supplier-risk";
+import type { SupplierRiskType, SupplierRiskTypeDto } from "@/types/customer-management/asset-master/supplier-risk";
 
 
 

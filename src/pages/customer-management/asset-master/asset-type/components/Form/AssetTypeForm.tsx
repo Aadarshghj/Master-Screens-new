@@ -10,7 +10,7 @@ import { Flex, Input, Textarea, Label, Switch } from "@/components/ui";
 import { FormContainer } from "@/components/ui/form-container";
 import { Form } from "@/components";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-import type { AssetType } from "@/types/asset-management-system/asset-type";
+import type { AssetType } from "@/types/customer-management/asset-master/asset-type";
 interface AssetTypeProps {
   control: Control<AssetType>;
   errors: FieldErrors<AssetType>;

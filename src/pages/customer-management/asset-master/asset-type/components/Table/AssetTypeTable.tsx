@@ -8,8 +8,8 @@ import {
 
 import { Pencil } from "@mynaui/icons-react";
 import { Pagination } from "@/components/ui/paginationUp";
-import type { AssetType } from "@/types/asset-management-system/asset-type";
-import { ASSET_TYPE_SAMPLE_DATA } from "@/mocks/asset-management-system/asset-type";
+import type { AssetType } from "@/types/customer-management/asset-master/asset-type";
+import { ASSET_TYPE_SAMPLE_DATA } from "@/mocks/customer-management-master/asset-master/asset-type";
 
 const columnHelper = createColumnHelper<AssetType>();
 

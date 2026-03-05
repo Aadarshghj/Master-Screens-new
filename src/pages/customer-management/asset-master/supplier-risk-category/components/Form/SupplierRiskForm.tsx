@@ -10,7 +10,7 @@ import { Flex, Input, Textarea, Label, Switch } from "@/components/ui";
 import { FormContainer } from "@/components/ui/form-container";
 import { Form } from "@/components";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-import type { SupplierRiskType } from "@/types/asset-management-system/supplier-risk";
+import type { SupplierRiskType } from "@/types/customer-management/asset-master/supplier-risk";
 interface SupplierRiskProps {
     control: Control<SupplierRiskType>;
     errors: FieldErrors<SupplierRiskType>;

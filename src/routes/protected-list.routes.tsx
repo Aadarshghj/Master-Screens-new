@@ -64,10 +64,10 @@ import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-m
 
 import { AssetModelPage } from "@/pages/customer-management/asset-master/asset-model";
 import { TdsSectionPage } from "@/pages/customer-management/asset-master/tds-section";
-import { AssetGroupPage } from "@/pages/asset-management-system/asset-group";
-import { AssetTypePage } from "@/pages/asset-management-system/asset-type/Index";
+import { AssetGroupPage } from "@/pages/customer-management/asset-master/asset-group";
+import { AssetTypePage } from "@/pages/customer-management/asset-master/asset-type/Index";
 import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/terms-and-conditions";
-import { SupplierRiskPage } from "@/pages/asset-management-system/supplier-risk-category/Index";
+import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
 
 export const protectedRoutesList: RouteObject[] = [
