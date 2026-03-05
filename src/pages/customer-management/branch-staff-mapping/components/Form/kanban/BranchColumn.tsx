@@ -112,11 +112,15 @@ const BranchItem: React.FC<BranchItemProps> = ({
         </div>
 
         <div className="min-w-0 flex-1">
-          <h4 className="truncate text-xs font-medium text-slate-800">
-            {item.branchName}
-          </h4>
+         <h4 className="truncate text-xs font-medium text-slate-800">
+  {item.branchName}
+  
+</h4>
           <p className="truncate text-[10px] text-slate-400">
             {item.branchCode || "No Code"}
+          </p>
+          <p className="truncate text-[10px] text-slate-400">
+            {item.adminUnitTypeName}
           </p>
         </div>
 

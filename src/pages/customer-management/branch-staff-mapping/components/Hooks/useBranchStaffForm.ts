@@ -1,17 +1,20 @@
-import { useState, useMemo } from "react";
-import type { AssignedStaff, AvailableStaff } from "@/types/customer-management/branch-staff";
+import React, { useState, useMemo } from "react";
+import type {
+  AssignedStaff,
+  AvailableStaff,
+} from "@/types/customer-management/branch-staff";
 import {
   useGetAllStaffQuery,
   useGetAllBranchesQuery,
   useGetAssignedStaffQuery,
   useSaveBranchStaffMappingMutation,
-  useDeleteBranchStaffMappingMutation,
-  useGetAdminUnitTypesQuery,
+  useDeleteBranchStaffMappingMutation,useGetAdminUnitTypesQuery,useGetAllBranchStaffMappingsQuery
 } from "@/global/service/end-points/customer-management/branch-staff-mapping";
+
 import { logger } from "@/global/service";
-import { ADMIN_UNIT_TYPE } from "../../constants/BranchStaffDefaults";
 
 export const useBranchStaffMapping = () => {
+
   const [selectedBranchId, setSelectedBranchId] = useState<string>("");
   const [branchSearchQuery, setBranchSearchQuery] = useState<string>("");
   const [staffSearchQuery, setStaffSearchQuery] = useState<string>("");
@@ -19,66 +22,75 @@ export const useBranchStaffMapping = () => {
   const [branchAssignments, setBranchAssignments] = useState<Record<string, AssignedStaff[]>>({});
   const [staffToRemove, setStaffToRemove] = useState<AssignedStaff | null>(null);
 
-  const { data: adminUnitTypes = [] } = useGetAdminUnitTypesQuery();
   const { data: allStaff = [], isLoading: allStaffLoading } = useGetAllStaffQuery();
   const { data: branchesData = [] } = useGetAllBranchesQuery();
-  const { data: assignedStaffBackend = [] } =
-    useGetAssignedStaffQuery(selectedBranchId, { skip: !selectedBranchId });
+  const { data: assignedStaffBackend = [] } = useGetAssignedStaffQuery(selectedBranchId, { skip: !selectedBranchId });
+  const { data: adminUnitTypes = [] } = useGetAdminUnitTypesQuery();
+  
+  const adminUnitTypeMap = React.useMemo<Record<string, string>>(() => {
+  return adminUnitTypes.reduce((acc, type) => {
+    if (type.isActive) {
+      acc[type.identity] = type.name;
+    }
+    return acc;
+  }, {} as Record<string, string>);
+}, [adminUnitTypes]);
 
+  const { data: allBranchStaffMappings = [] } = useGetAllBranchStaffMappingsQuery();
   const [saveBranchStaffMapping] = useSaveBranchStaffMappingMutation();
   const [deleteBranchStaffMapping] = useDeleteBranchStaffMappingMutation();
 
-  const branchAdminUnitTypeIdentity = useMemo(() => {
-    return adminUnitTypes.find(
-      (type) => type.code === ADMIN_UNIT_TYPE.BRANCH_CODE  && type.isActive
-    )?.identity;
-  }, [adminUnitTypes]);
 
-  const filteredBranches = useMemo(() => {
-    if (!branchAdminUnitTypeIdentity) return [];
-    return branchesData.filter(
-      (b) => b.adminUnitTypeIdentity === branchAdminUnitTypeIdentity
-    );
-  }, [branchesData, branchAdminUnitTypeIdentity]);
+ const branches = useMemo(() => {
+  const enhancedBranches = branchesData.map((b) => ({
+    ...b,
+    adminUnitTypeName:
+      adminUnitTypeMap[b.adminUnitTypeIdentity] || "",
+  }));
+
+  if (!branchSearchQuery) return enhancedBranches;
+
+  const lower = branchSearchQuery.toLowerCase();
+
+  return enhancedBranches.filter(
+    (b) =>
+      b.branchName?.toLowerCase().includes(lower) ||
+      b.branchCode?.toLowerCase().includes(lower) ||
+      b.adminUnitTypeName?.toLowerCase().includes(lower)
+  );
+}, [branchesData, branchSearchQuery, adminUnitTypeMap]);
 
   const selectedBranch = useMemo(
-    () => filteredBranches.find((b) => b.id === selectedBranchId) || null,
-    [filteredBranches, selectedBranchId]
+    () =>
+      branchesData.find((b) => b.id === selectedBranchId) || null,
+    [branchesData, selectedBranchId]
   );
 
-  const branches = useMemo(() => {
-    if (!branchSearchQuery) return filteredBranches;
-    const lower = branchSearchQuery.toLowerCase();
-    return filteredBranches.filter(
-      (b) =>
-        b.branchName.toLowerCase().includes(lower) ||
-        b.branchCode.toLowerCase().includes(lower)
-    );
-  }, [filteredBranches, branchSearchQuery]);
+  const backendAssignments = useMemo<
+    Record<string, AssignedStaff[]>
+  >(() => {
+    if (!selectedBranchId) return {};
 
- const backendAssignments = useMemo(() => {
-  if (!selectedBranchId) return {};
+    return {
+      [selectedBranchId]: assignedStaffBackend.map(
+        (s): AssignedStaff => ({
+          identity: s.identity,
+          staffIdentity: s.staffIdentity,
+          staffName: s.staffName,
+          staffCode: s.staffCode,
+          branchIdentity: s.branchIdentity,
+          branchName: s.branchName,
+          isActive: s.isActive,
+          status: s.isActive ? "Active" : "Pending",
+        })
+      ),
+    };
+  }, [assignedStaffBackend, selectedBranchId]);
 
-  return {
-    [selectedBranchId]: assignedStaffBackend.map((s) => {
-      const status: "Active" | "Pending" =
-        s.isActive ? "Active" : "Pending";
 
-      return {
-        identity: s.identity,
-        staffIdentity: s.staffIdentity,
-        staffName: s.staffName,
-        staffCode: s.staffCode, 
-        branchIdentity: s.branchIdentity,
-        branchName: s.branchName,
-        isActive: s.isActive,
-        status,
-      };
-    }),
-  };
-}, [assignedStaffBackend, selectedBranchId]);
-
-  const combinedAssignments = useMemo(() => {
+  const combinedAssignments = useMemo<
+    Record<string, AssignedStaff[]>
+  >(() => {
     const keys = new Set([
       ...Object.keys(backendAssignments),
       ...Object.keys(branchAssignments),
@@ -105,19 +117,42 @@ export const useBranchStaffMapping = () => {
     (s) => s.status === "Pending"
   ).length;
 
-  const availableStaff = useMemo(() => {
-    const assignedIds = new Set(assignedStaff.map((s) => s.staffIdentity));
-    const lower = staffSearchQuery.toLowerCase().trim();
+  const availableStaff = useMemo<AvailableStaff[]>(() => {
+  const assignedIds = new Set<string>();
+ 
+  allBranchStaffMappings.forEach((mapping) => {
+    if (mapping.isActive) {
+      assignedIds.add(mapping.staffIdentity);
+    }
+  });
 
-    return allStaff
-      .filter(
-        (s) =>
-          !assignedIds.has(s.id) &&
-          (s.staffName.toLowerCase().includes(lower) ||
-            s.staffCode.toLowerCase().includes(lower))
-      )
-      .map((s) => ({ ...s }));
-  }, [allStaff, assignedStaff, staffSearchQuery]);
+  Object.values(branchAssignments).forEach((staffList) => {
+    staffList.forEach((staff) => {
+      assignedIds.add(staff.staffIdentity);
+    });
+  });
+
+  const lower = staffSearchQuery.toLowerCase().trim();
+
+  return allStaff
+    .filter(
+      (staff) =>
+        !assignedIds.has(staff.id) &&
+        (staff.staffName.toLowerCase().includes(lower) ||
+          staff.staffCode.toLowerCase().includes(lower))
+    )
+    .map((staff) => ({
+      id: staff.id,
+      staffName: staff.staffName,
+      staffCode: staff.staffCode,
+    }));
+}, [
+  allStaff,
+  allBranchStaffMappings,
+  branchAssignments,
+  staffSearchQuery,
+]);
+
 
   const handleBranchSelect = (branchId: string) => {
     setSelectedBranchId(branchId);
@@ -131,7 +166,7 @@ export const useBranchStaffMapping = () => {
       identity: staff.id,
       staffIdentity: staff.id,
       staffName: staff.staffName,
-      staffCode:staff.staffCode,
+      staffCode: staff.staffCode,
       branchIdentity: selectedBranchId,
       branchName: selectedBranch?.branchName || "",
       isActive: false,
@@ -140,7 +175,10 @@ export const useBranchStaffMapping = () => {
 
     setBranchAssignments((prev) => ({
       ...prev,
-      [selectedBranchId]: [newStaff, ...(prev[selectedBranchId] || [])],
+      [selectedBranchId]: [
+        newStaff,
+        ...(prev[selectedBranchId] || []),
+      ],
     }));
   };
 
@@ -156,23 +194,31 @@ export const useBranchStaffMapping = () => {
       if (staffToRemove.status === "Pending") {
         setBranchAssignments((prev) => ({
           ...prev,
-          [selectedBranchId]: (prev[selectedBranchId] || []).filter(
-            (s) => s.staffIdentity !== staffToRemove.staffIdentity
+          [selectedBranchId]: (
+            prev[selectedBranchId] || []
+          ).filter(
+            (s) =>
+              s.staffIdentity !==
+              staffToRemove.staffIdentity
           ),
         }));
       } else {
-        await deleteBranchStaffMapping(staffToRemove.identity).unwrap();
+        await deleteBranchStaffMapping(
+          staffToRemove.identity
+        ).unwrap();
 
-        logger.info(`Staff ${staffToRemove.staffName} removed successfully!`, {
-          toast: true,
-        });
+        logger.info(
+          `Staff ${staffToRemove.staffName} removed successfully!`,
+          { toast: true }
+        );
       }
 
       setStaffToRemove(null);
     } catch (err) {
-      logger.error(`Failed to remove staff ${staffToRemove.staffName}`, {
-        toast: true,
-      });
+      logger.error(
+        `Failed to remove staff ${staffToRemove.staffName}`,
+        { toast: true }
+      );
       console.log(err);
     }
   };
@@ -205,14 +251,20 @@ export const useBranchStaffMapping = () => {
       }
 
       clearAssignedStaff();
-      logger.info("Staff assigned successfully!", { toast: true });
+
+      logger.info("Staff assigned successfully!", {
+        toast: true,
+      });
     } catch (err) {
-      logger.error("Failed to assign staff", { toast: true });
+      logger.error("Failed to assign staff", {
+        toast: true,
+      });
       console.log(err);
     } finally {
       setIsModalOpen(false);
     }
   };
+
 
   return {
     branches,
