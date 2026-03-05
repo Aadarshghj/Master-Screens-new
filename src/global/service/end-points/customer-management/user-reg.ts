@@ -1,5 +1,5 @@
 import type {
-  UserRegType,
+  // UserRegType,
   UserRegRequestDto,
   UserRegResponseDto,
   // UserSearchResponseDto,

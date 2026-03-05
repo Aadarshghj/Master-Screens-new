@@ -14,6 +14,7 @@ interface SourceOfIncomeFormProps {
   onSubmit: () => void;
   onCancel: () => void;
   onReset: () => void;
+  isEdit:boolean
 }
 
 export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
@@ -23,6 +24,7 @@ export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
   onSubmit,
   onCancel,
   onReset,
+  isEdit
 }) => {
   return (
     <FormContainer className="px-0">
@@ -90,7 +92,7 @@ export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
               disabled={isSubmitting}
             >
               <Save width={13} />
-              {isSubmitting ? "Saving..." : "Save Source of Income"}
+              {isSubmitting ? "Saving..." : isEdit?"Update Source of Income":"Save Source of Income"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>

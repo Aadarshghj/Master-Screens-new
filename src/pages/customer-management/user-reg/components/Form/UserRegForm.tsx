@@ -196,8 +196,6 @@ export const UserRegForm: React.FC<UserRegProps> = ({
 
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field label="User Type" required error={errors.userType}>
-
-
                 <Controller
                   name="userType"
                   control={control}

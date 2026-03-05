@@ -1,6 +1,6 @@
 export interface AdminUnitType {
   identity: string,
-  adminUnitCode: string,
+  code: string,
   description: string,
   adminUnitType: string,
   isActive: boolean,

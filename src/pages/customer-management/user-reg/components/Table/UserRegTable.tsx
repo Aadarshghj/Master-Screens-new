@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Grid, CommonTable, Button, ConfirmationModal } from "@/components";
+import { Grid, CommonTable, ConfirmationModal } from "@/components";
 import {
   createColumnHelper,
   getCoreRowModel,
@@ -12,7 +12,7 @@ import type {
 
 
 
-import { Pencil, Trash2 } from "lucide-react";
+// import { Pencil, Trash2 } from "lucide-react";
 import { useUserRegTable } from "../hooks/useUserRegTable";
 import { USER_TYPE_OPTIONS } from "@/mocks/customer-management-master/user-reg";
 const columnHelper = createColumnHelper<UserRegResponseDto>();
@@ -20,7 +20,8 @@ const columnHelper = createColumnHelper<UserRegResponseDto>();
 interface UserRegTableProps {
   onEdit: (data: UserRegResponseDto) => void;
 }
-export const UserRegTable: React.FC<UserRegTableProps> = ({onEdit,}) => {
+export const UserRegTable: React.FC<UserRegTableProps> = () => {
+// export const UserRegTable: React.FC<UserRegTableProps> = ({onEdit,}) => {
 
    const {
       data,

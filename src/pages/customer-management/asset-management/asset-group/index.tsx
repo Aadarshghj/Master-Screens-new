@@ -104,8 +104,15 @@ export const AssetItemPage: React.FC = () => {
             </div>
           )}
         </section>
-
-        <section className="px-4 pt-0 pb-6 lg:px-8 xl:px-10">
+      </PageWrapper>
+      <PageWrapper
+        variant="default"
+        padding="xl"
+        maxWidth="full"
+        contentPadding="sm"
+        className="m-0 min-h-fit pt-4"
+      >
+        <section className="px-4 pt-4 pb-6 lg:px-8 xl:px-10">
           <AssetItemTable onEdit={setEditingItem} />
         </section>
       </PageWrapper>

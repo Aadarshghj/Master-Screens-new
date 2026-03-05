@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Breadcrumb,
@@ -7,15 +7,22 @@ import {
   TitleHeader,
   type BreadcrumbItem,
 } from "@/components";
-import { SourceOfIncomeForm } from "./components/Form/SourceOfIncomeForm";
-import { SourceOfIncomeTable } from "./components/Table/SourceOfIncomeTable";
-import { useSourceOfIncomeFormController } from "./hooks/useSourceOfIncomeForm";
 import { PlusCircle } from "lucide-react";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
+import { SourceOfIncomeForm } from "./components/Form/SourceOfIncomeForm";
+import { SourceOfIncomeTable } from "./components/Table/SourceOfIncomeTable";
+import { useSourceOfIncomeFormController } from "./components/hooks/useSourceOfIncomeForm";
+import type { SourceOfIncomeData } from "@/types/customer-management/source-income";
+
 export const SourceOfIncomePage: React.FC = () => {
+  const formRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
-  const formController = useSourceOfIncomeFormController();
+
+  const [showForm, setShowForm] = useState(false);
+  const [selectedRow, setSelectedRow] =
+    useState<SourceOfIncomeData | null>(null);
+
   const {
     tableData,
     register,
@@ -24,15 +31,41 @@ export const SourceOfIncomePage: React.FC = () => {
     isSubmitting,
     onSubmit,
     onReset,
-    handleShowForm,
-    handleHideForm,
-    showForm,
+    handleDelete,
     showDeleteModal,
     handleCancelDelete,
     handleConfirmDelete,
-    handleDelete,
     isLoading,
-  } = formController;
+    reset,
+  } = useSourceOfIncomeFormController(selectedRow ?? undefined);
+
+  const handleShowForm = () => {
+    setShowForm(true);
+  };
+
+  const handleCancelClick = () => {
+    onReset();
+    setSelectedRow(null);
+    setShowForm(false);
+  };
+
+  const onEdit = (data: SourceOfIncomeData) => {
+    setSelectedRow(data);
+    setShowForm(true);
+    reset({
+    name: data.name,
+    code: data.code,
+  });
+
+
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }, 100);
+  };
+
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", href: "/", onClick: () => navigate("/") },
     {
@@ -47,6 +80,7 @@ export const SourceOfIncomePage: React.FC = () => {
     },
     { label: "Source of Income", active: true },
   ];
+
   return (
     <div className="space-y-6">
       <ConfirmationModal
@@ -60,6 +94,8 @@ export const SourceOfIncomePage: React.FC = () => {
         type="error"
         size="compact"
       />
+
+
       <PageWrapper
         variant="default"
         padding="xl"
@@ -69,8 +105,10 @@ export const SourceOfIncomePage: React.FC = () => {
       >
         <section className="p-4 lg:p-8 xl:p-10">
           <Breadcrumb items={breadcrumbItems} variant="default" size="sm" />
+
           <div className="flex items-center justify-between">
             <TitleHeader title="Source of Income" className="py-4" />
+
             <NeumorphicButton
               type="button"
               variant="default"
@@ -81,18 +119,24 @@ export const SourceOfIncomePage: React.FC = () => {
               Add Source of Income
             </NeumorphicButton>
           </div>
+
           {showForm && (
-            <SourceOfIncomeForm
-              register={register}
-              errors={errors}
-              isSubmitting={isSubmitting}
-              onSubmit={handleSubmit(onSubmit)}
-              onCancel={handleHideForm}
-              onReset={onReset}
-            />
+            <div ref={formRef}>
+              <SourceOfIncomeForm
+                register={register}
+                errors={errors}
+                isSubmitting={isSubmitting}
+                onSubmit={handleSubmit(onSubmit)}
+                onCancel={handleCancelClick}
+                onReset={onReset}
+                isEdit={!!selectedRow}
+              />
+            </div>
           )}
         </section>
       </PageWrapper>
+
+
       <PageWrapper
         variant="default"
         padding="xl"
@@ -101,11 +145,16 @@ export const SourceOfIncomePage: React.FC = () => {
         className="pt-0 md:pt-0 lg:pt-0"
       >
         <section className="p-4 lg:p-8 xl:p-10">
-          <TitleHeader className="pb-4" title="List of Source of Income" />
+          <TitleHeader
+            className="pb-4"
+            title="List of Source of Income"
+          />
+
           <SourceOfIncomeTable
             data={tableData ?? []}
             isLoading={isLoading}
             handleDelete={handleDelete}
+            onEdit={onEdit}
           />
         </section>
       </PageWrapper>
