@@ -68,6 +68,12 @@ import { AssetGroupPage } from "@/pages/asset-management-system/asset-group";
 import { AssetTypePage } from "@/pages/asset-management-system/asset-type/Index";
 import { TermsAndConditionPage } from "@/pages/asset-management-system/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/asset-management-system/supplier-risk-category/Index";
+import { AdminUnitRegistrationPage } from "@/pages/organization/zonal-information";
+import { CorporateRegistrationPage } from "@/pages/organization/zonal-information/components/form/CorporateRegistrationPage";
+import { StateRegistrationPage } from "@/pages/organization/zonal-information/components/form/stateRegistrationPage";
+import { RegionRegistrationPage } from "@/pages/organization/zonal-information/components/form/regionRegistrationPage";
+import { AreaRegistrationPage } from "@/pages/organization/zonal-information/components/form/AreaRegistrationPage";
+import { BranchRegistrationPage } from "@/pages/organization/zonal-information/components/form/BranchRegistrationPage";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -159,6 +165,36 @@ export const protectedRoutesList: RouteObject[] = [
             element: <LoanProductSchemeOnboardingPage />,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <ProtectedRoutes allowedRoles={[]} isLayoutHidden />,
+    children: [
+      {
+        path: "/organization-management-system/zone-information-page",
+        element: <AdminUnitRegistrationPage />,
+      },
+      {
+        path: "/organization-management-system/corporate",
+        element: <CorporateRegistrationPage />,
+      },
+      {
+        path: "/organization-management-system/state",
+        element: <StateRegistrationPage />,
+      },
+      {
+        path: "/organization-management-system/region",
+        element: <RegionRegistrationPage />,
+      },
+      {
+        path: "/organization-management-system/area",
+        element: <AreaRegistrationPage />,
+      },
+      {
+        path: "/organization-management-system/branch",
+        element: <BranchRegistrationPage />,
       },
     ],
   },

@@ -82,6 +82,13 @@ export const apiInstance = createApi({
     "UserReg",
     "MenuModuleMapping",
     "branchType",
+    "Branch",
+    "BranchStatus",
+    "BranchCategory",
+    "BranchType",
+    "Timezone",
+    "PermissionType",
+    "Language",
   ],
   endpoints: () => ({}),
 });
