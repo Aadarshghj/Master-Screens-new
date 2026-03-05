@@ -429,57 +429,63 @@ export const protectedRoutesList: RouteObject[] = [
         ],
       },
       {
-        path: "/asset-management",
+        path: "/customer-management/asset-master",
         children: [
           {
-            path: "/asset-management/unit-of-measure",
+            path: "/customer-management/asset-master/unit-of-measure",
             index: true,
             element: <UnitOfMeasurePage />,
           },
           {
-            path: "/asset-management/depreciation-methods",
+            path: "/customer-management/asset-master/depreciation-methods",
             index: true,
             element: <DepreciationMethodsPage />,
           },
           {
-            path: "/asset-management/asset-item",
+            path: "/customer-management/asset-master/asset-item",
             element: <AssetItemPage />,
           },
           {
-            path: "/asset-management/gst-cost-master",
+            path: "/customer-management/asset-master/gst-cost-master",
             index: true,
             element: <GstCostMasterPage />,
           },
           {
-            path: "/asset-management/asset-model",
+            path: "/customer-management/asset-master/asset-model",
             index: true,
             element: <AssetModelPage />,
           },
           {
-            path: "/asset-management/tds-section",
+            path: "/customer-management/asset-master/tds-section",
             index: true,
             element: <TdsSectionPage />,
           },
           {
-            path: "/asset-management/asset-group",
+            path: "/customer-management/asset-master/asset-group",
             index: true,
             element: <AssetGroupPage />,
           },
           {
-            path: "/asset-management/asset-type",
+            path: "/customer-management/asset-master/asset-type",
             index: true,
             element: <AssetTypePage />,
           },
           {
-            path: "/asset-management/terms-and-conditions",
+            path: "/customer-management/asset-master/terms-and-conditions",
             index: true,
             element: <TermsAndConditionPage />,
           },
           {
-            path: "/asset-management/supplier-risk-category",
+            path: "/customer-management/asset-master/supplier-risk-category",
             index: true,
             element: <SupplierRiskPage />,
           },
+        ],
+      },
+      {
+        path: "/asset-management",
+        children: [
+         
         ],
       },
     ],
