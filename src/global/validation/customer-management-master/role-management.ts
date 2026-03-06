@@ -18,7 +18,7 @@ export const roleManagementSchema: yup.ObjectSchema<RoleManagementType> =
         }
 
         const hasNumber = /[0-9]/.test(value);
-        const hasSpecial = /[^a-zA-Z ]/.test(value);
+        const hasSpecial = /[^a-zA-Z_ ]/.test(value);
 
         if (hasNumber && hasSpecial) {
           return this.createError({ message: "Only characters allowed" });
@@ -35,7 +35,6 @@ export const roleManagementSchema: yup.ObjectSchema<RoleManagementType> =
       }),
     roleShortDesc: yup
       .string()
-      .max(150, "Maximum 150 characters allowed")
-      .nullable(),
+      .max(150, "Maximum 150 characters allowed"),
     isActive: yup.boolean().required(),
   });

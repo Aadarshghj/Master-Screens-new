@@ -67,6 +67,9 @@ import { AssetGroupPage } from "@/pages/asset-management-system/asset-group";
 import { AssetTypePage } from "@/pages/asset-management-system/asset-type/Index";
 import { TermsAndConditionPage } from "@/pages/asset-management-system/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/asset-management-system/supplier-risk-category/Index";
+// import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
+import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
+import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
   
 
 
@@ -261,6 +264,20 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/customer-management/master/role-management",
         element: <RoleManagementPage />,
       },
+
+      {
+         path: "/customer-management/master/menu-submenu-tree",
+        element: <MenuTreePage />,
+      },
+      {
+  path: "/customer-management/master/menu-submenu",
+  element: <MenuSubmenuPage />,
+},
+      // {
+      //    path: "/customer-management/master/menu-submenu",
+      //   element: <MenuSubmenuPage />,
+      // },
+      
       {
         path: "/customer-management/master/user-reg",
         element: <UserRegPage />,

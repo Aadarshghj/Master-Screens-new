@@ -42,6 +42,7 @@ import { branchType } from "./customer-management/branch-type.ts";
 import { designationRoleMapping } from "./customer-management/designationRoleMapping.ts";
 import { tenant } from "./customer-management/tenant";
 import { BranchStaffMapping } from "./branch-staff-mapping/branch-staff-api.ts";
+import { menuSubmenu } from "./customer-management/create-manage-menu-submenu.ts";
 
 
 export const api = { 
@@ -89,6 +90,7 @@ export const api = {
   branchType,
   designationRoleMapping,
   BranchStaffMapping,
+  menuSubmenu
 };
 
 export {
