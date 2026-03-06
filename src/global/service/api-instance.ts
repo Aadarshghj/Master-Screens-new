@@ -92,6 +92,8 @@ export const apiInstance = createApi({
     "BranchStaffMapping",
     "Branch",
     "Staff",
-  ],
+    "MenuSubMenu"
+    ],
+
   endpoints: () => ({}),
 });

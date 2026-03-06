@@ -86,6 +86,18 @@ export const menu = [
             title: "Role Management",
             path: "/customer-management/master/role-management",
           },
+
+          // {
+          //   id: "menu-submenu",
+          //   title: "Menu SubMenu",
+          //   path: "/customer-management/master/menu-submenu",
+          // },
+          {
+            id: "menu-submenu-tree",
+            title: "Menu SubMenu",
+            path: "/customer-management/master/menu-submenu-tree",
+          },
+
           {
             id: "sub-module-management",
             title: "Sub Module Management",

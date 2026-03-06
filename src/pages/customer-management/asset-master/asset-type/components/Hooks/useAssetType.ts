@@ -6,7 +6,6 @@ import { ASSET_TYPE_DEFAULT_VALUE } from "../../constants/AssetTypeDefault";
 import { assetTypeSchema } from "@/global/validation/customer-management-master/asset-master/asset-type";
 import type { AssetType, AssetTypeDto } from "@/types/customer-management/asset-master/asset-type";
 
-
 export const useAssetType = () => {
   const {
     control,
@@ -19,15 +18,14 @@ export const useAssetType = () => {
     resolver: yupResolver(assetTypeSchema),
     mode: "onChange",
   });
-
+  
   const onSubmit = useCallback(async (data: AssetType) => {
-
     const payload: AssetTypeDto = {
       assetTypeCode: data.assetTypeCode.toUpperCase(),
       assetTypeName: data.assetTypeName.toUpperCase(),
       description: data.description,
       status: data.status,
-      depreciable: data.depreciable
+      depreciable: data.depreciable      
     };
 
     try {

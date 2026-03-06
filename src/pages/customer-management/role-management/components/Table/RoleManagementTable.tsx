@@ -43,6 +43,7 @@ export const RoleManagementTable: React.FC<RoleManagementProps> = ({
       columnHelper.accessor("roleShortDesc", {
         header: "Description",
       }),
+      
       columnHelper.accessor("isActive", {
         header: "Status",
         cell: info => {
@@ -59,31 +60,31 @@ export const RoleManagementTable: React.FC<RoleManagementProps> = ({
         },
       }),
 
-      columnHelper.display({
-        id: "actions",
-        header: "Actions",
-        cell: ({ row }) => (
-          <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              className="text-primary hover:bg-primary/40 h-6 w-6 p-0"
-              onClick={() => onEdit(row.original)}
-              title="Edit Property"
-            >
-              <Pencil size={13} />
-            </Button>
+      // columnHelper.display({
+      //   id: "actions",
+      //   header: "Actions",
+      //   cell: ({ row }) => (
+      //     <div className="flex gap-2">
+      //       <Button
+      //         variant="ghost"
+      //         className="text-primary hover:bg-primary/40 h-6 w-6 p-0"
+      //         onClick={() => onEdit(row.original)}
+      //         title="Edit Property"
+      //       >
+      //         <Pencil size={13} />
+      //       </Button>
 
-            <Button
-              onClick={() => openDeleteModal(row.original.identity)}
-              variant="ghost"
-              className="text-status-error hover:bg-status-error-background h-6 w-6 p-0"
-              title="Delete Property"
-            >
-              <Trash2 size={13} />
-            </Button>
-          </div>
-        ),
-      }),
+      //       <Button
+      //         onClick={() => openDeleteModal(row.original.identity)}
+      //         variant="ghost"
+      //         className="text-status-error hover:bg-status-error-background h-6 w-6 p-0"
+      //         title="Delete Property"
+      //       >
+      //         <Trash2 size={13} />
+      //       </Button>
+      //     </div>
+      //   ),
+      // }),
     ],
     [openDeleteModal, onEdit]
   );
