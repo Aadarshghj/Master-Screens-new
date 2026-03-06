@@ -41,7 +41,7 @@ import { adminUnitType } from "./customer-management/admin-unit-type";
 import { branchType } from "./customer-management/branch-type.ts";
 import { designationRoleMapping } from "./customer-management/designationRoleMapping.ts";
 import { tenant } from "./customer-management/tenant";
-
+import { moduleMgmt } from "./customer-management/module-management.ts";
 
 export const api = { 
   tenant,
@@ -59,7 +59,8 @@ export const api = {
   occupation,
   purposes,
   customerGroup,
-  adminUnitType, 
+  adminUnitType,
+  moduleMgmt,
   agentMaster,
   industryCategory,
   sitePremise,

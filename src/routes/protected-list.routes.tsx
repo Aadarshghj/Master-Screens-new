@@ -52,6 +52,9 @@ import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
+import { CoLendingBankConfigPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-bank-configuration/Index";
+import { ModuleMgmtPage } from "@/pages/customer-management/module-management";
+import { QuotationRegPage } from "@/pages/asset-management-system/quotation-registration";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -197,6 +200,14 @@ export const protectedRoutesList: RouteObject[] = [
         element: <WorkflowActionsPage />,
       },
       {
+        path: "/loan-management/schema-master/bank-configuration",
+        element: <CoLendingBankConfigPage />,
+      },
+      {
+        path: "/asset-management/quotation-registration",
+        element: <QuotationRegPage />,
+      },
+      {
         path: "/loan-management/approval-workflow/workflow-user-leave-status",
         element: <UserLeaveStatusPage />,
       },
@@ -239,6 +250,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/customer-category",
         element: <CustomerCategoryPage />,
+      },
+      {
+        path: "/customer-management/master/module-management",
+        element: <ModuleMgmtPage />,
       },
       {
         path: "/customer-management/master/role-management",
