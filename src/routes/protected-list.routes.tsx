@@ -43,6 +43,10 @@ import { ManageUserDelegations } from "@/pages/approval-workflow/user-deligation
 import { WorkflowActionsPage } from "@/pages/approval-workflow/workflow-actions";
 import { ApproverRoleMappingPage } from "@/pages/approval-workflow/approver-role-mapping";
 import { ChargeMasterPage } from "@/pages/loan-product-and-scheme-masters/charge-master";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 456fa463cb3a9ff53df42da0e8b743e43b3adb73
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
 import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
@@ -50,6 +54,9 @@ import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/customer-management/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
+import { CoLendingBankConfigPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-bank-configuration/Index";
+import { ModuleMgmtPage } from "@/pages/customer-management/module-management";
+import { QuotationRegPage } from "@/pages/asset-management-system/quotation-registration";
 
 import { CoLendingSchemeMapPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-scheme-map/Index";
 import BranchStaffMappingPage from "@/pages/customer-management/branch-staff-mapping";
@@ -60,6 +67,16 @@ import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-
 import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
+<<<<<<< HEAD
+=======
+
+
+import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
+import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
+
+  
+
+>>>>>>> 456fa463cb3a9ff53df42da0e8b743e43b3adb73
 import { AdminUnitRegistrationPage } from "@/pages/organization/zonal-information";
 import { CorporateRegistrationPage } from "@/pages/organization/zonal-information/components/form/CorporateRegistrationPage";
 import { StateRegistrationPage } from "@/pages/organization/zonal-information/components/form/stateRegistrationPage";
@@ -74,6 +91,10 @@ import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 456fa463cb3a9ff53df42da0e8b743e43b3adb73
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -247,6 +268,14 @@ export const protectedRoutesList: RouteObject[] = [
         element: <WorkflowActionsPage />,
       },
       {
+        path: "/loan-management/schema-master/bank-configuration",
+        element: <CoLendingBankConfigPage />,
+      },
+      {
+        path: "/asset-management/quotation-registration",
+        element: <QuotationRegPage />,
+      },
+      {
         path: "/loan-management/approval-workflow/workflow-user-leave-status",
         element: <UserLeaveStatusPage />,
       },
@@ -291,9 +320,27 @@ export const protectedRoutesList: RouteObject[] = [
         element: <CustomerCategoryPage />,
       },
       {
+        path: "/customer-management/master/module-management",
+        element: <ModuleMgmtPage />,
+      },
+      {
         path: "/customer-management/master/role-management",
         element: <RoleManagementPage />,
       },
+
+      {
+         path: "/customer-management/master/menu-submenu-tree",
+        element: <MenuTreePage />,
+      },
+      {
+  path: "/customer-management/master/menu-submenu",
+  element: <MenuSubmenuPage />,
+},
+      // {
+      //    path: "/customer-management/master/menu-submenu",
+      //   element: <MenuSubmenuPage />,
+      // },
+      
       {
         path: "/customer-management/master/sub-module-management",
         element: <SubModulePage />,

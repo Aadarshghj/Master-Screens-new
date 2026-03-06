@@ -10,6 +10,7 @@ export const apiInstance = createApi({
   tagTypes: [
     "Tenant",
     "AdminUnitType",
+    "ModuleMgmt",
     "CustomerPhoto",
     "Customer",
     "Photo",
@@ -92,6 +93,8 @@ export const apiInstance = createApi({
     "BranchStaffMapping",
     "Branch",
     "Staff",
-  ],
+    "MenuSubMenu"
+    ],
+
   endpoints: () => ({}),
 });
