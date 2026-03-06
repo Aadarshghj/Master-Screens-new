@@ -43,7 +43,6 @@ import { ManageUserDelegations } from "@/pages/approval-workflow/user-deligation
 import { WorkflowActionsPage } from "@/pages/approval-workflow/workflow-actions";
 import { ApproverRoleMappingPage } from "@/pages/approval-workflow/approver-role-mapping";
 import { ChargeMasterPage } from "@/pages/loan-product-and-scheme-masters/charge-master";
-import { AssetItemPage } from "@/pages/customer-management/asset-management/asset-group";
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
 import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
@@ -61,13 +60,6 @@ import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-
 import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
-
-import { AssetModelPage } from "@/pages/asset-management-system/asset-model";
-import { TdsSectionPage } from "@/pages/asset-management-system/tds-section";
-import { AssetGroupPage } from "@/pages/asset-management-system/asset-group";
-import { AssetTypePage } from "@/pages/asset-management-system/asset-type/Index";
-import { TermsAndConditionPage } from "@/pages/asset-management-system/terms-and-conditions";
-import { SupplierRiskPage } from "@/pages/asset-management-system/supplier-risk-category/Index";
 import { AdminUnitRegistrationPage } from "@/pages/organization/zonal-information";
 import { CorporateRegistrationPage } from "@/pages/organization/zonal-information/components/form/CorporateRegistrationPage";
 import { StateRegistrationPage } from "@/pages/organization/zonal-information/components/form/stateRegistrationPage";
@@ -81,6 +73,7 @@ import { AssetTypePage } from "@/pages/customer-management/asset-master/asset-ty
 import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
+import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -302,7 +295,7 @@ export const protectedRoutesList: RouteObject[] = [
         element: <RoleManagementPage />,
       },
       {
-         path: "/customer-management/master/sub-module-management",
+        path: "/customer-management/master/sub-module-management",
         element: <SubModulePage />,
       },
       {
@@ -526,9 +519,7 @@ export const protectedRoutesList: RouteObject[] = [
       },
       {
         path: "/asset-management",
-        children: [
-         
-        ],
+        children: [],
       },
     ],
   },

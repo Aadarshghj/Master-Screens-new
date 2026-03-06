@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   Grid,
   CommonTable,
@@ -25,23 +25,32 @@ import { AdminUnitViewModal } from "./AdminUnitViewModal";
 import { Pagination } from "@/components/ui/paginationUp";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
-// ── Types ──────────────────────────────────────────────────────────────────────
+// ── Types ─────────────────────────────────────────────────────────────────────
 type TableRow =
   | { type: "data"; data: BranchResponseDto; globalIndex: number }
   | { type: "divider"; label: string };
 
 const ALL_STATUSES = "ALL";
 const PAGE_SIZE = 10;
-
 const columnHelper = createColumnHelper<TableRow>();
 
-// Renders a string value in uppercase, falls back to "—"
-const UpperCell = ({ value }: { value: unknown }) => (
-  <span className="uppercase">
-    {value != null && value !== "" ? String(value) : "—"}
-  </span>
-);
+// ── Helpers ───────────────────────────────────────────────────────────────────
+const safeStr = (val: unknown): string | null => {
+  if (val === null || val === undefined) return null;
+  const s = String(val).trim();
+  if (s === "" || s.toLowerCase() === "null" || s.toLowerCase() === "undefined")
+    return null;
+  return s;
+};
 
+const UpperCell = ({ value }: { value: unknown }) => {
+  const safe = safeStr(value);
+  return <span className="uppercase">{safe !== null ? safe : "—"}</span>;
+};
+
+const EmptyCell = () => <span />;
+
+// ── Component ─────────────────────────────────────────────────────────────────
 interface AdminUnitTableProps {
   onEdit: (identity: string) => void;
   externalUnitType?: string;
@@ -64,11 +73,45 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
     confirmDeleteAdminUnit,
   } = useAdminUnitTable({ externalUnitType });
 
-  // Fetch lookup options so we can resolve identities → labels in the table
   const { data: rawStatusOptions = [] } = useGetBranchStatusQuery();
   const { data: categoryOptions = [] } = useGetBranchCategoryQuery();
 
-  // ── Filter dropdowns ───────────────────────────────────────────────────────
+  // ── DEBUG: log what the table component actually receives ─────────────────
+  useEffect(() => {
+    console.group("[AdminUnitTable] received data");
+    console.log("externalUnitType prop :", externalUnitType);
+    console.log("selectedUnitType      :", selectedUnitType);
+    console.log("selectedUnitLabel     :", selectedUnitLabel);
+    console.log("data.length           :", data.length);
+    console.log("isFetching            :", isFetching);
+    if (data.length > 0) {
+      const first = data[0];
+      console.log("── first row ──────────────────────────────────────");
+      console.log("branchCode           :", first.branchCode);
+      console.log("branchName           :", first.branchName);
+      console.log("doorNumber           :", first.doorNumber);
+      console.log("addressLine1         :", first.addressLine1);
+      console.log("pincode              :", first.pincode);
+      console.log("stateName            :", first.stateName);
+      console.log("branchCategoryIdentity:", first.branchCategoryIdentity);
+      console.log("branchStatusIdentity :", first.branchStatusIdentity);
+      console.log("isActive             :", first.isActive);
+      console.log("full object          :", first);
+    }
+    console.log("categoryOptions       :", categoryOptions);
+    console.log("rawStatusOptions      :", rawStatusOptions);
+    console.groupEnd();
+  }, [
+    data,
+    externalUnitType,
+    selectedUnitType,
+    selectedUnitLabel,
+    isFetching,
+    categoryOptions,
+    rawStatusOptions,
+  ]);
+
+  // ── Filters ───────────────────────────────────────────────────────────────
   const dropdownOptions = useMemo(
     () => [
       { label: "All", value: ALL_UNIT_TYPES },
@@ -98,25 +141,25 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
     setPageIndex(0);
   };
 
-  // ── Step 1: status filter ──────────────────────────────────────────────────
+  // ── Pipeline ──────────────────────────────────────────────────────────────
   const statusFiltered = useMemo<BranchResponseDto[]>(() => {
     if (appliedStatus === ALL_STATUSES) return data;
     return data.filter(row => row.branchStatusIdentity === appliedStatus);
   }, [data, appliedStatus]);
 
-  // ── Step 2: sort ascending by numeric suffix of branchCode ─────────────────
   const sortedData = useMemo<BranchResponseDto[]>(
     () =>
       [...statusFiltered].sort((a, b) => {
-        const numA = parseInt(a.branchCode.replace(/\D/g, ""), 10) || 0;
-        const numB = parseInt(b.branchCode.replace(/\D/g, ""), 10) || 0;
+        const numA =
+          parseInt((a.branchCode ?? "").replace(/\D/g, ""), 10) || 0;
+        const numB =
+          parseInt((b.branchCode ?? "").replace(/\D/g, ""), 10) || 0;
         if (numA !== numB) return numA - numB;
-        return a.branchCode.localeCompare(b.branchCode);
+        return (a.branchCode ?? "").localeCompare(b.branchCode ?? "");
       }),
     [statusFiltered]
   );
 
-  // ── Step 3: assign stable global 1-based index ────────────────────────────
   const indexedData = useMemo(
     () =>
       sortedData.map((row, i) => ({
@@ -127,7 +170,6 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
     [sortedData]
   );
 
-  // ── Step 4: manual pagination on REAL rows only ────────────────────────────
   const totalDataRows = indexedData.length;
   const totalPages = Math.max(1, Math.ceil(totalDataRows / PAGE_SIZE));
   const safePageIndex = Math.min(pageIndex, totalPages - 1);
@@ -141,15 +183,12 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
     [indexedData, safePageIndex]
   );
 
-  // ── Step 5: inject dividers into page slice ────────────────────────────────
   const isAllTypes = selectedUnitType === ALL_UNIT_TYPES;
 
   const tableRows = useMemo<TableRow[]>(() => {
     if (!isAllTypes) return pageSlice;
-
     const result: TableRow[] = [];
     let lastTypeId: string | null = null;
-
     pageSlice.forEach(item => {
       const typeId = item.data.adminUnitTypeIdentity;
       if (typeId !== lastTypeId) {
@@ -160,11 +199,10 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
       }
       result.push(item);
     });
-
     return result;
   }, [pageSlice, isAllTypes, adminUnitTypeOptions]);
 
-  // ── View modal ─────────────────────────────────────────────────────────────
+  // ── View modal ────────────────────────────────────────────────────────────
   const [viewRow, setViewRow] = useState<BranchResponseDto | null>(null);
 
   const viewRowUnitLabel = useMemo(() => {
@@ -175,7 +213,7 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
     );
   }, [viewRow, adminUnitTypeOptions]);
 
-  // ── Columns ────────────────────────────────────────────────────────────────
+  // ── Columns ───────────────────────────────────────────────────────────────
   const columns = useMemo(
     () => [
       columnHelper.display({
@@ -185,12 +223,9 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
           const r = row.original;
           if (r.type === "divider") {
             return (
-              <td
-                colSpan={10}
-                className="bg-muted/40 text-muted-foreground border-b px-3 py-1.5 text-xs font-semibold tracking-wider uppercase"
-              >
+              <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
                 {r.label}
-              </td>
+              </span>
             );
           }
           return <span>{r.globalIndex}</span>;
@@ -202,7 +237,7 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         header: `${selectedUnitLabel} Code`,
         cell: ({ row }) => {
           const r = row.original;
-          if (r.type === "divider") return null;
+          if (r.type === "divider") return <EmptyCell />;
           return <UpperCell value={r.data.branchCode} />;
         },
       }),
@@ -212,7 +247,7 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         header: `${selectedUnitLabel} Name`,
         cell: ({ row }) => {
           const r = row.original;
-          if (r.type === "divider") return null;
+          if (r.type === "divider") return <EmptyCell />;
           return <UpperCell value={r.data.branchName} />;
         },
       }),
@@ -222,7 +257,7 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         header: "Parent Branch",
         cell: ({ row }) => {
           const r = row.original;
-          if (r.type === "divider") return null;
+          if (r.type === "divider") return <EmptyCell />;
           return <UpperCell value={r.data.parentBranchName} />;
         },
       }),
@@ -232,11 +267,12 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         header: "Category",
         cell: ({ row }) => {
           const r = row.original;
-          if (r.type === "divider") return null;
-          const label =
-            categoryOptions.find(o => o.value === r.data.branchCategoryIdentity)
-              ?.label ?? r.data.branchCategoryIdentity;
-          return <UpperCell value={label} />;
+          if (r.type === "divider") return <EmptyCell />;
+          const resolvedLabel =
+            categoryOptions.find(
+              o => o.value === r.data.branchCategoryIdentity
+            )?.label ?? safeStr(r.data.branchCategoryIdentity);
+          return <UpperCell value={resolvedLabel} />;
         },
       }),
 
@@ -245,11 +281,14 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         header: "Address",
         cell: ({ row }) => {
           const r = row.original;
-          if (r.type === "divider") return null;
-          const parts = [r.data.doorNumber, r.data.addressLine1].filter(
-            Boolean
+          if (r.type === "divider") return <EmptyCell />;
+          const parts = [
+            safeStr(r.data.doorNumber),
+            safeStr(r.data.addressLine1),
+          ].filter((p): p is string => p !== null);
+          return (
+            <UpperCell value={parts.length > 0 ? parts.join(", ") : null} />
           );
-          return <UpperCell value={parts.join(", ")} />;
         },
       }),
 
@@ -258,8 +297,8 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         header: "PIN Code",
         cell: ({ row }) => {
           const r = row.original;
-          if (r.type === "divider") return null;
-          return <UpperCell value={r.data.pincode} />;
+          if (r.type === "divider") return <EmptyCell />;
+          return <UpperCell value={safeStr(r.data.pincode)} />;
         },
       }),
 
@@ -268,8 +307,8 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         header: "State",
         cell: ({ row }) => {
           const r = row.original;
-          if (r.type === "divider") return null;
-          return <UpperCell value={r.data.stateName} />;
+          if (r.type === "divider") return <EmptyCell />;
+          return <UpperCell value={safeStr(r.data.stateName)} />;
         },
       }),
 
@@ -278,10 +317,11 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         header: "Status",
         cell: ({ row }) => {
           const r = row.original;
-          if (r.type === "divider") return null;
-          const label =
-            rawStatusOptions.find(o => o.value === r.data.branchStatusIdentity)
-              ?.label ?? r.data.branchStatusIdentity;
+          if (r.type === "divider") return <EmptyCell />;
+          const resolvedLabel =
+            rawStatusOptions.find(
+              o => o.value === r.data.branchStatusIdentity
+            )?.label ?? safeStr(r.data.branchStatusIdentity);
           return (
             <span
               className={
@@ -290,7 +330,7 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
                   : "font-medium text-red-500"
               }
             >
-              {label?.toUpperCase() ?? "—"}
+              {resolvedLabel?.toUpperCase() ?? "—"}
             </span>
           );
         },
@@ -301,7 +341,7 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         header: "Actions",
         cell: ({ row }) => {
           const r = row.original;
-          if (r.type === "divider") return null;
+          if (r.type === "divider") return <EmptyCell />;
 
           const isMatchingUnitType = externalUnitType
             ? r.data.adminUnitTypeIdentity === externalUnitType
