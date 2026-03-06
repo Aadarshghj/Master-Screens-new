@@ -6,7 +6,7 @@ import { Flex, Form, Input, Label, Switch, Select } from "@/components";
 import type { UserRegType, Option } from "@/types/customer-management/user-reg";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 import type { UseFormHandleSubmit, UseFormSetError } from "react-hook-form";
-import { useLazySearchUserRegQuery } from "@/global/service/end-points/customer-management/user-reg";
+// import { useLazySearchUserRegQuery } from "@/global/service/end-points/customer-management/user-reg";
 
 
 interface UserRegProps {
@@ -24,7 +24,6 @@ interface UserRegProps {
   setError: UseFormSetError<UserRegType>
 }
 
-
 export const UserRegForm: React.FC<UserRegProps> = ({
   control,
   errors,
@@ -37,10 +36,10 @@ export const UserRegForm: React.FC<UserRegProps> = ({
   userTypeOptions,
   isEditMode,
   editingUser,
-  setError
+ // setError
 
 }) => {
-  const [triggerSearchUser] = useLazySearchUserRegQuery();
+  // const [triggerSearchUser] = useLazySearchUserRegQuery();
   return (
     <FormContainer className="px-0">
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -69,7 +68,7 @@ export const UserRegForm: React.FC<UserRegProps> = ({
                   size="form"
                   variant="form"
                   className="uppercase"
-                  readOnly={!!editingUser}
+                  // readOnly={!!editingUser}
                 />
               </Form.Field>
             </Form.Col>
@@ -95,19 +94,19 @@ export const UserRegForm: React.FC<UserRegProps> = ({
                     onBlur: async (e) => {
                       const value = e.target.value;
                       if (!value) return;
-                      if (editingUser?.userName === value) return;
-                      try {
-                        const res = await triggerSearchUser(value).unwrap();
-                        if (res.content.length > 0) {
-                          setError("userName", {
-                            type: "manual",
-                            message: "Username already exists",
+                      // if (editingUser?.userName === value) return;
+                      // try {
+                      //   const res = await triggerSearchUser(value).unwrap();
+                      //   if (res.content.length > 0) {
+                      //     setError("userName", {
+                      //       type: "manual",
+                      //       message: "Username already exists",
 
-                          });
-                        }
-                      } catch (error) {
-                        console.error(error);
-                      }
+                      //     });
+                      //   }
+                      // } catch (error) {
+                      //   console.error(error);
+                      // }
                     },
                   })}
                   placeholder="Enter User Name"
@@ -197,8 +196,6 @@ export const UserRegForm: React.FC<UserRegProps> = ({
 
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field label="User Type" required error={errors.userType}>
-
-
                 <Controller
                   name="userType"
                   control={control}

@@ -50,7 +50,7 @@ export const RiskAssessmentTypeHistoryForm: React.FC<
                   variant="form"
                   className="uppercase"
                   textTransform="uppercase"
-                 // restriction="alphanumeric"
+                
                 />
               </Form.Field>
             </Form.Col>

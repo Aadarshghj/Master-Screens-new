@@ -23,8 +23,6 @@ interface RoleManagementProps {
   isEdit: boolean;
 }
 
-// const isEdit = false
-
 export const RoleManagementForm: React.FC<RoleManagementProps> = ({
   control,
   errors,
@@ -83,7 +81,7 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
                       />
                     )}
                   />
-                  <Label>Active Status</Label>
+                  <Label> Status</Label>
                 </Flex>
               </Flex>
             </Form.Col>
