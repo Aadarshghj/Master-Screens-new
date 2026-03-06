@@ -9,8 +9,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
-import { SquarePen } from "lucide-react";
-import { useSupplierTable } from "../../components/Hooks/UseSupplierTable"
+import { Eye, SquarePen } from "lucide-react";
+import { useSupplierTable } from "../../components/Hooks/UseSupplierTable";
 import type { SupplierMasterType } from "@/types/asset-management-system/supplier-management/supplier-list";
 
 const columnHelper = createColumnHelper<SupplierMasterType>();
@@ -33,8 +33,8 @@ export const SupplierTable: React.FC = () => {
       }),
 
       columnHelper.accessor("tradeName", {
-        header: "Trade Name",
-        size: 200,
+           header: () => <span className="text-[10px]">Trade Name</span>,
+        size: 120,
       }),
 
       columnHelper.accessor("panNumber", {
@@ -48,12 +48,16 @@ export const SupplierTable: React.FC = () => {
       }),
 
       columnHelper.accessor("msmeNo", {
-        header: "MSME No",
+        header: "MSME Registration No",
         size: 150,
+      }),
+        columnHelper.accessor("address", {
+        header: "Address",
+        size: 200,
       }),
 
       columnHelper.accessor("city", {
-        header: "City",
+       header: () => <span className="text-xs">City</span>,
         size: 120,
       }),
 
@@ -61,21 +65,25 @@ export const SupplierTable: React.FC = () => {
         header: "State",
         size: 120,
       }),
+      columnHelper.accessor("country", {
+        header: "Country",
+        size: 120,
+      }),
+      columnHelper.accessor("pincode", {
+        header: "Pin Code",
+        size: 120,
+      }),
 
       columnHelper.accessor("status", {
         header: "Status",
         size: 100,
         cell: ({ getValue }) => (
-          <span
-            className={`px-2 py-1 rounded text-xs ${
-              getValue() === "ACTIVE"
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}
-          >
-            {getValue()}
-          </span>
+          <span className={"rounded px-2 py-1 text-xs "}>{getValue()}</span>
         ),
+      }),
+      columnHelper.accessor("blacklisted", {
+        header: "Blacklisted",
+        size: 120,
       }),
 
       columnHelper.display({
@@ -83,14 +91,24 @@ export const SupplierTable: React.FC = () => {
         header: "Actions",
         size: 40,
         cell: ({ row }) => (
-          <Button
-            variant="ghost"
-            className="text-primary hover:bg-primary/40 h-6 w-6 p-0"
-            title="Edit"
-            onClick={() => onEdit(row.original)}
-          >
-            <SquarePen size={13} />
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              className="text-primary hover:bg-primary/40 h-6 w-6 p-0"
+              title="Edit"
+              onClick={() => onEdit(row.original)}
+            >
+              <Eye size={13} />
+            </Button>
+            <Button
+              variant="ghost"
+              className="text-primary hover:bg-primary/40 h-6 w-6 p-0"
+              title="Edit"
+              onClick={() => onEdit(row.original)}
+            >
+              <SquarePen size={13} />
+            </Button>
+          </div>
         ),
       }),
     ],
@@ -117,7 +135,7 @@ export const SupplierTable: React.FC = () => {
           <CommonTable
             table={table}
             noDataText={isFetching ? "Loading..." : "No records available"}
-            className="bg-card"
+            className="w-full rounded-xl text-[9px] [&_td]:px-1 [&_td]:whitespace-nowrap [&_th]:px-1"
           />
         </Grid.Item>
       </Grid>
@@ -142,7 +160,7 @@ export const SupplierTable: React.FC = () => {
             <Pagination
               currentPage={table.getState().pagination.pageIndex}
               totalPages={table.getPageCount()}
-              onPageChange={(page) => table.setPageIndex(page)}
+              onPageChange={page => table.setPageIndex(page)}
               onPreviousPage={() => table.previousPage()}
               onNextPage={() => table.nextPage()}
               canPreviousPage={table.getCanPreviousPage()}

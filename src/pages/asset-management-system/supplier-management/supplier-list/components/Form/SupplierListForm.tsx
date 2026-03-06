@@ -1,5 +1,5 @@
 import React from "react";
-import { RefreshCcw, Save, CircleX } from "lucide-react";
+import {  Filter } from "lucide-react";
 import {
   Controller,
   type UseFormRegister,
@@ -8,7 +8,7 @@ import {
 } from "react-hook-form";
 
 import { FormContainer } from "@/components/ui/form-container";
-import { Flex, Input, Select } from "@/components/ui";
+import { Input, Select } from "@/components/ui";
 import { Form } from "@/components";
 
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
@@ -31,79 +31,81 @@ export const SupplierListForm: React.FC<SupplierListProps> = ({
   register,
   control,
   errors,
-  isSubmitting,
   onSubmit,
-  onCancel,
-  onReset,
 }) => {
   return (
     <FormContainer className="px-0">
       <Form onSubmit={onSubmit}>
         <div className="mt-2">
-          <Form.Row>
+          <Form.Row className="flex w-full flex-nowrap items-start gap-3 overflow-x-auto">
             {/* Supplier Name */}
-            <Form.Col lg={3} md={6} span={12}>
-              <Form.Field label="Supplier Name" required error={errors.supplierName}>
+            <div className="min-w-[130px] flex-[1.5]">
+              <Form.Field label="Supplier Name" error={errors.supplierName}>
                 <Input
                   {...register("supplierName")}
                   placeholder="Enter Supplier Name"
                   size="form"
                   variant="form"
+                  className="w-full rounded"
                 />
               </Form.Field>
-            </Form.Col>
+            </div>
 
             {/* Trade Name */}
-            <Form.Col lg={3} md={6} span={12}>
-              <Form.Field label="Trade Name" required error={errors.tradeName}>
+            <div className="min-w-[130px] flex-[1.5]">
+              <Form.Field label="Trade Name" error={errors.tradeName}>
                 <Input
                   {...register("tradeName")}
                   placeholder="Enter Trade Name"
                   size="form"
                   variant="form"
+                  className="w-full rounded"
                 />
               </Form.Field>
-            </Form.Col>
+            </div>
 
-            {/* PAN Number */}
-            <Form.Col lg={2} md={6} span={12}>
-              <Form.Field label="PAN Number" required error={errors.panNumber}>
+            {/* PAN */}
+            <div className="min-w-[110px] flex-1">
+              <Form.Field label="PAN Number" error={errors.panNumber}>
                 <Input
                   {...register("panNumber")}
-                  placeholder="Enter PAN Number"
+                  placeholder="Enter Pan"
                   size="form"
                   variant="form"
+                  className="w-full rounded"
                 />
               </Form.Field>
-            </Form.Col>
+            </div>
 
             {/* GSTIN */}
-            <Form.Col lg={2} md={6} span={12}>
-              <Form.Field label="GSTIN" required error={errors.gstin}>
+            <div className="min-w-[110px] flex-1">
+              <Form.Field label="GSTIN" error={errors.gstin}>
                 <Input
                   {...register("gstin")}
                   placeholder="Enter GSTIN"
                   size="form"
                   variant="form"
+                  className="w-full rounded"
                 />
               </Form.Field>
-            </Form.Col>
+            </div>
 
-            {/* MSME Number */}
-            <Form.Col lg={2} md={6} span={12}>
+            {/* MSME */}
+            <div className="min-w-[110px] flex-1">
               <Form.Field label="MSME No" error={errors.msmeNo}>
                 <Input
                   {...register("msmeNo")}
                   placeholder="Enter MSME No"
                   size="form"
                   variant="form"
+                  className="w-full rounded"
                 />
               </Form.Field>
-            </Form.Col>
+            </div>
 
-            {/* Status Dropdown */}
-            <Form.Col lg={2} md={6} span={12}>
-              <Form.Field label="Status" required error={errors.status}>
+            {/* Status */}
+            <div className="min-w-[100px] flex-1">
+              <Form.Field label="Status" error={errors.status}>
                 <Controller
                   name="status"
                   control={control}
@@ -112,52 +114,31 @@ export const SupplierListForm: React.FC<SupplierListProps> = ({
                       value={field.value}
                       onValueChange={field.onChange}
                       options={STATUS_DROPDOWN}
-                      placeholder="Select Status"
+                      placeholder="All"
                       size="form"
                       variant="form"
                       fullWidth
                       itemVariant="form"
+                      className="w-full rounded"
                     />
                   )}
                 />
               </Form.Field>
-            </Form.Col>
+            </div>
+
+            <div className="min-w-[100px] ">
+              <Form.Field label="&nbsp;">
+                <NeumorphicButton
+                  variant="default"
+                  type="submit"
+                  className="flex  w-full items-center justify-center gap-2 rounded-full"
+                >
+                  <Filter className="h-4 w-4" />
+                  Filter
+                </NeumorphicButton>
+              </Form.Field>
+            </div>
           </Form.Row>
-
-          {/* Buttons */}
-          <Flex.ActionGroup className="mt-2 justify-end gap-4">
-            <NeumorphicButton
-              type="button"
-              variant="grey"
-              size="default"
-              onClick={onCancel}
-              disabled={isSubmitting}
-            >
-              <CircleX className="h-3 w-3" />
-              Cancel
-            </NeumorphicButton>
-
-            <NeumorphicButton
-              type="button"
-              variant="secondary"
-              size="secondary"
-              onClick={onReset}
-              disabled={isSubmitting}
-            >
-              <RefreshCcw className="h-3 w-3" />
-              Reset
-            </NeumorphicButton>
-
-            <NeumorphicButton
-              type="submit"
-              variant="default"
-              size="default"
-              disabled={isSubmitting}
-            >
-              <Save className="h-3 w-3" />
-              {isSubmitting ? "Saving..." : "Save Supplier"}
-            </NeumorphicButton>
-          </Flex.ActionGroup>
         </div>
       </Form>
     </FormContainer>

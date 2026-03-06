@@ -90,7 +90,7 @@ export const SupplierListPage: React.FC = () => {
         contentPadding="sm"
         className="m-0 min-h-fit pb-4"
       >
-        <section className="p-4 lg:p-8 xl:p-10">
+        <section className="p-4 lg:p-4 xl:p-10 xl:pb-1">
           <Breadcrumb items={breadcrumbItems} variant="default" size="sm" />
 
           <div className="flex items-center justify-between">
@@ -108,7 +108,10 @@ export const SupplierListPage: React.FC = () => {
           </div>
 
           {showForm && (
-            <div ref={formRef}>
+            <div
+              ref={formRef}
+              className="border-blue-10 mt-7 rounded-lg border bg-gray-100 p-5"
+            >
               <SupplierListForm
                 control={control}
                 register={register}
@@ -122,18 +125,8 @@ export const SupplierListPage: React.FC = () => {
             </div>
           )}
         </section>
-      </PageWrapper>
 
-      <PageWrapper
-        variant="default"
-        padding="xl"
-        maxWidth="xl"
-        contentPadding="sm"
-        className="pt-0 md:pt-0 lg:pt-0"
-      >
-        <section className="p-4 lg:p-8 xl:p-10">
-          <TitleHeader className="pb-4" title="List of Suppliers" />
-
+        <section className="p-4 lg:p-8 xl:p-10 xl:pt-4">
           <SupplierTable onEdit={onEdit} />
         </section>
       </PageWrapper>

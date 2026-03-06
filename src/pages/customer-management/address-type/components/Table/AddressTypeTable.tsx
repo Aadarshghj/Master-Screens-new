@@ -4,27 +4,31 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+
 import {
   CommonTable,
   ConfirmationModal,
   Grid,
 } from "../../../../../components/ui";
+
 import { Pencil, Trash2 } from "lucide-react";
-import type { BranchType } from "../../../../../types/customer-management/branch-type";
+
 import NeumorphicButton from "../../../../../components/ui/neumorphic-button/neumorphic-button";
 
-const columnHelper = createColumnHelper<BranchType>();
+import type { AddressTypeMaster } from "../../../../../types/customer-management/address-type-master";
+
+const columnHelper = createColumnHelper<AddressTypeMaster>();
 
 interface Props {
-  data: BranchType[];
-  onEdit: (row: BranchType) => void;
+  data: AddressTypeMaster[];
+  onEdit: (row: AddressTypeMaster) => void;
   onDelete: (id: string) => void;
   showDeleteModal: boolean;
   confirmDelete: () => void;
   closeDeleteModal: () => void;
 }
 
-export const BranchTypeMasterTable: React.FC<Props> = ({
+export const AddressTypeMasterTable: React.FC<Props> = ({
   data,
   onEdit,
   onDelete,
@@ -40,17 +44,21 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
         cell: ({ row }) => row.index + 1,
       }),
 
-      columnHelper.accessor("branchTypeCode",{
-        header: "Branch Type Code",
+      columnHelper.accessor("addressType", {
+        header: "Address Type",
       }),
 
-      columnHelper.accessor("branchTypeName", {
-        header: "Branch Type Name",
+      columnHelper.accessor("context", {
+        header: "Context",
       }),
 
-      columnHelper.accessor("branchTypeDesc", {
-        header: "Branch Type Description",
-        cell: (info) => info.getValue() || "—",
+      columnHelper.accessor("isMandatory", {
+        header: "Mandatory",
+        cell: (info) => (
+          <span className="font-medium">
+            {info.getValue() === "Yes" ? "YES" : "NO"}
+          </span>
+        ),
       }),
 
       columnHelper.accessor("isActive", {
@@ -84,7 +92,7 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
             <NeumorphicButton
               variant="none"
               className="text-status-error h-6 w-6 p-0"
-              onClick={() => onDelete(row.original.branchTypeIdentity)}
+              onClick={() => onDelete(row.original.identity)}
             >
               <Trash2 size={13} />
             </NeumorphicButton>
@@ -108,7 +116,7 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
           <CommonTable
             table={table}
             size="default"
-            noDataText="No branch types found"
+            noDataText="No address types found"
             className="bg-card"
           />
         </Grid.Item>
@@ -118,7 +126,7 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
         isOpen={showDeleteModal}
         onConfirm={confirmDelete}
         onCancel={closeDeleteModal}
-        title="Delete Branch Type"
+        title="Delete Address Type"
         message="Are you sure you want to delete this?"
         confirmText="Delete"
         cancelText="Cancel"

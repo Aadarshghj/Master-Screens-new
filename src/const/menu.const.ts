@@ -61,6 +61,11 @@ export const menu = [
             title: "Branch-Type Master",
             path: "/customer-management/master/branch-type",
           },
+           {
+            id: "address-type",
+            title: "Address-Type Master",
+            path: "/customer-management/master/address-type",
+          },
           {
             id: "industry-category",
             title: "Industry Category Master",
