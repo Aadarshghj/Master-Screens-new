@@ -69,6 +69,8 @@ import { AssetTypePage } from "@/pages/customer-management/asset-master/asset-ty
 import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
+import { SupplierEmpanelmentPage } from "@/pages/asset-management-system/supplier-empanelment";
+import { LoanAssetClassificationPage } from "@/pages/customer-management/loan-asset-classification";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -281,13 +283,13 @@ export const protectedRoutesList: RouteObject[] = [
       },
       {
         path: "/customer-management/master/risk-assessment-type-history",
-        children: [
-          {
-            index: true,
-            element: <RiskAssessmentTypeHistoryPage />,
-          },
-        ],
+        element: <RiskAssessmentTypeHistoryPage />,
       },
+      {
+        path: "/customer-management/master/loan-asset-classification",
+        element: <LoanAssetClassificationPage />,
+      },
+  
       {
         path: "/customer-management/master/user-role-mapping",
         element: <UserRoleMappingPage />,
@@ -485,7 +487,11 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/asset-management",
         children: [
-         
+         {
+            path: "/asset-management/supplier-empanelment",
+            index: true,
+            element: <SupplierEmpanelmentPage/>,
+          },
         ],
       },
     ],

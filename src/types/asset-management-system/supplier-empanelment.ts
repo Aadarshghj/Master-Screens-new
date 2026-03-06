@@ -1,0 +1,71 @@
+export interface empanelmentHeader {
+  empanelmentDate: string
+  empanelmentBy: string
+  description: string
+  validuptoDate: string
+}
+
+export interface supplierDetails {
+  supplierName: string
+  registrationNumber: string
+  email: string
+  contact: string
+  empanelmentType: string
+}
+
+export interface empanelItem {
+  itemName: string
+  model: string
+  amount: number
+}
+
+export interface termsConditions {
+  termsAndConditions: string
+}
+
+export interface authorizationDocument {
+  document: File | null
+}
+
+export interface empanelItemOption {
+  value: string
+  label: string
+}
+
+export interface SupplierSearchForm {
+  supplierName: string
+  tradeName: string
+  panNumber: string
+  gstNumber: string
+}
+export interface supplierEmpanelmentForm {
+  empanelmentDate: string
+  empanelmentBy: string
+  description: string
+  validuptoDate: string
+
+  supplierName: string
+  registrationNumber: string
+  email: string
+  contact: string
+  empanelmentType: string
+
+  termsAndConditions: string
+  document: File | null
+
+  empanelItems: empanelItem[]
+}
+
+export interface SupplierSearchResult {
+  supplierName: string
+  tradeName: string
+  panNumber: string
+  gstNumber: string
+}
+
+export interface SupplierData {
+  supplierName: string
+  tradeName: string
+  panNumber: string
+  gstNumber: string
+}
