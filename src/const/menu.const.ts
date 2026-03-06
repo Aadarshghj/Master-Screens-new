@@ -37,6 +37,11 @@ export const menu = [
             path: "/customer-management/master/admin-unit-type",
           },
           {
+            id: "ornament-name",
+            title: "Ornament Name Master",
+            path: "/customer-management/master/ornament-name",
+          },
+          {
             id: "firm-type",
             title: "Firm Type Master",
             path: "/customer-management/master/firm-type",
@@ -238,6 +243,21 @@ export const menu = [
             id:"asset-model",
             title:"Asset Model",
             path:"/customer-management/asset-master/asset-model",
+          },
+          { 
+            id:"charges-master",
+            title:"Charges Master",
+            path:"/customer-management/asset-master/charges-master"
+          },
+          {
+            id:"gst-registration",
+            title:"GST Registration",
+            path:"/customer-management/asset-master/gst-registration"
+          },
+          {
+            id:"asset-item-attributes",
+            title:"Asset Item Attributes",
+            path:"/customer-management/asset-master/asset-item-attributes"
           },
           {
             id: "asset-group",
