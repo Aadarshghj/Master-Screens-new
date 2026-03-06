@@ -62,11 +62,9 @@ import { DepreciationMethodsPage } from "@/pages/customer-management/asset-maste
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
-
-import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
 import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
 
-  
+
 
 import { AdminUnitRegistrationPage } from "@/pages/organization/zonal-information";
 import { CorporateRegistrationPage } from "@/pages/organization/zonal-information/components/form/CorporateRegistrationPage";
@@ -82,6 +80,7 @@ import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
+import MenuTreePage from "@/pages/menu-submenu-tree/Index";
 
 
 export const protectedRoutesList: RouteObject[] = [
@@ -305,20 +304,16 @@ export const protectedRoutesList: RouteObject[] = [
       },
 
       {
-         path: "/customer-management/master/menu-submenu-tree",
-        element: <MenuTreePage />,
+        path: "/customer-management/master/menu-submenu",
+        element: <MenuSubmenuPage />,
       },
       {
-  path: "/customer-management/master/menu-submenu",
-  element: <MenuSubmenuPage />,
-},
-      // {
-      //    path: "/customer-management/master/menu-submenu",
-      //   element: <MenuSubmenuPage />,
-      // },
-      
+        path: "/customer-management/master/menu-submenu-tree",
+        element: <MenuTreePage />,
+      },
+
       {
-         path: "/customer-management/master/sub-module-management",
+        path: "/customer-management/master/sub-module-management",
         element: <SubModulePage />,
       },
       {
@@ -543,7 +538,7 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/asset-management",
         children: [
-         
+
         ],
       },
     ],

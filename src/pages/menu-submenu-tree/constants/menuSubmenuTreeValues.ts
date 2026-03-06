@@ -71,6 +71,21 @@ export const menuTreeData: TreeNode[] = [
     ]
   },
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   {
     id: "3",
     name: "Customer Management System",
@@ -200,7 +215,7 @@ export const menuTreeData: TreeNode[] = [
   },
   {
     id: "7",
-    name: "Organizatn Hierarchy",
+    name: "Organization Hierarchy ",
   },
   {
     id: "8",

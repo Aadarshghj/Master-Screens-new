@@ -67,8 +67,7 @@ export const useMenuSubMenu = (editData?: menuSubmenu) => {
 
   const onReset = useCallback(() => {
     reset(MENU_SUBMENU_DEFAULT_VALUES);
-  }, [reset]);
-
+  }, [reset]); 
   return {
     control,
     register,

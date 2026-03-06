@@ -105,18 +105,18 @@ export const MenuSubmenuPage: React.FC = () => {
             <TitleHeader title="Menus and Sub-Menus" className="py-4" />
             <section>
 
-              <NeumorphicButton
-                type="button"
-                variant="default"
-                size="default"
-                className="mx-2"
-                onClick={() =>
-                  navigate("/customer-management/master/menu-submenu-tree")
-                }
-              >
-                <PlusCircle width={13} />
-                View Menu
-              </NeumorphicButton>
+          <NeumorphicButton
+  type="button"
+  variant="default"
+  size="default"
+  className="mx-2"
+  onClick={() =>
+    navigate("/customer-management/master/menu-submenu-tree", { replace: true })
+  }
+>
+  <PlusCircle width={13} />
+  View Menu
+</NeumorphicButton>
               <NeumorphicButton
                 type="button"
                 variant="default"
