@@ -43,10 +43,7 @@ import { ManageUserDelegations } from "@/pages/approval-workflow/user-deligation
 import { WorkflowActionsPage } from "@/pages/approval-workflow/workflow-actions";
 import { ApproverRoleMappingPage } from "@/pages/approval-workflow/approver-role-mapping";
 import { ChargeMasterPage } from "@/pages/loan-product-and-scheme-masters/charge-master";
-<<<<<<< HEAD
-=======
 
->>>>>>> 456fa463cb3a9ff53df42da0e8b743e43b3adb73
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
 import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
@@ -67,8 +64,6 @@ import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-
 import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
-<<<<<<< HEAD
-=======
 
 
 import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
@@ -76,7 +71,6 @@ import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-s
 
   
 
->>>>>>> 456fa463cb3a9ff53df42da0e8b743e43b3adb73
 import { AdminUnitRegistrationPage } from "@/pages/organization/zonal-information";
 import { CorporateRegistrationPage } from "@/pages/organization/zonal-information/components/form/CorporateRegistrationPage";
 import { StateRegistrationPage } from "@/pages/organization/zonal-information/components/form/stateRegistrationPage";
@@ -91,10 +85,7 @@ import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
-<<<<<<< HEAD
-=======
 
->>>>>>> 456fa463cb3a9ff53df42da0e8b743e43b3adb73
 
 export const protectedRoutesList: RouteObject[] = [
   {
