@@ -5,8 +5,8 @@ import type {
   ApiUserRoleMapping,
   AssignedRole,
   SaveRolePayload,
-} from "@/types/user-role-mapping/user-mapping";
-import type { ApiPermissionType } from "@/types/user-role-mapping/user-mapping";
+} from "@/types/customer-management/user-mapping";
+import type { ApiPermissionType } from "@/types/customer-management/user-mapping";
 
 export const userRoleApiService = apiInstance.injectEndpoints({
   endpoints: build => ({
@@ -74,10 +74,11 @@ export const userRoleApiService = apiInstance.injectEndpoints({
         { type: "UserRole", id },
       ],
     }),
-
-    deleteUserRole: build.mutation<void, string>({
-      query: identity => ({
-        url: UserRoleMaster.Delete(identity),
+// 5. DELETE
+    deleteUserRole: build.mutation<void, { userId: string; roleId: string }>({
+      query: ({ userId, roleId }) => ({
+        // 👇 Now we pass both IDs into your Master function
+        url: UserRoleMaster.Delete(userId, roleId), 
         method: "DELETE",
       }),
       invalidatesTags: ["UserRole"],

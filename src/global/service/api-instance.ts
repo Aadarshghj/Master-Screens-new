@@ -8,8 +8,9 @@ export const apiInstance = createApi({
     baseUrl: ENV.VITE_BACKEND_BASE_URL,
   }),
   tagTypes: [
-     "Tenant",
+    "Tenant",
     "AdminUnitType",
+    "ModuleMgmt",
     "CustomerPhoto",
     "Customer",
     "Photo",
@@ -75,15 +76,25 @@ export const apiInstance = createApi({
     "RecoveryPriority",
     "ChargeSlabs",
     "BusinessRule",
-    "Staff",
     "UserRole",
     "RiskAssessmentType",
     "RoleManagement",
     "UserReg",
+
+    "MenuModuleMapping",
     "branchType",
+    "Branch",
+    "BranchStatus",
+    "BranchCategory",
+    "BranchType",
+    "Timezone",
+    "PermissionType",
+    "Language",
     "BranchStaffMapping",
     "Branch",
     "Staff",
+    "MenuSubMenu"
     ],
+
   endpoints: () => ({}),
 });

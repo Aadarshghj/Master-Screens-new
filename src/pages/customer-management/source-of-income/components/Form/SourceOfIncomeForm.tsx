@@ -3,19 +3,24 @@ import { RefreshCw, Save, X } from "lucide-react";
 import { FormContainer } from "@/components/ui/form-container";
 import { Flex, Input } from "@/components/ui";
 import { Form } from "@/components";
-import type { FieldErrors, UseFormRegister } from "react-hook-form";
-import type { SourceOfIncomeFormData } from "@/types/customer-management/source-income";
+import {
+  type Control,
+  type FieldErrors,
+  type UseFormRegister,
+} from "react-hook-form";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
+import type { SourceOfIncomeFormData } from "@/types/customer-management/source-income";
 
 interface SourceOfIncomeFormProps {
+  control: Control<SourceOfIncomeFormData>;
   register: UseFormRegister<SourceOfIncomeFormData>;
   errors: FieldErrors<SourceOfIncomeFormData>;
   isSubmitting: boolean;
   onSubmit: () => void;
   onCancel: () => void;
   onReset: () => void;
-  isEdit:boolean
-}
+  isEdit: boolean
+}debugger
 
 export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
   register,
@@ -62,6 +67,7 @@ export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
                 />
               </Form.Field>
             </Form.Col>
+
           </Form.Row>
 
           <Flex.ActionGroup className="mt-2 justify-end gap-4">
@@ -92,7 +98,7 @@ export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
               disabled={isSubmitting}
             >
               <Save width={13} />
-              {isSubmitting ? "Saving..." : isEdit?"Update Source of Income":"Save Source of Income"}
+              {isSubmitting ? "Saving..." : isEdit ? "Update Source of Income" : "Save Source of Income"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>
@@ -100,3 +106,4 @@ export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
     </FormContainer>
   );
 };
+

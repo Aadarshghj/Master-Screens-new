@@ -15,17 +15,16 @@ interface TableProps {
   data: SourceOfIncomeData[] | undefined;
   isLoading: boolean;
   handleDelete: (identity: string) => void;
-  onEdit: (identity: SourceOfIncomeData) => void;  
+  onEdit: (identity: SourceOfIncomeData) => void;
 }
 
 export const SourceOfIncomeTable: React.FC<TableProps> = ({
   data,
   isLoading,
   handleDelete,
-  onEdit,     
+  onEdit,
 }) => {
   const tableData = data || [];
-
   const columns = useMemo(
     () => [
       columnHelper.display({
@@ -33,11 +32,9 @@ export const SourceOfIncomeTable: React.FC<TableProps> = ({
         header: "S.No",
         cell: ({ row }) => row.index + 1,
       }),
-
       columnHelper.accessor("name", {
         header: "Source of Income Name",
       }),
-
       columnHelper.accessor("code", {
         header: "Source of Income Code",
       }),
@@ -71,14 +68,14 @@ export const SourceOfIncomeTable: React.FC<TableProps> = ({
         },
       }),
     ],
-    [handleDelete, onEdit]  
+    [handleDelete, onEdit]
   );
 
   const getNoDataText = () => {
     if (isLoading) {
-      return "Loading source of income...";
+      return "Loading Source of Income...";
     }
-    return "No source of income found";
+    return "No source of Income found";
   };
 
   const table = useReactTable({

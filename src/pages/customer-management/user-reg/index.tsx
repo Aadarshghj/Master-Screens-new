@@ -12,8 +12,9 @@ import { UserRegForm } from "./components/Form/UserRegForm";
 import { UserRegTable } from "./components/Table/UserRegTable";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 import { useUserRegForm } from "./components/hooks/useUserRegForm";
-import type { UserRegType } from "@/types/customer-management/user-reg";
+import type { UserRegResponseDto, UserRegType } from "@/types/customer-management/user-reg";
 import { useLazyGetUserByIdQuery } from "@/global/service/end-points/customer-management/user-reg";
+
 export const UserRegPage: React.FC = () => {
   const navigate = useNavigate();
    const [showForm, setShowForm] = useState(false);
@@ -29,7 +30,6 @@ const handleResetClick = () => {
   setSelectedUser(null);
 };
 const isEditMode = Boolean(selectedUser);
-
 
 
   const {
@@ -70,18 +70,28 @@ const isEditMode = Boolean(selectedUser);
     setShowForm(false);
   };
 
-  const onEdit = async (data: UserRegType) => {
+  const onEdit = async (data: UserRegResponseDto) => {
   try {
     setShowForm(true);
 
     const response = await triggerGetUserById(
-      data.id!
-    ).unwrap();
+  data.identity
+).unwrap();
 
-    setEditingUser(response);
-    setSelectedUser(response);
+    const formData: UserRegType = {
+  id: response.identity,
+  userCode: response.userCode,
+  userName: response.userName,
+  email: response.email,
+  phoneNumber: response.phoneNumber,
+  userType: response.userType,
+  fullName: response.fullName,
+  isActive: response.isActive,
+};
 
-    reset(response);
+setEditingUser(formData);
+setSelectedUser(formData);
+reset(formData);
   } catch (error) {
     console.error("Failed to fetch user", error);
   }
