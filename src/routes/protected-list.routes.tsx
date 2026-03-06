@@ -61,6 +61,7 @@ import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-
 import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
+import { LoanSchemeTypePage } from "@/pages/customer-management/loan-scheme-type";
 
 import { AssetModelPage } from "@/pages/asset-management-system/asset-model";
 import { TdsSectionPage } from "@/pages/asset-management-system/tds-section";
@@ -69,6 +70,7 @@ import { AssetTypePage } from "@/pages/asset-management-system/asset-type/Index"
 import { TermsAndConditionPage } from "@/pages/asset-management-system/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/asset-management-system/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
+import { SupplierInformationPage } from "@/pages/asset-management-system/supplier-management/supplier-information";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -270,6 +272,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/menu-module-mapping",
         element: <MenuModuleMappingPage />,
+      },
+      {
+        path: "/customer-management/master/loan-scheme-type",
+        element: <LoanSchemeTypePage />,
       },
       {
         path: "/customer-management/master/designation-role-mapping",
@@ -485,6 +491,11 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/asset-management",
         children: [
+           {
+            path: "/asset-management/supplier-management/supplier-information",
+            index: true,
+            element: <SupplierInformationPage />,
+          },
          
         ],
       },
