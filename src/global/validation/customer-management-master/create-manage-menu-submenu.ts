@@ -3,92 +3,28 @@ import * as yup from "yup";
 export const MenuSubmenuSchema = yup.object({
     menuName: yup
         .string().trim()
-        .required()       
-        .max(20, "Maximum 20 characters allowed")
-        .test("role-validation", "Invalid Role Name", function (value) {
-    if (!value) return true;
+        .required()
+        // .matches(/^[A-Z0-9_]+$/, "Only uppercase letters, numbers and _ allowed")
+        .max(20, "Maximum 20 characters allowed"),
 
-    if (value.startsWith(" ")) {
-      return this.createError({
-        message: "First character cannot be a space",
-      });
-    }
-
-    const invalidChar = /[^a-zA-Z0-9_/ ]/.test(value);
-
-    if (invalidChar) {
-      return this.createError({
-        message: "Only letters, numbers and '/' are allowed",
-      });
-    }
-
-    const hasLetter = /[a-zA-Z]/.test(value);
-
-    if (!hasLetter) {
-      return this.createError({
-        message: "Role name cannot contain only numbers",
-      });
-    }
-
-    return true;
-  }),
-
-    menuCode: yup
+    menucode: yup
         .string().trim()
         .required()
-        
-        .max(50, "Maximum 50 characters allowed")
-        .test("role-validation", "Invalid Role Name", function (value) {
-    if (!value) return true;
-
-    if (value.startsWith(" ")) {
-      return this.createError({
-        message: "First character cannot be a space",
-      });
-    }
-
-    const invalidChar = /[^a-zA-Z0-9_/ ]/.test(value);
-
-    if (invalidChar) {
-      return this.createError({
-        message: "Only letters, numbers and '/' are allowed",
-      });
-    }
-
-    const hasLetter = /[a-zA-Z]/.test(value);
-
-    if (!hasLetter) {
-      return this.createError({
-        message: "Role name cannot contain only numbers",
-      });
-    }
-
-    return true;
-  }),
+        .matches(/^[0-9]+$/, "Only numbers are allowed")
+        .max(50, "Maximum 50 characters allowed"),
         
     description: yup
-        .string().max(200, "Maximum 200 characters allowed").required()
-         .test("desc-validation", "Invalid description", function (value) {
-    if (!value) return true;
-
-    const hasLetter = /[a-zA-Z]/.test(value);
-    if (!hasLetter) {
-      return this.createError({
-        message: "Description must contain at least one letter",
-      });
-    }
-    return true;
-  }),
+        .string().max(200, "Maximum 200 characters allowed").required(),
 
     menuOrder: yup.string().required() .matches(/^[0-9]+$/, "Only numbers are allowed"),
 
-    parent: yup.string().required(),
+    parentMenu: yup.string().required(),
 
     isActive: yup.boolean().required(),
 
-    pageUrl: yup.string().required(),
+    pageurl: yup.string().required(),
 
-    isUrl: yup.boolean().required(),
-    identity:yup.string().required()
+    url: yup.boolean().required(),
+    menuIdentity:yup.string().required()
 
 }).required()
