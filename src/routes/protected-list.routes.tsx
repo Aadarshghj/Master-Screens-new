@@ -57,6 +57,7 @@ import { MsmeTypePage } from "@/pages/asset/management/msme-type";
 import { ContactTypePage } from "@/pages/asset/management/contact-type";
 import { ProductReqListPage } from "@/pages/asset/management/product-req-list";
 import { PurchaseRequestPage } from "@/pages/asset/management/product-req-list/purchase-req";
+import { OrnamentTypePage } from "@/pages/customer-management/ornament-type";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -279,6 +280,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/branch-type",
         element: <BranchTypePage />,
+      },
+      {
+        path:"/customer-management/master/ornament-type",
+        element: <OrnamentTypePage/>
       },
       {
         path: "/customer-management/master/customer-category",

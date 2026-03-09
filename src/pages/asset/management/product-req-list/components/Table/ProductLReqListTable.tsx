@@ -120,7 +120,6 @@ export const ProductReqListTable: React.FC<ProductListTableProps> = ({filters}) 
   ],
   []
 );
-console.log("Full Data:", data);
 
 const filteredData = React.useMemo(() => {
   return data.filter((item) => {
@@ -137,9 +136,6 @@ const filteredData = React.useMemo(() => {
     return matchProduct && matchStatus;
   });
 }, [data, filters]);
-
-console.log("Filters:", filters);
-console.log("Filtered result:", filteredData);
 
   const table = useReactTable({
     data: filteredData,

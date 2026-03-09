@@ -10,21 +10,21 @@ import {
   Grid,
 } from "../../../../../components/ui";
 import { Pencil, Trash2 } from "lucide-react";
-import type { BranchType } from "../../../../../types/customer-management/branch-type";
 import NeumorphicButton from "../../../../../components/ui/neumorphic-button/neumorphic-button";
+import type { OrnamentType } from "@/types/customer-management/ornament-type";
 
-const columnHelper = createColumnHelper<BranchType>();
+const columnHelper = createColumnHelper<OrnamentType>();
 
 interface Props {
-  data: BranchType[];
-  onEdit: (row: BranchType) => void;
+  data: OrnamentType[];
+  onEdit: (row: OrnamentType) => void;
   onDelete: (id: string) => void;
   showDeleteModal: boolean;
   confirmDelete: () => void;
   closeDeleteModal: () => void;
 }
 
-export const BranchTypeMasterTable: React.FC<Props> = ({
+export const OrnamentTypeMasterTable: React.FC<Props> = ({
   data,
   onEdit,
   onDelete,
@@ -32,6 +32,7 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
   confirmDelete,
   closeDeleteModal,
 }) => {
+
   const columns = useMemo(
     () => [
       columnHelper.display({
@@ -40,16 +41,16 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
         cell: ({ row }) => row.index + 1,
       }),
 
-      columnHelper.accessor("branchTypeCode",{
-        header: "Branch Type Code",
+      columnHelper.accessor("ornamentTypeCode", {
+        header: "Ornament Type Code",
       }),
 
-      columnHelper.accessor("branchTypeName", {
-        header: "Branch Type Name",
+      columnHelper.accessor("ornamentTypeName", {
+        header: "Ornament Type Name",
       }),
 
-      columnHelper.accessor("branchTypeDesc", {
-        header: "Branch Type Description",
+      columnHelper.accessor("ornamentTypeDesc", {
+        header: "Ornament Type Description",
         cell: (info) => info.getValue() || "—",
       }),
 
@@ -73,6 +74,7 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
         header: "Actions",
         cell: ({ row }) => (
           <div className="flex items-center gap-3">
+
             <NeumorphicButton
               variant="none"
               className="h-6 w-6 p-0"
@@ -84,10 +86,14 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
             <NeumorphicButton
               variant="none"
               className="text-status-error h-6 w-6 p-0"
-              onClick={() => onDelete(row.original.branchTypeIdentity)}
+              onClick={() =>
+                row.original.ornamentTypeIdentity &&
+                onDelete(row.original.ornamentTypeIdentity)
+              }
             >
               <Trash2 size={13} />
             </NeumorphicButton>
+
           </div>
         ),
       }),
@@ -108,7 +114,7 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
           <CommonTable
             table={table}
             size="default"
-            noDataText="No branch types found"
+            noDataText="No ornament types found"
             className="bg-card"
           />
         </Grid.Item>
@@ -118,7 +124,7 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
         isOpen={showDeleteModal}
         onConfirm={confirmDelete}
         onCancel={closeDeleteModal}
-        title="Delete Branch Type"
+        title="Delete Ornament Type"
         message="Are you sure you want to delete this?"
         confirmText="Delete"
         cancelText="Cancel"

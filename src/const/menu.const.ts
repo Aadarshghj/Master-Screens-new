@@ -62,6 +62,11 @@ export const menu = [
             path:"/customer-management/master/branch-type",
           },
           {
+            id:"ornament-type",
+            title: "Ornament-type master",
+            path:"/customer-management/master/ornament-type",
+          },
+          {
             id: "industry-category",
             title: "Industry Category Master",
             path: "/customer-management/master/industry-category",

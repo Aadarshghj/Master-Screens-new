@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { PurchaseFormHeader } from "./components/form/PurchaseReqHeader";
 import { PurchaseItemPage } from "./components/form/PurchaseReqItemDetails";
+import { PurchaseItemTable } from "./components/table/PurchaseReqTable";
 
 export const PurchaseRequestPage = () => {
     const navigate = useNavigate();
@@ -75,6 +76,10 @@ const {
                  errors={errors}
                  register={register}/>
             </div>
+
+            <div className="mt-2">
+                <PurchaseItemTable/>
+                </div>
         </section>
         </PageWrapper>
         </>

@@ -1,29 +1,29 @@
 import * as yup from "yup";
 
-export const branchTypeSchema = yup.object({
+export const ornamentTypeSchema = yup.object({
 
-    branchTypeIdentity: yup
+    ornamentTypeIdentity: yup
     .string(),
 
-    branchTypeCode: yup
-  .string()
-  .transform(v => v?.toUpperCase().trim())
-  .required("Branch Type Code is required")
-  .max(20,"Maximum 20 characters")
-  .matches(
-    /^[A-Z0-9_/]+$/,
-    "Only uppercase letters, numbers, _ and / are allowed"
-  )
-    .test(
-    "no-repeated-chars",
-    "Repeated characters are not allowed",
-    value => !value || !/(.)\1{2,}/.test(value)
-  ),
+  //   ornamentTypeCode: yup
+  // .string()
+  // .transform(v => v?.toUpperCase().trim())
+  // .required("Ornament Type Code is required")
+  // .max(20,"Maximum 20 characters")
+  // .matches(
+  //   /^[A-Z0-9_/]+$/,
+  //   "Only uppercase letters, numbers, _ and / are allowed"
+  // )
+  //   .test(
+  //   "no-repeated-chars",
+  //   "Repeated characters are not allowed",
+  //   value => !value || !/(.)\1{2,}/.test(value)
+  // ),
     
-    branchTypeName: yup
+    ornamentTypeName: yup
     .string() 
     .transform(v => v?.toUpperCase().trim())
-    .required("Branch Type Name is required")
+    .required("Ornamnet Type Name is required")
     .max(50,"Maximum 50 characters")
     .test(
     "no-repeated-chars",
@@ -31,9 +31,10 @@ export const branchTypeSchema = yup.object({
     value => !value || !/(.)\1{2,}/.test(value)
   ),
 
-    branchTypeDesc: yup
+    ornamentTypeDesc: yup
     .string()
     .transform(v => v?.toUpperCase().trim())
+    .required("Ornament Type Description is required")
     .max(200,"Maximum 200 characters")
     .test(
   "no-repeated",
