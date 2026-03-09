@@ -25,7 +25,6 @@ export const useAddressType = () => {
       try {
         console.log("Mock Saved Data:", data);
 
-        // simulate API delay
         await new Promise(resolve => setTimeout(resolve, 500));
 
         toast.success("Address Type saved successfully");
