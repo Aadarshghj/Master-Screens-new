@@ -61,7 +61,7 @@ export const menu = [
             title: "Branch-Type Master",
             path: "/customer-management/master/branch-type",
           },
-           {
+          {
             id: "address-type",
             title: "Address-Type Master",
             path: "/customer-management/master/address-type",
@@ -201,7 +201,7 @@ export const menu = [
             title: "User Role Mapping Master",
             path: "/customer-management/master/user-role-mapping",
           },
-           {
+          {
             id: "user-type",
             title: "User Type Master",
             path: "/customer-management/master/user-type",
@@ -274,26 +274,21 @@ export const menu = [
             title: "Supplier Risk Category",
             path: "/customer-management/asset-master/supplier-risk-category",
           },
-           {
-                id: "asset-type",
-                title: "Asset Type",
-                path: "/customer-management/asset-master/asset-type"
-              },
-              {
-                id: "terms-and-conditions",
-                title: "Terms And Conditions",
-                path: "/customer-management/asset-master/terms-and-conditions"
-              },
-              {
-                id: "supplier-risk-category",
-                title: "Supplier Risk Category",
-                path: "/customer-management/asset-master/supplier-risk-category"
-              },
-              {
-  id: "supplier-list-master",
-  title: "Supplier List Master",
-  path: "/customer-management/asset-master/supplier-list-master"
-},
+          {
+            id: "asset-type",
+            title: "Asset Type",
+            path: "/customer-management/asset-master/asset-type",
+          },
+          {
+            id: "terms-and-conditions",
+            title: "Terms And Conditions",
+            path: "/customer-management/asset-master/terms-and-conditions",
+          },
+          {
+            id: "supplier-risk-category",
+            title: "Supplier Risk Category",
+            path: "/customer-management/asset-master/supplier-risk-category",
+          },
         ],
       },
     ],
@@ -596,8 +591,8 @@ export const menu = [
     icon: "TrendingUp",
     path: "/asset-management",
 
-     children: [
-          {
+    children: [
+      {
         id: "supplier-management",
         title: "Supplier Management",
         path: "/asset-management/supplier-management",
@@ -607,15 +602,19 @@ export const menu = [
             title: "Supplier Information",
             path: "/asset-management/supplier-management/supplier-information",
           },
+          {
+            id: "supplier-list-master",
+            title: "Supplier List Master",
+            path: "/customer-management/asset-master/supplier-list-master",
+          },
         ],
       },
       {
         id: "quotation-registration",
         title: "Quotation Registration  ",
         path: "/asset-management/quotation-registration",
-    }
-            ]
-    
+      },
+    ],
   },
   {
     id: "financial-accounting",
