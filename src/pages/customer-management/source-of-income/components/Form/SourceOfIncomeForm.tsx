@@ -20,7 +20,7 @@ interface SourceOfIncomeFormProps {
   onCancel: () => void;
   onReset: () => void;
   isEdit: boolean
-}debugger
+}
 
 export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
   register,
