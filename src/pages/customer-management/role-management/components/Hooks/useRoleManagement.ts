@@ -7,12 +7,10 @@ import type {
   RoleManagementRequestDto,
   RoleManagementType,
 } from "@/types/customer-management/role-management";
-import toast from "react-hot-toast";
 import {
   useSaveRoleManagementMutation,
   
 } from "@/global/service/end-points/customer-management/role-management";
-import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export const useRoleManagement = (editData?: RoleManagementType) => {
   const [saveRoleManagement] = useSaveRoleManagementMutation();

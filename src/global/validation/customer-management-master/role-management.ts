@@ -38,7 +38,7 @@ export const roleManagementSchema: yup.ObjectSchema<RoleManagementType> =
 
 roleShortDesc: yup
   .string()
-  .nullable()
+  .required("Role Name is required")
   .default(null)
   .max(150, "Maximum 150 characters allowed")
   .test("desc-validation", "Invalid description", function (value) {

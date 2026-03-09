@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { logger } from "@/global/service";
 import {
   useGetMasterRoleManagementQuery,
 } from "@/global/service/end-points/customer-management/role-management";
