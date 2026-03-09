@@ -249,6 +249,26 @@ export const menu = [
             title: "GST Cost Master",
             path: "/customer-management/asset-master/gst-cost-master",
           },
+           {
+        id:"asset-category",
+            title:"Asset Category",
+            path: "/asset/management/asset-category",
+      },
+      {
+        id:"msme-type",
+        title: "MSME Type",
+        path:"/asset/management/msme-type",
+      },
+      {
+        id:"contact-type",
+        title:"Contact Type",
+        path:"/asset/management/contact-type",
+      },
+      {
+        id:"product-req-list",
+        title:"Product Request List",
+        path:"/asset/management/product-req-list",
+      },
           {
             id: "tds-section",
             title: "TDS Section",
@@ -270,29 +290,14 @@ export const menu = [
             path: "/customer-management/asset-master/asset-type",
           },
           {
-            id: "terms-and-conditions",
-            title: "Terms And Conditions",
-            path: "/customer-management/asset-master/terms-and-conditions",
-          },
-          {
             id: "supplier-risk-category",
             title: "Supplier Risk Category",
             path: "/customer-management/asset-master/supplier-risk-category",
           },
           {
-            id: "asset-type",
-            title: "Asset Type",
-            path: "/customer-management/asset-master/asset-type",
-          },
-          {
             id: "terms-and-conditions",
             title: "Terms And Conditions",
             path: "/customer-management/asset-master/terms-and-conditions",
-          },
-          {
-            id: "supplier-risk-category",
-            title: "Supplier Risk Category",
-            path: "/customer-management/asset-master/supplier-risk-category",
           },
         ],
       },
@@ -595,28 +600,6 @@ export const menu = [
     title: "Asset Management System",
     icon: "TrendingUp",
     path: "/asset-management",
-    children: [
-      {
-        id:"asset-category",
-            title:"Asset Category",
-            path: "/asset/management/asset-category",
-      },
-      {
-        id:"msme-type",
-        title: "MSME Type",
-        path:"/asset/management/msme-type",
-      },
-      {
-        id:"contact-type",
-        title:"Contact Type",
-        path:"/asset/management/contact-type",
-      },
-      {
-        id:"product-req-list",
-        title:"Product Request List",
-        path:"/asset/management/product-req-list",
-        
-
     children: [
       {
         id: "supplier-management",
