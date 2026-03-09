@@ -10,21 +10,21 @@ import {
   Grid,
 } from "../../../../../components/ui";
 import { Pencil, Trash2 } from "lucide-react";
-import type { BranchType } from "../../../../../types/customer-management/branch-type";
+import type { UserType } from "@/types/customer-management/user-type";
 import NeumorphicButton from "../../../../../components/ui/neumorphic-button/neumorphic-button";
 
-const columnHelper = createColumnHelper<BranchType>();
+const columnHelper = createColumnHelper<UserType>();
 
 interface Props {
-  data: BranchType[];
-  onEdit: (row: BranchType) => void;
+  data: UserType[];
+  onEdit: (row: UserType) => void;
   onDelete: (id: string) => void;
   showDeleteModal: boolean;
   confirmDelete: () => void;
   closeDeleteModal: () => void;
 }
 
-export const BranchTypeMasterTable: React.FC<Props> = ({
+export const UserTypeMasterTable: React.FC<Props> = ({
   data,
   onEdit,
   onDelete,
@@ -40,27 +40,30 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
         cell: ({ row }) => row.index + 1,
       }),
 
-      columnHelper.accessor("branchTypeCode",{
-        header: "Branch Type Code",
+      columnHelper.accessor("userTypeCode", {
+        header: "User Code",
+        cell: info => info.getValue() || "—",
       }),
 
-      columnHelper.accessor("branchTypeName", {
-        header: "Branch Type Name",
+      columnHelper.accessor("userTypeName", {
+        header: "User Type Name",
       }),
 
-      columnHelper.accessor("branchTypeDesc", {
-        header: "Branch Type Description",
-        cell: (info) => info.getValue() || "—",
+      columnHelper.accessor("userTypeDesc", {
+        header: "Description",
+        cell: info => info.getValue() || "—",
       }),
+
+
 
       columnHelper.accessor("isActive", {
         header: "Status",
-        cell: (info) => (
+        cell: info => (
           <span
             className={
               info.getValue()
-                ? "text-green-600 font-medium"
-                : "text-red-600 font-medium"
+                ? "font-medium text-green-600"
+                : "font-medium text-red-600"
             }
           >
             {info.getValue() ? "ACTIVE" : "INACTIVE"}
@@ -84,7 +87,7 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
             <NeumorphicButton
               variant="none"
               className="text-status-error h-6 w-6 p-0"
-              onClick={() => onDelete(row.original.branchTypeIdentity)}
+              onClick={() => onDelete(row.original.userTypeIdentity)}
             >
               <Trash2 size={13} />
             </NeumorphicButton>
@@ -108,7 +111,7 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
           <CommonTable
             table={table}
             size="default"
-            noDataText="No branch types found"
+            noDataText="No user types found"
             className="bg-card"
           />
         </Grid.Item>
@@ -118,7 +121,7 @@ export const BranchTypeMasterTable: React.FC<Props> = ({
         isOpen={showDeleteModal}
         onConfirm={confirmDelete}
         onCancel={closeDeleteModal}
-        title="Delete Branch Type"
+        title="Delete User Type"
         message="Are you sure you want to delete this?"
         confirmText="Delete"
         cancelText="Cancel"
