@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import type { SourceOfIncomeData, SourceOfIncomeFormData } from "@/types/customer-management/source-income";
+import type {
+  SourceOfIncomeData,
+  SourceOfIncomeFormData,
+} from "@/types/customer-management/source-income";
 import { sourceOfIncomeSchema } from "@/global/validation/customer-management-master/source-income";
 import {
   useCreateSourceOfIncomeMutation,
@@ -12,7 +15,9 @@ import {
 import { logger } from "@/global/service";
 import { SOURCE_OF_INCOME_DEFAULT_VALUES } from "../../constants/SourceOfIncomeDefault";
 
-export const useSourceOfIncomeFormController = (editData?: SourceOfIncomeData) => {
+export const useSourceOfIncomeFormController = (
+  editData?: SourceOfIncomeData
+) => {
   const [showForm, setShowForm] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [identity, setIdentity] = useState("");
@@ -25,9 +30,9 @@ export const useSourceOfIncomeFormController = (editData?: SourceOfIncomeData) =
   } = useForm<SourceOfIncomeFormData>({
     defaultValues: editData
       ? {
-        name: editData.name,
-        code: editData.code,
-      }
+          name: editData.name,
+          code: editData.code,
+        }
       : SOURCE_OF_INCOME_DEFAULT_VALUES,
     resolver: yupResolver(
       sourceOfIncomeSchema
@@ -51,7 +56,7 @@ export const useSourceOfIncomeFormController = (editData?: SourceOfIncomeData) =
       name: data.name.toUpperCase(),
       code: data.code.toUpperCase(),
     };
-  
+
     try {
       if (editData?.identity) {
         await updateSourceOfIncome({
@@ -67,14 +72,11 @@ export const useSourceOfIncomeFormController = (editData?: SourceOfIncomeData) =
 
       reset(SOURCE_OF_INCOME_DEFAULT_VALUES);
     } catch {
-      logger.error(
-        "Source of income with this name or code already exists",
-        { toast: true }
-      );
+      logger.error("Source of income with this name or code already exists", {
+        toast: true,
+      });
     }
   };
-
-  
 
   const onReset = () => reset(SOURCE_OF_INCOME_DEFAULT_VALUES);
   const handleHideForm = () => {
@@ -119,6 +121,6 @@ export const useSourceOfIncomeFormController = (editData?: SourceOfIncomeData) =
     handleConfirmDelete,
     handleDelete,
     isLoading,
-    reset
+    reset,
   };
 };

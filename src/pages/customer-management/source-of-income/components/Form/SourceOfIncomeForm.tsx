@@ -19,8 +19,8 @@ interface SourceOfIncomeFormProps {
   onSubmit: () => void;
   onCancel: () => void;
   onReset: () => void;
-  isEdit: boolean
-}debugger
+  isEdit: boolean;
+}
 
 export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
   register,
@@ -29,7 +29,7 @@ export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
   onSubmit,
   onCancel,
   onReset,
-  isEdit
+  isEdit,
 }) => {
   return (
     <FormContainer className="px-0">
@@ -67,7 +67,6 @@ export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
                 />
               </Form.Field>
             </Form.Col>
-
           </Form.Row>
 
           <Flex.ActionGroup className="mt-2 justify-end gap-4">
@@ -98,7 +97,11 @@ export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
               disabled={isSubmitting}
             >
               <Save width={13} />
-              {isSubmitting ? "Saving..." : isEdit ? "Update Source of Income" : "Save Source of Income"}
+              {isSubmitting
+                ? "Saving..."
+                : isEdit
+                  ? "Update Source of Income"
+                  : "Save Source of Income"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>
@@ -106,4 +109,3 @@ export const SourceOfIncomeForm: React.FC<SourceOfIncomeFormProps> = ({
     </FormContainer>
   );
 };
-

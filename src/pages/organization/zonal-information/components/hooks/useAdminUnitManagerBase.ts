@@ -209,6 +209,7 @@ export const useAdminUnitManagerBase = ({
     trigger,
     reset,
     setValue,
+    getValues, // ← added: stable imperative read inside effects/callbacks
     formState: { errors, isSubmitting },
   } = useForm<AdminUnitDetails>({
     resolver: yupResolver(schema),
@@ -216,6 +217,7 @@ export const useAdminUnitManagerBase = ({
     mode: "onSubmit",
     reValidateMode: "onChange",
   });
+
   const selectedUnitType = watch("adminUnitTypeIdentity");
   const selectedStatus = watch("branchStatusIdentity");
   const pincodeValue = watch("pincode");
@@ -239,12 +241,14 @@ export const useAdminUnitManagerBase = ({
   const allBranchListRef = useRef(allBranchList);
   const adminUnitTypeOptsRef = useRef(adminUnitTypeOptions);
   const setValueRef = useRef(setValue);
+  const getValuesRef = useRef(getValues); // ← stable ref for getValues
   const resetRef = useRef(reset);
   const selectedUnitCodeRef = useRef(selectedUnitCode);
 
   allBranchListRef.current = allBranchList;
   adminUnitTypeOptsRef.current = adminUnitTypeOptions;
   setValueRef.current = setValue;
+  getValuesRef.current = getValues; // ← keep ref in sync
   resetRef.current = reset;
   selectedUnitCodeRef.current = selectedUnitCode;
 
@@ -301,9 +305,12 @@ export const useAdminUnitManagerBase = ({
     lockedUnitTypeCode,
   ]);
 
+  // FIX 1: replaced watch("language") with getValuesRef.current("language")
+  // `watch` inside an effect is an imperative read, not a subscription —
+  // getValues is the correct API and is referentially stable (no dep needed).
   useEffect(() => {
     if (languageOptions.length === 0) return;
-    const currentLanguage = watch("language");
+    const currentLanguage = getValuesRef.current("language");
     if (currentLanguage) return;
 
     const english = languageOptions.find(o =>
@@ -314,9 +321,11 @@ export const useAdminUnitManagerBase = ({
     }
   }, [languageOptions]);
 
+  // FIX 2: replaced watch("branchTypeIdentity") with getValuesRef.current(...)
+  // Same reasoning — reading a value once on mount/option-load, not subscribing.
   useEffect(() => {
     if (branchTypeOptions.length !== 1) return;
-    const currentType = watch("branchTypeIdentity");
+    const currentType = getValuesRef.current("branchTypeIdentity");
     if (currentType) return;
 
     setValueRef.current("branchTypeIdentity", branchTypeOptions[0].value);
