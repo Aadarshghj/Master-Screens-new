@@ -10,7 +10,7 @@ import { FormContainer} from "../../../../../components/ui/form-container";
 import { Flex, Input, Label, Switch } from "../../../../../components/ui";
 import { Form, Textarea } from "../../../../../components";
 import NeumorphicButton from "../../../../../components/ui/neumorphic-button/neumorphic-button";
-import { BranchType } from '../../../../../types/customer-management/branch-type';
+import type { BranchType } from '../../../../../types/customer-management/branch-type';
 
 interface BranchTypeProps {
   control: Control<BranchType>;
@@ -18,7 +18,7 @@ interface BranchTypeProps {
   register: UseFormRegister<BranchType>;
   isSubmitting: boolean;
   isEdit: boolean;
-  onSubmit: () => React.FormEventHandler<HTMLFormElement>;
+  onSubmit: (e?: React.BaseSyntheticEvent) => void | Promise<void>;  
   onCancel: () => void;
   onReset: () => void;
 }

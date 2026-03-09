@@ -17,13 +17,13 @@ import {
   useGetBranchTypesQuery,
   useGetMergedToBranchesQuery,
   useGetAllBranchesQuery,
+  useGetParentBranchesQuery,
   useGetTimezonesQuery,
   useLazyGetPincodeDetailsQuery,
   useGetLanguagesQuery,
   type PincodeApiResponse,
 } from "@/global/service/end-points/organisation/branches.api";
 import type { DropdownOption } from "@/components/ui/input-with-search/input-with-search";
-import type { Option } from "@/types/customer-management/designation";
 import { toast } from "react-hot-toast";
 import {
   ADMIN_UNIT_CODES,
@@ -73,59 +73,6 @@ export const computeNextCode = (
 
   const next = nums.length > 0 ? Math.max(...nums) + 1 : 1;
   return `${prefix}${String(next).padStart(pad, "0")}`;
-};
-
-interface BranchListItem {
-  identity: string;
-  branchCode: string;
-  branchName: string;
-  adminUnitTypeIdentity: string;
-}
-
-export const buildParentOptions = (
-  allBranches: BranchListItem[],
-  adminUnitTypeOptions: AdminUnitTypeOption[],
-  currentUnitTypeIdentity: string
-): Option[] => {
-  if (!currentUnitTypeIdentity) return [];
-
-  const currentType = adminUnitTypeOptions.find(
-    o => o.value === currentUnitTypeIdentity
-  );
-  if (!currentType || (currentType.hierarchyLevel ?? 0) <= 1) {
-    return [];
-  }
-
-  const currentLevel = currentType.hierarchyLevel ?? 0;
-
-  const validParentTypes = adminUnitTypeOptions
-    .filter(o => (o.hierarchyLevel ?? 0) < currentLevel)
-    .sort((a, b) => (b.hierarchyLevel ?? 0) - (a.hierarchyLevel ?? 0));
-
-  const result: Option[] = [];
-
-  for (const parentType of validParentTypes) {
-    const units = allBranches.filter(
-      b => b.adminUnitTypeIdentity === parentType.value
-    );
-
-    if (units.length === 0) continue;
-
-    result.push({
-      label: `── ${toTitleCase(parentType.label)} ──`,
-      value: `__divider__${parentType.value}`,
-      disabled: true,
-    } as Option & { disabled: boolean });
-
-    for (const unit of units) {
-      result.push({
-        label: `${unit.branchCode} — ${unit.branchName}`,
-        value: unit.identity,
-      });
-    }
-  }
-
-  return result;
 };
 
 const BLANK_FORM: AdminUnitDetails = {
@@ -223,8 +170,6 @@ export const useAdminUnitManagerBase = ({
     isSuccess: isUnitTypesSuccess,
   } = useGetAdminUnitTypesQuery();
 
-  // transformResponse already maps identity→value and name→label,
-  // so we just sort and apply title-case here.
   const adminUnitTypeOptions = useMemo(
     () =>
       [...rawAdminUnitTypeOptions]
@@ -285,15 +230,11 @@ export const useAdminUnitManagerBase = ({
   );
 
   const isBranch = selectedUnitCode === ADMIN_UNIT_CODES.BRANCH;
+  const isCorporate = selectedUnitCode.toUpperCase() === "CORPORATE";
 
-  const parentOptions = useMemo(
-    () =>
-      buildParentOptions(
-        allBranchList as BranchListItem[],
-        adminUnitTypeOptions,
-        selectedUnitType
-      ),
-    [allBranchList, adminUnitTypeOptions, selectedUnitType]
+  const { data: parentOptions = [] } = useGetParentBranchesQuery(
+    selectedUnitType,
+    { skip: !selectedUnitType || isCorporate }
   );
 
   const allBranchListRef = useRef(allBranchList);
@@ -335,11 +276,6 @@ export const useAdminUnitManagerBase = ({
     [lockedUnitTypeCode]
   );
 
-  // ─── Initialise form once options have loaded ────────────────────────────
-  // KEY FIX: guard on isUnitTypesSuccess instead of options.length so that
-  // the effect only fires after the API call completes with real data,
-  // not on intermediate empty renders. The initialisedRef prevents it
-  // from re-running on subsequent re-renders.
   const initialisedRef = useRef(false);
 
   useEffect(() => {
@@ -577,7 +513,6 @@ export const useAdminUnitManagerBase = ({
     async (data: AdminUnitDetails): Promise<void> => {
       try {
         const payload = mapToBackend(data);
-        console.log("Submitting payload:", JSON.stringify(payload, null, 2));
 
         if (editIdentity) {
           const result = await updateBranch({

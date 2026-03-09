@@ -4,5 +4,6 @@ export const TENANT_DEFAULT_VALUES: TenantType = {
   tenantName: "",
   tenantCode: "",
   isActive: true,
-  id: ""
+  id: "",
+  tenantAddress: ""
 };

@@ -50,6 +50,12 @@ import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/customer-management/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
+import { AssetCategoryPage } from "@/pages/asset/management/asset-category";
+import { MsmeTypePage } from "@/pages/asset/management/msme-type";
+import { ContactTypePage } from "@/pages/asset/management/contact-type";
+import { ProductReqListPage } from "@/pages/asset/management/product-req-list";
+import { PurchaseRequestPage } from "@/pages/asset/management/product-req-list/purchase-req";
+import { OrnamentTypePage } from "@/pages/customer-management/ornament-type";
 import { CoLendingBankConfigPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-bank-configuration/Index";
 import { ModuleMgmtPage } from "@/pages/customer-management/module-management";
 import { QuotationRegPage } from "@/pages/asset-management-system/quotation-registration";
@@ -60,8 +66,12 @@ import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-
 import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
-import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
-import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
+
+import { LoanSchemeTypePage } from "@/pages/customer-management/loan-scheme-type";
+
+
+  
+
 import { AdminUnitRegistrationPage } from "@/pages/organization/zonal-information";
 import { CorporateRegistrationPage } from "@/pages/organization/zonal-information/components/form/CorporateRegistrationPage";
 import { StateRegistrationPage } from "@/pages/organization/zonal-information/components/form/stateRegistrationPage";
@@ -75,11 +85,20 @@ import { AssetTypePage } from "@/pages/customer-management/asset-master/asset-ty
 import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
+import { SupplierInformationPage } from "@/pages/asset-management-system/supplier-management/supplier-information";
+import { SupplierListPage } from "@/pages/asset-management-system/supplier-management/supplier-list";
+import { AddressTypePage } from "@/pages/customer-management/address-type";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
 import { ChargesMasterPage } from "@/pages/customer-management/asset-master/charges-master";
 import { GstRegistrationPage } from "@/pages/customer-management/asset-master/gst-registration";
 import {  AssetItemAttributesPage} from "@/pages/customer-management/asset-master/asset-item-attributes";
 import { OrnamentNamePage } from "@/pages/customer-management/ornament-name";
+
+import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
+import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
+import UserTypePage from "@/pages/customer-management/user-type";
+
+
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -281,12 +300,55 @@ export const protectedRoutesList: RouteObject[] = [
         element: <FirmTypePage />,
       },
       {
+        path: "/customer-management/master/address-type",
+        element: <AddressTypePage />,
+      },
+      {
         path: "/customer-management/master/sectoral-performance",
         element: <SectoralPerformancePage />,
       },
       {
         path: "/customer-management/master/firm-role",
         element: <FirmRolePage />,
+      },
+      {
+        path: "asset/management/asset-category",
+        children:[
+          {
+            index: true,
+            element: <AssetCategoryPage />,
+         },
+        ]
+      },
+      {
+        path:"asset/management/msme-type",
+        children:[ {
+          index: true,
+          element: <MsmeTypePage/>,
+         },
+        ],
+      },
+      {
+        path:"asset/management/contact-type",
+        children:[ 
+          {
+          index: true,
+          element: <ContactTypePage/>,
+         },
+        ],
+      },
+      {
+        path:"asset/management/product-req-list",
+        children:[ 
+          {
+          index: true,
+          element: <ProductReqListPage/>,
+         },
+        ],
+      },
+      {
+        path:"/asset/manageemnt/product-req-list/purchase-req",
+        element: <PurchaseRequestPage/>
       },
       {
         path: "/customer-management/master/staffs",
@@ -305,6 +367,10 @@ export const protectedRoutesList: RouteObject[] = [
         element: <BranchTypePage />,
       },
       {
+        path:"/customer-management/master/ornament-type",
+        element: <OrnamentTypePage/>
+      },
+      {
         path: "/customer-management/master/customer-category",
         element: <CustomerCategoryPage />,
       },
@@ -318,20 +384,24 @@ export const protectedRoutesList: RouteObject[] = [
       },
 
       {
-         path: "/customer-management/master/menu-submenu-tree",
+        path: "/customer-management/master/menu-submenu-tree",
         element: <MenuTreePage />,
       },
       {
-  path: "/customer-management/master/menu-submenu",
-  element: <MenuSubmenuPage />,
-},
+        path: "/customer-management/master/menu-submenu",
+        element: <MenuSubmenuPage />,
+      },
+      {
+        path: "/customer-management/master/user-type",
+        element: <UserTypePage />,
+      },
       // {
       //    path: "/customer-management/master/menu-submenu",
       //   element: <MenuSubmenuPage />,
       // },
-      
+
       {
-         path: "/customer-management/master/sub-module-management",
+        path: "/customer-management/master/sub-module-management",
         element: <SubModulePage />,
       },
       {
@@ -341,6 +411,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/menu-module-mapping",
         element: <MenuModuleMappingPage />,
+      },
+      {
+        path: "/customer-management/master/loan-scheme-type",
+        element: <LoanSchemeTypePage />,
       },
       {
         path: "/customer-management/master/designation-role-mapping",
@@ -566,13 +640,23 @@ export const protectedRoutesList: RouteObject[] = [
             index: true,
             element: <SupplierRiskPage />,
           },
+          {
+  path: "/customer-management/asset-master/supplier-list-master",
+  element: <SupplierListPage />,
+},
         ],
       },
       {
         path: "/asset-management",
         children: [
+           {
+            path: "/asset-management/supplier-management/supplier-information",
+            index: true,
+            element: <SupplierInformationPage />,
+          },
          
         ],
+        
       },
     ],
   },

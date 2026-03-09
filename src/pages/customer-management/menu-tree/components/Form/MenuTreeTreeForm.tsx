@@ -1,8 +1,7 @@
 import React from "react"
 import type { TreeNode } from "../../constants/menuTreeData"
 import { useMenuTree } from "../Hooks/menuTree"
-import { CiCircleMinus } from "react-icons/ci";
-import { CiCirclePlus } from "react-icons/ci";
+import { PlusCircle,LucideMinusCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
@@ -34,7 +33,7 @@ const MenuTreeForm: React.FC<Props> = ({ data }) => {
 
           {hasChildren && (
             <span className="font-bold text-xs ">
-              {expanded ? <CiCircleMinus style={{ color: "blue", fontSize: "15px" }} /> : <CiCirclePlus style={{ color: "blue", fontSize: "15px" }} />}
+              {expanded ? <LucideMinusCircle style={{ color: "blue", fontSize: "15px" }} /> : <PlusCircle style={{ color: "blue", fontSize: "15px" }} />}
             </span>
           )}
 

@@ -19,7 +19,6 @@ interface UseAdminUnitTableProps {
 export const useAdminUnitTable = ({
   externalUnitType,
 }: UseAdminUnitTableProps = {}) => {
-  // ── Data ─────────────────────────────────────────────────────────────────
   const { data: allData = [], isFetching } = useGetAllBranchesQuery() as {
     data?: BranchResponseDto[];
     isFetching: boolean;
@@ -29,18 +28,15 @@ export const useAdminUnitTable = ({
     data?: AdminUnitTypeOption[];
   };
 
-  // ── Unit type filter state ────────────────────────────────────────────────
   const [selectedUnitType, setSelectedUnitType] = useState<string>(
     externalUnitType ?? ALL_UNIT_TYPES
   );
 
-  // Sync when parent page changes the locked unit type
   useEffect(() => {
     if (!externalUnitType) return;
     setSelectedUnitType(externalUnitType);
   }, [externalUnitType]);
 
-  // ── Options — sorted by hierarchy, labels kept RAW from DB ───────────────
   const adminUnitTypeOptions = useMemo(
     () =>
       [...rawUnitTypeOptions].sort(
@@ -49,9 +45,6 @@ export const useAdminUnitTable = ({
     [rawUnitTypeOptions]
   );
 
-  // ── Selected label ────────────────────────────────────────────────────────
-  // When externalUnitType is a UUID we resolve its label from the options.
-  // Fallback chain: matched label → "All"
   const selectedUnitLabel = useMemo(() => {
     if (selectedUnitType === ALL_UNIT_TYPES) return "All";
     return (
@@ -60,7 +53,6 @@ export const useAdminUnitTable = ({
     );
   }, [selectedUnitType, adminUnitTypeOptions]);
 
-  // ── Filtered data ─────────────────────────────────────────────────────────
   const data = useMemo<BranchResponseDto[]>(() => {
     if (selectedUnitType === ALL_UNIT_TYPES) return allData;
     return allData.filter(
@@ -68,7 +60,6 @@ export const useAdminUnitTable = ({
     );
   }, [allData, selectedUnitType]);
 
-  // ── Delete ────────────────────────────────────────────────────────────────
   const [deleteBranch] = useDeleteBranchMutation();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedBranchId, setSelectedBranchId] = useState<string | null>(null);

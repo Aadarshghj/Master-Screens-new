@@ -102,8 +102,7 @@ export const AdminUnitRegistrationForm: React.FC<
     label: o.label,
     value: o.value,
   }));
-console.log("Admin Unit Options:", adminUnitTypeOptions);
-console.log("Selected Unit:", watch("adminUnitTypeIdentity"));
+
   const handlePostOfficeChange = (value: string) => {
     const matched = postOfficeOptions.find(o => o.value === value);
     if (matched) onPostOfficeSelect(matched);
@@ -222,6 +221,8 @@ console.log("Selected Unit:", watch("adminUnitTypeIdentity"));
               </Form.Field>
             </Form.Col>
 
+            {/* Parent unit — hidden for Corporate (top of hierarchy) and
+                for newly created units where no parent exists yet */}
             {!isCreated && !isCorporate && (
               <Form.Col lg={2} md={6} span={12}>
                 <Form.Field
@@ -234,10 +235,10 @@ console.log("Selected Unit:", watch("adminUnitTypeIdentity"));
                     render={({ field }) => (
                       <Select
                         value={field.value ?? ""}
-                        onValueChange={val => {
-                          if (val.startsWith("__divider__")) return;
-                          field.onChange(val);
-                        }}
+                        // parentOptions come directly from the backend API
+                        // (getParentBranches) — every option has a valid
+                        // identity string as value, so plain onChange is safe.
+                        onValueChange={field.onChange}
                         options={parentOptions}
                         placeholder={
                           parentOptions.length === 0
@@ -685,6 +686,65 @@ console.log("Selected Unit:", watch("adminUnitTypeIdentity"));
                 </Form.Field>
               </Form.Col>
             </Form.Row>
+
+            <section className="mt-6">
+              <div className="flex items-center justify-between">
+                <TitleHeader title="Contact Information" className="py-4" />
+              </div>
+
+              <Form.Row>
+                <Form.Col lg={3} md={6} span={12}>
+                  <Form.Field label="Landline">
+                    <Input
+                      {...register("landline")}
+                      placeholder="Enter Landline Number"
+                      size="form"
+                      variant="form"
+                      restriction="numeric"
+                      maxLength={12}
+                    />
+                  </Form.Field>
+                </Form.Col>
+
+                <Form.Col lg={3} md={6} span={12}>
+                  <Form.Field label="Mobile Number 1">
+                    <Input
+                      {...register("mobileNumber1")}
+                      placeholder="Enter Mobile Number"
+                      size="form"
+                      variant="form"
+                      restriction="numeric"
+                      maxLength={10}
+                    />
+                  </Form.Field>
+                </Form.Col>
+
+                <Form.Col lg={3} md={6} span={12}>
+                  <Form.Field label="Mobile Number 2">
+                    <Input
+                      {...register("mobileNumber2")}
+                      placeholder="Enter Alternate Mobile"
+                      size="form"
+                      variant="form"
+                      restriction="numeric"
+                      maxLength={10}
+                    />
+                  </Form.Field>
+                </Form.Col>
+
+                <Form.Col lg={3} md={6} span={12}>
+                  <Form.Field label="Email">
+                    <Input
+                      {...register("email")}
+                      placeholder="Enter Email Address"
+                      size="form"
+                      variant="form"
+                      type="email"
+                    />
+                  </Form.Field>
+                </Form.Col>
+              </Form.Row>
+            </section>
 
             <Flex.ActionGroup className="mt-2 justify-end gap-4">
               <NeumorphicButton

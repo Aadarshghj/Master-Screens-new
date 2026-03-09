@@ -2,7 +2,7 @@ import React from "react";
 import { RotateCcw, Save, X } from "lucide-react";
 import {
   Controller,
-  useWatch,
+  // useWatch,
   type Control,
   type FieldErrors,
   type UseFormRegister,
@@ -36,8 +36,8 @@ export const AssetGroupForm: React.FC<AssetGroupProps> = ({
   onReset,
   assetTypeOptions,
 }) => {
-  const assetTypeValue = useWatch({ control, name: "assetType" });
-  const enableAssetCode = !!assetTypeValue;
+  // const assetTypeValue = useWatch({ control, name: "assetType" });
+  // const enableAssetCode = !!assetTypeValue;
   return (
     <FormContainer className="px-0">
       <Form onSubmit={onSubmit}>
@@ -46,13 +46,15 @@ export const AssetGroupForm: React.FC<AssetGroupProps> = ({
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field
                 label="Asset Group Code"
-                disabled={!enableAssetCode}
+                // disabled={!enableAssetCode}
+                disabled
                 error={errors.assetCode}
               >
                 <Input
                   {...register("assetCode")}
-                  placeholder="Enter Asset Code"
-                  disabled={!enableAssetCode}
+                  placeholder="Asset Code"
+                  // disabled={!enableAssetCode}
+                  disabled
                   size="form"
                   variant="form"
                   className="uppercase"
