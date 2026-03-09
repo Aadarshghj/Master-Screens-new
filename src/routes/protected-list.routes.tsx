@@ -51,6 +51,12 @@ import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/customer-management/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
+import { AssetCategoryPage } from "@/pages/asset/management/asset-category";
+import { MsmeTypePage } from "@/pages/asset/management/msme-type";
+import { ContactTypePage } from "@/pages/asset/management/contact-type";
+import { ProductReqListPage } from "@/pages/asset/management/product-req-list";
+import { PurchaseRequestPage } from "@/pages/asset/management/product-req-list/purchase-req";
+import { OrnamentTypePage } from "@/pages/customer-management/ornament-type";
 import { CoLendingBankConfigPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-bank-configuration/Index";
 import { ModuleMgmtPage } from "@/pages/customer-management/module-management";
 import { QuotationRegPage } from "@/pages/asset-management-system/quotation-registration";
@@ -301,6 +307,45 @@ export const protectedRoutesList: RouteObject[] = [
         element: <FirmRolePage />,
       },
       {
+        path: "asset/management/asset-category",
+        children:[
+          {
+            index: true,
+            element: <AssetCategoryPage />,
+         },
+        ]
+      },
+      {
+        path:"asset/management/msme-type",
+        children:[ {
+          index: true,
+          element: <MsmeTypePage/>,
+         },
+        ],
+      },
+      {
+        path:"asset/management/contact-type",
+        children:[ 
+          {
+          index: true,
+          element: <ContactTypePage/>,
+         },
+        ],
+      },
+      {
+        path:"asset/management/product-req-list",
+        children:[ 
+          {
+          index: true,
+          element: <ProductReqListPage/>,
+         },
+        ],
+      },
+      {
+        path:"/asset/manageemnt/product-req-list/purchase-req",
+        element: <PurchaseRequestPage/>
+      },
+      {
         path: "/customer-management/master/staffs",
         element: <StaffPage />,
       },
@@ -315,6 +360,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/branch-type",
         element: <BranchTypePage />,
+      },
+      {
+        path:"/customer-management/master/ornament-type",
+        element: <OrnamentTypePage/>
       },
       {
         path: "/customer-management/master/customer-category",

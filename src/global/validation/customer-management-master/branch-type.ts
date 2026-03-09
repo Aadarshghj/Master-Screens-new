@@ -38,13 +38,9 @@ export const branchTypeSchema = yup.object({
 
       if (/(.)\1{2,}/.test(value)) return false;
 
-      const words = value.trim().toLowerCase().split(/\s+/);
-
-      for (let i = 1; i < words.length; i++) {
-        if (words[i] === words[i - 1]) return false;
-      }
-
-      return true;
-    }),
-  isActive: yup.boolean(),
+    return true;
+  }
+),
+    isActive: yup
+    .boolean(),
 });

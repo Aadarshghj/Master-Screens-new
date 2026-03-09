@@ -10,20 +10,20 @@ import { FormContainer} from "../../../../../components/ui/form-container";
 import { Flex, Input, Label, Switch } from "../../../../../components/ui";
 import { Form, Textarea } from "../../../../../components";
 import NeumorphicButton from "../../../../../components/ui/neumorphic-button/neumorphic-button";
-import type { BranchType } from '../../../../../types/customer-management/branch-type';
+import type { OrnamentType } from "@/types/customer-management/ornament-type";
 
-interface BranchTypeProps {
-  control: Control<BranchType>;
-  errors: FieldErrors<BranchType>;
-  register: UseFormRegister<BranchType>;
+interface OrnamentTypeProps {
+  control: Control<OrnamentType>;
+  errors: FieldErrors<OrnamentType>;
+  register: UseFormRegister<OrnamentType>;
   isSubmitting: boolean;
   isEdit: boolean;
-  onSubmit: (e?: React.BaseSyntheticEvent) => void | Promise<void>;  
+  onSubmit: () => React.FormEventHandler<HTMLFormElement>;
   onCancel: () => void;
   onReset: () => void;
 }
 
-export const BranchTypeForm: React.FC<BranchTypeProps> =({
+export const OranmentTypeForm: React.FC<OrnamentTypeProps> =({
   control,
   errors,
   register,
@@ -41,28 +41,29 @@ export const BranchTypeForm: React.FC<BranchTypeProps> =({
           <Form.Row>
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field
-                label="Branch Type Code"
+                label="Ornament Type Code"
                 required
-                error={errors.branchTypeCode}
+                error={errors.ornamentTypeCode}
               >
                   <Input
-                  {...register("branchTypeCode")}
-                  placeholder="Enter Branch Type Code"
+                  {...register("ornamentTypeCode")}
+                  placeholder="//Auto-Generated Ornament Type Code"
                   size="form"
                   variant="form"
                   className="uppercase placeholder:text-gray-400"
+                  disabled
                 />
               </Form.Field>
             </Form.Col>
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field
-                label="Branch Type Name"
+                label="Ornament Type Name"
                 required
-                error={errors.branchTypeName}
+                error={errors.ornamentTypeName}
               >
                   <Input
-                  {...register("branchTypeName")}
-                  placeholder="Enter Branch Type Name"
+                  {...register("ornamentTypeName")}
+                  placeholder="Enter Ornament Type Name"
                   size="form"
                   variant="form"
                   className="uppercase placeholder:text-gray-400"
@@ -70,10 +71,11 @@ export const BranchTypeForm: React.FC<BranchTypeProps> =({
               </Form.Field>
             </Form.Col>
              <Form.Col lg={4} md={4} span={12}>
-                          <Form.Field label="Description"
-                          error={errors.branchTypeDesc}>
+                          <Form.Field label="Ornament Type Description"
+                          error={errors.ornamentTypeDesc}
+                          required>
                             <Textarea
-                              {...register("branchTypeDesc")}
+                              {...register("ornamentTypeDesc")}
                               placeholder="Enter Description"
                               size="form"
                               variant="form"
@@ -134,8 +136,8 @@ export const BranchTypeForm: React.FC<BranchTypeProps> =({
               {isSubmitting ?
               "Saving..." 
               : isEdit 
-              ? "Update Branch Type"
-              : "Save Branch Type" }
+              ? "Update Ornament Type"
+              : "Save Ornament Type" }
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>

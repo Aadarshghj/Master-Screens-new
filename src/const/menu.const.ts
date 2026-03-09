@@ -67,6 +67,11 @@ export const menu = [
             path: "/customer-management/master/address-type",
           },
           {
+            id:"ornament-type",
+            title: "Ornament-type master",
+            path:"/customer-management/master/ornament-type",
+          },
+          {
             id: "industry-category",
             title: "Industry Category Master",
             path: "/customer-management/master/industry-category",
@@ -590,6 +595,27 @@ export const menu = [
     title: "Asset Management System",
     icon: "TrendingUp",
     path: "/asset-management",
+    children: [
+      {
+        id:"asset-category",
+            title:"Asset Category",
+            path: "/asset/management/asset-category",
+      },
+      {
+        id:"msme-type",
+        title: "MSME Type",
+        path:"/asset/management/msme-type",
+      },
+      {
+        id:"contact-type",
+        title:"Contact Type",
+        path:"/asset/management/contact-type",
+      },
+      {
+        id:"product-req-list",
+        title:"Product Request List",
+        path:"/asset/management/product-req-list",
+        
 
     children: [
       {
