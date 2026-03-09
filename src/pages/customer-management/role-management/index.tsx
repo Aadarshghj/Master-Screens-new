@@ -51,7 +51,6 @@ export const RoleManagementPage: React.FC = () => {
     try {
       const response = await fetchRoleById(data.identity).unwrap();
 
-      // If API returns array, extract first item
       const result = Array.isArray(response) ? response[0] : response;
 
       if (!result) {

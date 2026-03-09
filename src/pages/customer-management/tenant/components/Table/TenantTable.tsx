@@ -39,6 +39,9 @@ export const TenantTable: React.FC<TenantTableProps> = ({
       columnHelper.accessor("tenantName", {
         header: "Tenant Name",
       }),
+       columnHelper.accessor("tenantAddress", {
+        header: "Tenant Address",
+      }),
 
       columnHelper.accessor("isActive", {
         header: "Status",

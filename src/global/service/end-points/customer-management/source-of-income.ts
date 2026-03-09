@@ -1,9 +1,11 @@
 import { apiInstance } from "../../api-instance";
 import { api } from "@/api";
-import type {
-  SourceOfIncomeData,
-  SourceOfIncomeFormData,
+import {
+  type SourceOfIncomeResponseFormData,
+  type SourceOfIncomeData,
+  type SourceOfIncomeFormData,
 } from "@/types/customer-management/source-income";
+
 export const sourceOfIncomeApiService = apiInstance.injectEndpoints({
   endpoints: build => ({
     getSourceOfIncomeDetails: build.query<SourceOfIncomeData[], void>({
@@ -13,6 +15,7 @@ export const sourceOfIncomeApiService = apiInstance.injectEndpoints({
       }),
       providesTags: ["SourceOfIncome"],
     }),
+
     deleteSourceOfIncome: build.mutation<void, string>({
       query: identity => ({
         url: api.sourceOfIncome.delete(identity),
@@ -20,6 +23,7 @@ export const sourceOfIncomeApiService = apiInstance.injectEndpoints({
       }),
       invalidatesTags: ["SourceOfIncome"],
     }),
+
     createSourceOfIncome: build.mutation<void, Partial<SourceOfIncomeFormData>>(
       {
         query: payload => ({
@@ -30,11 +34,26 @@ export const sourceOfIncomeApiService = apiInstance.injectEndpoints({
         invalidatesTags: ["SourceOfIncome"],
       }
     ),
+
+   updateSourceOfIncome:build.mutation<
+   SourceOfIncomeResponseFormData,
+   {identity:string;payload:SourceOfIncomeFormData}>
+
+({
+  query:({identity,payload})=>({
+    url:api.sourceOfIncome.update(identity),
+    method:"PUT",
+    data:payload 
   }),
-});
+  invalidatesTags:["SourceOfIncome"],
+  }),
+}),});
 
 export const {
   useCreateSourceOfIncomeMutation,
   useGetSourceOfIncomeDetailsQuery,
   useDeleteSourceOfIncomeMutation,
+  useUpdateSourceOfIncomeMutation,
 } = sourceOfIncomeApiService;
+
+

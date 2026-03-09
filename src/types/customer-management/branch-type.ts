@@ -7,10 +7,10 @@ export interface BranchType {
 }
 
 export type BranchTypeRequestDto = {
-    branchTypeCode: string;
-    branchTypeName: string;
-    description?: string;
-}
+  branchTypeCode: string;
+  branchTypeName: string;
+  description?: string;
+};
 
 export type BranchTypeResponseDto = {
   identity: string;
@@ -18,7 +18,7 @@ export type BranchTypeResponseDto = {
   name: string;
   description?: string;
   isActive: boolean;
-}
+};
 
 export interface Option {
   value: string;

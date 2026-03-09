@@ -1,0 +1,26 @@
+import type { UnitOfMeasureType } from "@/types/customer-management/asset-master/unit-of-measure";
+
+export const UNITOFMEASURE_SAMPLE_DATA: UnitOfMeasureType[] = [
+   { id: "1", unitCode: "Nos", description: "Number of items" },
+  { id: "2", unitCode: "Kg", description: "Kilogram weight measurement" },
+  { id: "3", unitCode: "Gm", description: "Gram weight measurement" },
+  { id: "4", unitCode: "Ltr", description: "Liter volume measurement" },
+  { id: "5", unitCode: "Ml", description: "Milliliter volume measurement" },
+  { id: "6", unitCode: "Pkt", description: "Packet packaging unit" },
+  { id: "7", unitCode: "Box", description: "Box packaging unit" },
+  { id: "8", unitCode: "Set", description: "Set of items grouped together" },
+  { id: "9", unitCode: "Doz", description: "Dozen (12 items)" },
+  { id: "10", unitCode: "Mtr", description: "Meter length measurement" },
+  { id: "11", unitCode: "Cm", description: "Centimeter length measurement" },
+  { id: "12", unitCode: "Mm", description: "Millimeter length measurement" },
+  { id: "13", unitCode: "Ton", description: "Ton weight measurement" },
+  { id: "14", unitCode: "Bag", description: "Bag packaging unit" },
+  { id: "15", unitCode: "Roll", description: "Roll type material unit" },
+  { id: "16", unitCode: "Tray", description: "Tray packaging unit" },
+  { id: "17", unitCode: "Bundle", description: "Bundle grouped unit" },
+  { id: "18", unitCode: "Pair", description: "Pair of items" },
+  { id: "19", unitCode: "Carton", description: "Carton packaging unit" },
+  { id: "20", unitCode: "Piece", description: "Single piece unit" },
+  { id: "21", unitCode: "Drum", description: "Drum container unit" },
+  { id: "22", unitCode: "Bottle", description: "Bottle container unit" },
+]

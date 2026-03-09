@@ -103,6 +103,8 @@ export const tenantSchema = yup.object({
       "Tenant Code cannot contain consecutive underscores",
       value => (value ? !/__/.test(value) : true)
     ),
+  tenantAddress: yup.string(),
+
 
   isActive: yup.boolean().required(),
 });

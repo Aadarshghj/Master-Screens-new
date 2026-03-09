@@ -1,24 +1,28 @@
 import React, { useMemo } from "react";
-import { Grid, CommonTable } from "@/components";
+import { Grid, CommonTable, Button } from "@/components";
 import {
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 import type { SourceOfIncomeData } from "@/types/customer-management/source-income";
 
 const columnHelper = createColumnHelper<SourceOfIncomeData>();
+
 interface TableProps {
   data: SourceOfIncomeData[] | undefined;
   isLoading: boolean;
   handleDelete: (identity: string) => void;
+  onEdit: (identity: SourceOfIncomeData) => void;
 }
+
 export const SourceOfIncomeTable: React.FC<TableProps> = ({
   data,
   isLoading,
   handleDelete,
+  onEdit,
 }) => {
   const tableData = data || [];
   const columns = useMemo(
@@ -28,11 +32,9 @@ export const SourceOfIncomeTable: React.FC<TableProps> = ({
         header: "S.No",
         cell: ({ row }) => row.index + 1,
       }),
-
       columnHelper.accessor("name", {
         header: "Source of Income Name",
       }),
-
       columnHelper.accessor("code", {
         header: "Source of Income Code",
       }),
@@ -42,8 +44,18 @@ export const SourceOfIncomeTable: React.FC<TableProps> = ({
         header: "Actions",
         cell: ({ row }) => {
           const item = row.original.identity;
+
           return (
             <div className="flex gap-2">
+              <Button
+                variant="ghost"
+                className="text-primary hover:bg-primary/40 h-6 w-6 p-0"
+                onClick={() => onEdit(row.original)}
+                title="Edit Source of Income"
+              >
+                <Pencil size={13} />
+              </Button>
+
               <NeumorphicButton
                 variant="none"
                 onClick={() => handleDelete(item)}
@@ -56,14 +68,14 @@ export const SourceOfIncomeTable: React.FC<TableProps> = ({
         },
       }),
     ],
-    []
+    [handleDelete, onEdit]
   );
 
   const getNoDataText = () => {
     if (isLoading) {
-      return "Loading source of income...";
+      return "Loading Source of Income...";
     }
-    return "No source of income found";
+    return "No source of Income found";
   };
 
   const table = useReactTable({
