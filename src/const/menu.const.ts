@@ -221,6 +221,11 @@ export const menu = [
             title: "Branch Staff Mapping",
             path: "/customer-management/master/branch-staff-mapping",
           },
+          {
+             id: "loan-asset-classification",
+            title: "Loan Asset Classification",
+            path: "/customer-management/master/loan-asset-classification",
+          }
         ],
       },
       {
@@ -642,7 +647,13 @@ export const menu = [
         title: "Quotation Registration  ",
         path: "/asset-management/quotation-registration",
       },
+       {
+            id:"supplier-empanelment",
+            title:"Supplier Empanelment",
+            path:"/asset-management/supplier-empanelment",
+          },
     ],
+    
   },
   {
     id: "financial-accounting",
