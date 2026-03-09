@@ -5,18 +5,18 @@ import type { empanelItem } from "@/types/asset-management-system/supplier-empan
 import {
   ITEM_OPTIONS,
   MODEL_OPTIONS
-} from "../../constants/SupplierEmpanelmentDefault"
+} from "@/mocks/asset-management-system/supplier-empanelment"
 
 export const useEmpanelmentItemsTable = () => {
 
   const [tableData, setTableData] = useState<empanelItem[]>([
-    { itemName: "", model: "", amount: 0 }
+    { itemName: "A4 100 gsm", model: "", amount: "" }
   ])
 
   const addRow = () => {
     setTableData(prev => [
       ...prev,
-      { itemName: "", model: "", amount: 0 }
+      { itemName: "A4 100 gsm", model: "", amount: "" }
     ])
   }
 
@@ -34,7 +34,7 @@ export const useEmpanelmentItemsTable = () => {
 
       updated[index] = {
         ...updated[index],
-        [field]: value
+        [field]: String(value)
       }
 
       return updated

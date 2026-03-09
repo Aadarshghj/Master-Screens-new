@@ -17,13 +17,17 @@ export const SupplierEmpanelmentPage: React.FC = () => {
   const navigate = useNavigate()
 
   const {
-    control,
-    handleSubmit,
-    errors,
-    isSubmitting,
-    onSubmit,
-    reset
-  } = useSupplierEmpanelmentForm()
+  control,
+  handleSubmit,
+  errors,
+  isSubmitting,
+  onSubmit,
+  reset,
+  openSearchModal,
+  closeSearchModal,
+  isSearchModalOpen,
+  handleSupplierSelect
+} = useSupplierEmpanelmentForm()
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", href: "/", onClick: () => navigate("/") },
@@ -33,11 +37,11 @@ export const SupplierEmpanelmentPage: React.FC = () => {
       onClick: () => navigate("/asset-management")
     },
     {
-      label: "Supplier Management",
-      href: "/asset-management/supplier",
-      onClick: () => navigate("/asset-management/supplier")
+      label: "Supplier Empanelment", active: true ,
+      href: "/asset-management/supplier-empanelment",
+      onClick: () => navigate("/asset-management/supplier-empanelment")
     },
-    { label: "Supplier Empanelment", active: true }
+    // { label: "Supplier Empanelment", active: true }
   ]
 
   return (
@@ -57,12 +61,16 @@ export const SupplierEmpanelmentPage: React.FC = () => {
           className="py-4"
         />
 
-        <SupplierEmpanelmentForm
+         <SupplierEmpanelmentForm
           control={control}
           errors={errors}
           isSubmitting={isSubmitting}
           onSubmit={handleSubmit(onSubmit)}
-        onReset={reset}
+          onReset={reset}
+          openSearchModal={openSearchModal}
+          closeSearchModal={closeSearchModal}
+          isSearchModalOpen={isSearchModalOpen}
+          handleSupplierSelect={handleSupplierSelect}
         />
 
       </section>

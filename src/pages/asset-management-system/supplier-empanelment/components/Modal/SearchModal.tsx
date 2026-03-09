@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form"
+import { useState } from "react"
 import { RefreshCw, Search } from "lucide-react"
 
 import {
-  Button,
   Form,
   Flex,
   Input,
@@ -17,6 +17,7 @@ import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-butto
 import {
   createColumnHelper,
   getCoreRowModel,
+  getPaginationRowModel,
   useReactTable
 } from "@tanstack/react-table"
 
@@ -26,23 +27,19 @@ import type {
 } from "@/types/asset-management-system/supplier-empanelment"
 
 import { MOCK_SUPPLIERS } from "@/mocks/asset-management-system/supplier-empanelment"
-
-import { useSupplierSearchTable } from "../Hooks/useSupplierEmpanelSearchTable"
+import { Pagination } from "@/components/ui/paginationUp"
 
 interface SupplierSearchProps {
   isOpen: boolean
   onClose: () => void
+  onSelect: (supplier: SupplierSearchResult) => void
 }
 
-export function SupplierSearchModal({ isOpen, onClose }: SupplierSearchProps) {
+export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearchProps) {
 
-  const { tableData, setSearchResults, resetTable } = useSupplierSearchTable()
+  const [tableData, setTableData] = useState<SupplierSearchResult[]>(MOCK_SUPPLIERS)
 
-  const {
-    handleSubmit,
-    reset,
-    register
-  } = useForm<SupplierSearchForm>()
+  const { handleSubmit, reset, register } = useForm<SupplierSearchForm>()
 
   const columnHelper = createColumnHelper<SupplierSearchResult>()
 
@@ -51,29 +48,49 @@ export function SupplierSearchModal({ isOpen, onClose }: SupplierSearchProps) {
       header: "Supplier Name",
       cell: info => <span className="text-xs">{info.getValue()}</span>
     }),
-
     columnHelper.accessor("tradeName", {
       header: "Trade Name",
       cell: info => <span className="text-xs">{info.getValue()}</span>
     }),
-
     columnHelper.accessor("panNumber", {
       header: "PAN Number",
       cell: info => <span className="text-xs">{info.getValue()}</span>
     }),
-
     columnHelper.accessor("gstNumber", {
-      header: "GST Number",
+      header: "GSTIN",
       cell: info => <span className="text-xs">{info.getValue()}</span>
     }),
-
+    columnHelper.accessor("msmeRegistrationNo", {
+      header: "MSME Registration No",
+      cell: info => <span className="text-xs">{info.getValue()}</span>
+    }),
+    columnHelper.accessor("address", {
+      header: "Address",
+      cell: info => <span className="text-xs">{info.getValue()}</span>
+    }),
+    columnHelper.accessor("city", {
+      header: "City",
+      cell: info => <span className="text-xs">{info.getValue()}</span>
+    }),
+    columnHelper.accessor("state", {
+      header: "State",
+      cell: info => <span className="text-xs">{info.getValue()}</span>
+    }),
+    columnHelper.accessor("country", {
+      header: "Country",
+      cell: info => <span className="text-xs">{info.getValue()}</span>
+    }),
+    columnHelper.accessor("pincode", {
+      header: "Pincode",
+      cell: info => <span className="text-xs">{info.getValue()}</span>
+    }),
     columnHelper.display({
       id: "action",
       header: "Action",
-      cell: () => (
-        <Button size="sm">
+      cell: ({ row }) => (
+        <button onClick={() => onSelect(row.original)}>
           Select →
-        </Button>
+        </button>
       )
     })
   ]
@@ -81,69 +98,95 @@ export function SupplierSearchModal({ isOpen, onClose }: SupplierSearchProps) {
   const table = useReactTable({
     data: tableData,
     columns,
-    getCoreRowModel: getCoreRowModel()
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: 5
+      }
+    }
   })
 
-  const onSubmit = () => {
-    setSearchResults(MOCK_SUPPLIERS)
+  const onSubmit = (data: SupplierSearchForm) => {
+
+    const filtered = MOCK_SUPPLIERS.filter(supplier =>
+      (!data.supplierName || supplier.supplierName.toLowerCase().includes(data.supplierName.toLowerCase())) &&
+      (!data.tradeName || supplier.tradeName.toLowerCase().includes(data.tradeName.toLowerCase())) &&
+      (!data.panNumber || supplier.panNumber.toLowerCase().includes(data.panNumber.toLowerCase())) &&
+      (!data.gstNumber || supplier.gstNumber.toLowerCase().includes(data.gstNumber.toLowerCase()))
+    )
+
+    setTableData(filtered)
   }
 
   const handleReset = () => {
     reset()
-    resetTable()
+    setTableData(MOCK_SUPPLIERS)
   }
 
   return (
     <Modal
       isOpen={isOpen}
       close={onClose}
-      width="5xl"
-      title="Search Supplier"
+      width="4xl"
+      title="Supplier Search"
       titleVariant="small"
-      className="!h-[80vh] !w-[95vw] !max-w-[95vw]"
+      className="!h-[60vh] !w-[95vw] !max-w-[95vw]"
     >
 
       <Form onSubmit={handleSubmit(onSubmit)}>
 
         <div className="space-y-4">
 
-          <Form.Row className="gap-3">
+          <Form.Row className="gap-5">
 
-            <Form.Col lg={3} span={12}>
+            <Form.Col lg={2} md={3} span={12}>
               <Form.Field label="Supplier Name">
                 <Input
                   {...register("supplierName")}
-                  placeholder="Enter supplier name"
+                  placeholder="Enter Supplier Name"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
                   textTransform="uppercase"
                 />
               </Form.Field>
             </Form.Col>
 
-            <Form.Col lg={3} span={12}>
+            <Form.Col lg={2} md={3} span={12}>
               <Form.Field label="Trade Name">
                 <Input
                   {...register("tradeName")}
-                  placeholder="Enter trade name"
+                  placeholder="Enter Trade Name"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
                   textTransform="uppercase"
                 />
               </Form.Field>
             </Form.Col>
 
-            <Form.Col lg={3} span={12}>
+            <Form.Col lg={2} md={3} span={12}>
               <Form.Field label="PAN Number">
                 <Input
                   {...register("panNumber")}
                   placeholder="Enter PAN number"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
                   textTransform="uppercase"
                 />
               </Form.Field>
             </Form.Col>
 
-            <Form.Col lg={3} span={12}>
+            <Form.Col lg={2} md={3} span={12}>
               <Form.Field label="GST Number">
                 <Input
                   {...register("gstNumber")}
                   placeholder="Enter GST number"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
                   textTransform="uppercase"
                 />
               </Form.Field>
@@ -162,10 +205,7 @@ export function SupplierSearchModal({ isOpen, onClose }: SupplierSearchProps) {
               Reset
             </NeumorphicButton>
 
-            <NeumorphicButton
-              type="submit"
-              variant="default"
-            >
+            <NeumorphicButton type="submit" variant="default">
               <Search width={12} />
               Search
             </NeumorphicButton>
@@ -179,7 +219,7 @@ export function SupplierSearchModal({ isOpen, onClose }: SupplierSearchProps) {
       <div className="mt-4">
 
         <HeaderWrapper>
-          <TitleHeader title="Supplier List" />
+          <TitleHeader title="Supplier Search View" className="pb-4 " />
         </HeaderWrapper>
 
         <div className="rounded-md border">
@@ -187,10 +227,42 @@ export function SupplierSearchModal({ isOpen, onClose }: SupplierSearchProps) {
           <CommonTable
             table={table}
             size="compact"
-            noDataText="Search suppliers to view results"
+            noDataText="No suppliers found"
+            className="overflow-hidden"
           />
 
         </div>
+
+       {table.getRowModel().rows.length > 0 && table.getPageCount() > 0 && (
+         <div className="mt-4 flex items-center justify-between text-sm">
+       
+           <div className="text-muted-foreground whitespace-nowrap">
+             Showing {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to{" "}
+             {Math.min(
+               (table.getState().pagination.pageIndex + 1) *
+                 table.getState().pagination.pageSize,
+               table.getFilteredRowModel().rows.length
+             )}{" "}
+             of {table.getFilteredRowModel().rows.length} entries
+           </div>
+       
+           <div className="flex items-center gap-3">
+             <Pagination
+               currentPage={table.getState().pagination.pageIndex}
+               totalPages={table.getPageCount()}
+               onPageChange={(page) => table.setPageIndex(page)}
+       
+               onPreviousPage={() => table.previousPage()}
+               onNextPage={() => table.nextPage()}
+       
+               canPreviousPage={table.getCanPreviousPage()}
+               canNextPage={table.getCanNextPage()}
+               maxVisiblePages={5}
+             />
+           </div>
+       
+         </div>
+       )}
 
       </div>
 

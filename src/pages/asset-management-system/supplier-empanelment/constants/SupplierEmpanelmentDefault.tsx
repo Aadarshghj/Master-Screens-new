@@ -1,13 +1,20 @@
-export const EMPANELMENT_TYPE_OPTIONS = [
-  { value: "REGULAR", label: "Regular" },
-  { value: "RATEWISE", label: "Rate Wise" }
-]
+import type { supplierEmpanelmentForm } from "@/types/asset-management-system/supplier-empanelment";
 
-export const ITEM_OPTIONS = [
-  { value: "A4 100 gsm", label: "A4 100 GSM" },
-  { value: "PRINTER", label: "Printer Cartridge" }
-]
-export const MODEL_OPTIONS = [
-  { value: "JK_COPIER", label: "JK Copier" },
-  { value: "B2B", label: "B2B" },
-];
+
+export const SUPPLIER_EMPANELMENT: supplierEmpanelmentForm ={
+    empanelmentDate: "",
+      empanelmentBy: "",
+      description: "",
+      validuptoDate: "",
+    
+      supplierName: "",
+      registrationNumber: "",
+      email: "",
+      contact: "",
+      empanelmentType: "RATEWISE",
+    
+      termsAndConditions: "",
+      document: null,
+    
+      empanelItems: []
+}

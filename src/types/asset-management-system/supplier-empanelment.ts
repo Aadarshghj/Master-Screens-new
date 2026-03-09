@@ -16,7 +16,7 @@ export interface supplierDetails {
 export interface empanelItem {
   itemName: string
   model: string
-  amount: number
+  amount: string
 }
 
 export interface termsConditions {
@@ -57,12 +57,18 @@ export interface supplierEmpanelmentForm {
 }
 
 export interface SupplierSearchResult {
+  
   supplierName: string
   tradeName: string
   panNumber: string
   gstNumber: string
+  msmeRegistrationNo: string
+  address: string
+  city: string
+  state: string
+  country: string
+  pincode: string
 }
-
 export interface SupplierData {
   supplierName: string
   tradeName: string
