@@ -66,9 +66,6 @@ import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
 
-import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
-import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
-
   
 
 import { AdminUnitRegistrationPage } from "@/pages/organization/zonal-information";
@@ -87,7 +84,11 @@ import { SubModulePage } from "@/pages/customer-management/sub-module-management
 import { SupplierListPage } from "@/pages/asset-management-system/supplier-management/supplier-list";
 import { AddressTypePage } from "@/pages/customer-management/address-type";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
+
+import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
+import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
 import UserTypePage from "@/pages/customer-management/user-type";
+
 
 
 export const protectedRoutesList: RouteObject[] = [
