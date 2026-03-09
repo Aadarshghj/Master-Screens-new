@@ -43,7 +43,6 @@ import { ManageUserDelegations } from "@/pages/approval-workflow/user-deligation
 import { WorkflowActionsPage } from "@/pages/approval-workflow/workflow-actions";
 import { ApproverRoleMappingPage } from "@/pages/approval-workflow/approver-role-mapping";
 import { ChargeMasterPage } from "@/pages/loan-product-and-scheme-masters/charge-master";
-
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
 import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
@@ -60,16 +59,14 @@ import { OrnamentTypePage } from "@/pages/customer-management/ornament-type";
 import { CoLendingBankConfigPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-bank-configuration/Index";
 import { ModuleMgmtPage } from "@/pages/customer-management/module-management";
 import { QuotationRegPage } from "@/pages/asset-management-system/quotation-registration";
-
 import { CoLendingSchemeMapPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-scheme-map/Index";
 import BranchStaffMappingPage from "@/pages/customer-management/branch-staff-mapping";
-
 import UserRoleMappingPage from "@/pages/customer-management/user-mapping";
-
 import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-cost-master";
 import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
+
 import { LoanSchemeTypePage } from "@/pages/customer-management/loan-scheme-type";
 
 
@@ -92,6 +89,10 @@ import { SupplierInformationPage } from "@/pages/asset-management-system/supplie
 import { SupplierListPage } from "@/pages/asset-management-system/supplier-management/supplier-list";
 import { AddressTypePage } from "@/pages/customer-management/address-type";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
+import { ChargesMasterPage } from "@/pages/customer-management/asset-master/charges-master";
+import { GstRegistrationPage } from "@/pages/customer-management/asset-master/gst-registration";
+import {  AssetItemAttributesPage} from "@/pages/customer-management/asset-master/asset-item-attributes";
+import { OrnamentNamePage } from "@/pages/customer-management/ornament-name";
 
 import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
 import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
@@ -289,6 +290,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/admin-unit-type",
         element: <AdminUnitTypePage />,
+      },
+      {
+        path: "/customer-management/master/ornament-name",
+        element: <OrnamentNamePage />
       },
       {
         path: "/customer-management/master/firm-type",
@@ -589,6 +594,21 @@ export const protectedRoutesList: RouteObject[] = [
             path: "/customer-management/asset-master/gst-cost-master",
             index: true,
             element: <GstCostMasterPage />,
+          },
+          {
+            path: "/customer-management/asset-master/charges-master",
+            index: true,
+            element: <ChargesMasterPage />,
+          },
+          {
+            path: "/customer-management/asset-master/gst-registration",
+            index: true,
+            element: <GstRegistrationPage/>,
+          },
+          {
+            path: "/customer-management/asset-master/asset-item-attributes",
+            index: true,
+            element: <AssetItemAttributesPage/>,
           },
           {
             path: "/customer-management/asset-master/asset-model",
