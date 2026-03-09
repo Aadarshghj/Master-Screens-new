@@ -1,4 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useMemo,
+   useState 
+  } from "react";
 import { Grid,
    CommonTable,
    Button,
@@ -14,12 +16,18 @@ import type { QuotationReqData
  } from "@/types/asset-management/quotation-registration-type";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
+import {QuotRegWithSupplierModal} from "../Form/QuotationRegistrationForm";
+
 const columnHelper = createColumnHelper<QuotationReqData>();
+
 interface TableProps {
   data: QuotationReqData[] | undefined;
   isLoading: boolean;
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page:number) => void;
   // handleEdit: (identity: string) => void;
-//   handleDelete: (identity: string) => void;
+  // handleDelete: (identity: string) => void;
 }
 export const QuotationRegistrationTable: React.FC<TableProps> = ({
  data = QUOTATION_MOCK_DATA,
@@ -28,6 +36,19 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
 //   handleDelete,
 }) => {
   const tableData =QUOTATION_MOCK_DATA|| data || [];
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedQuotation, setSelectedQuotation] = useState<QuotationReqData | null>(null);
+
+  const openModal = (rowData: QuotationReqData) => {
+    setSelectedQuotation(rowData);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedQuotation(null);
+    setIsModalOpen(false);
+  };
+
   const columns = useMemo(
     () => [
       columnHelper.display({
@@ -89,13 +110,21 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
         const quote = row.original.status?.trim().toLowerCase();;
           return (
             <div className="flex items-center gap-2">
-             <NeumorphicButton
+             {/* <NeumorphicButton
             type="button"
             variant="secondary"
             size="secondary"
             // className="h-3 w-3"
             // onClick={handleResetClick}
           > 
+            Details
+          </NeumorphicButton> */}
+          <NeumorphicButton
+            type="button"
+            variant="secondary"
+            size="secondary"
+            onClick={() => openModal(row.original)}
+          >
             Details
           </NeumorphicButton>
 
@@ -195,6 +224,14 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
         </div>
       </Grid.Item>
     </Grid>
+
+    <QuotRegWithSupplierModal
+      isOpen={isModalOpen}
+      onClose={closeModal}
+      onToggleDisable={() => {
+      console.log("Optional toggle when modal closes");
+      }}
+    />
     </>
   );
 };

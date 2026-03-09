@@ -59,6 +59,7 @@ export const OrnamentNameForm: React.FC<OrnamentNameFormProps> = ({
                     ]}
                     size="form"
                     variant="form"
+                    
                     fullWidth
                   />
                 </Form.Field>
