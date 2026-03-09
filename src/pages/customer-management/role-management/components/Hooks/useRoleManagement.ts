@@ -55,7 +55,7 @@ export const useRoleManagement = (editData?: RoleManagementType) => {
           typeof err?.data === "object" && err?.data !== null
             ? (err.data as { message?: string }).message
             : undefined;
-        toast.error(message ?? "Failed to Savr Role");
+        toast.error(message ?? "Failed to Save Role");
       }
     },
     [reset, saveRoleManagement, updateRoleManagement]

@@ -41,6 +41,7 @@ export const useTenant = () => {
         tenantName: data.tenantName,
         tenantCode: data.tenantCode,
         isActive: data.isActive,
+        tenantAddress: data.tenantAddress
       };
 
       try {

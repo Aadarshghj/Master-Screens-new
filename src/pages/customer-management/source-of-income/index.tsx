@@ -25,6 +25,7 @@ export const SourceOfIncomePage: React.FC = () => {
 
   const {
     tableData,
+    control,
     register,
     handleSubmit,
     errors,
@@ -53,10 +54,9 @@ export const SourceOfIncomePage: React.FC = () => {
     setSelectedRow(data);
     setShowForm(true);
     reset({
-    name: data.name,
-    code: data.code,
-  });
-
+      name: data.name,
+      code: data.code,
+    });
 
     setTimeout(() => {
       formRef.current?.scrollIntoView({
@@ -88,13 +88,12 @@ export const SourceOfIncomePage: React.FC = () => {
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
         title="Delete"
-        message="Are you Sure you want to delete source of income."
+        message="Are you Sure, you want to delete source of income."
         confirmText="Delete"
         cancelText="Cancel"
         type="error"
         size="compact"
       />
-
 
       <PageWrapper
         variant="default"
@@ -123,6 +122,7 @@ export const SourceOfIncomePage: React.FC = () => {
           {showForm && (
             <div ref={formRef}>
               <SourceOfIncomeForm
+                control={control}
                 register={register}
                 errors={errors}
                 isSubmitting={isSubmitting}
@@ -136,7 +136,6 @@ export const SourceOfIncomePage: React.FC = () => {
         </section>
       </PageWrapper>
 
-
       <PageWrapper
         variant="default"
         padding="xl"
@@ -147,7 +146,7 @@ export const SourceOfIncomePage: React.FC = () => {
         <section className="p-4 lg:p-8 xl:p-10">
           <TitleHeader
             className="pb-4"
-            title="List of Source of Income"
+            title="List of Source"
           />
 
           <SourceOfIncomeTable
