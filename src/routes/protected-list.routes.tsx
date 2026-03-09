@@ -86,7 +86,10 @@ import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
 import { SupplierInformationPage } from "@/pages/asset-management-system/supplier-management/supplier-information";
+import { SupplierListPage } from "@/pages/asset-management-system/supplier-management/supplier-list";
+import { AddressTypePage } from "@/pages/customer-management/address-type";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
+import UserTypePage from "@/pages/customer-management/user-type";
 
 
 export const protectedRoutesList: RouteObject[] = [
@@ -285,6 +288,10 @@ export const protectedRoutesList: RouteObject[] = [
         element: <FirmTypePage />,
       },
       {
+        path: "/customer-management/master/address-type",
+        element: <AddressTypePage />,
+      },
+      {
         path: "/customer-management/master/sectoral-performance",
         element: <SectoralPerformancePage />,
       },
@@ -322,18 +329,22 @@ export const protectedRoutesList: RouteObject[] = [
       },
 
       {
-         path: "/customer-management/master/menu-submenu-tree",
+        path: "/customer-management/master/menu-submenu-tree",
         element: <MenuTreePage />,
       },
       {
-  path: "/customer-management/master/menu-submenu",
-  element: <MenuSubmenuPage />,
-},
+        path: "/customer-management/master/menu-submenu",
+        element: <MenuSubmenuPage />,
+      },
+      {
+        path: "/customer-management/master/user-type",
+        element: <UserTypePage />,
+      },
       // {
       //    path: "/customer-management/master/menu-submenu",
       //   element: <MenuSubmenuPage />,
       // },
-      
+
       {
         path: "/customer-management/master/sub-module-management",
         element: <SubModulePage />,
@@ -559,6 +570,10 @@ export const protectedRoutesList: RouteObject[] = [
             index: true,
             element: <SupplierRiskPage />,
           },
+          {
+  path: "/customer-management/asset-master/supplier-list-master",
+  element: <SupplierListPage />,
+},
         ],
       },
       {
