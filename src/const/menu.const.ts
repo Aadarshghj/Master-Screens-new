@@ -69,7 +69,7 @@ export const menu = [
           {
             id: "module-management",
             title: "Module Management",
-            path: "/customer-management/master/module-management"
+            path: "/customer-management/master/module-management",
           },
           {
             id: "site-premise",
@@ -191,6 +191,11 @@ export const menu = [
             title: "User Role Mapping Master",
             path: "/customer-management/master/user-role-mapping",
           },
+           {
+            id: "user-type",
+            title: "User Type Master",
+            path: "/customer-management/master/user-type",
+          },
 
           {
             id: "designation-role-mapping",
@@ -209,12 +214,12 @@ export const menu = [
         title: "Asset Master",
         icon: "User",
         children: [
-           {
+          {
             id: "unit-of-measure",
             title: "Unit of Measure",
             path: "/customer-management/asset-master/unit-of-measure",
           },
-            {
+          {
             id: "depreciation-methods",
             title: "Depreciation Methods",
             path: "/customer-management/asset-master/depreciation-methods",
@@ -224,41 +229,41 @@ export const menu = [
             title: "Asset Item",
             path: "/customer-management/asset-master/asset-item",
           },
-            {
+          {
             id: "gst-cost-master",
             title: "GST Cost Master",
             path: "/customer-management/asset-master/gst-cost-master",
           },
           {
-            id:"tds-section",
-            title:"TDS Section",
-            path:"/customer-management/asset-master/tds-section",
+            id: "tds-section",
+            title: "TDS Section",
+            path: "/customer-management/asset-master/tds-section",
           },
-           {
-            id:"asset-model",
-            title:"Asset Model",
-            path:"/customer-management/asset-master/asset-model",
+          {
+            id: "asset-model",
+            title: "Asset Model",
+            path: "/customer-management/asset-master/asset-model",
           },
           {
             id: "asset-group",
             title: "Asset Group",
             path: "/customer-management/asset-master/asset-group",
           },
-           {
-                id: "asset-type",
-                title: "Asset Type",
-                path: "/customer-management/asset-master/asset-type"
-              },
-              {
-                id: "terms-and-conditions",
-                title: "Terms And Conditions",
-                path: "/customer-management/asset-master/terms-and-conditions"
-              },
-              {
-                id: "supplier-risk-category",
-                title: "Supplier Risk Category",
-                path: "/customer-management/asset-master/supplier-risk-category"
-              },
+          {
+            id: "asset-type",
+            title: "Asset Type",
+            path: "/customer-management/asset-master/asset-type",
+          },
+          {
+            id: "terms-and-conditions",
+            title: "Terms And Conditions",
+            path: "/customer-management/asset-master/terms-and-conditions",
+          },
+          {
+            id: "supplier-risk-category",
+            title: "Supplier Risk Category",
+            path: "/customer-management/asset-master/supplier-risk-category",
+          },
         ],
       },
     ],
@@ -560,11 +565,13 @@ export const menu = [
     title: "Asset Management System",
     icon: "TrendingUp",
     path: "/asset-management",
-    children: [{
+    children: [
+      {
         id: "quotation-registration",
         title: "Quotation Registration  ",
         path: "/asset-management/quotation-registration",
-    }]
+      },
+    ],
   },
   {
     id: "financial-accounting",

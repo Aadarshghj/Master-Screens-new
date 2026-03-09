@@ -76,11 +76,10 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
   const { data: rawStatusOptions = [] } = useGetBranchStatusQuery();
   const { data: categoryOptions = [] } = useGetBranchCategoryQuery();
 
-  // ── DEBUG: log what the table component actually receives ─────────────────
   useEffect(() => {
     console.group("[AdminUnitTable] received data");
     console.log("externalUnitType prop :", externalUnitType);
-    console.log("selectedUnitType      :", selectedUnitType);
+    console.log("selectedUnitType:", selectedUnitType);
     console.log("selectedUnitLabel     :", selectedUnitLabel);
     console.log("data.length           :", data.length);
     console.log("isFetching            :", isFetching);
@@ -150,10 +149,8 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
   const sortedData = useMemo<BranchResponseDto[]>(
     () =>
       [...statusFiltered].sort((a, b) => {
-        const numA =
-          parseInt((a.branchCode ?? "").replace(/\D/g, ""), 10) || 0;
-        const numB =
-          parseInt((b.branchCode ?? "").replace(/\D/g, ""), 10) || 0;
+        const numA = parseInt((a.branchCode ?? "").replace(/\D/g, ""), 10) || 0;
+        const numB = parseInt((b.branchCode ?? "").replace(/\D/g, ""), 10) || 0;
         if (numA !== numB) return numA - numB;
         return (a.branchCode ?? "").localeCompare(b.branchCode ?? "");
       }),
@@ -269,9 +266,8 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
           const r = row.original;
           if (r.type === "divider") return <EmptyCell />;
           const resolvedLabel =
-            categoryOptions.find(
-              o => o.value === r.data.branchCategoryIdentity
-            )?.label ?? safeStr(r.data.branchCategoryIdentity);
+            categoryOptions.find(o => o.value === r.data.branchCategoryIdentity)
+              ?.label ?? safeStr(r.data.branchCategoryIdentity);
           return <UpperCell value={resolvedLabel} />;
         },
       }),
@@ -319,9 +315,8 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
           const r = row.original;
           if (r.type === "divider") return <EmptyCell />;
           const resolvedLabel =
-            rawStatusOptions.find(
-              o => o.value === r.data.branchStatusIdentity
-            )?.label ?? safeStr(r.data.branchStatusIdentity);
+            rawStatusOptions.find(o => o.value === r.data.branchStatusIdentity)
+              ?.label ?? safeStr(r.data.branchStatusIdentity);
           return (
             <span
               className={
