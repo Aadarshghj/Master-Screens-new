@@ -3,7 +3,7 @@ import * as yup from "yup";
 
 export const roleManagementSchema: yup.ObjectSchema<RoleManagementType> =
   yup.object({
-    identity: yup.string().required(),
+  
    roleName: yup
   .string()
   .required("Role Name is required")

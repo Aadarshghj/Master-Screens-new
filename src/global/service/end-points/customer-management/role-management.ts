@@ -18,6 +18,7 @@ export const roleManagementApiService = apiInstance.injectEndpoints({
         data: payload,
       }),
       invalidatesTags: ["RoleManagement"],
+      
     }),
 
     getMasterRoleManagement: build.query<RoleManagementType[], void>({
@@ -51,7 +52,6 @@ export const roleManagementApiService = apiInstance.injectEndpoints({
         roleName: response.roleName,
         roleShortDesc: response.roleShortDesc,
         isActive: response.isActive,
-        identity: response.identity,
       }),
     }),
 

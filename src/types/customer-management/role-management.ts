@@ -2,7 +2,7 @@ export interface RoleManagementType {
   roleName: string;
   roleShortDesc: string | null;
   isActive: boolean;
-  identity: string;
+
   
 }
 

@@ -27,17 +27,28 @@ export const useRoleManagement = (editData?: RoleManagementType) => {
     mode: "onChange",
   });
 
-  const onSubmit = useCallback(
-    async (data: RoleManagementType) => {
-      const payload: RoleManagementRequestDto = {
-        roleName: data.roleName.toUpperCase(),
-        roleShortDesc: data.roleShortDesc,
-        isActive: data.isActive,
-      };
-      
-    },
-    [reset, saveRoleManagement]
-  );
+const onSubmit = useCallback(
+  async (data: RoleManagementType) => {
+    const payload: RoleManagementRequestDto = {
+      roleName: data.roleName.toUpperCase(),
+      roleShortDesc: data.roleShortDesc,
+      isActive: data.isActive,
+    };
+
+    try {
+      console.log("Payload:", payload);
+
+      await saveRoleManagement(payload).unwrap();
+
+      console.log("Role saved successfully");
+
+      reset(ROLE_MANAGEMENT_DEFAULT_VALUES);
+    } catch (error) {
+      console.error("Save failed:", error);
+    }
+  },
+  [reset, saveRoleManagement]
+);
 
   const onCancel = useCallback(() => {
     reset(ROLE_MANAGEMENT_DEFAULT_VALUES);
