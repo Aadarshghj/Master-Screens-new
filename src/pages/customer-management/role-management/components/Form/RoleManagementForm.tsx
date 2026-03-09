@@ -81,7 +81,7 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
                       />
                     )}
                   />
-                  <Label>Active Status</Label>
+                  <Label> Status</Label>
                 </Flex>
               </Flex>
             </Form.Col>

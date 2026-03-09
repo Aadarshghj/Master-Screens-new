@@ -72,6 +72,11 @@ export const menu = [
             path: "/customer-management/master/industry-category",
           },
           {
+            id: "module-management",
+            title: "Module Management",
+            path: "/customer-management/master/module-management"
+          },
+          {
             id: "site-premise",
             title: "Site Premise Master",
             path: "/customer-management/master/site-premise",
@@ -91,6 +96,18 @@ export const menu = [
             title: "Role Management",
             path: "/customer-management/master/role-management",
           },
+
+          // {
+          //   id: "menu-submenu",
+          //   title: "Menu SubMenu",
+          //   path: "/customer-management/master/menu-submenu",
+          // },
+          {
+            id: "menu-submenu-tree",
+            title: "Menu SubMenu",
+            path: "/customer-management/master/menu-submenu-tree",
+          },
+
           {
             id: "sub-module-management",
             title: "Sub Module Management",
@@ -257,6 +274,45 @@ export const menu = [
     ],
   },
   {
+    id: "organization-management-system",
+    title: "Organization Management System",
+    icon: "Users",
+    children: [
+      {
+        id: "organization",
+        title: "Organization",
+        children: [
+          {
+            id: "org-branch",
+            title: "Branch Information",
+            path: "/organization-management-system/branch",
+          },
+          {
+            id: "org-area",
+            title: "Area Information",
+            path: "/organization-management-system/area",
+          },
+          {
+            id: "org-region",
+            title: "Region Information",
+            path: "/organization-management-system/region",
+          },
+          {
+            id: "org-state",
+            title: "State Information",
+            path: "/organization-management-system/state",
+          },
+          {
+            id: "org-corporate",
+            title: "Corporate Information",
+            path: "/organization-management-system/corporate",
+          },
+        ],
+      },
+    ],
+  },
+
+  {
     id: "customer-mgmt",
     title: "Customer Management System",
     icon: "Users",
@@ -422,6 +478,11 @@ export const menu = [
         path: "/loan-management/schema-master",
         children: [
           {
+            id: "Bank Configuration",
+            title: "Bank Configuration",
+            path: "/loan-management/schema-master/bank-configuration",
+          },
+          {
             id: "scheme-attributes",
             title: "Loan Scheme Attributes Master",
             path: "/loan-management/schema-master/scheme-attributes",
@@ -509,9 +570,11 @@ export const menu = [
     title: "Asset Management System",
     icon: "TrendingUp",
     path: "/asset-management",
-     children: [
-          
-            ]
+    children: [{
+        id: "quotation-registration",
+        title: "Quotation Registration  ",
+        path: "/asset-management/quotation-registration",
+    }]
   },
   {
     id: "financial-accounting",

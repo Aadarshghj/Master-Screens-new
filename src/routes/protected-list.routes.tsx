@@ -43,7 +43,7 @@ import { ManageUserDelegations } from "@/pages/approval-workflow/user-deligation
 import { WorkflowActionsPage } from "@/pages/approval-workflow/workflow-actions";
 import { ApproverRoleMappingPage } from "@/pages/approval-workflow/approver-role-mapping";
 import { ChargeMasterPage } from "@/pages/loan-product-and-scheme-masters/charge-master";
-import { AssetItemPage } from "@/pages/customer-management/asset-management/asset-group";
+
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
 import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
@@ -51,6 +51,9 @@ import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/customer-management/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
+import { CoLendingBankConfigPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-bank-configuration/Index";
+import { ModuleMgmtPage } from "@/pages/customer-management/module-management";
+import { QuotationRegPage } from "@/pages/asset-management-system/quotation-registration";
 
 import { CoLendingSchemeMapPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-scheme-map/Index";
 import BranchStaffMappingPage from "@/pages/customer-management/branch-staff-mapping";
@@ -62,6 +65,18 @@ import { DepreciationMethodsPage } from "@/pages/customer-management/asset-maste
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
+
+import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
+import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
+
+  
+
+import { AdminUnitRegistrationPage } from "@/pages/organization/zonal-information";
+import { CorporateRegistrationPage } from "@/pages/organization/zonal-information/components/form/CorporateRegistrationPage";
+import { StateRegistrationPage } from "@/pages/organization/zonal-information/components/form/stateRegistrationPage";
+import { RegionRegistrationPage } from "@/pages/organization/zonal-information/components/form/regionRegistrationPage";
+import { AreaRegistrationPage } from "@/pages/organization/zonal-information/components/form/AreaRegistrationPage";
+import { BranchRegistrationPage } from "@/pages/organization/zonal-information/components/form/BranchRegistrationPage";
 import { AssetModelPage } from "@/pages/customer-management/asset-master/asset-model";
 import { TdsSectionPage } from "@/pages/customer-management/asset-master/tds-section";
 import { AssetGroupPage } from "@/pages/customer-management/asset-master/asset-group";
@@ -71,6 +86,8 @@ import { SupplierRiskPage } from "@/pages/customer-management/asset-master/suppl
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
 import { SupplierListPage } from "@/pages/asset-management-system/supplier-management/supplier-list";
 import { AddressTypePage } from "@/pages/customer-management/address-type";
+import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
+
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -170,6 +187,36 @@ export const protectedRoutesList: RouteObject[] = [
     element: <ProtectedRoutes allowedRoles={[]} isLayoutHidden />,
     children: [
       {
+        path: "/organization-management-system/zone-information-page",
+        element: <AdminUnitRegistrationPage />,
+      },
+      {
+        path: "/organization-management-system/corporate",
+        element: <CorporateRegistrationPage />,
+      },
+      {
+        path: "/organization-management-system/state",
+        element: <StateRegistrationPage />,
+      },
+      {
+        path: "/organization-management-system/region",
+        element: <RegionRegistrationPage />,
+      },
+      {
+        path: "/organization-management-system/area",
+        element: <AreaRegistrationPage />,
+      },
+      {
+        path: "/organization-management-system/branch",
+        element: <BranchRegistrationPage />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <ProtectedRoutes allowedRoles={[]} isLayoutHidden />,
+    children: [
+      {
         path: "/loan-management/schema-master/scheme-attributes",
         element: <LoanSchemeAttributesPage />,
       },
@@ -212,6 +259,14 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/loan-management/Approval-workflow/actions",
         element: <WorkflowActionsPage />,
+      },
+      {
+        path: "/loan-management/schema-master/bank-configuration",
+        element: <CoLendingBankConfigPage />,
+      },
+      {
+        path: "/asset-management/quotation-registration",
+        element: <QuotationRegPage />,
       },
       {
         path: "/loan-management/approval-workflow/workflow-user-leave-status",
@@ -262,11 +317,29 @@ export const protectedRoutesList: RouteObject[] = [
         element: <CustomerCategoryPage />,
       },
       {
+        path: "/customer-management/master/module-management",
+        element: <ModuleMgmtPage />,
+      },
+      {
         path: "/customer-management/master/role-management",
         element: <RoleManagementPage />,
       },
+
       {
-         path: "/customer-management/master/sub-module-management",
+         path: "/customer-management/master/menu-submenu-tree",
+        element: <MenuTreePage />,
+      },
+      {
+  path: "/customer-management/master/menu-submenu",
+  element: <MenuSubmenuPage />,
+},
+      // {
+      //    path: "/customer-management/master/menu-submenu",
+      //   element: <MenuSubmenuPage />,
+      // },
+      
+      {
+        path: "/customer-management/master/sub-module-management",
         element: <SubModulePage />,
       },
       {
@@ -494,9 +567,7 @@ export const protectedRoutesList: RouteObject[] = [
       },
       {
         path: "/asset-management",
-        children: [
-         
-        ],
+        children: [],
       },
     ],
   },

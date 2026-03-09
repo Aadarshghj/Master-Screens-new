@@ -141,7 +141,7 @@ export const AssetTypeForm: React.FC<AssetTypeProps> = ({
               disabled={isSubmitting}
             >
               <Save className="h-3 w-3" />
-              {isSubmitting ? "Saving..." : "Save Asset Type"}
+              {isSubmitting ? "Saving..." :"Save Asset Type"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>
