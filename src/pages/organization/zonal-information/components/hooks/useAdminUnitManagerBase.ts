@@ -216,7 +216,6 @@ export const useAdminUnitManagerBase = ({
     mode: "onSubmit",
     reValidateMode: "onChange",
   });
-
   const selectedUnitType = watch("adminUnitTypeIdentity");
   const selectedStatus = watch("branchStatusIdentity");
   const pincodeValue = watch("pincode");

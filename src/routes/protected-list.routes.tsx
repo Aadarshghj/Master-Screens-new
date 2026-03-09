@@ -12,7 +12,6 @@ import { LoanSchemePropertiesPage } from "@/pages/loan-product-and-scheme-master
 import { GLAccountTypesPage } from "@/pages/loan-product-and-scheme-masters/gl-account-types-loan";
 import { LoanBusinessRulesPage } from "@/pages/loan-product-and-scheme-masters/business-rules-loan";
 import { WorkflowApproverRoleMappingPage } from "@/pages/admin/approval-workflow";
-// import { LoanApplicationPage } from "@/pages/loan-management-system/managing-loan-application";
 import { DocumentMasterPage } from "@/pages/customer-management/document-master";
 import { DocumentTypePage } from "@/pages/customer-management/document-type";
 import { FirmTypePage } from "@/pages/customer-management/firm-type";
@@ -43,7 +42,6 @@ import { ManageUserDelegations } from "@/pages/approval-workflow/user-deligation
 import { WorkflowActionsPage } from "@/pages/approval-workflow/workflow-actions";
 import { ApproverRoleMappingPage } from "@/pages/approval-workflow/approver-role-mapping";
 import { ChargeMasterPage } from "@/pages/loan-product-and-scheme-masters/charge-master";
-
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
 import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
@@ -54,24 +52,15 @@ import { TenantPage } from "@/pages/customer-management/tenant";
 import { CoLendingBankConfigPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-bank-configuration/Index";
 import { ModuleMgmtPage } from "@/pages/customer-management/module-management";
 import { QuotationRegPage } from "@/pages/asset-management-system/quotation-registration";
-
 import { CoLendingSchemeMapPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-scheme-map/Index";
 import BranchStaffMappingPage from "@/pages/customer-management/branch-staff-mapping";
-
 import UserRoleMappingPage from "@/pages/customer-management/user-mapping";
-
 import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-cost-master";
 import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
-
-
 import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
 import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
-
-  
-
-import { AdminUnitRegistrationPage } from "@/pages/organization/zonal-information";
 import { CorporateRegistrationPage } from "@/pages/organization/zonal-information/components/form/CorporateRegistrationPage";
 import { StateRegistrationPage } from "@/pages/organization/zonal-information/components/form/stateRegistrationPage";
 import { RegionRegistrationPage } from "@/pages/organization/zonal-information/components/form/regionRegistrationPage";
@@ -89,7 +78,6 @@ import { AddressTypePage } from "@/pages/customer-management/address-type";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
 import UserTypePage from "@/pages/customer-management/user-type";
 
-
 export const protectedRoutesList: RouteObject[] = [
   {
     path: "/",
@@ -99,30 +87,19 @@ export const protectedRoutesList: RouteObject[] = [
         path: "home",
         element: <Home />,
       },
-
       {
         path: "customer/management/onboarding",
         children: [
-          {
-            index: true,
-            element: <CustomerOnboardingPage />,
-          },
-          {
-            path: ":step",
-            element: <CustomerOnboardingPage />,
-          },
+          { index: true, element: <CustomerOnboardingPage /> },
+          { path: ":step", element: <CustomerOnboardingPage /> },
         ],
       },
       {
         path: "admin/approver-role-map",
         children: [
-          {
-            index: true,
-            element: <WorkflowApproverRoleMappingPage />,
-          },
+          { index: true, element: <WorkflowApproverRoleMappingPage /> },
         ],
       },
-
       {
         path: "/customer/lead-sales/lead-details",
         element: <LeadDetailsPage />,
@@ -139,7 +116,6 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/loan-management/schema-master/gl-account-types",
         element: <GLAccountTypesPage />,
       },
-
       {
         path: "/loan-management/approval-workflow/workflow-approval-queue",
         element: <WorkflowApprovalQueuePage />,
@@ -148,22 +124,16 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/loan-management/schema-master/charge-master",
         element: <ChargeMasterPage />,
       },
-
       {
         path: "firm/management/onboarding",
         children: [
-          {
-            index: true,
-            element: <FirmOnboardingPage />,
-          },
-          {
-            path: ":step",
-            element: <FirmOnboardingPage />,
-          },
+          { index: true, element: <FirmOnboardingPage /> },
+          { path: ":step", element: <FirmOnboardingPage /> },
         ],
       },
     ],
   },
+
   {
     path: "/",
     element: <ProtectedRoutes allowedRoles={[]} isLayoutHidden />,
@@ -171,26 +141,17 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/loan-product-schema/management/onboarding",
         children: [
-          {
-            index: true,
-            element: <LoanProductSchemeOnboardingPage />,
-          },
-          {
-            path: ":step",
-            element: <LoanProductSchemeOnboardingPage />,
-          },
+          { index: true, element: <LoanProductSchemeOnboardingPage /> },
+          { path: ":step", element: <LoanProductSchemeOnboardingPage /> },
         ],
       },
     ],
   },
+
   {
     path: "/",
     element: <ProtectedRoutes allowedRoles={[]} isLayoutHidden />,
     children: [
-      {
-        path: "/organization-management-system/zone-information-page",
-        element: <AdminUnitRegistrationPage />,
-      },
       {
         path: "/organization-management-system/corporate",
         element: <CorporateRegistrationPage />,
@@ -213,6 +174,7 @@ export const protectedRoutesList: RouteObject[] = [
       },
     ],
   },
+
   {
     path: "/",
     element: <ProtectedRoutes allowedRoles={[]} isLayoutHidden />,
@@ -225,17 +187,10 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/loan-management/schema-master/scheme-properties",
         element: <LoanSchemePropertiesPage />,
       },
-
       {
         path: "/loan-management/schema-master/business-rules",
         element: <LoanBusinessRulesPage />,
       },
-
-      {
-        path: "/loan-management/schema-master/business-rules",
-        element: <LoanBusinessRulesPage />,
-      },
-
       {
         path: "/loan-management/Approval-workflow/definition",
         element: <WorkflowDefinitionsPage />,
@@ -256,7 +211,6 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/loan-management/Approval-workflow/workflow-manageuserdelegation",
         element: <ManageUserDelegations />,
       },
-
       {
         path: "/loan-management/Approval-workflow/actions",
         element: <WorkflowActionsPage />,
@@ -325,7 +279,6 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/customer-management/master/role-management",
         element: <RoleManagementPage />,
       },
-
       {
         path: "/customer-management/master/menu-submenu-tree",
         element: <MenuTreePage />,
@@ -338,11 +291,6 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/customer-management/master/user-type",
         element: <UserTypePage />,
       },
-      // {
-      //    path: "/customer-management/master/menu-submenu",
-      //   element: <MenuSubmenuPage />,
-      // },
-
       {
         path: "/customer-management/master/sub-module-management",
         element: <SubModulePage />,
@@ -365,164 +313,81 @@ export const protectedRoutesList: RouteObject[] = [
       },
       {
         path: "/customer-management/master/risk-assessment-type-history",
-        children: [
-          {
-            index: true,
-            element: <RiskAssessmentTypeHistoryPage />,
-          },
-        ],
+        children: [{ index: true, element: <RiskAssessmentTypeHistoryPage /> }],
       },
       {
         path: "/customer-management/master/user-role-mapping",
         element: <UserRoleMappingPage />,
       },
-
       {
         path: "/customer-management/master/document-master",
-        children: [
-          {
-            index: true,
-            element: <DocumentMasterPage />,
-          },
-        ],
+        children: [{ index: true, element: <DocumentMasterPage /> }],
       },
       {
         path: "/customer-management/master/document-type",
-        children: [
-          {
-            index: true,
-            element: <DocumentTypePage />,
-          },
-        ],
+        children: [{ index: true, element: <DocumentTypePage /> }],
       },
       {
         path: "/customer-management/master/designation",
-        children: [
-          {
-            index: true,
-            element: <DesignationPage />,
-          },
-        ],
+        children: [{ index: true, element: <DesignationPage /> }],
       },
       {
         path: "/customer-management/master/referral-sources",
-        children: [
-          {
-            index: true,
-            element: <ReferralSourcesPage />,
-          },
-        ],
+        children: [{ index: true, element: <ReferralSourcesPage /> }],
       },
       {
         path: "/customer-management/master/bank",
-        children: [
-          {
-            index: true,
-            element: <BanksPage />,
-          },
-        ],
+        children: [{ index: true, element: <BanksPage /> }],
       },
       {
         path: "/customer-management/master/industry-category",
-        children: [
-          {
-            index: true,
-            element: <IndustryCategoryPage />,
-          },
-        ],
+        children: [{ index: true, element: <IndustryCategoryPage /> }],
       },
       {
         path: "/customer-management/master/site-premise",
-        children: [
-          {
-            index: true,
-            element: <SitePremisePage />,
-          },
-        ],
+        children: [{ index: true, element: <SitePremisePage /> }],
       },
       {
         path: "/customer-management/master/product-service",
-        children: [
-          {
-            index: true,
-            element: <ProductServicePage />,
-          },
-        ],
+        children: [{ index: true, element: <ProductServicePage /> }],
       },
       {
         path: "/customer-management/master/risk-category",
-        children: [
-          {
-            index: true,
-            element: <RiskCategoryPage />,
-          },
-        ],
+        children: [{ index: true, element: <RiskCategoryPage /> }],
       },
       {
         path: "/customer-management/master/customer-group-master",
-        children: [
-          {
-            index: true,
-            element: <CustomerGroupMasterPage />,
-          },
-        ],
+        children: [{ index: true, element: <CustomerGroupMasterPage /> }],
       },
       {
         path: "/customer-management/master/agent-master",
-        children: [
-          {
-            index: true,
-            element: <AgentMasterPage />,
-          },
-        ],
+        children: [{ index: true, element: <AgentMasterPage /> }],
       },
       {
         path: "/customer-management/master/lead-source",
-        children: [
-          {
-            index: true,
-            element: <LeadSourcePage />,
-          },
-        ],
+        children: [{ index: true, element: <LeadSourcePage /> }],
       },
       {
         path: "/customer-management/master/occupation",
-        children: [
-          {
-            index: true,
-            element: <OccupationPage />,
-          },
-        ],
+        children: [{ index: true, element: <OccupationPage /> }],
       },
       {
         path: "/customer-management/master/purpose",
-        children: [
-          {
-            index: true,
-            element: <PurposePage />,
-          },
-        ],
+        children: [{ index: true, element: <PurposePage /> }],
       },
       {
         path: "/customer-management/master/tenant",
-        children: [
-          {
-            index: true,
-            element: <TenantPage />,
-          },
-        ],
+        children: [{ index: true, element: <TenantPage /> }],
       },
       {
         path: "/customer-management/asset-master",
         children: [
           {
             path: "/customer-management/asset-master/unit-of-measure",
-            index: true,
             element: <UnitOfMeasurePage />,
           },
           {
             path: "/customer-management/asset-master/depreciation-methods",
-            index: true,
             element: <DepreciationMethodsPage />,
           },
           {
@@ -531,43 +396,36 @@ export const protectedRoutesList: RouteObject[] = [
           },
           {
             path: "/customer-management/asset-master/gst-cost-master",
-            index: true,
             element: <GstCostMasterPage />,
           },
           {
             path: "/customer-management/asset-master/asset-model",
-            index: true,
             element: <AssetModelPage />,
           },
           {
             path: "/customer-management/asset-master/tds-section",
-            index: true,
             element: <TdsSectionPage />,
           },
           {
             path: "/customer-management/asset-master/asset-group",
-            index: true,
             element: <AssetGroupPage />,
           },
           {
             path: "/customer-management/asset-master/asset-type",
-            index: true,
             element: <AssetTypePage />,
           },
           {
             path: "/customer-management/asset-master/terms-and-conditions",
-            index: true,
             element: <TermsAndConditionPage />,
           },
           {
             path: "/customer-management/asset-master/supplier-risk-category",
-            index: true,
             element: <SupplierRiskPage />,
           },
           {
-  path: "/customer-management/asset-master/supplier-list-master",
-  element: <SupplierListPage />,
-},
+            path: "/customer-management/asset-master/supplier-list-master",
+            element: <SupplierListPage />,
+          },
         ],
       },
       {

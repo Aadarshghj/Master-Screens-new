@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Grid,
   CommonTable,
@@ -12,6 +12,7 @@ import { FormContainer } from "@/components/ui/form-container";
 import {
   createColumnHelper,
   getCoreRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Pencil, Trash2, Eye, Filter } from "lucide-react";
@@ -19,43 +20,55 @@ import type { BranchResponseDto } from "@/types/organisation/admin-unit";
 import { useAdminUnitTable, ALL_UNIT_TYPES } from "../hooks/useAdminUnitTable";
 import {
   useGetBranchStatusQuery,
-  useGetBranchCategoryQuery,
+  useGetBranchByIdQuery,
 } from "@/global/service/end-points/organisation/branches.api";
 import { AdminUnitViewModal } from "./AdminUnitViewModal";
 import { Pagination } from "@/components/ui/paginationUp";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
-// ── Types ─────────────────────────────────────────────────────────────────────
-type TableRow =
-  | { type: "data"; data: BranchResponseDto; globalIndex: number }
-  | { type: "divider"; label: string };
+const columnHelper = createColumnHelper<BranchResponseDto>();
+
+const UpperCell = ({ value }: { value: unknown }) => (
+  <span className="uppercase">
+    {value != null && value !== "" ? String(value) : "—"}
+  </span>
+);
 
 const ALL_STATUSES = "ALL";
-const PAGE_SIZE = 10;
-const columnHelper = createColumnHelper<TableRow>();
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
-const safeStr = (val: unknown): string | null => {
-  if (val === null || val === undefined) return null;
-  const s = String(val).trim();
-  if (s === "" || s.toLowerCase() === "null" || s.toLowerCase() === "undefined")
-    return null;
-  return s;
-};
-
-const UpperCell = ({ value }: { value: unknown }) => {
-  const safe = safeStr(value);
-  return <span className="uppercase">{safe !== null ? safe : "—"}</span>;
-};
-
-const EmptyCell = () => <span />;
-
-// ── Component ─────────────────────────────────────────────────────────────────
 interface AdminUnitTableProps {
   onEdit: (identity: string) => void;
   externalUnitType?: string;
 }
 
+// ── Fetches the full record and renders the view modal ───────────────────────
+const ViewModalLoader: React.FC<{
+  identity: string;
+  adminUnitTypeLabel: string;
+  onClose: () => void;
+}> = ({ identity, adminUnitTypeLabel, onClose }) => {
+  const { data: fullRow, isFetching } = useGetBranchByIdQuery(identity);
+
+  if (isFetching) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+        <div className="rounded-lg bg-white px-8 py-6 shadow-xl">
+          <p className="text-sm text-gray-600">Loading details…</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <AdminUnitViewModal
+      row={fullRow ?? null}
+      onClose={onClose}
+      adminUnitTypeLabel={adminUnitTypeLabel}
+    />
+  );
+};
+
+// ── Main table ───────────────────────────────────────────────────────────────
 export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
   onEdit,
   externalUnitType,
@@ -74,50 +87,6 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
   } = useAdminUnitTable({ externalUnitType });
 
   const { data: rawStatusOptions = [] } = useGetBranchStatusQuery();
-  const { data: categoryOptions = [] } = useGetBranchCategoryQuery();
-
-  useEffect(() => {
-    console.group("[AdminUnitTable] received data");
-    console.log("externalUnitType prop :", externalUnitType);
-    console.log("selectedUnitType:", selectedUnitType);
-    console.log("selectedUnitLabel     :", selectedUnitLabel);
-    console.log("data.length           :", data.length);
-    console.log("isFetching            :", isFetching);
-    if (data.length > 0) {
-      const first = data[0];
-      console.log("── first row ──────────────────────────────────────");
-      console.log("branchCode           :", first.branchCode);
-      console.log("branchName           :", first.branchName);
-      console.log("doorNumber           :", first.doorNumber);
-      console.log("addressLine1         :", first.addressLine1);
-      console.log("pincode              :", first.pincode);
-      console.log("stateName            :", first.stateName);
-      console.log("branchCategoryIdentity:", first.branchCategoryIdentity);
-      console.log("branchStatusIdentity :", first.branchStatusIdentity);
-      console.log("isActive             :", first.isActive);
-      console.log("full object          :", first);
-    }
-    console.log("categoryOptions       :", categoryOptions);
-    console.log("rawStatusOptions      :", rawStatusOptions);
-    console.groupEnd();
-  }, [
-    data,
-    externalUnitType,
-    selectedUnitType,
-    selectedUnitLabel,
-    isFetching,
-    categoryOptions,
-    rawStatusOptions,
-  ]);
-
-  // ── Filters ───────────────────────────────────────────────────────────────
-  const dropdownOptions = useMemo(
-    () => [
-      { label: "All", value: ALL_UNIT_TYPES },
-      ...adminUnitTypeOptions.map(o => ({ label: o.label, value: o.value })),
-    ],
-    [adminUnitTypeOptions]
-  );
 
   const statusDropdownOptions = useMemo(
     () => [
@@ -132,226 +101,101 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
   );
   const [pendingStatus, setPendingStatus] = useState<string>(ALL_STATUSES);
   const [appliedStatus, setAppliedStatus] = useState<string>(ALL_STATUSES);
-  const [pageIndex, setPageIndex] = useState(0);
 
   const handleFilter = () => {
     setSelectedUnitType(pendingUnitType);
     setAppliedStatus(pendingStatus);
-    setPageIndex(0);
   };
 
-  // ── Pipeline ──────────────────────────────────────────────────────────────
-  const statusFiltered = useMemo<BranchResponseDto[]>(() => {
+  // Status filter is only meaningful if the list DTO includes the field
+  const filteredData = useMemo<BranchResponseDto[]>(() => {
     if (appliedStatus === ALL_STATUSES) return data;
-    return data.filter(row => row.branchStatusIdentity === appliedStatus);
+    return data.filter(
+      row =>
+        row.branchStatusIdentity != null &&
+        row.branchStatusIdentity === appliedStatus
+    );
   }, [data, appliedStatus]);
 
-  const sortedData = useMemo<BranchResponseDto[]>(
-    () =>
-      [...statusFiltered].sort((a, b) => {
-        const numA = parseInt((a.branchCode ?? "").replace(/\D/g, ""), 10) || 0;
-        const numB = parseInt((b.branchCode ?? "").replace(/\D/g, ""), 10) || 0;
-        if (numA !== numB) return numA - numB;
-        return (a.branchCode ?? "").localeCompare(b.branchCode ?? "");
-      }),
-    [statusFiltered]
+  // View modal — stores only identity + label; full record fetched by ViewModalLoader
+  const [viewIdentity, setViewIdentity] = useState<string | null>(null);
+  const [viewUnitLabel, setViewUnitLabel] = useState<string>("Branch");
+
+  const handleView = (row: BranchResponseDto) => {
+    const label =
+      adminUnitTypeOptions.find(o => o.value === row.adminUnitTypeIdentity)
+        ?.label ?? "Branch";
+    setViewUnitLabel(label);
+    setViewIdentity(row.identity);
+  };
+
+  const dropdownOptions = useMemo(
+    () => [
+      { label: "All", value: ALL_UNIT_TYPES },
+      ...adminUnitTypeOptions.map(o => ({ label: o.label, value: o.value })),
+    ],
+    [adminUnitTypeOptions]
   );
 
-  const indexedData = useMemo(
-    () =>
-      sortedData.map((row, i) => ({
-        type: "data" as const,
-        data: row,
-        globalIndex: i + 1,
-      })),
-    [sortedData]
-  );
-
-  const totalDataRows = indexedData.length;
-  const totalPages = Math.max(1, Math.ceil(totalDataRows / PAGE_SIZE));
-  const safePageIndex = Math.min(pageIndex, totalPages - 1);
-
-  const pageSlice = useMemo(
-    () =>
-      indexedData.slice(
-        safePageIndex * PAGE_SIZE,
-        (safePageIndex + 1) * PAGE_SIZE
-      ),
-    [indexedData, safePageIndex]
-  );
-
-  const isAllTypes = selectedUnitType === ALL_UNIT_TYPES;
-
-  const tableRows = useMemo<TableRow[]>(() => {
-    if (!isAllTypes) return pageSlice;
-    const result: TableRow[] = [];
-    let lastTypeId: string | null = null;
-    pageSlice.forEach(item => {
-      const typeId = item.data.adminUnitTypeIdentity;
-      if (typeId !== lastTypeId) {
-        const label =
-          adminUnitTypeOptions.find(o => o.value === typeId)?.label ?? "Other";
-        result.push({ type: "divider", label });
-        lastTypeId = typeId;
-      }
-      result.push(item);
-    });
-    return result;
-  }, [pageSlice, isAllTypes, adminUnitTypeOptions]);
-
-  // ── View modal ────────────────────────────────────────────────────────────
-  const [viewRow, setViewRow] = useState<BranchResponseDto | null>(null);
-
-  const viewRowUnitLabel = useMemo(() => {
-    if (!viewRow) return "Branch";
-    return (
-      adminUnitTypeOptions.find(o => o.value === viewRow.adminUnitTypeIdentity)
-        ?.label ?? "Branch"
-    );
-  }, [viewRow, adminUnitTypeOptions]);
-
-  // ── Columns ───────────────────────────────────────────────────────────────
   const columns = useMemo(
     () => [
       columnHelper.display({
         id: "sno",
         header: "S.No",
-        cell: ({ row }) => {
-          const r = row.original;
-          if (r.type === "divider") {
-            return (
-              <span className="text-muted-foreground text-xs font-semibold tracking-wider uppercase">
-                {r.label}
-              </span>
-            );
-          }
-          return <span>{r.globalIndex}</span>;
-        },
+        cell: ({ row }) => row.index + 1,
       }),
 
-      columnHelper.display({
-        id: "branchCode",
+      columnHelper.accessor("branchCode", {
         header: `${selectedUnitLabel} Code`,
-        cell: ({ row }) => {
-          const r = row.original;
-          if (r.type === "divider") return <EmptyCell />;
-          return <UpperCell value={r.data.branchCode} />;
-        },
+        cell: info => <UpperCell value={info.getValue()} />,
       }),
 
-      columnHelper.display({
-        id: "branchName",
+      columnHelper.accessor("branchName", {
         header: `${selectedUnitLabel} Name`,
-        cell: ({ row }) => {
-          const r = row.original;
-          if (r.type === "divider") return <EmptyCell />;
-          return <UpperCell value={r.data.branchName} />;
-        },
+        cell: info => <UpperCell value={info.getValue()} />,
       }),
 
-      columnHelper.display({
-        id: "parentBranchName",
+      columnHelper.accessor("branchShortName", {
+        header: "Short Name",
+        cell: info => <UpperCell value={info.getValue()} />,
+      }),
+
+      columnHelper.accessor("parentBranchName", {
         header: "Parent Branch",
-        cell: ({ row }) => {
-          const r = row.original;
-          if (r.type === "divider") return <EmptyCell />;
-          return <UpperCell value={r.data.parentBranchName} />;
-        },
+        cell: info => <UpperCell value={info.getValue()} />,
       }),
 
-      columnHelper.display({
-        id: "category",
-        header: "Category",
-        cell: ({ row }) => {
-          const r = row.original;
-          if (r.type === "divider") return <EmptyCell />;
-          const resolvedLabel =
-            categoryOptions.find(o => o.value === r.data.branchCategoryIdentity)
-              ?.label ?? safeStr(r.data.branchCategoryIdentity);
-          return <UpperCell value={resolvedLabel} />;
-        },
-      }),
-
+      // Address column (doorNumber + addressLine1)
       columnHelper.display({
         id: "address",
         header: "Address",
         cell: ({ row }) => {
-          const r = row.original;
-          if (r.type === "divider") return <EmptyCell />;
-          const parts = [
-            safeStr(r.data.doorNumber),
-            safeStr(r.data.addressLine1),
-          ].filter((p): p is string => p !== null);
-          return (
-            <UpperCell value={parts.length > 0 ? parts.join(", ") : null} />
-          );
+          const door = row.original.doorNumber ?? "";
+          const line1 = row.original.addressLine1 ?? "";
+          const address = [door, line1].filter(Boolean).join(", ");
+          return <UpperCell value={address} />;
         },
       }),
 
-      columnHelper.display({
-        id: "pincode",
-        header: "PIN Code",
-        cell: ({ row }) => {
-          const r = row.original;
-          if (r.type === "divider") return <EmptyCell />;
-          return <UpperCell value={safeStr(r.data.pincode)} />;
-        },
-      }),
-
-      columnHelper.display({
-        id: "stateName",
+      columnHelper.accessor("stateName", {
         header: "State",
-        cell: ({ row }) => {
-          const r = row.original;
-          if (r.type === "divider") return <EmptyCell />;
-          return <UpperCell value={safeStr(r.data.stateName)} />;
-        },
-      }),
-
-      columnHelper.display({
-        id: "status",
-        header: "Status",
-        cell: ({ row }) => {
-          const r = row.original;
-          if (r.type === "divider") return <EmptyCell />;
-          const resolvedLabel =
-            rawStatusOptions.find(o => o.value === r.data.branchStatusIdentity)
-              ?.label ?? safeStr(r.data.branchStatusIdentity);
-          return (
-            <span
-              className={
-                r.data.isActive
-                  ? "font-medium text-green-600"
-                  : "font-medium text-red-500"
-              }
-            >
-              {resolvedLabel?.toUpperCase() ?? "—"}
-            </span>
-          );
-        },
+        cell: info => <UpperCell value={info.getValue()} />,
       }),
 
       columnHelper.display({
         id: "actions",
         header: "Actions",
         cell: ({ row }) => {
-          const r = row.original;
-          if (r.type === "divider") return <EmptyCell />;
-
-          const isMatchingUnitType = externalUnitType
-            ? r.data.adminUnitTypeIdentity === externalUnitType
-            : true;
-          const canEdit = r.data.isActive && isMatchingUnitType;
+          const identity = row.original.identity;
 
           return (
             <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
                 size="xs"
-                onClick={() => setViewRow(r.data)}
-                className="h-6 w-6 p-0 text-blue-500 hover:bg-blue-50 hover:text-blue-700"
-                title="View"
-                aria-label={`View ${r.data.branchCode}`}
+                onClick={() => handleView(row.original)}
+                disabled={!identity}
+                className="h-6 w-6 p-0 text-blue-500 hover:bg-blue-50"
               >
                 <Eye className="h-3 w-3" />
               </Button>
@@ -359,28 +203,19 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
               <Button
                 variant="ghost"
                 size="xs"
-                onClick={() => onEdit(r.data.identity)}
-                disabled={!canEdit}
-                className="text-primary hover:bg-primary/50 h-6 w-6 p-0 disabled:cursor-not-allowed disabled:opacity-30"
-                title={
-                  !isMatchingUnitType
-                    ? `Can only edit ${selectedUnitLabel} records from this page`
-                    : !r.data.isActive
-                      ? "Inactive record cannot be edited"
-                      : "Edit"
-                }
-                aria-label={`Edit ${r.data.branchCode}`}
+                onClick={() => identity && onEdit(identity)}
+                disabled={!identity}
+                className="text-primary h-6 w-6 p-0"
               >
                 <Pencil className="h-3 w-3" />
               </Button>
 
               <Button
                 variant="ghost"
-                title="Delete"
-                aria-label={`Delete ${r.data.branchCode}`}
-                className="text-status-error hover:bg-status-error-background h-6 w-6 p-0"
                 size="xs"
-                onClick={() => openDeleteModal(r.data.identity)}
+                onClick={() => identity && openDeleteModal(identity)}
+                disabled={!identity}
+                className="text-status-error h-6 w-6 p-0"
               >
                 <Trash2 className="h-3 w-3" />
               </Button>
@@ -389,20 +224,17 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         },
       }),
     ],
-    [
-      openDeleteModal,
-      onEdit,
-      selectedUnitLabel,
-      categoryOptions,
-      rawStatusOptions,
-      externalUnitType,
-    ]
+    [openDeleteModal, onEdit, selectedUnitLabel]
   );
 
   const table = useReactTable({
-    data: tableRows,
+    data: filteredData,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: { pageIndex: 0, pageSize: 10 },
+    },
   });
 
   const noDataText = isFetching
@@ -411,11 +243,9 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
       ? `No ${selectedUnitLabel} Records Found`
       : "No Records Found";
 
-  const showingFrom = totalDataRows === 0 ? 0 : safePageIndex * PAGE_SIZE + 1;
-  const showingTo = Math.min((safePageIndex + 1) * PAGE_SIZE, totalDataRows);
-
   return (
     <>
+      {/* Filters */}
       <FormContainer className="px-0">
         <Form onSubmit={e => e.preventDefault()}>
           <div className="mt-2">
@@ -473,6 +303,7 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
           : "Showing all unit types"}
       </p>
 
+      {/* Table */}
       <Grid>
         <Grid.Item>
           <CommonTable
@@ -483,29 +314,39 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         </Grid.Item>
       </Grid>
 
-      {totalDataRows > 0 && (
+      {/* Pagination */}
+      {table.getRowModel().rows.length > 0 && table.getPageCount() > 0 && (
         <div className="mt-4 flex items-center justify-between text-sm">
           <div className="text-muted-foreground whitespace-nowrap">
-            Showing {showingFrom} to {showingTo} of {totalDataRows} entries
+            Showing{" "}
+            {table.getState().pagination.pageIndex *
+              table.getState().pagination.pageSize +
+              1}{" "}
+            to{" "}
+            {Math.min(
+              (table.getState().pagination.pageIndex + 1) *
+                table.getState().pagination.pageSize,
+              table.getFilteredRowModel().rows.length
+            )}{" "}
+            of {table.getFilteredRowModel().rows.length} entries
           </div>
 
           <div className="flex items-center gap-3">
             <Pagination
-              currentPage={safePageIndex}
-              totalPages={totalPages}
-              onPageChange={page => setPageIndex(page)}
-              onPreviousPage={() => setPageIndex(p => Math.max(0, p - 1))}
-              onNextPage={() =>
-                setPageIndex(p => Math.min(totalPages - 1, p + 1))
-              }
-              canPreviousPage={safePageIndex > 0}
-              canNextPage={safePageIndex < totalPages - 1}
+              currentPage={table.getState().pagination.pageIndex}
+              totalPages={table.getPageCount()}
+              onPageChange={page => table.setPageIndex(page)}
+              onPreviousPage={() => table.previousPage()}
+              onNextPage={() => table.nextPage()}
+              canPreviousPage={table.getCanPreviousPage()}
+              canNextPage={table.getCanNextPage()}
               maxVisiblePages={5}
             />
           </div>
         </div>
       )}
 
+      {/* Delete confirmation */}
       <ConfirmationModal
         isOpen={showDeleteModal}
         onConfirm={confirmDeleteAdminUnit}
@@ -518,11 +359,14 @@ export const AdminUnitTable: React.FC<AdminUnitTableProps> = ({
         size="compact"
       />
 
-      <AdminUnitViewModal
-        row={viewRow}
-        onClose={() => setViewRow(null)}
-        adminUnitTypeLabel={viewRowUnitLabel}
-      />
+      {/* View modal — full record fetched on demand by ViewModalLoader */}
+      {viewIdentity && (
+        <ViewModalLoader
+          identity={viewIdentity}
+          adminUnitTypeLabel={viewUnitLabel}
+          onClose={() => setViewIdentity(null)}
+        />
+      )}
     </>
   );
 };

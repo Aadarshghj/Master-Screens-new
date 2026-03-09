@@ -19,11 +19,23 @@ interface UseAdminUnitTableProps {
 export const useAdminUnitTable = ({
   externalUnitType,
 }: UseAdminUnitTableProps = {}) => {
-  const { data: allData = [], isFetching } = useGetAllBranchesQuery() as {
-    data?: BranchResponseDto[];
+  // Fetch all branches
+  const { data: rawAllData = [], isFetching } = useGetAllBranchesQuery() as {
+    data?: (BranchResponseDto & { id?: string })[];
     isFetching: boolean;
   };
 
+  // Normalize identity field
+  const allData = useMemo<BranchResponseDto[]>(
+    () =>
+      rawAllData.map(row => ({
+        ...row,
+        identity: row.identity || row.id || "",
+      })),
+    [rawAllData]
+  );
+
+  // Fetch admin unit types
   const { data: rawUnitTypeOptions = [] } = useGetAdminUnitTypesQuery() as {
     data?: AdminUnitTypeOption[];
   };
@@ -37,6 +49,7 @@ export const useAdminUnitTable = ({
     setSelectedUnitType(externalUnitType);
   }, [externalUnitType]);
 
+  // Sort unit types by hierarchy
   const adminUnitTypeOptions = useMemo(
     () =>
       [...rawUnitTypeOptions].sort(
@@ -45,21 +58,23 @@ export const useAdminUnitTable = ({
     [rawUnitTypeOptions]
   );
 
-  const selectedUnitLabel = useMemo(() => {
-    if (selectedUnitType === ALL_UNIT_TYPES) return "All";
-    return (
-      adminUnitTypeOptions.find(o => o.value === selectedUnitType)?.label ??
-      "All"
-    );
-  }, [selectedUnitType, adminUnitTypeOptions]);
+  // Selected label
+  const selectedUnitLabel =
+    selectedUnitType === ALL_UNIT_TYPES
+      ? "All"
+      : (adminUnitTypeOptions.find(o => o.value === selectedUnitType)?.label ??
+        "All");
 
+  // Filter data by unit type
   const data = useMemo<BranchResponseDto[]>(() => {
     if (selectedUnitType === ALL_UNIT_TYPES) return allData;
+
     return allData.filter(
       row => row.adminUnitTypeIdentity === selectedUnitType
     );
   }, [allData, selectedUnitType]);
 
+  // Delete logic
   const [deleteBranch] = useDeleteBranchMutation();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedBranchId, setSelectedBranchId] = useState<string | null>(null);
@@ -76,6 +91,7 @@ export const useAdminUnitTable = ({
 
   const confirmDeleteAdminUnit = useCallback(async () => {
     if (!selectedBranchId) return;
+
     try {
       await deleteBranch(selectedBranchId).unwrap();
       toast.success("Deleted successfully");
@@ -85,6 +101,7 @@ export const useAdminUnitTable = ({
         typeof error === "object" && error !== null && "data" in error
           ? (error as { data?: { message?: string } }).data?.message
           : undefined;
+
       toast.error(message ?? "Failed to delete");
       closeDeleteModal();
     }
