@@ -28,20 +28,20 @@ export const menuSubmenuApiService = apiInstance.injectEndpoints({
       ): menuSubmenu[] =>
         response.map(item => ({
           menuName: item.menuName,
-          menuCode: item.menuCode,
+          menucode: item.menucode,
           description: item.description,
           menuOrder: item.menuOrder,
-          parent: item.parent,
-          isUrl: item.isUrl,
-          pageUrl: item.pageUrl,
+          parentMenu: item.parentMenu,
+          url: item.url,
+          pageurl: item.pageurl,
           isActive: item.isActive,
-          identity: item.identity
+          menuIdentity: item.menuIdentity
         })),
     }),
 
     getMenuSubmenuById: build.query<menuSubmenu, string>({
-      query: identity => ({
-        url: api.menuSubmenu.getById(identity),
+      query: menuIdentity => ({
+        url: api.menuSubmenu.getById(menuIdentity),
         method: "GET",
       }),
       providesTags: ["MenuSubMenu"],
@@ -50,23 +50,23 @@ export const menuSubmenuApiService = apiInstance.injectEndpoints({
         response: menuSubmenuResponseDto
       ): menuSubmenu => ({
         menuName: response.menuName,
-        menuCode: response.menuCode,
+        menucode: response.menucode,
         description: response.description,
         menuOrder: response.menuOrder,
-        parent: response.parent,
-        isUrl: response.isUrl,
-        pageUrl: response.pageUrl,
-        identity: response.identity,
+        parentMenu: response.parentMenu,
+        url: response.url,
+        pageurl: response.pageurl,
+        menuIdentity: response.menuIdentity,
         isActive: response.isActive,
       }),
     }),
 
     updateMenuSubmenu: build.mutation<
       menuSubmenuResponseDto,
-      { identity: string; payload: menuSubmenuDto }
+      { menuIdentity: string; payload: menuSubmenuDto }
     >({
-      query: ({ identity, payload }) => ({
-        url: api.menuSubmenu.update(identity),
+      query: ({ menuIdentity, payload }) => ({
+        url: api.menuSubmenu.update(menuIdentity),
         method: "PUT",
         data: payload,
       }),

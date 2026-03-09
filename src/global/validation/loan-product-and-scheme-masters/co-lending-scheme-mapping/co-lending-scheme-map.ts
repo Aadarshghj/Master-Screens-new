@@ -2,13 +2,13 @@ import * as yup from "yup";
 
 export const coLenderSChemeMapSchema = yup.object({
   productcode: yup
-    .string() .required("Product Code is required")
+    .string() .required("Asset Type is required")
     ,
   schemecode: yup
-    .string().required("Scheme Code is required"),
+    .string().required("Asset Type is required"),
 
   bankcode: yup
-    .string() .required("Bank Code is required"),
+    .string() .required("Asset Type is required"),
 
   bankname: yup
     .string()

@@ -2,12 +2,12 @@ import type { menuSubmenu } from "@/types/customer-management/create-manage-menu
 
 export const MENU_SUBMENU_DEFAULT_VALUES: menuSubmenu = {
   menuName: "",
-  menuCode: "",
+  menucode: "",
   description: "",
   menuOrder: "",
-  parent: "",
-  isUrl: false,
-  pageUrl: "",
+  parentMenu: "",
+  url: false,
+  pageurl: "",
   isActive: true,
-  identity: ""
+  menuIdentity: ""
 };

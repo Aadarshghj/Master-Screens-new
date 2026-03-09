@@ -31,17 +31,26 @@ export const MenuSubmenuPage: React.FC = () => {
     isSubmitting,
     onSubmit,
     onReset,
-   
+    onCancel,
     reset
 
   } = useMenuSubMenu(selectedRow ?? undefined);
 
-  
+  const handleShowForm = () => {
+    setSelectedRow(null)
+    reset()
+    setShowform(true)
+  }
+  const handleCancelClick = () => {
+    onCancel()
+    setSelectedRow(null)
+    setShowform(false)
+  }
 
 
   const onEdit = async (data: menuSubmenu) => {
     try {
-      const response = await fetchMenuId(data.identity).unwrap();
+      const response = await fetchMenuId(data.menuIdentity).unwrap();
 
       const result = Array.isArray(response) ? response[0] : response;
 
@@ -96,18 +105,27 @@ export const MenuSubmenuPage: React.FC = () => {
             <TitleHeader title="Menus and Sub-Menus" className="py-4" />
             <section>
 
-          <NeumorphicButton
-  type="button"
-  variant="default"
-  size="default"
-  className="mx-2"
-  onClick={() =>
-    navigate("/customer-management/master/menu-submenu-tree", { replace: true })
-  }
->
-  <PlusCircle width={13} />
-  View Menu
-</NeumorphicButton>
+              <NeumorphicButton
+                type="button"
+                variant="default"
+                size="default"
+                className="mx-2"
+                onClick={() =>
+                  navigate("/customer-management/master/menu-submenu-tree")
+                }
+              >
+                <PlusCircle width={13} />
+                View Menu
+              </NeumorphicButton>
+              <NeumorphicButton
+                type="button"
+                variant="default"
+                size="default"
+                onClick={handleShowForm}
+              >
+                <PlusCircle width={13} />
+                Add Menu Sub-Menu
+              </NeumorphicButton>
             </section>
 
           </div>
@@ -119,7 +137,7 @@ export const MenuSubmenuPage: React.FC = () => {
               errors={errors}
               isSubmitting={isSubmitting}
               onSubmit={handleSubmit(onSubmit)}
-           
+              onCancel={handleCancelClick}
               onReset={onReset}
               isEdit={!!selectedRow}
 
