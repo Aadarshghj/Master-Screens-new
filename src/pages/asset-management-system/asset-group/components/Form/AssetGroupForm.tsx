@@ -2,62 +2,77 @@ import React from "react";
 import { RotateCcw, Save, X } from "lucide-react";
 import {
   Controller,
+  useWatch,
   type Control,
   type FieldErrors,
   type UseFormRegister,
 } from "react-hook-form";
-import { Flex, Input, Label, Select, Switch } from "@/components/ui";
+
 import { FormContainer } from "@/components/ui/form-container";
-import { Form } from "@/components";
+import { Flex, Input, Label, Select, Switch } from "@/components/ui";
+import { Form, Textarea } from "@/components";
+import type { AssetGroupType } from "@/types/customer-management/asset-master/asset-group.types";
+
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
+import type { Option } from "@/types/customer-management/designation";
 
-import type { SubModuleFormValues } from "../Hooks/UseSubModuleForm";
-
-interface SubModuleFormProps {
-  control: Control<SubModuleFormValues>;
-  errors: FieldErrors<SubModuleFormValues>;
-  register: UseFormRegister<SubModuleFormValues>;
+interface AssetGroupProps {
+  control: Control<AssetGroupType>;
+  errors: FieldErrors<AssetGroupType>;
+  register: UseFormRegister<AssetGroupType>;
   isSubmitting: boolean;
-  isEdit: boolean;
-  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+  onSubmit: () => void;
   onCancel: () => void;
   onReset: () => void;
-  moduleOptions: { label: string; value: string }[];
-  isLoadingModules: boolean;
+  assetTypeOptions: Option[];
 }
 
-export const SubModuleForm: React.FC<SubModuleFormProps> = ({
+export const AssetGroupForm: React.FC<AssetGroupProps> = ({
   control,
   errors,
   register,
   isSubmitting,
-  isEdit,
   onSubmit,
   onCancel,
   onReset,
-  moduleOptions,
-  isLoadingModules,
+  assetTypeOptions,
 }) => {
+  const assetTypeValue = useWatch({ control, name: "assetType" });
+  const enableAssetCode = !!assetTypeValue;
   return (
     <FormContainer className="px-0">
       <Form onSubmit={onSubmit}>
         <div className="mt-2">
           <Form.Row>
-            <Form.Col lg={4} md={6} span={12}>
-              <Form.Field label="Module" required error={errors.module}>
+            <Form.Col lg={3} md={6} span={12}>
+              <Form.Field
+                label="Asset Group Code"
+                disabled={!enableAssetCode}
+                error={errors.assetCode}
+              >
+                <Input
+                  {...register("assetCode")}
+                  placeholder="Enter Asset Code"
+                  disabled={!enableAssetCode}
+                  size="form"
+                  variant="form"
+                  className="uppercase"
+                  restriction="alphanumeric"
+                />
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={3} md={6} span={12}>
+              <Form.Field label="Asset Type" required error={errors.assetType}>
                 <Controller
-                  name="module"
+                  name="assetType"
                   control={control}
                   render={({ field }) => (
                     <Select
                       value={field.value}
                       onValueChange={field.onChange}
-                      options={moduleOptions}
-                      placeholder={
-                        isLoadingModules
-                          ? "Loading Modules..."
-                          : "Select Module"
-                      }
+                      options={assetTypeOptions}
+                      placeholder="Select Asset Type"
                       size="form"
                       variant="form"
                       fullWidth
@@ -68,59 +83,55 @@ export const SubModuleForm: React.FC<SubModuleFormProps> = ({
               </Form.Field>
             </Form.Col>
 
-            <Form.Col lg={4} md={6} span={12}>
+            <Form.Col lg={3} md={6} span={12}>
               <Form.Field
-                label="Sub Module Code"
+                label="Asset Group Name"
                 required
-                error={errors.subModuleCode}
+                error={errors.assetName}
               >
                 <Input
-                  {...register("subModuleCode")}
-                  placeholder="Enter Sub Module Code"
+                  {...register("assetName")}
+                  placeholder="Enter Group Name"
                   size="form"
                   variant="form"
                   className="uppercase"
-                  disabled={isEdit} // Keeps code immutable during edits
+                  restriction="alphanumeric"
+                  textTransform="uppercase"
                 />
               </Form.Field>
             </Form.Col>
 
-            <Form.Col lg={4} md={6} span={12}>
+            <Form.Col lg={3} md={6} span={12}>
               <Form.Field
-                label="Sub Module Name"
+                label="Asset Posting GL"
                 required
-                error={errors.subModuleName}
+                error={errors.postingGL}
               >
                 <Input
-                  {...register("subModuleName")}
+                  {...register("postingGL")}
+                  placeholder="Enter Asset Posting GL"
                   size="form"
                   variant="form"
                   className="uppercase"
+                  restriction="alphanumeric"
                 />
               </Form.Field>
             </Form.Col>
 
-            <Form.Col lg={3} md={12} span={12}>
-              <Form.Field
-                label="Sub Module Description"
-                required
-                error={errors.subModuleDescription}
-              >
-                <Input
-                  {...register("subModuleDescription")}
+            <Form.Col lg={3} md={6} span={12}>
+              <Form.Field label="Asset Group Description">
+                <Textarea
+                  {...register("description")}
+                  placeholder="Enter Description"
                   size="form"
                   variant="form"
-                  className="uppercase"
+                  rows={4}
                 />
               </Form.Field>
             </Form.Col>
 
             <Form.Col lg={2} md={6} span={12}>
-              <Flex
-                direction="col"
-                gap={2}
-                style={{ marginLeft: "10px", marginTop: "20px" }}
-              >
+              <Flex direction="col" gap={1} style={{ paddingTop: 22 }}>
                 <Flex align="center" gap={2}>
                   <Controller
                     control={control}
@@ -132,7 +143,7 @@ export const SubModuleForm: React.FC<SubModuleFormProps> = ({
                       />
                     )}
                   />
-                  <Label>Active Status</Label>
+                  <Label>Active</Label>
                 </Flex>
               </Flex>
             </Form.Col>
@@ -146,7 +157,8 @@ export const SubModuleForm: React.FC<SubModuleFormProps> = ({
               onClick={onCancel}
               disabled={isSubmitting}
             >
-              <X className="h-3 w-3" /> Cancel
+              <X className="h-3 w-3" />
+              Cancel
             </NeumorphicButton>
 
             <NeumorphicButton
@@ -156,7 +168,8 @@ export const SubModuleForm: React.FC<SubModuleFormProps> = ({
               onClick={onReset}
               disabled={isSubmitting}
             >
-              <RotateCcw className="h-3 w-3" /> Reset
+              <RotateCcw className="h-3 w-3" />
+              Reset
             </NeumorphicButton>
 
             <NeumorphicButton
@@ -166,11 +179,7 @@ export const SubModuleForm: React.FC<SubModuleFormProps> = ({
               disabled={isSubmitting}
             >
               <Save className="h-3 w-3" />
-              {isSubmitting
-                ? "Saving..."
-                : isEdit
-                  ? "Update Sub Module"
-                  : "Save Sub Module"}
+              {isSubmitting ? "Saving..." : "Save Designation"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>

@@ -6,24 +6,26 @@ import {
   type FieldErrors,
   type UseFormRegister,
 } from "react-hook-form";
+
 import { FormContainer } from "@/components/ui/form-container";
-import { Flex, Input, Label, Switch, Textarea } from "@/components/ui";
+import { Flex, Input, Label, Select, Switch } from "@/components/ui";
 import { Form } from "@/components";
-import type { TenantType } from "@/types/customer-management/tenant";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
-interface TenantProps {
-  control: Control<TenantType>;
-  errors: FieldErrors<TenantType>;
-  register: UseFormRegister<TenantType>;
+import type { AddressTypeMaster } from "@/types/customer-management/address-type-master";
+import { ADDRESS_TYPE_OPTIONS } from "@/mocks/customer-management-master/address-type";
+
+interface AddressTypeProps {
+  control: Control<AddressTypeMaster>;
+  errors: FieldErrors<AddressTypeMaster>;
+  register: UseFormRegister<AddressTypeMaster>;
   isSubmitting: boolean;
   onSubmit: () => void;
   onCancel: () => void;
   onReset: () => void;
-  editId: string | null;
 }
 
-export const TenantForm: React.FC<TenantProps> = ({
+export const AddressTypeForm: React.FC<AddressTypeProps> = ({
   control,
   errors,
   register,
@@ -31,26 +33,44 @@ export const TenantForm: React.FC<TenantProps> = ({
   onSubmit,
   onCancel,
   onReset,
-  editId,
 }) => {
   return (
     <FormContainer className="px-0">
       <Form onSubmit={onSubmit}>
         <div className="mt-2">
           <Form.Row>
+            {/* Address Type */}
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field
-                label="Tenant Code"
+                label="Address Type"
                 required
-                error={errors.tenantCode}
+                error={errors.addressType}
               >
+                <Controller
+                  control={control}
+                  name="addressType"
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      options={ADDRESS_TYPE_OPTIONS}
+                      value={field.value}
+                      onValueChange={value => field.onChange(value)}
+                      placeholder="Select Address Type"
+                      size="form"
+                      variant="form"
+                      fullWidth
+                    />
+                  )}
+                />
+              </Form.Field>
+            </Form.Col>
+
+            {/* Context */}
+            <Form.Col lg={3} md={6} span={12}>
+              <Form.Field label="Context" required error={errors.context}>
                 <Input
-                  {...register("tenantCode")}
-                  onInput={(e: React.FormEvent<HTMLInputElement>) => {
-                    const input = e.currentTarget;
-                    input.value = input.value.replace(/[^A-Za-z0-9_]/g, "");
-                  }}
-                  placeholder="Enter Tenant Code"
+                  {...register("context")}
+                  placeholder="Enter Context"
                   size="form"
                   variant="form"
                   className="uppercase"
@@ -59,41 +79,27 @@ export const TenantForm: React.FC<TenantProps> = ({
               </Form.Field>
             </Form.Col>
 
-            <Form.Col lg={3} md={6} span={12}>
-              <Form.Field
-                label="Tenant Name"
-                required
-                error={errors.tenantName}
-              >
-                <Input
-                  {...register("tenantName")}
-                  placeholder="Enter Tenant Name"
-                  size="form"
-                  variant="form"
-                  className="uppercase"
-                  textTransform="uppercase"
-                />
-              </Form.Field>
-            </Form.Col>
-
-             <Form.Col lg={3} md={6} span={12}>
-              <Form.Field
-                label="Tenant Address"
-                error={errors.tenantAddress}
-              >
-                <Textarea
-                  {...register("tenantAddress")}
-                  placeholder="Enter Tenant Address"
-                  size="form"
-                  variant="form"
-                  className="uppercase"
-                  rows={3}
+            {/* Mandatory */}
+            <Form.Col lg={2} md={6} span={12}>
+              <Flex direction="col" gap={1} style={{ paddingTop: 22 }}>
+                <Flex align="center" gap={2}>
+                  <Controller
+                    control={control}
+                    name="isMandatory"
+                    render={({ field }) => (
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    )}
                   />
-              </Form.Field>
+                  <Label>Is Mandatory</Label>
+                </Flex>
+              </Flex>
             </Form.Col>
 
-            <Form.Col lg={3} md={6} span={12}>
-              <Flex direction="col" gap={2} style={{ paddingTop: 22  }}>
+            <Form.Col lg={2} md={6} span={12}>
+              <Flex direction="col" gap={1} style={{ paddingTop: 22 }}>
                 <Flex align="center" gap={2}>
                   <Controller
                     control={control}
@@ -102,7 +108,6 @@ export const TenantForm: React.FC<TenantProps> = ({
                       <Switch
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        disabled={!editId}
                       />
                     )}
                   />
@@ -112,6 +117,7 @@ export const TenantForm: React.FC<TenantProps> = ({
             </Form.Col>
           </Form.Row>
 
+          {/* Buttons */}
           <Flex.ActionGroup className="mt-2 justify-end gap-4">
             <NeumorphicButton
               type="button"
@@ -142,13 +148,7 @@ export const TenantForm: React.FC<TenantProps> = ({
               disabled={isSubmitting}
             >
               <Save className="h-3 w-3" />
-              {isSubmitting
-                ? editId
-                  ? "Updating..."
-                  : "Saving..."
-                : editId
-                  ? "Update Tenant"
-                  : "Save Tenant"}
+              {isSubmitting ? "Saving..." : "Save Address Type"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>
