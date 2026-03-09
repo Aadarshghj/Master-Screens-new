@@ -68,8 +68,9 @@ import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
 import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
-import { LoanSchemeTypePage } from "@/pages/customer-management/loan-scheme-type";
 
+
+import { LoanSchemeTypePage } from "@/pages/customer-management/loan-scheme-type";
 
 
 
@@ -389,9 +390,10 @@ export const protectedRoutesList: RouteObject[] = [
       },
       {
         path: "/customer-management/master/menu-submenu-tree",
-        element: <MenuTreePage />,
+        element: <MenuTreePage   />,
       },
  
+    
       {
         path: "/customer-management/master/menu-submenu",
         element: <MenuSubmenuPage />,
