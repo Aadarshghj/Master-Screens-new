@@ -7,7 +7,7 @@ import {
   type UseFormRegister,
 } from "react-hook-form";
 import { FormContainer } from "@/components/ui/form-container";
-import { Flex, Input, Label, Switch } from "@/components/ui";
+import { Flex, Input, Label, Switch, Textarea } from "@/components/ui";
 import { Form } from "@/components";
 import type { TenantType } from "@/types/customer-management/tenant";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
@@ -73,6 +73,22 @@ export const TenantForm: React.FC<TenantProps> = ({
                   className="uppercase"
                   textTransform="uppercase"
                 />
+              </Form.Field>
+            </Form.Col>
+
+             <Form.Col lg={3} md={6} span={12}>
+              <Form.Field
+                label="Tenant Address"
+                error={errors.tenantAddress}
+              >
+                <Textarea
+                  {...register("tenantAddress")}
+                  placeholder="Enter Tenant Address"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
+                  rows={3}
+                  />
               </Form.Field>
             </Form.Col>
 

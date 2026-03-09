@@ -10,6 +10,7 @@ export const apiInstance = createApi({
   tagTypes: [
     "Tenant",
     "AdminUnitType",
+    "ModuleMgmt",
     "CustomerPhoto",
     "Customer",
     "Photo",

@@ -43,7 +43,6 @@ import { ManageUserDelegations } from "@/pages/approval-workflow/user-deligation
 import { WorkflowActionsPage } from "@/pages/approval-workflow/workflow-actions";
 import { ApproverRoleMappingPage } from "@/pages/approval-workflow/approver-role-mapping";
 import { ChargeMasterPage } from "@/pages/loan-product-and-scheme-masters/charge-master";
-
 import { RoleManagementPage } from "@/pages/customer-management/role-management";
 import { UserRegPage } from "@/pages/customer-management/user-reg";
 import { RiskAssessmentTypeHistoryPage } from "@/pages/customer-management/risk-assessment-type-history";
@@ -51,18 +50,26 @@ import { AdminUnitTypePage } from "@/pages/customer-management/admin-unit-type";
 import BranchTypePage from "@/pages/customer-management/branch-type";
 import DesignationRoleMappingPage from "@/pages/customer-management/designation-mapping";
 import { TenantPage } from "@/pages/customer-management/tenant";
-
+import { AssetCategoryPage } from "@/pages/asset/management/asset-category";
+import { MsmeTypePage } from "@/pages/asset/management/msme-type";
+import { ContactTypePage } from "@/pages/asset/management/contact-type";
+import { ProductReqListPage } from "@/pages/asset/management/product-req-list";
+import { PurchaseRequestPage } from "@/pages/asset/management/product-req-list/purchase-req";
+import { OrnamentTypePage } from "@/pages/customer-management/ornament-type";
+import { CoLendingBankConfigPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-bank-configuration/Index";
+import { ModuleMgmtPage } from "@/pages/customer-management/module-management";
+import { QuotationRegPage } from "@/pages/asset-management-system/quotation-registration";
 import { CoLendingSchemeMapPage } from "@/pages/loan-product-and-scheme-masters/co-lending-scheme-maping/co-lending-scheme-map/Index";
 import BranchStaffMappingPage from "@/pages/customer-management/branch-staff-mapping";
-
 import UserRoleMappingPage from "@/pages/customer-management/user-mapping";
-
 import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-cost-master";
 import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
 import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
+import { LoanSchemeTypePage } from "@/pages/customer-management/loan-scheme-type";
+
 
 
 
@@ -79,8 +86,18 @@ import { AssetTypePage } from "@/pages/customer-management/asset-master/asset-ty
 import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
+import { SupplierInformationPage } from "@/pages/asset-management-system/supplier-management/supplier-information";
+import { SupplierListPage } from "@/pages/asset-management-system/supplier-management/supplier-list";
+import { AddressTypePage } from "@/pages/customer-management/address-type";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
+import { ChargesMasterPage } from "@/pages/customer-management/asset-master/charges-master";
+import { GstRegistrationPage } from "@/pages/customer-management/asset-master/gst-registration";
+import {  AssetItemAttributesPage} from "@/pages/customer-management/asset-master/asset-item-attributes";
+import { OrnamentNamePage } from "@/pages/customer-management/ornament-name";
+
+import UserTypePage from "@/pages/customer-management/user-type";
 import MenuTreePage from "@/pages/menu-submenu-tree/Index";
+
 
 
 export const protectedRoutesList: RouteObject[] = [
@@ -255,6 +272,14 @@ export const protectedRoutesList: RouteObject[] = [
         element: <WorkflowActionsPage />,
       },
       {
+        path: "/loan-management/schema-master/bank-configuration",
+        element: <CoLendingBankConfigPage />,
+      },
+      {
+        path: "/asset-management/quotation-registration",
+        element: <QuotationRegPage />,
+      },
+      {
         path: "/loan-management/approval-workflow/workflow-user-leave-status",
         element: <UserLeaveStatusPage />,
       },
@@ -267,8 +292,16 @@ export const protectedRoutesList: RouteObject[] = [
         element: <AdminUnitTypePage />,
       },
       {
+        path: "/customer-management/master/ornament-name",
+        element: <OrnamentNamePage />
+      },
+      {
         path: "/customer-management/master/firm-type",
         element: <FirmTypePage />,
+      },
+      {
+        path: "/customer-management/master/address-type",
+        element: <AddressTypePage />,
       },
       {
         path: "/customer-management/master/sectoral-performance",
@@ -277,6 +310,45 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/firm-role",
         element: <FirmRolePage />,
+      },
+      {
+        path: "asset/management/asset-category",
+        children:[
+          {
+            index: true,
+            element: <AssetCategoryPage />,
+         },
+        ]
+      },
+      {
+        path:"asset/management/msme-type",
+        children:[ {
+          index: true,
+          element: <MsmeTypePage/>,
+         },
+        ],
+      },
+      {
+        path:"asset/management/contact-type",
+        children:[ 
+          {
+          index: true,
+          element: <ContactTypePage/>,
+         },
+        ],
+      },
+      {
+        path:"asset/management/product-req-list",
+        children:[ 
+          {
+          index: true,
+          element: <ProductReqListPage/>,
+         },
+        ],
+      },
+      {
+        path:"/asset/manageemnt/product-req-list/purchase-req",
+        element: <PurchaseRequestPage/>
       },
       {
         path: "/customer-management/master/staffs",
@@ -295,8 +367,16 @@ export const protectedRoutesList: RouteObject[] = [
         element: <BranchTypePage />,
       },
       {
+        path:"/customer-management/master/ornament-type",
+        element: <OrnamentTypePage/>
+      },
+      {
         path: "/customer-management/master/customer-category",
         element: <CustomerCategoryPage />,
+      },
+      {
+        path: "/customer-management/master/module-management",
+        element: <ModuleMgmtPage />,
       },
       {
         path: "/customer-management/master/role-management",
@@ -311,6 +391,19 @@ export const protectedRoutesList: RouteObject[] = [
         path: "/customer-management/master/menu-submenu-tree",
         element: <MenuTreePage />,
       },
+ 
+      {
+        path: "/customer-management/master/menu-submenu",
+        element: <MenuSubmenuPage />,
+      },
+      {
+        path: "/customer-management/master/user-type",
+        element: <UserTypePage />,
+      },
+      // {
+      //    path: "/customer-management/master/menu-submenu",
+      //   element: <MenuSubmenuPage />,
+      // },
 
       {
         path: "/customer-management/master/sub-module-management",
@@ -323,6 +416,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/menu-module-mapping",
         element: <MenuModuleMappingPage />,
+      },
+      {
+        path: "/customer-management/master/loan-scheme-type",
+        element: <LoanSchemeTypePage />,
       },
       {
         path: "/customer-management/master/designation-role-mapping",
@@ -504,6 +601,21 @@ export const protectedRoutesList: RouteObject[] = [
             element: <GstCostMasterPage />,
           },
           {
+            path: "/customer-management/asset-master/charges-master",
+            index: true,
+            element: <ChargesMasterPage />,
+          },
+          {
+            path: "/customer-management/asset-master/gst-registration",
+            index: true,
+            element: <GstRegistrationPage/>,
+          },
+          {
+            path: "/customer-management/asset-master/asset-item-attributes",
+            index: true,
+            element: <AssetItemAttributesPage/>,
+          },
+          {
             path: "/customer-management/asset-master/asset-model",
             index: true,
             element: <AssetModelPage />,
@@ -533,14 +645,26 @@ export const protectedRoutesList: RouteObject[] = [
             index: true,
             element: <SupplierRiskPage />,
           },
+          {
+  path: "/customer-management/asset-master/supplier-list-master",
+  element: <SupplierListPage />,
+},
         ],
       },
       {
         path: "/asset-management",
         children: [
 
+           {
+            path: "/asset-management/supplier-management/supplier-information",
+            index: true,
+            element: <SupplierInformationPage />,
+          },
+         
         ],
+        
       },
-    ],
+  
+  ],
   },
 ];

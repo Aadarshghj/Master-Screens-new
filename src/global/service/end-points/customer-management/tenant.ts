@@ -30,6 +30,7 @@ export const tenantApiService = apiInstance.injectEndpoints({
           tenantName: item.tenantName,
           tenantCode: item.tenantCode,
           isActive: item.isActive,
+          tenantAddress:item.tenantAddress
         })),
     }),
 
@@ -43,6 +44,7 @@ export const tenantApiService = apiInstance.injectEndpoints({
         tenantName: item.tenantName,
         tenantCode: item.tenantCode,
         isActive: item.isActive,
+        tenantAddress:item.tenantAddress
       }),
     }),
 
@@ -60,6 +62,7 @@ export const tenantApiService = apiInstance.injectEndpoints({
         tenantName: item.tenantName,
         tenantCode: item.tenantCode,
         isActive: item.isActive,
+        tenantAddress:item.tenantAddress
       }),
       invalidatesTags: ["Tenant"],
     }),

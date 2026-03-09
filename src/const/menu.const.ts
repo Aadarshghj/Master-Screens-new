@@ -37,6 +37,11 @@ export const menu = [
             path: "/customer-management/master/admin-unit-type",
           },
           {
+            id: "ornament-name",
+            title: "Ornament Name Master",
+            path: "/customer-management/master/ornament-name",
+          },
+          {
             id: "firm-type",
             title: "Firm Type Master",
             path: "/customer-management/master/firm-type",
@@ -62,9 +67,24 @@ export const menu = [
             path: "/customer-management/master/branch-type",
           },
           {
+            id: "address-type",
+            title: "Address-Type Master",
+            path: "/customer-management/master/address-type",
+          },
+          {
+            id:"ornament-type",
+            title: "Ornament-type master",
+            path:"/customer-management/master/ornament-type",
+          },
+          {
             id: "industry-category",
             title: "Industry Category Master",
             path: "/customer-management/master/industry-category",
+          },
+          {
+            id: "module-management",
+            title: "Module Management",
+            path: "/customer-management/master/module-management",
           },
           {
             id: "site-premise",
@@ -107,6 +127,11 @@ export const menu = [
             id: "menu-module-mapping",
             title: "Menu Module Mapping",
             path: "/customer-management/master/menu-module-mapping",
+          },
+          {
+            id: "loan-scheme-type",
+            title: "Loan Scheme Type",
+            path: "/customer-management/master/loan-scheme-type",
           },
 
           {
@@ -180,6 +205,11 @@ export const menu = [
             title: "User Role Mapping Master",
             path: "/customer-management/master/user-role-mapping",
           },
+          {
+            id: "user-type",
+            title: "User Type Master",
+            path: "/customer-management/master/user-type",
+          },
 
           {
             id: "designation-role-mapping",
@@ -218,6 +248,26 @@ export const menu = [
             title: "GST Cost Master",
             path: "/customer-management/asset-master/gst-cost-master",
           },
+           {
+        id:"asset-category",
+            title:"Asset Category",
+            path: "/asset/management/asset-category",
+      },
+      {
+        id:"msme-type",
+        title: "MSME Type",
+        path:"/asset/management/msme-type",
+      },
+      {
+        id:"contact-type",
+        title:"Contact Type",
+        path:"/asset/management/contact-type",
+      },
+      {
+        id:"product-req-list",
+        title:"Product Request List",
+        path:"/asset/management/product-req-list",
+      },
           {
             id: "tds-section",
             title: "TDS Section",
@@ -227,6 +277,21 @@ export const menu = [
             id: "asset-model",
             title: "Asset Model",
             path: "/customer-management/asset-master/asset-model",
+          },
+          { 
+            id:"charges-master",
+            title:"Charges Master",
+            path:"/customer-management/asset-master/charges-master"
+          },
+          {
+            id:"gst-registration",
+            title:"GST Registration",
+            path:"/customer-management/asset-master/gst-registration"
+          },
+          {
+            id:"asset-item-attributes",
+            title:"Asset Item Attributes",
+            path:"/customer-management/asset-master/asset-item-attributes"
           },
           {
             id: "asset-group",
@@ -241,12 +306,17 @@ export const menu = [
           {
             id: "terms-and-conditions",
             title: "Terms And Conditions",
-            path: "/customer-management/asset-master/terms-and-conditions"
+            path: "/customer-management/asset-master/asset-type",
           },
           {
             id: "supplier-risk-category",
             title: "Supplier Risk Category",
             path: "/customer-management/asset-master/supplier-risk-category"
+          },
+          {
+            id: "terms-and-conditions",
+            title: "Terms And Conditions",
+            path: "/customer-management/asset-master/terms-and-conditions",
           },
         ],
       },
@@ -457,6 +527,11 @@ export const menu = [
         path: "/loan-management/schema-master",
         children: [
           {
+            id: "Bank Configuration",
+            title: "Bank Configuration",
+            path: "/loan-management/schema-master/bank-configuration",
+          },
+          {
             id: "scheme-attributes",
             title: "Loan Scheme Attributes Master",
             path: "/loan-management/schema-master/scheme-attributes",
@@ -483,7 +558,7 @@ export const menu = [
           },
           {
             id: "co-loan-scheme-mapping",
-            title: "Scheme Mapping",
+            title: "Co-Lending Scheme Mapping",
             path: "/loan-management/schema-master/co-loan-scheme-mapping",
           },
         ],
@@ -546,54 +621,26 @@ export const menu = [
     path: "/asset-management",
     children: [
       {
-        id: "unit-of-measure",
-        title: "Unit of Measure",
-        path: "/asset-management/unit-of-measure",
+        id: "supplier-management",
+        title: "Supplier Management",
+        path: "/asset-management/supplier-management",
+        children: [
+          {
+            id: "supplier-information",
+            title: "Supplier Information",
+            path: "/asset-management/supplier-management/supplier-information",
+          },
+          {
+            id: "supplier-list-master",
+            title: "Supplier List Master",
+            path: "/customer-management/asset-master/supplier-list-master",
+          },
+        ],
       },
       {
-        id: "depreciation-methods",
-        title: "Depreciation Methods",
-        path: "/asset-management/depreciation-methods",
-      },
-      {
-        id: "asset-item",
-        title: "Asset Item",
-        path: "/asset-management/asset-item",
-      },
-      {
-        id: "gst-cost-master",
-        title: "GST Cost Master",
-        path: "/asset-management/gst-cost-master",
-      },
-      {
-        id: "tds-section",
-        title: "TDS Section",
-        path: "/asset-management/tds-section",
-      },
-      {
-        id: "asset-model",
-        title: "Asset Model",
-        path: "/asset-management/asset-model",
-      },
-      {
-        id: "asset-group",
-        title: "Asset Group",
-        path: "/asset-management/asset-group",
-      },
-      {
-        id: "asset-type",
-        title: "Asset Type",
-        path: "/asset-management/asset-type",
-      },
-      {
-        id: "terms-and-conditions",
-        title: "Terms And Conditions",
-        path: "/asset-management/terms-and-conditions",
-      },
-      {
-        id: "supplier-risk-category",
-        title: "Supplier Risk Category",
-        path: "/asset-management/supplier-risk-category",
+        id: "quotation-registration",
+        title: "Quotation Registration  ",
+        path: "/asset-management/quotation-registration",
       },
     ],
   },

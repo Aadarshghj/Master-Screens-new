@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { PlusCircle,LucideMinusCircle,LucideTrash2 } from "lucide-react"
+import { PlusCircle, LucideMinusCircle, LucideTrash2 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { menuTree } from "../Hooks/useMenuSubmenuTree"
 import type { TreeNode } from "../../constants/menuSubmenuTreeValues"
@@ -16,7 +16,6 @@ const MenuTreeForm: React.FC<Props> = ({ data }) => {
   const [activeInput, setActiveInput] = useState<string | null>(null)
   const [inputValue, setInputValue] = useState("")
 
-  // ADD CHILD NODE
   const addChildNode = (nodes: TreeNode[], parentId: string): TreeNode[] => {
     return nodes.map((node) => {
       if (node.id === parentId) {
@@ -53,7 +52,6 @@ const MenuTreeForm: React.FC<Props> = ({ data }) => {
     setActiveInput(null)
   }
 
-  // DELETE NODE
   const deleteNode = (nodes: TreeNode[], nodeId: string): TreeNode[] => {
     return nodes
       .filter((node) => node.id !== nodeId)
@@ -74,18 +72,15 @@ const MenuTreeForm: React.FC<Props> = ({ data }) => {
     const expanded = isExpanded(node.id)
 
     return (
-      <div key={node.id} className="ml-6 mt-3">
-
-        {/* NODE ROW */}
+      // Fix 1: Changed mt-3 to pt-3 to prevent margin collapse
+      <div key={node.id} className="pt-3">
         <div className="flex items-center gap-2">
-
-          {/* NODE BUTTON */}
           <div
             onClick={() => {
               if (hasChildren) {
-                toggleNode(node.id) // expand/collapse
+                toggleNode(node.id)
               } else {
-                navigate("/customer-management/master/menu-submenu") // navigate if leaf
+                navigate("/customer-management/master/menu-submenu")
               }
             }}
             className="flex items-center gap-2 bg-indigo-100 hover:bg-indigo-200 text-xs px-4 py-1 rounded-md w-60 cursor-pointer text-black"
@@ -93,9 +88,9 @@ const MenuTreeForm: React.FC<Props> = ({ data }) => {
             {hasChildren && (
               <span className="font-bold text-xs">
                 {expanded ? (
-                  <LucideMinusCircle style={{ color: "blue", fontSize: "15px" }} />
+                  <LucideMinusCircle className="text-blue-500" size={15} />
                 ) : (
-                  <PlusCircle style={{ color: "blue", fontSize: "15px" }} />
+                  <PlusCircle className="text-blue-500" size={15} />
                 )}
               </span>
             )}
@@ -103,10 +98,7 @@ const MenuTreeForm: React.FC<Props> = ({ data }) => {
             <span>{node.name}</span>
           </div>
 
-          {/* ACTION BUTTONS */}
           <div className="flex gap-1">
-
-            {/* ADD */}
             <button
               onClick={() => setActiveInput(node.id)}
               className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
@@ -114,20 +106,18 @@ const MenuTreeForm: React.FC<Props> = ({ data }) => {
               +
             </button>
 
-            {/* DELETE */}
             <button
               onClick={() => handleDelete(node.id)}
               className="text-xs bg-blue-500 text-white px-2 py-1 rounded"
             >
-              <LucideTrash2 size={14} />
+              <LucideTrash2 size={12} />
             </button>
-
           </div>
         </div>
 
-        {/* INPUT FIELD */}
         {activeInput === node.id && (
-          <div className="flex gap-2 mt-2 ml-2">
+          // Added mt-2 just so the input box doesn't squash against the button
+          <div className="flex gap-2 mt-2">
             <input
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -143,15 +133,27 @@ const MenuTreeForm: React.FC<Props> = ({ data }) => {
           </div>
         )}
 
-        {/* CHILDREN */}
         {hasChildren && expanded && (
-          <div className="ml-4 border-l border-gray-800 pl-4">
-            {node.children?.map((child) => (
-              <div key={child.id} className="relative flex items-center">
-                <span className="absolute -left-4 w-4 border-t border-gray-800"></span>
-                {renderNode(child)}
-              </div>
-            ))}
+          <div className="ml-6">
+            {node.children?.map((child, index) => {
+              const isLast = index === node.children!.length - 1
+
+              return (
+                <div key={child.id} className="relative pl-6">
+                  {/* Fix 2 & 3: border-l instead of border, h-6 for the last element, top-0 to connect fully */}
+                  <span
+                    className={`absolute left-0 top-0 border border-gray-800 ${
+                      isLast ? "h-6" : "h-full"
+                    }`}
+                  ></span>
+                  
+                  {/* Fix 2 & 3: border-t instead of border, top-6 to hit perfectly in the middle */}
+                  <span className="absolute left-0 top-6 w-6 border border-gray-800"></span>
+
+                  {renderNode(child)}
+                </div>
+              )
+            })}
           </div>
         )}
       </div>

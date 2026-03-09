@@ -10,13 +10,12 @@ import type {
 import toast from "react-hot-toast";
 import {
   useSaveRoleManagementMutation,
-  useUpdateRoleManagementMutation,
+  
 } from "@/global/service/end-points/customer-management/role-management";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export const useRoleManagement = (editData?: RoleManagementType) => {
   const [saveRoleManagement] = useSaveRoleManagementMutation();
-  const [updateRoleManagement] = useUpdateRoleManagementMutation();
 
   const {
     control,
@@ -37,28 +36,9 @@ export const useRoleManagement = (editData?: RoleManagementType) => {
         roleShortDesc: data.roleShortDesc,
         isActive: data.isActive,
       };
-      try {
-        if (data.identity) {
-          await updateRoleManagement({
-            identity: data.identity.toString(),
-            payload,
-          }).unwrap();
-          toast.success("Role Updated Succesfully");
-        } else {
-          await saveRoleManagement(payload).unwrap();
-          toast.success("Role Added Succesfully");
-        }
-        reset(ROLE_MANAGEMENT_DEFAULT_VALUES);
-      } catch (error) {
-        const err = error as FetchBaseQueryError;
-        const message =
-          typeof err?.data === "object" && err?.data !== null
-            ? (err.data as { message?: string }).message
-            : undefined;
-        toast.error(message ?? "Failed to Save Role");
-      }
+      
     },
-    [reset, saveRoleManagement, updateRoleManagement]
+    [reset, saveRoleManagement]
   );
 
   const onCancel = useCallback(() => {
