@@ -107,17 +107,11 @@ export const menu = [
             path: "/customer-management/master/role-management",
           },
 
-          // {
-          //   id: "menu-submenu",
-          //   title: "Menu SubMenu",
-          //   path: "/customer-management/master/menu-submenu",
-          // },
           {
             id: "menu-submenu-tree",
-            title: "Menu SubMenu",
+            title: "Menu SubMenu Tree",
             path: "/customer-management/master/menu-submenu-tree",
           },
-
           {
             id: "sub-module-management",
             title: "Sub Module Management",
@@ -307,12 +301,17 @@ export const menu = [
           {
             id: "asset-type",
             title: "Asset Type",
+            path: "/customer-management/asset-master/asset-type"
+          },
+          {
+            id: "terms-and-conditions",
+            title: "Terms And Conditions",
             path: "/customer-management/asset-master/asset-type",
           },
           {
             id: "supplier-risk-category",
             title: "Supplier Risk Category",
-            path: "/customer-management/asset-master/supplier-risk-category",
+            path: "/customer-management/asset-master/supplier-risk-category"
           },
           {
             id: "terms-and-conditions",
@@ -559,7 +558,7 @@ export const menu = [
           },
           {
             id: "co-loan-scheme-mapping",
-            title: "Scheme Mapping",
+            title: "Co-Lending Scheme Mapping",
             path: "/loan-management/schema-master/co-loan-scheme-mapping",
           },
         ],

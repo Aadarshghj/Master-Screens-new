@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const useMenuTree = () => {
+export const menuTree = () => {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   const toggleNode = (id: string) => {
     setExpanded((prev) => ({

@@ -1,5 +1,5 @@
 import React from "react";
-import { RotateCcw, Save, X } from "lucide-react";
+import { RotateCcw, Save} from "lucide-react";
 import {
   type Control,
   type FieldErrors,
@@ -19,7 +19,6 @@ interface MenuSubmenuProps {
   register: UseFormRegister<menuSubmenu>;
   isSubmitting: boolean;
   onSubmit: () => void;
-  onCancel: () => void;
   onReset: () => void;
   isEdit: boolean
 }
@@ -30,13 +29,12 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
   register,
   isSubmitting,
   onSubmit,
-  onCancel,
   onReset,
   isEdit
 }) => {
 
   const isUrlEnabled = useWatch({
-    control, name: "url"
+    control, name: "isUrl"
   })
   return (
     <FormContainer className="px-0 " >
@@ -57,9 +55,9 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
             </Form.Col>
 
             <Form.Col lg={4} md={6} span={12}>
-              <Form.Field label="Menu Code" required error={errors.menucode} >
+              <Form.Field label="Menu Code" required error={errors.menuCode} >
                 <Input
-                  {...register("menucode")}
+                  {...register("menuCode")}
                   placeholder="Page, Report, Action, External URL"
                   size="form"
                   variant="form"
@@ -94,9 +92,9 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
             </Form.Col>
 
             <Form.Col lg={4} md={6} span={12} className="pr-6">
-              <Form.Field label="Parent Menu" required error={errors?.parentMenu}>
+              <Form.Field label="Parent Menu" required error={errors?.parent}>
                 <Controller
-                  name="parentMenu"
+                  name="parent"
                   control={control}
                   render={({ field }) => (
                     <Select
@@ -119,7 +117,7 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
                 <Flex align="center" gap={2}>
                   <Controller
                     control={control}
-                    name="url"
+                    name="isUrl"
                     render={({ field }) => (
                       <Switch
                         checked={!!field.value}
@@ -135,9 +133,9 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
             {
               isUrlEnabled && (
                 <Form.Col lg={3} md={6} span={12}>
-                  <Form.Field label="Page URL" required error={errors.pageurl}>
+                  <Form.Field label="Page URL" required error={errors.pageUrl}>
                     <Input
-                      {...register("pageurl")}
+                      {...register("pageUrl")}
                       placeholder="Enter URL"
                       size="form"
                       variant="form"
@@ -169,16 +167,6 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
           </Form.Row>
 
           <Flex.ActionGroup className="mt-2 justify-end gap-4">
-            <NeumorphicButton
-              type="button"
-              variant="grey"
-              size="default"
-              onClick={onCancel}
-              disabled={isSubmitting}
-            >
-              <X className="h-3 w-3" />
-              Cancel
-            </NeumorphicButton>
 
             <NeumorphicButton
               type="button"

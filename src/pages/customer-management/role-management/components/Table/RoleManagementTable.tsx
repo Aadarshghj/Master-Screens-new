@@ -25,7 +25,6 @@ export const RoleManagementTable: React.FC<RoleManagementProps> = ({
     showDeleteModal,
     openDeleteModal,
     closeDeleteModal,
-    confirmDeleteRoleManagement,
   } = useRoleManagementTable();
 
   const columns = useMemo(
@@ -107,17 +106,6 @@ export const RoleManagementTable: React.FC<RoleManagementProps> = ({
         </Grid.Item>
       </Grid>
 
-      <ConfirmationModal
-        isOpen={showDeleteModal}
-        onConfirm={confirmDeleteRoleManagement}
-        onCancel={closeDeleteModal}
-        title="Delete Role"
-        message="Are you sure you want to delete this role? This action cannot be undone"
-        confirmText="Delete"
-        cancelText="Cancel"
-        type="error"
-        size="compact"
-      />
     </>
   );
 };

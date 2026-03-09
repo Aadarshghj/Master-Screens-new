@@ -65,8 +65,13 @@ export const menuTreeData: TreeNode[] = [
           { id: "2-3-2", name: "Asset Group" },
           { id: "2-3-3", name: "Asset Type" },
           { id: "2-3-4", name: "Terms And Conditions" },
-          { id: "2-3-5", name: "Supplier Risk Category" }
+          { id: "2-3-5", name: "Supplier Risk Category" },
+          { id: "2-3-6", name: "Unit of Measure" },
+          { id: "2-3-7", name: "Depreciation Methods" },
+          { id: "2-3-8", name: "GST Cost Master" },
+          { id: "2-3-9", name: "TDS Section" },
         ]
+
       }
     ]
   },
@@ -171,36 +176,35 @@ export const menuTreeData: TreeNode[] = [
     ]
   },
 
-  {
-    id: "5",
-    name: "Asset Management System",
-    children: [
-      {
-        id: "5-1",
-        name: "Unit of Measure",
-      },
-      {
-        id: "5-2",
-        name: "Depreciation Methods",
-      },
-      {
-        id: "5-3",
-        name: "GST Cost Master",
-      },
-
-      {
-        id: "5-4",
-        name: "TDS Section",
-      },
-    ]
-  },
+{
+  id: "5",
+  name: "Asset Management System",
+  children: [
+    {
+      id: "5-1",
+      name: "Supplier Management",
+          children: [
+            {
+              id: "5-1-1-1",
+              name: "Supplier Information"
+            }
+          ]
+             
+    },
+    {
+      id: "5-2",
+      name: "Quotation Registration"
+    }
+  ]
+},
+  
   {
     id: "6",
     name: "Financial Accounting Management System",
   },
   {
     id: "7",
-    name: "Organizatn Hierarchy",
+    name: "Organization Hierarchy ",
   },
   {
     id: "8",
