@@ -64,6 +64,7 @@ import { GstCostMasterPage } from "@/pages/customer-management/asset-master/gst-
 import { DepreciationMethodsPage } from "@/pages/customer-management/asset-master/depreciation-methods";
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
+import { LoanSchemeTypePage } from "@/pages/customer-management/loan-scheme-type";
 
 
   
@@ -81,6 +82,7 @@ import { AssetTypePage } from "@/pages/customer-management/asset-master/asset-ty
 import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
+import { SupplierInformationPage } from "@/pages/asset-management-system/supplier-management/supplier-information";
 import { SupplierListPage } from "@/pages/asset-management-system/supplier-management/supplier-list";
 import { AddressTypePage } from "@/pages/customer-management/address-type";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
@@ -357,6 +359,10 @@ export const protectedRoutesList: RouteObject[] = [
         element: <MenuModuleMappingPage />,
       },
       {
+        path: "/customer-management/master/loan-scheme-type",
+        element: <LoanSchemeTypePage />,
+      },
+      {
         path: "/customer-management/master/designation-role-mapping",
         element: <DesignationRoleMappingPage />,
       },
@@ -573,7 +579,15 @@ export const protectedRoutesList: RouteObject[] = [
       },
       {
         path: "/asset-management",
-        children: [],
+        children: [
+           {
+            path: "/asset-management/supplier-management/supplier-information",
+            index: true,
+            element: <SupplierInformationPage />,
+          },
+         
+        ],
+        
       },
     ],
   },

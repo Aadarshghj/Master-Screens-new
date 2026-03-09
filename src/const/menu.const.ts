@@ -124,6 +124,11 @@ export const menu = [
             title: "Menu Module Mapping",
             path: "/customer-management/master/menu-module-mapping",
           },
+          {
+            id: "loan-scheme-type",
+            title: "Loan Scheme Type",
+            path: "/customer-management/master/loan-scheme-type",
+          },
 
           {
             id: "firm-role",
@@ -590,13 +595,27 @@ export const menu = [
     title: "Asset Management System",
     icon: "TrendingUp",
     path: "/asset-management",
-    children: [
+
+     children: [
+          {
+        id: "supplier-management",
+        title: "Supplier Management",
+        path: "/asset-management/supplier-management",
+        children: [
+          {
+            id: "supplier-information",
+            title: "Supplier Information",
+            path: "/asset-management/supplier-management/supplier-information",
+          },
+        ],
+      },
       {
         id: "quotation-registration",
         title: "Quotation Registration  ",
         path: "/asset-management/quotation-registration",
-      },
-    ],
+    }
+            ]
+    
   },
   {
     id: "financial-accounting",
