@@ -84,6 +84,8 @@ import { AssetTypePage } from "@/pages/customer-management/asset-master/asset-ty
 import { TermsAndConditionPage } from "@/pages/customer-management/asset-master/terms-and-conditions";
 import { SupplierRiskPage } from "@/pages/customer-management/asset-master/supplier-risk-category/Index";
 import { SubModulePage } from "@/pages/customer-management/sub-module-management";
+import { SupplierListPage } from "@/pages/asset-management-system/supplier-management/supplier-list";
+import { AddressTypePage } from "@/pages/customer-management/address-type";
 import { AssetItemPage } from "@/pages/customer-management/asset-master/asset-item";
 
 
@@ -281,6 +283,10 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/customer-management/master/firm-type",
         element: <FirmTypePage />,
+      },
+      {
+        path: "/customer-management/master/address-type",
+        element: <AddressTypePage />,
       },
       {
         path: "/customer-management/master/sectoral-performance",
@@ -553,6 +559,10 @@ export const protectedRoutesList: RouteObject[] = [
             index: true,
             element: <SupplierRiskPage />,
           },
+          {
+  path: "/customer-management/asset-master/supplier-list-master",
+  element: <SupplierListPage />,
+},
         ],
       },
       {
