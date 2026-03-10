@@ -10,24 +10,24 @@ import { Flex, Input, Switch, Label, Select } from "@/components/ui"
 import { Form } from "@/components"
 
 import type {
-  SupplierContactManagementType,
+  SupplierAssetGroupType,
   Option,
 } from "@/types/asset-management-system/supplier-management/supplier-information"
 
-interface SupplierContactManagementProps {
-  control: Control<SupplierContactManagementType>
-  errors: FieldErrors<SupplierContactManagementType>
-  register: UseFormRegister<SupplierContactManagementType>
+interface SupplierAssetGroupProps {
+  control: Control<SupplierAssetGroupType>
+  errors: FieldErrors<SupplierAssetGroupType>
+  register: UseFormRegister<SupplierAssetGroupType>
   isEditMode: boolean
-  contactTypeOptions: Option[]
+  assetGroupOptions: Option[]
 }
 
-export const SupplierContactManagementForm: React.FC<SupplierContactManagementProps> = ({
+export const SupplierAssetGroupForm: React.FC<SupplierAssetGroupProps> = ({
   errors,
   register,
   control,
   isEditMode,
-  contactTypeOptions,
+  assetGroupOptions,
 }) => {
   return (
     <div>
@@ -35,16 +35,16 @@ export const SupplierContactManagementForm: React.FC<SupplierContactManagementPr
 
       <Form.Row>
         <Form.Col lg={2} md={6} span={12}>
-          <Form.Field label="Contact Type" required error={errors.contactType}>
+          <Form.Field label="Asset Group" required error={errors.assetGroup}>
             <Controller
-              name="contactType"
+              name="assetGroup"
               control={control}
               render={({ field }) => (
                 <Select
                   value={field.value}
                   onValueChange={field.onChange}
-                  options={contactTypeOptions}
-                  placeholder="Select Contact Type"
+                  options={assetGroupOptions}
+                  placeholder="Select Asset Group"
                   size="form"
                   variant="form"
                   fullWidth
@@ -55,16 +55,7 @@ export const SupplierContactManagementForm: React.FC<SupplierContactManagementPr
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
-          <Form.Field label="Contact Value" required error={errors.contactValue}>
-            <Input
-              {...register("contactValue")}
-              placeholder="Enter phone number or mobile no"
-              size="form"
-              variant="form"
-            />
-          </Form.Field>
-        </Form.Col>
+      
 
         <Form.Col lg={2} md={6} span={12}>
           <Flex direction="col" gap={1} style={{ paddingTop: 22 }}>
@@ -81,25 +72,6 @@ export const SupplierContactManagementForm: React.FC<SupplierContactManagementPr
                 )}
               />
               <Label>Active</Label>
-            </Flex>
-          </Flex>
-        </Form.Col>
-
-        <Form.Col lg={2} md={6} span={12}>
-          <Flex direction="col" gap={1} style={{ paddingTop: 22 }}>
-            <Flex align="center" gap={2}>
-              <Controller
-                control={control}
-                name="isPrimary"
-                render={({ field }) => (
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    disabled={!isEditMode}
-                  />
-                )}
-              />
-              <Label>Primary</Label>
             </Flex>
           </Flex>
         </Form.Col>

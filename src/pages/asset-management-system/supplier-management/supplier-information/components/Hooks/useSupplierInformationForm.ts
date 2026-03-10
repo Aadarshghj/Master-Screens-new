@@ -1,12 +1,22 @@
-import { useCallback } from "react";
-import { useForm, type Resolver } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form"
+import { useState } from "react"
+
 import type {
-  SupplierInformationType
-} from "@/types/asset-management-system/supplier-management/supplier-information";
-import { logger } from "@/global/service";
-import { supplierInformationSchema } from "@/global/validation/asset-management-system/supplier-management/supplier-informations"
-import { DEFAULT_VALUES } from "../../constants/SupplierInformation";
+  SupplierInformationType,
+  SupplierContactManagementType,
+  SupplierAssetGroupType,
+  AddressInfoType,
+  BankInfoType
+} from "@/types/asset-management-system/supplier-management/supplier-information"
+
+import {
+  DEFAULT_SUPPLIER_DETAILS,
+  DEFAULT_CONTACT,
+  DEFAULT_ASSET_GROUP,
+  DEFAULT_ADDRESS,
+  DEFAULT_BANK
+} from "../../constants/SupplierInformation"
+
 export const useSupplierInformationForm = () => {
 
   const {
@@ -14,35 +24,41 @@ export const useSupplierInformationForm = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    
+    formState: { errors, isSubmitting }
   } = useForm<SupplierInformationType>({
-    defaultValues: DEFAULT_VALUES,
-    resolver: yupResolver(supplierInformationSchema) as Resolver<SupplierInformationType>,
-    mode: "onBlur",
-  });
+    defaultValues: DEFAULT_SUPPLIER_DETAILS
+  })
 
-  const onSubmit = useCallback(
-    async (data: SupplierInformationType) => {
-      
-      try {
-        logger.info("Form submitted successfully", { toast: true });
-        console.log("Data:" ,data);
-        
-        reset(DEFAULT_VALUES);
-      } catch (error) {
-        logger.error(error, { toast: true });
-      }
-    },
-    [ reset]
-  );
+  const {
+    control: addressControl,
+    register: addressRegister
+  } = useForm<AddressInfoType>({
+    defaultValues: DEFAULT_ADDRESS
+  })
 
-  const onCancel = useCallback(() => {
-    reset(DEFAULT_VALUES);
-  }, [reset]);
+  const {
+    control: bankControl,
+    register: bankRegister
+  } = useForm<BankInfoType>({
+    defaultValues: DEFAULT_BANK
+  })
+ 
 
-  const onReset = useCallback(() => {
-    reset(DEFAULT_VALUES);
-  }, [reset]);
+  const [contacts, setContacts] = useState<SupplierContactManagementType[]>([])
+  const [assetGroups, setAssetGroups] = useState<SupplierAssetGroupType[]>([])
+
+  const onSubmit = (data: SupplierInformationType) => {
+    console.log("Supplier Details", data)
+    console.log("Contacts", contacts)
+    console.log("Asset Groups", assetGroups)
+  }
+
+  const onReset = () => {
+    reset(DEFAULT_SUPPLIER_DETAILS)
+    setContacts([])
+    setAssetGroups([])
+  }
 
   return {
     control,
@@ -51,7 +67,19 @@ export const useSupplierInformationForm = () => {
     errors,
     isSubmitting,
     onSubmit,
-    onCancel,
     onReset,
-  };
-};
+    
+
+    addressControl,
+    addressRegister,
+
+    bankControl,
+    bankRegister,
+
+    contacts,
+    setContacts,
+
+    assetGroups,
+    setAssetGroups
+  }
+}

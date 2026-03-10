@@ -1,59 +1,53 @@
-import * as yup from "yup";
+import * as yup from "yup"
 
-export const supplierInformationSchema = yup.object({
-  id: yup.string(),
+export const supplierInformationValidation = yup.object({
+  supplierName: yup.string().required(),
+  tradeName: yup.string().required(),
+  supplierRiskCategory: yup.string().required(),
+  panNumber: yup.string().required(),
+  gstRegistrationType: yup.string().required(),
+  gstin: yup.string(),
+  msmeRegistrationNo: yup.string(),
+  msmeType: yup.string(),
+  cinOrLlpin: yup.string(),
+  incorporationDate: yup.string(),
+  contactPersonName: yup.string().required(),
+  designation: yup.string().required(),
+  isActive: yup.boolean(),
 
-  supplierName: yup
-    .string()
-    .required("Supplier Name is required"),
+  contact: yup.object({
+    contactType: yup.string().required(),
+    contactValue: yup.string().required(),
+    isActive: yup.boolean(),
+    isPrimary: yup.boolean()
+  }),
 
-  tradeName: yup
-    .string(),
+  assetGroup: yup.object({
+    assetGroup: yup.string().required(),
+    isActive: yup.boolean()
+  }),
 
-  supplierRiskCategory: yup
-    .string()
-    .required("Supplier Risk Category is required"),
+  address: yup.object({
+    addressLine1: yup.string().required(),
+    addressLine2: yup.string(),
+    pincode: yup.string().required(),
+    city: yup.string().required(),
+    state: yup.string().required(),
+    country: yup.string().required()
+  }),
 
-  panNumber: yup
-    .string()
-    .required("PAN Number is required")
-    .matches(
-      /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,
-      "Invalid PAN Number format"
-    ),
-
-  gstRegistrationType: yup
-    .string()
-    .required("GST Registration Type is required"),
-
-  gstin: yup
-    .string()
-    .matches(
-      /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/,
-      "Invalid GSTIN format"
-    )
-    .nullable(),
-
-  msmeRegistrationNo: yup
-    .string(),
-
-  msmeType: yup
-    .string(),
-
-  cinOrLlpin: yup
-    .string(),
-
-  incorporationDate: yup
-    .string()
-    .required("Incorporation Date is required"),
-
-  contactPersonName: yup
-    .string()
-    .required("Contact Person Name is required"),
-
-  designation: yup
-    .string(),
-
-  isActive: yup
-    .boolean(),
-});
+  bank: yup.object({
+    bankName: yup.string().required(),
+    branchName: yup.string().required(),
+    accountHolderName: yup.string().required(),
+    accountNumber: yup.string().required(),
+    confirmAccountNumber: yup.string().required(),
+    ifscCode: yup.string().required(),
+    pennyDropVerification: yup.boolean(),
+    defaultGstRate: yup.string(),
+    isTds: yup.boolean(),
+    tdsSection: yup.string(),
+    tdsRate: yup.string(),
+    isReverseChange: yup.boolean()
+  })
+})
