@@ -31,6 +31,7 @@ export function EmpanelmentItemsTable({
   MODEL_OPTIONS,
   addRow,
   removeRow,
+  
   updateRow
 }: EmpanelmentItemsTableProps) {
 
