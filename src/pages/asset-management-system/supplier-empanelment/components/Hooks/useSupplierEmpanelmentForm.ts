@@ -1,14 +1,7 @@
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import type { supplierEmpanelmentForm } from "@/types/asset-management-system/supplier-empanelment"
+import type {  supplierEmpanelmentForm, SupplierSearchResult } from "@/types/asset-management-system/supplier-empanelment"
 import { SUPPLIER_EMPANELMENT } from "../../constants/SupplierEmpanelmentDefault"
-
-interface SupplierData {
-  supplierName: string
-  registrationNumber: string
-  email: string
-  contact: string
-}
 
 export function useSupplierEmpanelmentForm() {
   const {
@@ -17,34 +10,58 @@ export function useSupplierEmpanelmentForm() {
     handleSubmit,
     setValue,
     reset,
+    watch,
     formState: { errors, isSubmitting }
   } = useForm<supplierEmpanelmentForm>({
-    defaultValues: {
-    empanelmentType: "RATEWISE"
-  }
+    defaultValues: SUPPLIER_EMPANELMENT
   })
 
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
+  const [showTerms, setShowTerms] = useState(false)
 
   const onSubmit = (data: supplierEmpanelmentForm) => {
     console.log("Empanelment Form Data", data)
   }
+const defaultValues: supplierEmpanelmentForm = {
+  empanelmentDate: "",
+  empanelmentBy: "",
+  description: "",
+  validuptoDate: "",
 
-  const handleReset = () => {
+  supplierNameSearch: "",
+  registrationNumber: "",
+  email: "",
+  contact: "",
+  empanelmentType: "",
+
+  termsAndConditions: "",
+  document: null,
+
+  empanelItems: []
+}
+  const onReset = () => {
     reset(SUPPLIER_EMPANELMENT)
+    setValue("document", null)
+
   }
 
   const openSearchModal = () => setIsSearchModalOpen(true)
-
   const closeSearchModal = () => setIsSearchModalOpen(false)
 
-  const handleSupplierSelect = (supplier: SupplierData) => {
-    setValue("supplierName", supplier.supplierName)
-    setValue("registrationNumber", supplier.registrationNumber)
-    setValue("email", supplier.email)
-    setValue("contact", supplier.contact)
-    setIsSearchModalOpen(false)
-  }
+ const handleSupplierSelect = (supplier: SupplierSearchResult) => {
+
+  setValue("supplierNameSearch", supplier.supplierName)
+
+  setValue("registrationNumber", supplier.gstNumber)
+
+  setValue("email", "")
+
+  setValue("contact", "")
+
+  closeSearchModal()
+}
+
+  const empanelmentType = watch("empanelmentType")
 
   return {
     control,
@@ -52,12 +69,16 @@ export function useSupplierEmpanelmentForm() {
     errors,
     isSubmitting,
     handleSubmit,
-    reset,
     onSubmit,
-    handleReset,
+    onReset,
+    reset,
+    defaultValues,
     openSearchModal,
     closeSearchModal,
     isSearchModalOpen,
-    handleSupplierSelect
+    handleSupplierSelect,
+    showTerms,
+    setShowTerms,
+    empanelmentType
   }
 }

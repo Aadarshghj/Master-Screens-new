@@ -10,24 +10,26 @@ import {
 
 import { SupplierEmpanelmentForm } from "./components/Form/SupplierEmpanelmentForm"
 import { useSupplierEmpanelmentForm } from "./components/Hooks/useSupplierEmpanelmentForm"
-
+import { useEmpanelmentItemsTable } from "./components/Hooks/useSupplierEmpanelItemTable"
 
 export const SupplierEmpanelmentPage: React.FC = () => {
 
   const navigate = useNavigate()
 
   const {
-  control,
-  handleSubmit,
-  errors,
-  isSubmitting,
-  onSubmit,
-  reset,
-  openSearchModal,
-  closeSearchModal,
-  isSearchModalOpen,
-  handleSupplierSelect
-} = useSupplierEmpanelmentForm()
+    control,
+    handleSubmit,
+    errors,
+    isSubmitting,
+    onSubmit,
+    reset,
+    openSearchModal,
+    closeSearchModal,
+    isSearchModalOpen,
+    handleSupplierSelect
+  } = useSupplierEmpanelmentForm()
+
+  const empanelItemsTable = useEmpanelmentItemsTable()
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", href: "/", onClick: () => navigate("/") },
@@ -37,11 +39,11 @@ export const SupplierEmpanelmentPage: React.FC = () => {
       onClick: () => navigate("/asset-management")
     },
     {
-      label: "Supplier Empanelment", active: true ,
+      label: "Supplier Empanelment",
+      active: true,
       href: "/asset-management/supplier-empanelment",
       onClick: () => navigate("/asset-management/supplier-empanelment")
-    },
-    // { label: "Supplier Empanelment", active: true }
+    }
   ]
 
   return (
@@ -61,7 +63,7 @@ export const SupplierEmpanelmentPage: React.FC = () => {
           className="py-4"
         />
 
-         <SupplierEmpanelmentForm
+        <SupplierEmpanelmentForm
           control={control}
           errors={errors}
           isSubmitting={isSubmitting}
@@ -71,6 +73,7 @@ export const SupplierEmpanelmentPage: React.FC = () => {
           closeSearchModal={closeSearchModal}
           isSearchModalOpen={isSearchModalOpen}
           handleSupplierSelect={handleSupplierSelect}
+          empanelItemsTable={empanelItemsTable}
         />
 
       </section>
