@@ -7,16 +7,14 @@ import type {
   RoleManagementRequestDto,
   RoleManagementType,
 } from "@/types/customer-management/role-management";
-import toast from "react-hot-toast";
 import {
   useSaveRoleManagementMutation,
-  useUpdateRoleManagementMutation,
 } from "@/global/service/end-points/customer-management/role-management";
-import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { logger } from "@/global/service";
 
 export const useRoleManagement = (editData?: RoleManagementType) => {
   const [saveRoleManagement] = useSaveRoleManagementMutation();
-  const [updateRoleManagement] = useUpdateRoleManagementMutation();
+  
 
   const {
     control,
@@ -30,36 +28,30 @@ export const useRoleManagement = (editData?: RoleManagementType) => {
     mode: "onChange",
   });
 
-  const onSubmit = useCallback(
-    async (data: RoleManagementType) => {
-      const payload: RoleManagementRequestDto = {
-        roleName: data.roleName.toUpperCase(),
-        roleShortDesc: data.roleShortDesc,
-        isActive: data.isActive,
-      };
-      try {
-        if (data.identity) {
-          await updateRoleManagement({
-            identity: data.identity.toString(),
-            payload,
-          }).unwrap();
-          toast.success("Role Updated Succesfully");
-        } else {
-          await saveRoleManagement(payload).unwrap();
-          toast.success("Role Added Succesfully");
-        }
-        reset(ROLE_MANAGEMENT_DEFAULT_VALUES);
-      } catch (error) {
-        const err = error as FetchBaseQueryError;
-        const message =
-          typeof err?.data === "object" && err?.data !== null
-            ? (err.data as { message?: string }).message
-            : undefined;
-        toast.error(message ?? "Failed to Savr Role");
-      }
-    },
-    [reset, saveRoleManagement, updateRoleManagement]
-  );
+const onSubmit = useCallback(
+  async (data: RoleManagementType) => {
+    const payload: RoleManagementRequestDto = {
+      roleName: data.roleName.toUpperCase(),
+      roleShortDesc: data.roleShortDesc,
+      isActive: data.isActive,
+    };
+
+    try {
+      console.log("Payload:", payload);
+
+      await saveRoleManagement(payload).unwrap();
+      logger.info("Role Saved Successfully", { toast: true });
+
+      console.log("Role saved successfully");
+
+      reset(ROLE_MANAGEMENT_DEFAULT_VALUES);
+    } catch (error) {
+       logger.error("Same Role Already Exist", { toast: true });
+      console.error("Save failed:", error);
+    }
+  },
+  [reset, saveRoleManagement]
+);
 
   const onCancel = useCallback(() => {
     reset(ROLE_MANAGEMENT_DEFAULT_VALUES);

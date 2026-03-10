@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
-import { logger } from "@/global/service";
 import {
   useDeleteRoleManagementMutation,
   useGetMasterRoleManagementQuery,
 } from "@/global/service/end-points/customer-management/role-management";
+import { logger } from "@/global/service";
 export const useRoleManagementTable = () => {
   const [deleteRoleManagement] = useDeleteRoleManagementMutation();
   const { data = [], isFetching } = useGetMasterRoleManagementQuery();

@@ -10,7 +10,7 @@ import {
   Grid,
 } from "../../../../../components/ui";
 import { Pencil, Trash2 } from "lucide-react";
-import { BranchType } from "../../../../../types/customer-management/branch-type";
+import type { BranchType } from "../../../../../types/customer-management/branch-type";
 import NeumorphicButton from "../../../../../components/ui/neumorphic-button/neumorphic-button";
 
 const columnHelper = createColumnHelper<BranchType>();

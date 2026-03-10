@@ -21,7 +21,6 @@ export const useBranchTypeMasterForm = (onSuccess?: () => void) => {
     register,
     handleSubmit,
     reset,
-    setError,
     formState: { errors, isSubmitting },
   } = useForm<BranchType>({
     defaultValues: DEFAULT_BRANCH_TYPE,

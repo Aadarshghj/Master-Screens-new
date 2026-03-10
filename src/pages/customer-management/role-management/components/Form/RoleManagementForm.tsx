@@ -51,7 +51,7 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
             </Form.Col>
 
             <Form.Col lg={4} md={12} span={12}>
-              <Form.Field label="Description" error={errors.roleShortDesc}>
+              <Form.Field label="Description" required error={errors.roleShortDesc}>
                 <Textarea
                   {...register("roleShortDesc")}
                   placeholder="Enter Description"
@@ -81,7 +81,7 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
                       />
                     )}
                   />
-                  <Label>Active Status</Label>
+                  <Label> Status</Label>
                 </Flex>
               </Flex>
             </Form.Col>

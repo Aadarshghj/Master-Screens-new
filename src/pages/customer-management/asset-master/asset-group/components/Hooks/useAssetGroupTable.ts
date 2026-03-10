@@ -5,7 +5,6 @@ import type { AssetGroupType } from "@/types/customer-management/asset-master/as
 export const useAssetGroupTable = () => {
   const data = ASSET_GROUP_SAMPLE_DATA;
   const onEdit = useCallback((row: AssetGroupType) => {
-    // eslint-disable-next-line no-console
     console.log("Edit clicked:", row);
   }, []);
   return {

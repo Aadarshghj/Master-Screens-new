@@ -44,7 +44,6 @@ export const SubModuleForm: React.FC<SubModuleFormProps> = ({
         <div className="mt-2">
           <Form.Row>
             <Form.Col lg={4} md={6} span={12}>
-              {/* Optional: if your Form.Field expects a string, you might need errors.module?.message */}
               <Form.Field label="Module" required error={errors.module}>
                 <Controller
                   name="module"
