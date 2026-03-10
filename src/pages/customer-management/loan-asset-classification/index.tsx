@@ -1,25 +1,25 @@
-import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState,useRef } from "react";
 import { PlusCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import {
   Breadcrumb,
   TitleHeader,
   type BreadcrumbItem,
   PageWrapper,
 } from "@/components";
-import { RoleManagementForm } from "./components/Form/RoleManagementForm";
+
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-import { RoleManagementTable } from "./components/Table/RoleManagementTable";
-import { useRoleManagement } from "./components/Hooks/useRoleManagement";
-import type { RoleManagementType } from "@/types/customer-management/role-management";
+import type { AssetClassificationType } from "@/types/customer-management/loan-asset-classification";
+import { useLoanAsset } from "./components/Hooks/useLoanAssetForm";
+import { LoanAssetClassificationForm } from "./components/Form/LoanAssetForm";
+import { LoanAssetClassiTable } from "./components/Table/LoanAssetTable";
 
-export const RoleManagementPage: React.FC = () => {
+export const LoanAssetClassificationPage: React.FC = () => {
+  const formRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
-  const [showForm, setShowform] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<RoleManagementType | null>(
-    null
-  );
-
+const [showForm, setShowForm] = useState(false);
+const [selectedRow, setSelectedRow] = useState<AssetClassificationType | null>(null);
+// const isEdit = !!selectedRow;
   const {
     control,
     register,
@@ -30,20 +30,30 @@ export const RoleManagementPage: React.FC = () => {
     onReset,
     onCancel,
     reset,
-  } = useRoleManagement(selectedRow ?? undefined);
+    
 
-  const handleShowForm = () => {
-    setSelectedRow(null);
-    reset();
-    setShowform(true);
+  } = useLoanAsset(selectedRow??undefined);
+
+   const handleShowForm = () => {
+    setShowForm(true);
   };
-  const handleCancelClick = () => {
+  const handleCancelClick =()=>{
     onCancel();
     setSelectedRow(null);
-    setShowform(false);
-  };
+    setShowForm(false);
+  }
+ const onEdit = (data: AssetClassificationType) => {
+  setSelectedRow(data);
+  setShowForm(true);
+  reset(data);
 
-
+  setTimeout(() => {
+    formRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  }, 100);
+};
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", href: "/", onClick: () => navigate("/") },
     {
@@ -56,7 +66,7 @@ export const RoleManagementPage: React.FC = () => {
       href: "/customer/master",
       onClick: () => navigate("/customer/master"),
     },
-    { label: "Role Management", active: true },
+    { label: "Loan Asset Classification Master", active: true },
   ];
 
   return (
@@ -72,7 +82,7 @@ export const RoleManagementPage: React.FC = () => {
           <Breadcrumb items={breadcrumbItems} variant="default" size="sm" />
 
           <div className="flex items-center justify-between">
-            <TitleHeader title="Role Management" className="py-4" />
+            <TitleHeader title="Loan Asset Classification Master" className="py-4" />
 
             <NeumorphicButton
               type="button"
@@ -81,29 +91,24 @@ export const RoleManagementPage: React.FC = () => {
               onClick={handleShowForm}
             >
               <PlusCircle width={13} />
-              Add User Role
+              Add Loan Asset Classification Master
             </NeumorphicButton>
           </div>
 
           {showForm && (
-            <RoleManagementForm
+            <div ref={formRef}>
+              <LoanAssetClassificationForm
               control={control}
               register={register}
               errors={errors}
               isSubmitting={isSubmitting}
-              onSubmit={handleSubmit(
-                (data) => {
-                  console.log("VALID DATA:", data);
-                  onSubmit(data);
-                },
-                (errors) => {
-                  console.log("VALIDATION ERRORS:", errors);
-                }
-              )}
+              onSubmit={handleSubmit(onSubmit)}
               onCancel={handleCancelClick}
               onReset={onReset}
               isEdit={!!selectedRow}
             />
+            </div>
+            
           )}
         </section>
       </PageWrapper>
@@ -113,14 +118,16 @@ export const RoleManagementPage: React.FC = () => {
         padding="xl"
         maxWidth="xl"
         contentPadding="sm"
-        className="pt-0"
+        className="pt-0 md:pt-0 lg:pt-0"
       >
         <section className="p-4 lg:p-8 xl:p-10">
-          <TitleHeader className="pb-4" title="List of Roles" />
+          <TitleHeader
+            className="pb-4"
+            title="List of Asset Classification Master"
+          />
 
-          <RoleManagementTable onEdit={function (identity: RoleManagementType): void {
-            throw new Error("Function not implemented.");
-          } }/>
+          <LoanAssetClassiTable
+          onEdit={onEdit}/>
         </section>
       </PageWrapper>
     </div>

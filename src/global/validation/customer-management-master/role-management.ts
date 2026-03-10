@@ -3,13 +3,14 @@ import * as yup from "yup";
 
 export const roleManagementSchema: yup.ObjectSchema<RoleManagementType> =
   yup.object({
-    identity: yup.string(),
-    roleName: yup
-      .string()
-      .required("Role Name is required")
-      .max(50, "Maximum 50 characters allowed")
-      .test("role-validation", "Invalid Role Name", function (value) {
-        if (!value) return true;
+  
+   roleName: yup
+  .string()
+  .required("Role Name is required")
+  .max(50, "Maximum 50 characters allowed")
+  .test("role-validation", "Invalid Role Name", function (value) {
+    if (!value) return true;
+
 
         if (value.startsWith(" ")) {
           return this.createError({
@@ -34,7 +35,7 @@ export const roleManagementSchema: yup.ObjectSchema<RoleManagementType> =
         return true;
       }),
     roleShortDesc: yup
-      .string()
+      .string().required("Role Description is required")
       .max(150, "Maximum 150 characters allowed"),
     isActive: yup.boolean().required(),
   });
