@@ -9,13 +9,12 @@ import type {
 } from "@/types/customer-management/role-management";
 import {
   useSaveRoleManagementMutation,
-  useUpdateRoleManagementMutation,
 } from "@/global/service/end-points/customer-management/role-management";
 import { logger } from "@/global/service";
 
 export const useRoleManagement = (editData?: RoleManagementType) => {
   const [saveRoleManagement] = useSaveRoleManagementMutation();
-  const [updateRoleManagement] = useUpdateRoleManagementMutation();
+  
 
   const {
     control,
@@ -47,6 +46,7 @@ const onSubmit = useCallback(
 
       reset(ROLE_MANAGEMENT_DEFAULT_VALUES);
     } catch (error) {
+       logger.error("Same Role Already Exist", { toast: true });
       console.error("Save failed:", error);
     }
   },

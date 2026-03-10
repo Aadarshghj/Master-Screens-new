@@ -35,7 +35,7 @@ export const roleManagementSchema: yup.ObjectSchema<RoleManagementType> =
         return true;
       }),
     roleShortDesc: yup
-      .string()
+      .string().required("Role Description is required")
       .max(150, "Maximum 150 characters allowed"),
     isActive: yup.boolean().required(),
   });
