@@ -877,13 +877,14 @@ select {
 
 /* tick icon  */
 .hexagon {
-  width: 22px;
+  width: 17px;
   height: 10px;
   background: white;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 9px;
 }
 
 .hexagon::before,
@@ -891,16 +892,17 @@ select {
   content: "";
   position: absolute;
   width: 0;
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
 }
 
 .hexagon::before {
   bottom: 100%;
-  border-bottom: 8px solid white;
+  border-bottom: 5px solid white;
 }
 
 .hexagon::after {
   top: 100%;
-  border-top: 8px solid white;
+  border-top: 5px solid white;
 }
+
