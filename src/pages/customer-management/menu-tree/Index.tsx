@@ -1,7 +1,6 @@
-import MenuTreeForm from "./components/Forms/MenuSubmenuTreeForm"
-import { menuTreeData } from "./constants/menuSubmenuTreeValues"
 
-
+import MenuTreeForm from "./components/Form/MenuTreeTreeForm"
+import { menuTreeData } from "./constants/menuTreeData"
 
 const MenuTreePage = () => {
   return (

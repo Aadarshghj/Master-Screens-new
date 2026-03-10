@@ -55,11 +55,32 @@ export const roleManagementApiService = apiInstance.injectEndpoints({
       }),
     }),
 
+    updateRoleManagement: build.mutation<
+      RoleManagementResponseDto,
+      { identity: string; payload: RoleManagementRequestDto }
+    >({
+      query: ({ identity, payload }) => ({
+        url: api.roleManagement.update(identity),
+        method: "PUT",
+        data: payload,
+      }),
+      invalidatesTags: ["RoleManagement"],
     }),
+
+    deleteRoleManagement: build.mutation<void, string>({
+      query: roleName => ({
+        url: api.roleManagement.delete(roleName),
+        method: "DELETE",
+      }),
+      invalidatesTags: ["RoleManagement"],
+    }),
+  }),
 });
 
 export const {
   useSaveRoleManagementMutation,
+  useUpdateRoleManagementMutation,
   useLazyGetRoleByIdQuery,
   useGetMasterRoleManagementQuery,
+  useDeleteRoleManagementMutation,
 } = roleManagementApiService;

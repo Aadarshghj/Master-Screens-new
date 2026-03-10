@@ -9,11 +9,13 @@ import type {
 } from "@/types/customer-management/role-management";
 import {
   useSaveRoleManagementMutation,
-  
+  useUpdateRoleManagementMutation,
 } from "@/global/service/end-points/customer-management/role-management";
+import { logger } from "@/global/service";
 
 export const useRoleManagement = (editData?: RoleManagementType) => {
   const [saveRoleManagement] = useSaveRoleManagementMutation();
+  const [updateRoleManagement] = useUpdateRoleManagementMutation();
 
   const {
     control,
@@ -39,6 +41,7 @@ const onSubmit = useCallback(
       console.log("Payload:", payload);
 
       await saveRoleManagement(payload).unwrap();
+      logger.info("Role Saved Successfully", { toast: true });
 
       console.log("Role saved successfully");
 

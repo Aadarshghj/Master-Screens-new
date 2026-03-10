@@ -1,33 +1,33 @@
 export interface menuSubmenu {
   menuName: string;
-  menuCode: string;
+  menucode: string;
   description: string ;
    menuOrder:string;
-   parent:string;
-  isUrl:boolean;
-  pageUrl: string;
+   parentMenu:string;
+  url: boolean;
+  pageurl: string;
   isActive:boolean
-  identity: string;
+  menuIdentity: string;
 }
 export interface  menuSubmenuDto extends Record<string, unknown> {
   menuName: string;
-  menuCode: string;
+  menucode: string;
   description: string ;
    menuOrder:string;
-   parent:string;
-  isUrl: boolean;
-  pageUrl: string;
+   parentMenu:string;
+  url: boolean;
+  pageurl: string;
   isActive:boolean
 }
 export interface menuSubmenuResponseDto {
   menuName: string;
-  menuCode: string;
+  menucode: string;
   description: string ;
    menuOrder:string;
-   parent:string;
-  isUrl: boolean;
-  pageUrl: string;
+   parentMenu:string;
+  url: boolean;
+  pageurl: string;
   isActive:boolean;
-   identity: string;
+   menuIdentity: string;
 }
 

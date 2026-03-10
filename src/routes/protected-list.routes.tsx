@@ -67,12 +67,10 @@ import { DepreciationMethodsPage } from "@/pages/customer-management/asset-maste
 import { UnitOfMeasurePage } from "@/pages/customer-management/asset-master/unit-of-measure";
 import { MenuModuleMappingPage } from "@/pages/customer-management/menu-module-mapping";
 
-import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
-
-
 import { LoanSchemeTypePage } from "@/pages/customer-management/loan-scheme-type";
 
 
+  
 
 import { AdminUnitRegistrationPage } from "@/pages/organization/zonal-information";
 import { CorporateRegistrationPage } from "@/pages/organization/zonal-information/components/form/CorporateRegistrationPage";
@@ -96,8 +94,9 @@ import { GstRegistrationPage } from "@/pages/customer-management/asset-master/gs
 import {  AssetItemAttributesPage} from "@/pages/customer-management/asset-master/asset-item-attributes";
 import { OrnamentNamePage } from "@/pages/customer-management/ornament-name";
 
+import MenuTreePage from "@/pages/customer-management/menu-tree/Index";
+import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-submenu/Index";
 import UserTypePage from "@/pages/customer-management/user-type";
-import MenuTreePage from "@/pages/menu-submenu-tree/Index";
 
 
 import { LoanAssetClassificationPage } from "@/pages/customer-management/loan-asset-classification";
@@ -387,15 +386,9 @@ export const protectedRoutesList: RouteObject[] = [
       },
 
       {
-        path: "/customer-management/master/menu-submenu",
-        element: <MenuSubmenuPage />,
-      },
-      {
         path: "/customer-management/master/menu-submenu-tree",
-        element: <MenuTreePage   />,
+        element: <MenuTreePage />,
       },
- 
-    
       {
         path: "/customer-management/master/menu-submenu",
         element: <MenuSubmenuPage />,
@@ -658,7 +651,6 @@ export const protectedRoutesList: RouteObject[] = [
       {
         path: "/asset-management",
         children: [
-
            {
             path: "/asset-management/supplier-management/supplier-information",
             index: true,
@@ -673,7 +665,6 @@ export const protectedRoutesList: RouteObject[] = [
         ],
         
       },
-  
-  ],
+    ],
   },
 ];

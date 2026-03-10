@@ -12,7 +12,7 @@ import { useMenuSubmenuTable } from "../Hooks/useMenuSubmenuTable";
 
 const columnHelper = createColumnHelper<menuSubmenu>();
 interface MenuSubmenuProps {
-  onEdit: (identity: menuSubmenu) => void
+  onEdit: (menuIdentity: menuSubmenu) => void
 }
 
 export const MenuSubmenuTable: React.FC<MenuSubmenuProps> = ({
@@ -38,7 +38,7 @@ export const MenuSubmenuTable: React.FC<MenuSubmenuProps> = ({
         header: "Menu Name ",
       }),
 
-      columnHelper.accessor("menuCode", {
+      columnHelper.accessor("menucode", {
         header: "Menu Code ",
       }),
       columnHelper.accessor("description", {
@@ -47,15 +47,15 @@ export const MenuSubmenuTable: React.FC<MenuSubmenuProps> = ({
       columnHelper.accessor("menuOrder", {
         header: "Menu Order",
       }),
-      columnHelper.accessor("parent", {
+      columnHelper.accessor("parentMenu", {
         header: "Parent Menu",
       }),
 
-      columnHelper.accessor("isUrl", {
+      columnHelper.accessor("url", {
         header: "URL",
       }),
 
-      columnHelper.accessor("pageUrl", {
+      columnHelper.accessor("pageurl", {
         header: "Page URL",
       }),
       columnHelper.accessor("isActive", {
@@ -88,7 +88,7 @@ export const MenuSubmenuTable: React.FC<MenuSubmenuProps> = ({
               <Pencil size={13} />
             </Button>
             <Button
-              onClick={() => openDeleteModal}
+              onClick={() => openDeleteModal(row.original.menuIdentity)}
               variant="ghost"
               className="text-status-error hover:bg-status-error-background h-6 w-6 p-0"
               title="Delete Property"

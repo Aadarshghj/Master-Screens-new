@@ -7,7 +7,6 @@ import type { menuSubmenu, menuSubmenuDto } from "@/types/customer-management/cr
 import { MenuSubmenuSchema } from "@/global/validation/customer-management-master/create-manage-menu-submenu";
 import { useSaveMenuSubmenuMutation, useUpdateMenuSubmenuMutation } from "@/global/service/end-points/customer-management/create-update-menu-submenu";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import { useEffect } from "react";
 
 export const useMenuSubMenu = (editData?: menuSubmenu) => {
 
@@ -20,34 +19,28 @@ export const useMenuSubMenu = (editData?: menuSubmenu) => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<menuSubmenu>({
-   defaultValues: MENU_SUBMENU_DEFAULT_VALUES,
+    defaultValues: editData ?? MENU_SUBMENU_DEFAULT_VALUES,
     resolver: yupResolver(MenuSubmenuSchema),
     mode: "onChange",
   });
-
-useEffect(() => {
-  if (editData) {
-    reset(editData);
-  }
-}, [editData, reset]);
 
   const onSubmit = useCallback(
     async (data: menuSubmenu) => {
       const payload: menuSubmenuDto = {
         menuName: data.menuName.toUpperCase(),
-        menuCode: data.menuCode.toUpperCase(),
+        menucode: data.menucode.toUpperCase(),
         description: data.description.toUpperCase(),
-        menuOrder: data.menuOrder,
-        parent: data.parent.toUpperCase(),
+        menuOrder: data.menuOrder.toUpperCase(),
+        parentMenu: data.parentMenu.toUpperCase(),
         isActive: data.isActive,
-        pageUrl: data.pageUrl.toUpperCase(),
-        isUrl: data.isUrl
+        pageurl: data.pageurl.toUpperCase(),
+        url: data.url
       };
 
       try {
-        if (data.identity) {
+        if (data.menuIdentity) {
           await updateMenuSubmenu({
-            identity: data.identity.toString(),
+            menuIdentity: data.menuIdentity.toString(),
             payload,
           }).unwrap();
           toast.success("Menu Updated Succesfully");
@@ -68,10 +61,14 @@ useEffect(() => {
     [reset, saveMenuSubmenu, updateMenuSubmenu]
   );
 
+  const onCancel = useCallback(() => {
+    reset(MENU_SUBMENU_DEFAULT_VALUES);
+  }, [reset]);
 
   const onReset = useCallback(() => {
     reset(MENU_SUBMENU_DEFAULT_VALUES);
-  }, [reset]); 
+  }, [reset]);
+
   return {
     control,
     register,
@@ -79,6 +76,7 @@ useEffect(() => {
     errors,
     isSubmitting,
     onSubmit,
+    onCancel,
     onReset,
     reset
   };
