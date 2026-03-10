@@ -6,7 +6,7 @@ export interface empanelmentHeader {
 }
 
 export interface supplierDetails {
-  supplierName: string
+  supplierNameSearch: string
   registrationNumber: string
   email: string
   contact: string
@@ -44,7 +44,7 @@ export interface supplierEmpanelmentForm {
   description: string
   validuptoDate: string
 
-  supplierName: string
+  supplierNameSearch: string
   registrationNumber: string
   email: string
   contact: string

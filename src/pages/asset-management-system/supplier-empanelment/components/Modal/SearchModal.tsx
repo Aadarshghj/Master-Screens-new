@@ -88,7 +88,7 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
       id: "action",
       header: "Action",
       cell: ({ row }) => (
-        <button onClick={() => onSelect(row.original)}>
+        <button className="cursor-pointer" onClick={() => onSelect(row.original)}>
           Select →
         </button>
       )
@@ -102,7 +102,7 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
     getPaginationRowModel: getPaginationRowModel(),
     initialState: {
       pagination: {
-        pageSize: 5
+        pageSize: 2
       }
     }
   })
@@ -223,28 +223,18 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
         </HeaderWrapper>
 
         <div className="rounded-md border">
+          
 
           <CommonTable
             table={table}
             size="compact"
             noDataText="No suppliers found"
-            className="overflow-hidden"
+            
           />
 
         </div>
-
        {table.getRowModel().rows.length > 0 && table.getPageCount() > 0 && (
-         <div className="mt-4 flex items-center justify-between text-sm">
-       
-           <div className="text-muted-foreground whitespace-nowrap">
-             Showing {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to{" "}
-             {Math.min(
-               (table.getState().pagination.pageIndex + 1) *
-                 table.getState().pagination.pageSize,
-               table.getFilteredRowModel().rows.length
-             )}{" "}
-             of {table.getFilteredRowModel().rows.length} entries
-           </div>
+         <div className="mt-4 flex items-center justify-end text-sm">
        
            <div className="flex items-center gap-3">
              <Pagination
@@ -263,7 +253,7 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
        
          </div>
        )}
-
+        
       </div>
 
     </Modal>

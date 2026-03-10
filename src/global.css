@@ -874,3 +874,33 @@ select {
   background: var(--cyan-200);
   border-radius: 9999px;
 }
+
+/* tick icon  */
+.hexagon {
+  width: 22px;
+  height: 10px;
+  background: white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hexagon::before,
+.hexagon::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+}
+
+.hexagon::before {
+  bottom: 100%;
+  border-bottom: 8px solid white;
+}
+
+.hexagon::after {
+  top: 100%;
+  border-top: 8px solid white;
+}

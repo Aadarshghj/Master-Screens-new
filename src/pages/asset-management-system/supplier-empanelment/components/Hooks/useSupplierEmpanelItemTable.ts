@@ -1,45 +1,36 @@
-import { useState } from "react"
-
+import { useCallback, useState } from "react"
 import type { empanelItem } from "@/types/asset-management-system/supplier-empanelment"
-
-import {
-  ITEM_OPTIONS,
-  MODEL_OPTIONS
-} from "@/mocks/asset-management-system/supplier-empanelment"
-
+import { ITEM_OPTIONS, MODEL_OPTIONS } from "@/mocks/asset-management-system/supplier-empanelment"
+ const defaultRow = { itemName: "A4 100 gsm", model: "", amount: "" }
 export const useEmpanelmentItemsTable = () => {
 
-  const [tableData, setTableData] = useState<empanelItem[]>([
-    { itemName: "A4 100 gsm", model: "", amount: "" }
-  ])
+ 
 
-  const addRow = () => {
-    setTableData(prev => [
-      ...prev,
-      { itemName: "A4 100 gsm", model: "", amount: "" }
-    ])
-  }
+  const [tableData, setTableData] = useState<empanelItem[]>([defaultRow])
 
-  const removeRow = (index: number) => {
+  const addRow = useCallback(() => {
+    setTableData(prev => [...prev, defaultRow])
+  }, [])
+
+ const removeRow = useCallback((index: number) => {
     setTableData(prev => prev.filter((_, i) => i !== index))
-  }
-
-  const updateRow = (
+  }, [])
+ const updateRow = useCallback((
     index: number,
     field: keyof empanelItem,
     value: string | number
   ) => {
-    setTableData(prev => {
-      const updated = [...prev]
+   
+    setTableData(prev =>
+      prev.map((row, i) =>
+        i === index ? { ...row, [field]: String(value) } : row
+      )
+    )
+  }, [])
 
-      updated[index] = {
-        ...updated[index],
-        [field]: String(value)
-      }
-
-      return updated
-    })
-  }
+ const resetTable = useCallback(() => {
+    setTableData([defaultRow])
+  }, [])
 
   return {
     tableData,
@@ -47,6 +38,7 @@ export const useEmpanelmentItemsTable = () => {
     MODEL_OPTIONS,
     addRow,
     removeRow,
-    updateRow
+    updateRow,
+    resetTable
   }
 }

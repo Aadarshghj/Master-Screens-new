@@ -49,5 +49,17 @@ export const MOCK_SUPPLIERS: SupplierSearchResult[] = [
     state: "Kerala",
     country: "India",
     pincode: "682030"
+  },
+  {
+    supplierName: "Prime Office ",
+    tradeName: "Prime Office SN2",
+    panNumber: "LMNOP430DG",
+    gstNumber: "32LMNOP43356GFHN",
+    msmeRegistrationNo: "UDYAM-KL-11-034667",
+    address: "78 Business Park, Kakkanad",
+    city: "Kochi",
+    state: "Kerala",
+    country: "India",
+    pincode: "682030"
   }
 ]
