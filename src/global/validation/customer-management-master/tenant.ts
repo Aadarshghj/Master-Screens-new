@@ -6,32 +6,39 @@ import type {
 
 export const tenantAddressSchema: yup.ObjectSchema<TenantAddressType> =
   yup.object({
-    addressType: yup
-      .string()
-      .oneOf(
-        ["registered_office", "corporate_office", "factory"],
-        "Invalid Address Type selected"
-      )
-      .optional(),
+   addressType: yup
+  .string()
+  .oneOf(
+    ["registered office", "corporate office", "factory", ""],
+    "Invalid Address Type selected"
+  )
+  .optional(),
 
     streetLaneName: yup
       .string()
-      .required("Street/Lane Name is required")
-      .max(200, "Street/Lane Name must not exceed 200 characters")
+      .trim()
+      .required("Street / Lane Name is required")
+      .max(200, "Street / Lane Name must not exceed 200 characters")
+      .matches(
+        /^[A-Za-z0-9\s,.\-/]+$/,
+        "Street / Lane Name contains invalid characters"
+      )
       .test(
         "not-only-spaces",
-        "Street/Lane Name cannot contain only spaces",
+        "Street / Lane Name cannot contain only spaces",
         value => !!value && value.trim().length > 0
       ),
 
-    placeName: yup
-      .string()
-      .max(200, "Place Name must not exceed 200 characters")
-      .test(
-        "not-only-spaces",
-        "Place Name cannot contain only spaces",
-        value => !value || value.trim().length > 0
-      ),
+   placeName: yup
+  .string()
+  .trim()
+  .max(200, "Place Name must not exceed 200 characters")
+  .test(
+    "valid-place",
+    "Place Name contains invalid characters",
+    value =>
+      !value || /^[A-Za-z0-9\s,.\-]+$/.test(value)
+  ),
 
     pinCode: yup
       .number()
@@ -54,36 +61,61 @@ export const tenantAddressSchema: yup.ObjectSchema<TenantAddressType> =
 
     postOffice: yup.string().optional(),
 
-    landmark: yup
+ landmark: yup
   .string()
+  .trim()
+  .max(200, "Landmark must not exceed 200 characters")
   .test(
-    "not-only-spaces",
-    "Landmark cannot contain only spaces",
-    value => !value || value.trim().length > 0
+    "valid-landmark",
+    "Landmark contains invalid characters",
+    value =>
+      !value || /^[A-Za-z0-9\s,.\-/]+$/.test(value)
   ),
 
-  siteFactoryPremise: yup
+    siteFactoryPremise: yup
   .string()
   .oneOf(
-    ["site", "rented", "factory"],
+    ["site", "rented", "factory", ""],
     "Invalid Site/Factory Premise selected"
   )
   .optional(),
-  
-  nameOfTheOwner: yup.string().optional(),
 
-relationshipWithTenant: yup.string().optional(),
-
-landlineNumber: yup
+    nameOfTheOwner: yup
   .string()
-  .matches(/^[0-9]*$/, "Landline Number must contain only digits")
-  .max(15, "Landline Number must not exceed 15 digits")
-  .optional(),
+  .trim()
+  .max(100, "Name of the Owner must not exceed 100 characters")
+  .test(
+    "valid-owner-name",
+    "Name of the Owner must contain only letters",
+    value => !value || /^[A-Za-z ]+$/.test(value)
+  )
+  .test(
+    "not-only-spaces",
+    "Name of the Owner cannot contain only spaces",
+    value => !value || value.trim().length > 0
+  ),
+   relationshipWithTenant: yup
+  .string()
+  .trim()
+  .max(50, "Relationship must not exceed 50 characters")
+  .test(
+    "valid-relationship",
+    "Relationship must contain only letters",
+    value => !value || /^[A-Za-z ]+$/.test(value)
+  ),
 
-timeZone: yup.string().optional(),
+   landlineNumber: yup
+  .string()
+  .trim()
+  .max(15, "Landline Number must not exceed 15 characters")
+  .test(
+    "valid-landline",
+    "Landline Number must contain only digits and hyphen",
+    value =>
+      !value || /^[0-9\-]+$/.test(value)
+  ),
 
-
-
+    timeZone: yup.string().optional(),
   });
 
 export const tenantSchema: yup.ObjectSchema<TenantType> = yup.object({
@@ -192,8 +224,29 @@ export const tenantSchema: yup.ObjectSchema<TenantType> = yup.object({
 
   legalEntityName: yup
     .string()
+    .trim()
     .required("Legal Entity Name is required")
-    .max(150, "Maximum 150 characters"),
+    .min(3, "Legal Entity Name must be at least 3 characters")
+    .max(150, "Legal Entity Name must not exceed 150 characters")
+    .matches(
+      /^[A-Za-z0-9&.,()\/\- ]+$/,
+      "Legal Entity Name contains invalid characters"
+    )
+    .test(
+      "not-only-spaces",
+      "Legal Entity Name cannot contain only spaces",
+      value => !!value && value.trim().length > 0
+    )
+    .test(
+      "no-multiple-spaces",
+      "Legal Entity Name cannot contain multiple continuous spaces",
+      value => !value || !/\s{2,}/.test(value)
+    )
+    .test(
+      "not-only-numbers",
+      "Legal Entity Name cannot contain only numbers",
+      value => !value || !/^\d+$/.test(value)
+    ),
 
   tenantType: yup
     .string()
@@ -205,43 +258,100 @@ export const tenantSchema: yup.ObjectSchema<TenantType> = yup.object({
 
   registrationNo: yup
     .string()
+    .trim()
     .required("Registration Number is required")
-    .max(50, "Maximum 50 characters"),
+    .max(50, "Registration Number must not exceed 50 characters")
+    .matches(
+      /^[A-Za-z0-9\/\-.]+$/,
+      "Registration Number contains invalid characters"
+    )
+    .test(
+      "not-only-spaces",
+      "Registration Number cannot contain only spaces",
+      value => !!value && value.trim().length > 0
+    ),
 
   rbiRegistrationNumber: yup
     .string()
-    .max(50, "Maximum 50 characters")
+    .trim()
+    .max(50, "RBI Registration Number must not exceed 50 characters")
     .when("tenantType", {
-      is: (tenantType: string) => tenantType === "nbfc",
+      is: (tenantType?: string) => tenantType?.toLowerCase() === "nbfc",
       then: schema => schema.required("RBI Registration Number is required"),
       otherwise: schema => schema.notRequired(),
     }),
+    
 
   panNumber: yup
     .string()
+    .trim()
     .required("PAN Number is required")
-    .length(10, "PAN Number must be exactly 10 characters"),
+    .length(10, "PAN Number must be exactly 10 characters")
+    .matches(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, "Enter a valid PAN Number"),
 
-  gstNumber: yup.string().max(15, "GST Number must not exceed 15 characters"),
+  gstNumber: yup
+    .string()
+    .trim()
+    .test(
+      "gst-format",
+      "Enter a valid GST Number",
+      value =>
+        !value || /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{3}$/.test(value)
+    )
+    .max(15, "GST Number must not exceed 15 characters"),
 
-  cinNumber: yup.string().max(15, "CIN Number must not exceed 15 characters"),
+  cinNumber: yup
+    .string()
+    .trim()
+    .test(
+      "cin-format",
+      "Enter a valid CIN Number",
+      value =>
+        !value || /^[LU][0-9]{5}[A-Z]{2}[0-9]{4}[A-Z]{3}[0-9]{6}$/.test(value)
+    )
+    .max(21, "CIN Number must not exceed 21 characters"),
 
   contactNumber: yup
     .string()
+    .trim()
     .required("Contact Number is required")
     .matches(/^[0-9]+$/, "Contact Number must contain only digits")
+    .min(6, "Contact Number must be at least 6 digits")
     .max(15, "Contact Number must not exceed 15 digits"),
 
   website: yup
-    .string()
-    .max(200, "Website URL must not exceed 200 characters")
-    .url("Enter a valid website URL"),
+  .string()
+  .trim()
+  .max(200, "Website URL must not exceed 200 characters")
+  .matches(
+    /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/,
+    {
+      message: "Enter a valid website URL",
+      excludeEmptyString: true
+    }
+  ),
 
   businessEmail: yup
     .string()
+    .trim()
+    .lowercase()
     .required("Email is required")
     .max(100, "Email must not exceed 100 characters")
-    .email("Enter a valid email address"),
+    .email("Enter a valid email address")
+    .matches(
+      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
+      "Enter a valid email format"
+    )
+    .test(
+      "no-consecutive-dots",
+      "Email cannot contain consecutive dots",
+      value => !value || !value.includes("..")
+    )
+    .test(
+      "single-at",
+      "Email cannot contain multiple @ symbols",
+      value => !value || (value.match(/@/g) || []).length === 1
+    ),
 
   chooseFile: yup
     .mixed<File>()
