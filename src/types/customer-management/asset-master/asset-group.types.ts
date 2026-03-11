@@ -11,3 +11,7 @@ export interface Option {
   value: string;
   label: string;
 }
+
+export interface TAndCType{
+  termsAndConditions: string;
+}

@@ -1,60 +1,90 @@
-import React from "react";
+import React, { useRef } from "react";
 import { RotateCcw, Save, X } from "lucide-react";
 import {
   Controller,
   type Control,
   type FieldErrors,
   type UseFormRegister,
+  type UseFormWatch,
 } from "react-hook-form";
 import { FormContainer } from "@/components/ui/form-container";
-import { Flex, Input, Label, Switch, Textarea } from "@/components/ui";
+import {
+  Flex,
+  Input,
+  Select,
+  InputWithSearch,
+  TitleHeader,
+  Switch,
+  Label,
+} from "@/components/ui";
 import { Form } from "@/components";
-import type { TenantType } from "@/types/customer-management/tenant";
+import type { Option, TenantType } from "@/types/customer-management/tenant";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
+import { TenantAddressForm } from "./TenantAddressForm";
+import { TenantKeyValueTable } from "../Table/TenantKeyValueTable";
+import type { useKeyValueTable } from "../Hooks/useKeyValueTable";
 
 interface TenantProps {
   control: Control<TenantType>;
   errors: FieldErrors<TenantType>;
   register: UseFormRegister<TenantType>;
+  watch: UseFormWatch<TenantType>;
   isSubmitting: boolean;
   onSubmit: () => void;
   onCancel: () => void;
   onReset: () => void;
   editId: string | null;
+  tenantTypeOptions: Option[];
+  addressTypeOptions: Option[];
+  postOfficeOptions: Option[];
+  siteFactoryPremiseOptions: Option[];
+  timeZoneOptions: Option[];
+  keyValueTable: ReturnType<typeof useKeyValueTable>;
+  mode: "view" | "edit" | "create";
 }
 
 export const TenantForm: React.FC<TenantProps> = ({
   control,
   errors,
   register,
+  watch,
   isSubmitting,
   onSubmit,
   onCancel,
   onReset,
+  tenantTypeOptions,
+  addressTypeOptions,
+  postOfficeOptions,
+  siteFactoryPremiseOptions,
+  timeZoneOptions,
+  keyValueTable,
+  mode,
   editId,
 }) => {
+  const tenantTypeValue = watch("tenantType");
+  const selectedFile = watch("chooseFile");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const isViewMode = mode === "view";
+
   return (
     <FormContainer className="px-0">
       <Form onSubmit={onSubmit}>
         <div className="mt-2">
-          <Form.Row>
-            <Form.Col lg={3} md={6} span={12}>
-              <Form.Field
-                label="Tenant Code"
-                required
-                error={errors.tenantCode}
-              >
+          <Form.Row className="mb-3">
+            <Form.Col lg={2} md={6} span={12}>
+              <Form.Field label="Tenant Code" error={errors.tenantCode}>
                 <Input
                   {...register("tenantCode")}
                   onInput={(e: React.FormEvent<HTMLInputElement>) => {
                     const input = e.currentTarget;
                     input.value = input.value.replace(/[^A-Za-z0-9_]/g, "");
                   }}
-                  placeholder="Enter Tenant Code"
+                  placeholder="Enter Code"
                   size="form"
                   variant="form"
                   className="uppercase"
                   textTransform="uppercase"
+                  readOnly={!!editId || mode === "view"}
                 />
               </Form.Field>
             </Form.Col>
@@ -67,7 +97,8 @@ export const TenantForm: React.FC<TenantProps> = ({
               >
                 <Input
                   {...register("tenantName")}
-                  placeholder="Enter Tenant Name"
+                  readOnly={isViewMode}
+                  placeholder="Enter Name"
                   size="form"
                   variant="form"
                   className="uppercase"
@@ -76,24 +107,228 @@ export const TenantForm: React.FC<TenantProps> = ({
               </Form.Field>
             </Form.Col>
 
-             <Form.Col lg={3} md={6} span={12}>
+            <Form.Col lg={3} md={6} span={12}>
               <Form.Field
-                label="Tenant Address"
-                error={errors.tenantAddress}
+                label="Legal Entity Name"
+                required
+                error={errors.legalEntityName}
               >
-                <Textarea
-                  {...register("tenantAddress")}
-                  placeholder="Enter Tenant Address"
+                <Input
+                  {...register("legalEntityName")}
+                  readOnly={isViewMode}
+                  placeholder="Enter Name"
                   size="form"
                   variant="form"
                   className="uppercase"
-                  rows={3}
-                  />
+                  textTransform="uppercase"
+                  maxLength={150}
+                />
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={2} md={6} span={12}>
+              <Form.Field
+                label="Tenant Type"
+                required
+                error={errors.tenantType}
+              >
+                <Controller
+                  name="tenantType"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      value={field.value}
+                      onValueChange={
+                        mode === "view" ? undefined : field.onChange
+                      }
+                      disabled={mode === "view"}
+                      options={tenantTypeOptions}
+                      placeholder="Select Tenant Type"
+                      size="form"
+                      variant="form"
+                      fullWidth
+                      itemVariant="form"
+                    />
+                  )}
+                />
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={2} md={6} span={12}>
+              <Form.Field
+                label="Registration No"
+                required
+                error={errors.registrationNo}
+              >
+                <Input
+                  {...register("registrationNo")}
+                  readOnly={isViewMode}
+                  placeholder="Enter Number"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
+                  textTransform="uppercase"
+                  maxLength={50}
+                />
+              </Form.Field>
+            </Form.Col>
+          </Form.Row>
+
+          <Form.Row className="mb-3">
+            <Form.Col lg={3} md={6} span={12}>
+              <Form.Field
+                label="RBI Registration Number"
+                required={tenantTypeValue?.toLowerCase() === "nbfc"}
+                error={errors.rbiRegistrationNumber}
+              >
+                <Input
+                  {...register("rbiRegistrationNumber")}
+                  placeholder="Enter Number"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
+                  textTransform="uppercase"
+                />
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={2} md={6} span={12}>
+              <Form.Field label="PAN Number" required error={errors.panNumber}>
+                <Input
+                  {...register("panNumber")}
+                  placeholder="Enter PAN Number"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
+                  textTransform="uppercase"
+                  maxLength={10}
+                />
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={2} md={6} span={12}>
+              <Form.Field label="GST Number" error={errors.gstNumber}>
+                <Input
+                  {...register("gstNumber")}
+                  placeholder="Enter GST Number"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
+                  textTransform="uppercase"
+                  maxLength={15}
+                />
               </Form.Field>
             </Form.Col>
 
             <Form.Col lg={3} md={6} span={12}>
-              <Flex direction="col" gap={2} style={{ paddingTop: 22  }}>
+              <Form.Field label="CIN Number" error={errors.cinNumber}>
+                <Input
+                  {...register("cinNumber")}
+                  placeholder="Enter CIN Number"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
+                  textTransform="uppercase"
+                  maxLength={15}
+                />
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={2} md={6} span={12}>
+              <Form.Field
+                label="Contact Number"
+                required
+                error={errors.contactNumber}
+              >
+                <Input
+                  {...register("contactNumber")}
+                  readOnly={isViewMode}
+                  placeholder="Enter Contact Number"
+                  size="form"
+                  variant="form"
+                  maxLength={15}
+                  onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                    const input = e.currentTarget;
+                    input.value = input.value.replace(/[^0-9]/g, "");
+                  }}
+                />
+              </Form.Field>
+            </Form.Col>
+          </Form.Row>
+
+          <Form.Row className="mb-3">
+            <Form.Col lg={3} md={6} span={12}>
+              <Form.Field label="Website" error={errors.website}>
+                <InputWithSearch
+                  {...register("website")}
+                  placeholder="www.website.com"
+                  size="form"
+                  variant="form"
+                  className="email"
+                  maxLength={200}
+                />
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={3} md={6} span={12}>
+              <Form.Field
+                label="Business Email"
+                required
+                error={errors.businessEmail}
+              >
+                <Input
+                  {...register("businessEmail")}
+                  placeholder="Enter business email"
+                  size="form"
+                  variant="form"
+                  className="email"
+                  maxLength={100}
+                />
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={2} md={6} span={12}>
+              <Form.Field
+                label="Upload Tenant Logo"
+                required
+                error={errors.chooseFile}
+              >
+                <Controller
+                  name="chooseFile"
+                  control={control}
+                  render={({ field }) => (
+                    <>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".pdf,.jpg,.jpeg,.png,.tiff,.tif"
+                        className="hidden"
+                        onChange={e =>
+                          field.onChange(e.target.files?.[0] ?? null)
+                        }
+                      />
+
+                      <NeumorphicButton
+                        type="button"
+                        className="mb-2 w-49"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        <span>Choose File</span>
+                      </NeumorphicButton>
+                    </>
+                  )}
+                />
+
+                <p className="text-xxs text-blue-400">
+                  {selectedFile && typeof selectedFile !== "string"
+                    ? selectedFile.name
+                    : "No File Chosen"}
+                </p>
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={2} md={6} span={12} className="ml-4 ">
+              <Flex direction="col" gap={2} style={{ paddingTop: 22 }}>
                 <Flex align="center" gap={2}>
                   <Controller
                     control={control}
@@ -111,6 +346,26 @@ export const TenantForm: React.FC<TenantProps> = ({
               </Flex>
             </Form.Col>
           </Form.Row>
+
+          <TitleHeader title="Address" className=" mb-6" />
+
+          <TenantAddressForm
+            control={control}
+            errors={errors}
+            register={register}
+            isSubmitting={isSubmitting}
+            onSubmit={onSubmit}
+            onCancel={onCancel}
+            onReset={onReset}
+            addressTypeOptions={addressTypeOptions}
+            postOfficeOptions={postOfficeOptions}
+            siteFactoryPremiseOptions={siteFactoryPremiseOptions}
+            timeZoneOptions={timeZoneOptions}
+          />
+
+          <section className="mt-5">
+            <TenantKeyValueTable keyValueTable={keyValueTable} />
+          </section>
 
           <Flex.ActionGroup className="mt-2 justify-end gap-4">
             <NeumorphicButton
@@ -143,10 +398,10 @@ export const TenantForm: React.FC<TenantProps> = ({
             >
               <Save className="h-3 w-3" />
               {isSubmitting
-                ? editId
+                ? mode === "edit"
                   ? "Updating..."
                   : "Saving..."
-                : editId
+                : mode === "edit"
                   ? "Update Tenant"
                   : "Save Tenant"}
             </NeumorphicButton>
