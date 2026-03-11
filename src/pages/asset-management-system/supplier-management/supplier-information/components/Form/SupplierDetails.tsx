@@ -35,10 +35,10 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
 }) => {
   return (
     <div>
-      <h3 className="text-xs font-semibold mb-2">Supplier Details</h3>
+      <h3 className="text-xs font-semibold mb-4">Supplier Details</h3>
 
       <Form.Row>
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={3} md={6} span={12}>
           <Form.Field label="Supplier Name" required error={errors.supplierName}>
             <Input
               {...register("supplierName")}
@@ -50,7 +50,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={3} md={6} span={12}>
           <Form.Field label="Trade Name" error={errors.tradeName}>
             <Input
               {...register("tradeName")}
@@ -62,7 +62,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={3} md={6} span={12}>
           <Form.Field
             label="Supplier Risk Category"
             required
@@ -87,7 +87,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={3} md={6} span={12}>
           <Form.Field label="PAN Number" required error={errors.panNumber}>
             <Input
               {...register("panNumber")}
@@ -99,7 +99,8 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={3} md={6} span={12} className="max-w-[200px]">
+          
           <Form.Field label="Choose PAN" required error={errors.panFile}>
             <Controller
               name="panFile"
@@ -115,17 +116,27 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
               )}
             />
             <label htmlFor="panUpload">
-              <NeumorphicButton type="button" className="mb-2">
+              <NeumorphicButton type="button" className="mb-2, w-40">
                 <span>Choose File</span>
               </NeumorphicButton>
             </label>
-            <p className="text-nano text-muted-foreground ml-2">
+            <p className="text-nano text-muted-foreground ml-2 mt-1">
               Accepted format JPG, PNG, JPEG, PDF. Max size: 2MB
             </p>
           </Form.Field>
         </Form.Col>
+        <Form.Col lg={2} md={6} span={12} className="-ml-10">
+          <Form.Field label="PAN Verification">
+            <NeumorphicButton type="button" className="mb-1 w-35">
+              <span>Validate Document</span>
+            </NeumorphicButton>
 
-        <Form.Col lg={2} md={6} span={12}>
+            <p className="text-nano text-green-600 ml-2">
+              Display name as per PAN
+            </p>
+          </Form.Field>
+        </Form.Col>
+        {/* <Form.Col lg={2} md={6} span={12}>
           <Flex direction="col" gap={1} style={{ paddingTop: 22 }}>
             <Flex align="center" gap={2}>
               <Controller
@@ -142,9 +153,9 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
               <Label>PAN Verified</Label>
             </Flex>
           </Flex>
-        </Form.Col>
+        </Form.Col> */}
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={2} md={6} span={12} className="-ml-10">
           <Form.Field
             label="GST Registration Type"
             required
@@ -181,23 +192,23 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={3} md={6} span={12} >
           <Form.Field label="Choose GSTIN" error={errors.gstinFile}>
-            <Controller
+            <Controller 
               name="gstinFile"
               control={control}
               render={({ field }) => (
                 <input
                   type="file"
                   accept=".pdf,.jpg,.jpeg,.png,.tiff,.tif"
-                  className="hidden"
+                  className="hidden "
                   id="gstinUpload"
                   onChange={(e) => field.onChange(e.target.files?.[0])}
                 />
               )}
             />
             <label htmlFor="gstinUpload">
-              <NeumorphicButton type="button" className="mb-2">
+              <NeumorphicButton type="button" className="mb-2, w-40">
                 <span>Choose File</span>
               </NeumorphicButton>
             </label>
@@ -207,7 +218,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={2} md={6} span={12} >
           <Form.Field
             label="MSME Registration No"
             error={errors.msmeRegistrationNo}
@@ -222,7 +233,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={3} md={6} span={12} className="ms-10">
           <Form.Field label="Choose MSME File" error={errors.msmeFile}>
             <Controller
               name="msmeFile"
@@ -237,8 +248,8 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
                 />
               )}
             />
-            <label htmlFor="msmeUpload">
-              <NeumorphicButton type="button" className="mb-2">
+            <label htmlFor="msmeUpload" >
+               <NeumorphicButton type="button" className="mb-2, w-40">
                 <span>Choose File</span>
               </NeumorphicButton>
             </label>
@@ -248,7 +259,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={2} md={6} span={12} >
           <Form.Field label="MSME Type" error={errors.msmeType}>
             <Controller
               name="msmeType"
@@ -281,7 +292,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={3} md={6} span={12}>
           <Form.Field label="Choose CIN/LLPIN File" error={errors.cinFile}>
             <Controller
               name="cinFile"
@@ -297,7 +308,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
               )}
             />
             <label htmlFor="cinUpload">
-              <NeumorphicButton type="button" className="mb-2">
+               <NeumorphicButton type="button" className="mb-2, w-40">
                 <span>Choose File</span>
               </NeumorphicButton>
             </label>
@@ -307,7 +318,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2}>
+        <Form.Col lg={3}>
           <Form.Field
             label="Incorporation Date"
             required
@@ -332,7 +343,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={3} md={6} span={12}>
           <Form.Field
             label="Contact Person Name"
             required
@@ -348,7 +359,7 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsProps> = ({
           </Form.Field>
         </Form.Col>
 
-        <Form.Col lg={2} md={6} span={12}>
+        <Form.Col lg={3} md={6} span={12}>
           <Form.Field label="Designation" error={errors.designation}>
             <Input
               {...register("designation")}

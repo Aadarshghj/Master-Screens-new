@@ -21,8 +21,8 @@ import {
   useGetTimezonesQuery,
   useLazyGetPincodeDetailsQuery,
   useGetLanguagesQuery,
-  type PincodeApiResponse,
 } from "@/global/service/end-points/organisation/branches.api";
+import type { PincodeApiResponse } from "@/types/organisation/admin-unit";
 import type { DropdownOption } from "@/components/ui/input-with-search/input-with-search";
 import { toast } from "react-hot-toast";
 import {
@@ -197,7 +197,7 @@ export const useAdminUnitManagerBase = ({
   const [postOfficeError, setPostOfficeError] = useState<string | undefined>();
   const [selectedPostOffice, setSelectedPostOffice] =
     useState<DropdownOption | null>(null);
-  const pincodeRecordRef = useRef<PincodeApiResponse | null>(null);
+  const  pincodeRecordRef = useRef<PincodeApiResponse | null>(null);
 
   const schema = useMemo(() => adminUnitRegistrationSchema(), []);
 
@@ -209,6 +209,7 @@ export const useAdminUnitManagerBase = ({
     trigger,
     reset,
     setValue,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<AdminUnitDetails>({
     resolver: yupResolver(schema),
@@ -240,12 +241,14 @@ export const useAdminUnitManagerBase = ({
   const allBranchListRef = useRef(allBranchList);
   const adminUnitTypeOptsRef = useRef(adminUnitTypeOptions);
   const setValueRef = useRef(setValue);
+  const getValuesRef = useRef(getValues);
   const resetRef = useRef(reset);
   const selectedUnitCodeRef = useRef(selectedUnitCode);
 
   allBranchListRef.current = allBranchList;
   adminUnitTypeOptsRef.current = adminUnitTypeOptions;
   setValueRef.current = setValue;
+  getValuesRef.current = getValues;
   resetRef.current = reset;
   selectedUnitCodeRef.current = selectedUnitCode;
 
@@ -304,7 +307,7 @@ export const useAdminUnitManagerBase = ({
 
   useEffect(() => {
     if (languageOptions.length === 0) return;
-    const currentLanguage = watch("language");
+    const currentLanguage = getValuesRef.current("language");
     if (currentLanguage) return;
 
     const english = languageOptions.find(o =>
@@ -317,7 +320,7 @@ export const useAdminUnitManagerBase = ({
 
   useEffect(() => {
     if (branchTypeOptions.length !== 1) return;
-    const currentType = watch("branchTypeIdentity");
+    const currentType = getValuesRef.current("branchTypeIdentity");
     if (currentType) return;
 
     setValueRef.current("branchTypeIdentity", branchTypeOptions[0].value);

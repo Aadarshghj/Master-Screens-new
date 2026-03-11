@@ -15,9 +15,13 @@ import type { SupplierAssetGroupType } from "@/types/asset-management-system/sup
 
 const columnHelper = createColumnHelper<SupplierAssetGroupType>();
 
-export const SupplierAssetGroupTable: React.FC = () => {
+interface SupplierAssetGroupTableProps {
+  data: SupplierAssetGroupType[]
+}
 
-  const { data, isFetching, onEdit, onDelete } =
+export const SupplierAssetGroupTable: React.FC<SupplierAssetGroupTableProps> = ({ data }) => {
+
+  const { isFetching, onEdit, onDelete } =
     useSupplierAssetGroupTable();
 
   const columns = useMemo(

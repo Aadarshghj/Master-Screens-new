@@ -1,17 +1,18 @@
 export interface LoanSchemeTypeType {
     id:string;
     schemeTypeName: string;
-    schemeTypeDescription: string;
+    description: string;
     isActive:boolean;
 
 }
 export interface LoanSchemeTypeRequestDto {
      schemeTypeName?: string;
-    schemeTypeDescription?: string;
+    description?: string;
     isActive:boolean;
 }
 export interface LoanSchemeTypeResponseDto {
-     schemeTypeName?: string;
-    schemeTypeDescription?: string;
+     identity: string;
+     schemeTypeName: string;
+    description: string;
     isActive:boolean;
 }

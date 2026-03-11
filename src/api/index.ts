@@ -50,6 +50,7 @@ import { menuSubmenu } from "./customer-management/create-manage-menu-submenu.ts
 import { BranchStaffMapping } from "./customer-management/branch-staff-api.ts";
 import { subModule } from "./customer-management/sub-module";
 import { moduleApi } from "./customer-management/sub-module";
+import { loanSchemeType } from "./customer-management/loan-scheme-type.ts";
 
 export const api = {
   tenant,
@@ -94,6 +95,7 @@ export const api = {
   roleManagement,
   userReg,
   menuModuleMapping,
+  loanSchemeType,
   menuDetails,
   modules,
   riskAssessmentType,

@@ -14,11 +14,13 @@ import { useSupplierContactManagementTable } from "../Hooks/useSupplierInformati
 import type { SupplierContactManagementType } from "@/types/asset-management-system/supplier-management/supplier-information";
 
 const columnHelper = createColumnHelper<SupplierContactManagementType>();
+interface SupplierContactManagementTableProps {
+  data: SupplierContactManagementType[]
+}
 
-export const SupplierContactManagementTable: React.FC = () => {
+export const SupplierContactManagementTable: React.FC<SupplierContactManagementTableProps> = ({ data }) => {
 
-  const { data, isFetching, onEdit, onDelete } =
-    useSupplierContactManagementTable();
+  const { isFetching, onEdit, onDelete } = useSupplierContactManagementTable();
 
   const columns = useMemo(
     () => [

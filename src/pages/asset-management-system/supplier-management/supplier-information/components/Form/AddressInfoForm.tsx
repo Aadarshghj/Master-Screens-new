@@ -1,12 +1,12 @@
 import React from "react"
 import {
-  Controller,
+
   type Control,
   type FieldErrors,
   type UseFormRegister,
 } from "react-hook-form"
 
-import { Flex, Input, Switch, Label, Select } from "@/components/ui"
+import { Input, } from "@/components/ui"
 import { Form } from "@/components"
 
 import type {
@@ -24,15 +24,13 @@ interface AddressInfoProps {
 export const AddressInfoForm: React.FC<AddressInfoProps> = ({
   errors,
   register,
-  control,
-  isEditMode,
+
 }) => {
   return (
     <div>
-      <h3 className="text-xs font-semibold mb-2">Supplier Contact Management</h3>
 
       <Form.Row>
-            <Form.Col lg={2} md={6} span={12}>
+            <Form.Col lg={4} md={6} span={12}>
                  <Form.Field label="Address Line 1" required error={errors.addressLine1}>
                    <Input
                      {...register("addressLine1")}
@@ -42,7 +40,7 @@ export const AddressInfoForm: React.FC<AddressInfoProps> = ({
                    />
                  </Form.Field>
                </Form.Col>
-            <Form.Col lg={2} md={6} span={12}>
+            <Form.Col lg={4} md={6} span={12}>
                  <Form.Field label="Address Line 2" required error={errors.addressLine2}>
                    <Input
                      {...register("addressLine2")}
@@ -52,7 +50,7 @@ export const AddressInfoForm: React.FC<AddressInfoProps> = ({
                    />
                  </Form.Field>
                </Form.Col>
-            <Form.Col lg={2} md={6} span={12}>
+            <Form.Col lg={3} md={6} span={12}>
                  <Form.Field label="Pincode" required error={errors.pincode}>
                    <Input
                      {...register("pincode")}
@@ -62,7 +60,7 @@ export const AddressInfoForm: React.FC<AddressInfoProps> = ({
                    />
                  </Form.Field>
                </Form.Col>
-            <Form.Col lg={2} md={6} span={12}>
+            <Form.Col lg={3} md={6} span={12}>
                  <Form.Field label="City" required error={errors.city}>
                    <Input
                      {...register("city")}
@@ -72,7 +70,7 @@ export const AddressInfoForm: React.FC<AddressInfoProps> = ({
                    />
                  </Form.Field>
                </Form.Col>
-            <Form.Col lg={2} md={6} span={12}>
+            <Form.Col lg={3} md={6} span={12}>
                  <Form.Field label="state" required error={errors.state}>
                    <Input
                      {...register("state")}
@@ -82,7 +80,7 @@ export const AddressInfoForm: React.FC<AddressInfoProps> = ({
                    />
                  </Form.Field>
                </Form.Col>
-            <Form.Col lg={2} md={6} span={12}>
+            <Form.Col lg={3} md={6} span={12}>
                  <Form.Field label="Country" required error={errors.country}>
                    <Input
                      {...register("country")}

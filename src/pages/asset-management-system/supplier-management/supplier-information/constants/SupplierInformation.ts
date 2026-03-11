@@ -51,8 +51,8 @@ export const DEFAULT_BANK: BankInfoType = {
   ifscCode: "",
   pennyDropVerification: false,//
   defaultGstRate: "",
-  isTds: false,//
+  isTds: true,//
   tdsSection: "",//
   tdsRate: "", 
-  isReverseChange: false
+  isReverseChange: true
 }

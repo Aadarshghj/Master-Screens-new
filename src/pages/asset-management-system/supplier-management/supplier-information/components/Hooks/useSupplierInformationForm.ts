@@ -3,83 +3,70 @@ import { useState } from "react"
 
 import type {
   SupplierInformationType,
+    AddressInfoType,
+  BankInfoType,
   SupplierContactManagementType,
   SupplierAssetGroupType,
-  AddressInfoType,
-  BankInfoType
+
 } from "@/types/asset-management-system/supplier-management/supplier-information"
 
 import {
   DEFAULT_SUPPLIER_DETAILS,
-  DEFAULT_CONTACT,
-  DEFAULT_ASSET_GROUP,
   DEFAULT_ADDRESS,
   DEFAULT_BANK
 } from "../../constants/SupplierInformation"
 
 export const useSupplierInformationForm = () => {
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    reset,
-    
-    formState: { errors, isSubmitting }
-  } = useForm<SupplierInformationType>({
+  const supplierForm = useForm<SupplierInformationType>({
     defaultValues: DEFAULT_SUPPLIER_DETAILS
   })
-
-  const {
-    control: addressControl,
-    register: addressRegister
-  } = useForm<AddressInfoType>({
+  const [contacts, setContacts] = useState<SupplierContactManagementType[]>([])
+  const [assetGroups, setAssetGroups] = useState<SupplierAssetGroupType[]>([])
+ 
+  const addressForm = useForm<AddressInfoType>({
     defaultValues: DEFAULT_ADDRESS
   })
 
-  const {
-    control: bankControl,
-    register: bankRegister
-  } = useForm<BankInfoType>({
+  const bankForm = useForm<BankInfoType>({
     defaultValues: DEFAULT_BANK
   })
- 
 
-  const [contacts, setContacts] = useState<SupplierContactManagementType[]>([])
-  const [assetGroups, setAssetGroups] = useState<SupplierAssetGroupType[]>([])
 
-  const onSubmit = (data: SupplierInformationType) => {
-    console.log("Supplier Details", data)
-    console.log("Contacts", contacts)
-    console.log("Asset Groups", assetGroups)
+
+  const onSubmit = (supplierData: SupplierInformationType) => {
+
+    const payload = {
+      supplierDetails: supplierData,
+      contacts,
+      assetGroups,
+      address: addressForm.getValues(),
+      bank: bankForm.getValues(),
+      
+    }
+
+    console.log("Supplier Payload", payload)
   }
 
   const onReset = () => {
-    reset(DEFAULT_SUPPLIER_DETAILS)
-    setContacts([])
+    supplierForm.reset(DEFAULT_SUPPLIER_DETAILS)
+        setContacts([])
     setAssetGroups([])
+    addressForm.reset(DEFAULT_ADDRESS)
+    bankForm.reset(DEFAULT_BANK)
+
   }
 
   return {
-    control,
-    register,
-    handleSubmit,
-    errors,
-    isSubmitting,
-    onSubmit,
-    onReset,
-    
 
-    addressControl,
-    addressRegister,
-
-    bankControl,
-    bankRegister,
-
+    supplierForm,
     contacts,
     setContacts,
-
     assetGroups,
-    setAssetGroups
+    setAssetGroups,
+    addressForm,
+    bankForm,
+    onSubmit,
+    onReset
   }
 }

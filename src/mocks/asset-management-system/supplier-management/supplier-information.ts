@@ -13,9 +13,21 @@ export const MSME_TYPE_OPTIONS = [
   { value: "TYPE 1", label: "TYPE 1" },
   { value: "TYPE 2", label: "TYPE 2" },
 ];
+export const ASSET_GROUP_OPTIONS = [
+  { value: "TYPE 1", label: "TYPE 1" },
+  { value: "TYPE 2", label: "TYPE 2" },
+];
 export const CONTACT_TYPE_OPTIONS = [
   { value: "TYPE 1", label: "TYPE 1" },
   { value: "TYPE 2", label: "TYPE 2" },
+];
+export const TDS_SECTION_OPTIONS = [
+  { value: "TYPE 1", label: "TYPE 1" },
+  { value: "TYPE 2", label: "TYPE 2" },
+];
+export const BANK_NAME_OPTIONS = [
+  { value: "BANK 1", label: "BANK 1" },
+  { value: "BANK 2", label: "BANK 2" },
 ];
 
 export const supplierContactMock: SupplierContactManagementType[] = [
