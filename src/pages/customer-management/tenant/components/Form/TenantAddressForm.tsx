@@ -207,10 +207,7 @@ export const TenantAddressForm: React.FC<TenantAddressProps> = ({
         </Form.Col>
 
         <Form.Col lg={4} md={6} span={12}>
-          <Form.Field
-            label="Landmark"
-            error={errors.tenantAddress?.landmark}
-          >
+          <Form.Field label="Landmark" error={errors.tenantAddress?.landmark}>
             <Input
               {...register("tenantAddress.landmark")}
               placeholder="Enter Landmark"
@@ -290,17 +287,17 @@ export const TenantAddressForm: React.FC<TenantAddressProps> = ({
               placeholder="Enter Number"
               size="form"
               variant="form"
-              className="uppercase"
-              textTransform="uppercase"
+              maxLength={15}
+              onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                const input = e.currentTarget;
+                input.value = input.value.replace(/[^0-9-]/g, "");
+              }}
             />
           </Form.Field>
         </Form.Col>
 
         <Form.Col lg={2} md={6} span={12}>
-          <Form.Field
-            label="Time Zone"
-            error={errors.tenantAddress?.timeZone}
-          >
+          <Form.Field label="Time Zone" error={errors.tenantAddress?.timeZone}>
             <Controller
               name="tenantAddress.timeZone"
               control={control}

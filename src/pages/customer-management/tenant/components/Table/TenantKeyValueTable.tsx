@@ -32,10 +32,9 @@ export const TenantKeyValueTable: React.FC<TenantKeyValueTableProps> = ({
           <Input
             value={row.original.key}
             onChange={e => updateCell(row.index, "key", e.target.value)}
-            placeholder="Enter Attribute Key"
             size="form"
             variant="form"
-            className="w-48"
+            className="w-57"
           />
         ),
       }),
@@ -46,10 +45,9 @@ export const TenantKeyValueTable: React.FC<TenantKeyValueTableProps> = ({
           <Input
             value={row.original.value}
             onChange={e => updateCell(row.index, "value", e.target.value)}
-            placeholder="Enter Attribute Value"
             size="form"
             variant="form"
-            className="w-48"
+            className="w-55"
           />
         ),
       }),
@@ -71,7 +69,7 @@ export const TenantKeyValueTable: React.FC<TenantKeyValueTableProps> = ({
             <CommonTable
               table={table}
               size="default"
-              noDataText="Click + to add"
+              noDataText="Click + to add row"
             />
           </section>
 
