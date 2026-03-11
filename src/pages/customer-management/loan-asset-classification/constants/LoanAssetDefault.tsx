@@ -2,7 +2,7 @@ import type { AssetClassificationType } from "@/types/customer-management/loan-a
 
 export const LOAN_ASSET_DEFAULT_VALUES:AssetClassificationType = {
     identity:"",
-    assetClassiName:"",
+    assetClassificationName:"",
     description:"",
     isActive:true,
 }

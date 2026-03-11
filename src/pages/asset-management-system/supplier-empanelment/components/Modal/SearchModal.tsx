@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form"
+import { useForm , type Resolver } from "react-hook-form"
 import { useState } from "react"
 import { RefreshCw, Search } from "lucide-react"
 
@@ -28,6 +28,9 @@ import type {
 
 import { MOCK_SUPPLIERS } from "@/mocks/asset-management-system/supplier-empanelment"
 import { Pagination } from "@/components/ui/paginationUp"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { supplierSearchSchema } from "@/global/validation/asset-management-system/supplier-empanelment-validation"
+
 
 interface SupplierSearchProps {
   isOpen: boolean
@@ -39,7 +42,14 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
 
   const [tableData, setTableData] = useState<SupplierSearchResult[]>(MOCK_SUPPLIERS)
 
-  const { handleSubmit, reset, register } = useForm<SupplierSearchForm>()
+  const {
+  handleSubmit,
+  reset,
+  register,
+  formState: { errors }
+} = useForm<SupplierSearchForm>({
+  resolver: yupResolver(supplierSearchSchema) as Resolver<SupplierSearchForm>
+})
 
   const columnHelper = createColumnHelper<SupplierSearchResult>()
 
@@ -141,7 +151,7 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
           <Form.Row className="gap-5">
 
             <Form.Col lg={2} md={3} span={12}>
-              <Form.Field label="Supplier Name">
+              <Form.Field label="Supplier Name" error={errors.supplierName}>
                 <Input
                   {...register("supplierName")}
                   placeholder="Enter Supplier Name"
@@ -154,7 +164,7 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
             </Form.Col>
 
             <Form.Col lg={2} md={3} span={12}>
-              <Form.Field label="Trade Name">
+              <Form.Field label="Trade Name" error={errors.tradeName}>
                 <Input
                   {...register("tradeName")}
                   placeholder="Enter Trade Name"
@@ -167,7 +177,7 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
             </Form.Col>
 
             <Form.Col lg={2} md={3} span={12}>
-              <Form.Field label="PAN Number">
+              <Form.Field label="PAN Number" error={errors.panNumber}>
                 <Input
                   {...register("panNumber")}
                   placeholder="Enter PAN number"
@@ -180,7 +190,7 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
             </Form.Col>
 
             <Form.Col lg={2} md={3} span={12}>
-              <Form.Field label="GST Number">
+              <Form.Field label="GST Number" error={errors.gstNumber}>
                 <Input
                   {...register("gstNumber")}
                   placeholder="Enter GST number"

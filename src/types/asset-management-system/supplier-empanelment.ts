@@ -49,7 +49,7 @@ export interface supplierEmpanelmentForm {
   email: string
   contact: string
   empanelmentType: string
-
+  amount: string 
   termsAndConditions: string
   document: File | null
 

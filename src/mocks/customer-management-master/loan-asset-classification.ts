@@ -2,7 +2,7 @@ import type { AssetClassificationType } from "@/types/customer-management/loan-a
 
 export const LOAN_ASSET:AssetClassificationType[] = [
 {
- assetClassiName:"Standard",
+ assetClassificationName:"Standard",
  description:"------------",
  isActive:true,
  identity:""

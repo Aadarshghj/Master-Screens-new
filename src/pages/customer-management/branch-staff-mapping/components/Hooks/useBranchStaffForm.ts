@@ -12,6 +12,8 @@ import {
 } from "@/global/service/end-points/customer-management/branch-staff-mapping";
 
 import { logger } from "@/global/service";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import toast from "react-hot-toast";
 
 export const useBranchStaffMapping = () => {
 
@@ -255,11 +257,15 @@ export const useBranchStaffMapping = () => {
       logger.info("Staff assigned successfully!", {
         toast: true,
       });
-    } catch (err) {
-      logger.error("Failed to assign staff", {
-        toast: true,
-      });
-      console.log(err);
+    } catch (error) {
+      const err = error as FetchBaseQueryError;
+
+      const message =
+        typeof err?.data === "object" && err?.data !== null
+          ? (err.data as { message?: string }).message
+          : undefined;
+
+      toast.error(message ?? `Failed to save ${name}`);
     } finally {
       setIsModalOpen(false);
     }
