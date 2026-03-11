@@ -1,44 +1,70 @@
-import * as yup from 'yup'
+import * as yup from "yup"
 
-export const supplierEmpanelSchema =  yup.object({
 
-  supplierName:yup
-    .string()
-    .max(20,"Maximum 20 characters allowed")
-    .matches(/^[A-Za-z0-9_/ ]+$/,
-    "Only alphanumeric characters are allowed"),
-   
-  tradename:yup
-    .string()
-    .max(30,"Maximum 30 characters allowed")
-    .matches(/^[A-Za-z0-9_/ ]+$/,
-    "Only alphanumeric characters are allowed"),
+export const supplierSearchSchema = yup.object({
 
-  panNumber:yup
+  supplierName: yup
     .string()
-    .max(20,"Maximum 20 characters allowed")
-    .matches(/^[A-Za-z0-9_/ ]+$/,
-    "Only alphanumeric characters, underscore (_) and slash (/) are allowed"),
+    .transform(v => v === "" ? undefined : v)
+    .max(20, "Maximum 20 characters allowed")
+    .matches(/^[A-Za-z0-9_/ ]+$/, "Only alphanumeric characters are allowed")
+    .notRequired(),
 
-  gstNumber:yup
+  tradeName: yup
     .string()
-    .max(20,"Maximum 20 characters allowed")
-    .matches(/^[A-Za-z0-9_/ ]+$/,
-    "Only alphanumeric characters, underscore (_) and slash (/) are allowed"),
+    .transform(v => v === "" ? undefined : v)
+    .max(30, "Maximum 30 characters allowed")
+    .matches(/^[A-Za-z0-9_/ ]+$/, "Only alphanumeric characters are allowed")
+    .notRequired(),
 
-  supplierNameSearch:yup
+  panNumber: yup
     .string()
-    .max(30,"Maximum 30 characters allowed")
-    .matches(/^[A-Za-z0-9_/ ]+$/,
-    "Only alphanumeric characters are allowed"),
+    .transform(v => v === "" ? undefined : v)
+    .max(20, "Maximum 20 characters allowed")
+    .matches(/^[A-Za-z0-9_/ ]+$/, "Only alphanumeric characters allowed")
+    .notRequired(),
+
+  gstNumber: yup
+    .string()
+    .transform(v => v === "" ? undefined : v)
+    .max(20, "Maximum 20 characters allowed")
+    .matches(/^[A-Za-z0-9_/ ]+$/, "Only alphanumeric characters allowed")
+    .notRequired()
+
+})
+
+
+export const supplierEmpanelSchema = yup.object({
+ empanelmentDate: yup.string().optional(),
+
+    empanelmentBy: yup.string().optional(),
+
+    description: yup.string().optional(),
+
+    validuptoDate: yup.string().optional(),
+     registrationNumber: yup.string().optional(),
+
+    email: yup.string().optional(),
+
+    contact: yup.string().optional(),
+
+    empanelmentType: yup.string().optional(),
+    document: yup.mixed().nullable(),
+
+    empanelItems: yup.array().optional(),
+  supplierNameSearch: yup
+    .string()
+    .required("Supplier name is required")
+    .max(30, "Maximum 30 characters allowed")
+    .matches(/^[A-Za-z0-9_/ ]+$/, "Only alphanumeric characters are allowed"),
 
   amount: yup
     .string()
     .max(15, "Maximum 15 characters allowed")
     .matches(/^\d+(\.\d{1,2})?$/, "Enter a valid amount"),
 
-  termsAndCondition:yup
+  termsAndConditions: yup
     .string()
-    .max(150,"Maximum 150 characters allowed"),
-    
-});
+    .max(150, "Maximum 150 characters allowed")
+
+})

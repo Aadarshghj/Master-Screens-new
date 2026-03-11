@@ -6,7 +6,7 @@ export const LoanAssetClassifictionSchema =  yup.object({
 identity:yup
 .string(),
 
-    assetClassiName:yup
+    assetClassificationName:yup
     .string()
     .required("Asset Classification Name is required")
     .max(30,"Maximum 30 characters allowed")

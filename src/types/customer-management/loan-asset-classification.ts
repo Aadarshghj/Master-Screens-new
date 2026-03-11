@@ -1,18 +1,18 @@
 export interface AssetClassificationType{
     identity:string
-    assetClassiName:string;
+    assetClassificationName:string;
     description:string;
     isActive:boolean;
 }
 export interface LoanAssetRequestDto
   extends Record<string, unknown> {
-  assetClassiName: string;
+  assetClassificationName: string;
   description: string;
   isActive: boolean;
 }
 
 export interface LoanAssetResponseDto{
-    assetClassiName:string;
+    assetClassificationName:string;
     description:string;
     isActive:boolean;
     identity:string
