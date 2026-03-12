@@ -5,7 +5,8 @@ import {
   Button,
   Select,
   Input,
-  CommonTable
+  CommonTable,
+  ConfirmationModal
 } from "@/components"
 
 import {
@@ -21,7 +22,10 @@ interface EmpanelmentItemsTableProps {
   ITEM_OPTIONS: { label: string; value: string }[]
   MODEL_OPTIONS: { label: string; value: string }[]
   addRow: () => void
-  removeRow: (index: number) => void
+  openDeleteModal: (index: number) => void
+  closeDeleteModal: () => void
+  handleConfirmDelete: () => void
+  showDeleteModal: boolean
   updateRow: (index: number, field: keyof empanelItem, value: string | number) => void
 }
 
@@ -30,8 +34,10 @@ export function EmpanelmentItemsTable({
   ITEM_OPTIONS,
   MODEL_OPTIONS,
   addRow,
-  removeRow,
-  
+  openDeleteModal,
+  closeDeleteModal,
+  handleConfirmDelete,
+  showDeleteModal,
   updateRow
 }: EmpanelmentItemsTableProps) {
 
@@ -94,7 +100,6 @@ export function EmpanelmentItemsTable({
           placeholder="Enter Amount"
           className="w-40"
           restriction="numeric"
-          
         />
       )
     }),
@@ -107,14 +112,14 @@ export function EmpanelmentItemsTable({
           variant="ghost"
           size="sm"
           className="text-status-error h-6 w-6 p-0"
-          onClick={() => removeRow(row.index)}
+          onClick={() => openDeleteModal(row.index)}
         >
           <Trash2 size={13} />
         </Button>
       )
     })
 
-  ], [ITEM_OPTIONS, MODEL_OPTIONS, removeRow, updateRow])
+  ], [ITEM_OPTIONS, MODEL_OPTIONS, openDeleteModal, updateRow])
 
   const table = useReactTable({
     data: tableData,
@@ -141,6 +146,18 @@ export function EmpanelmentItemsTable({
         table={table}
         size="compact"
         noDataText="No items added"
+      />
+
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        onConfirm={handleConfirmDelete}
+        onCancel={closeDeleteModal}
+        title="Delete Item"
+        message="Are you sure you want to delete this item? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        type="error"
+        size="compact"
       />
 
     </div>
