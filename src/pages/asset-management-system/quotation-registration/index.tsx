@@ -9,23 +9,23 @@ import {
 } from "@/components";
 // import {  } from "./components/Hooks/useQuotationRegForm";
 // import { BankConfigForm } from "./components/Form/CoLendingBankConfigForm";
- import { QuotationFilterForm } from "./components/Form/QuotationRegFilter";
+import { QuotationFilterForm } from "./components/Form/QuotationRegFilter";
 import { QuotationRegistrationTable } from "./components/Table/QuotationRegistrationTable";
 import { useForm } from "react-hook-form";
-import type { QuotationFilter } from "@/types/asset-management/quotation-registration-type";
+import type { QuotationFilter } from "@/types/asset-management-system/quotation-registration-type";
 // import {BANK_TABLE_DATA} from "@/mocks/bank/bank-config";            Mock data
 
 export const QuotationRegPage: React.FC = () => {
   const navigate = useNavigate();
- const {
+  const {
     control,
     // handleSubmit,
-    formState:{errors},
+    formState: { errors },
   } = useForm<QuotationFilter>({
-    defaultValues:{
-      reqId:"ALL",
-      status:"ALL",
-    }
+    defaultValues: {
+      reqId: "ALL",
+      status: "ALL",
+    },
   });
 
   const breadcrumbItems: BreadcrumbItem[] = [
@@ -68,23 +68,20 @@ export const QuotationRegPage: React.FC = () => {
         <section className="p-4 lg:p-8 xl:p-10">
           <Breadcrumb items={breadcrumbItems} variant="default" size="sm" />
           <div className="flex items-center justify-between">
-            <TitleHeader
-              title="Quotation Request List"
-              className="py-4"
-            />
+            <TitleHeader title="Quotation Request List" className="py-4" />
           </div>
           {/* {showForm && ( */}
-          <div className="rounded-lg border bg-secondary p-2 shadow-sm">
-            <QuotationFilterForm 
+          <div className="bg-secondary rounded-lg border p-2 shadow-sm">
+            <QuotationFilterForm
               control={control}
-            //   register={register}
+              //   register={register}
               errors={errors}
-            //   isSubmitting={isSubmitting}
+              //   isSubmitting={isSubmitting}
               // onSubmit={handleSubmit(onSubmit)}
-            //   onCancel={handleHideForm}
+              //   onCancel={handleHideForm}
               // onReset={onReset}
             />
-          {/* )} */}
+            {/* )} */}
           </div>
         </section>
 

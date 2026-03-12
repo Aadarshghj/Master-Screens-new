@@ -1,4 +1,4 @@
-import type { QuotationFilter ,QuotReqDetails, Options, SupplierDetails, Terms } from "@/types/asset-management/quotation-registration-type";
+import type { QuotationFilter ,QuotReqDetails, Options, SupplierDetails, Terms } from "@/types/asset-management-system/quotation-registration-type";
 
 export const QUOTATION_FILTER_DEFAULT_VALUES: QuotationFilter = {
     reqId:"",
@@ -7,8 +7,8 @@ export const QUOTATION_FILTER_DEFAULT_VALUES: QuotationFilter = {
 
 export const STATUS_OPTIONS: Options[] = [
   { label: "All", value: "ALL" },
-  { label: "Active", value: "ACTIVE" },
-  { label: "Inactive", value: "INACTIVE" },
+  { label: "Quotation Received", value: "QUOTATION_RECEIVED" },
+  { label: "No Quotation", value: "NO_QUOTATION" },
   { label: "Pending", value:"Pending"},
 ];
 

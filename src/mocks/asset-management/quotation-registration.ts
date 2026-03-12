@@ -1,4 +1,4 @@
-import type { QuotationReqData, QuotationDetailsData, OtherChargesData } from "@/types/asset-management/quotation-registration-type";
+import type { QuotationReqData, QuotationDetailsData, OtherChargesData } from "@/types/asset-management-system/quotation-registration-type";
 
 export const QUOTATION_MOCK_DATA: QuotationReqData[] = [
   {

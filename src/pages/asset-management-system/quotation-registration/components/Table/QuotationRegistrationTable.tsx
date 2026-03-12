@@ -1,22 +1,16 @@
-import React, { useMemo,
-   useState 
-  } from "react";
-import { Grid,
-   CommonTable,
-   Button,
-   } from "@/components";
+import React, { useMemo, useState } from "react";
+import { Grid, CommonTable, Button } from "@/components";
 import {
   createColumnHelper,
   getCoreRowModel,
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { QUOTATION_MOCK_DATA } from "@/mocks/asset-management/quotation-registration"
-import type { QuotationReqData
- } from "@/types/asset-management/quotation-registration-type";
+import { QUOTATION_MOCK_DATA } from "@/mocks/asset-management/quotation-registration";
+import type { QuotationReqData } from "@/types/asset-management-system/quotation-registration-type";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
-import {QuotRegWithSupplierModal} from "../Form/QuotationRegistrationForm";
+import { QuotRegWithSupplierModal } from "../Form/QuotationRegistrationForm";
 
 const columnHelper = createColumnHelper<QuotationReqData>();
 
@@ -25,19 +19,26 @@ interface TableProps {
   isLoading: boolean;
   currentPage: number;
   totalPages: number;
-  onPageChange: (page:number) => void;
+  onPageChange: (page: number) => void;
   // handleEdit: (identity: string) => void;
   // handleDelete: (identity: string) => void;
 }
 export const QuotationRegistrationTable: React.FC<TableProps> = ({
- data = QUOTATION_MOCK_DATA,
+  data = QUOTATION_MOCK_DATA,
   isLoading,
-//   handleEdit,
-//   handleDelete,
+  //   handleEdit,
+  //   handleDelete,
 }) => {
-  const tableData =QUOTATION_MOCK_DATA|| data || [];
+  const [ tableData, 
+    // setTableData
+   ] =  useState<QuotationReqData[]>(QUOTATION_MOCK_DATA || data)
+    // const [tableData, setTableData] = useState<SupplierSearchResult[]>(MOCK_SUPPLIERS)
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedQuotation, setSelectedQuotation] = useState<QuotationReqData | null>(null);
+  const [
+    _,
+     setSelectedQuotation] = useState<QuotationReqData | null>(null);
+  
 
   const openModal = (rowData: QuotationReqData) => {
     setSelectedQuotation(rowData);
@@ -106,42 +107,34 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
         id: "actions",
         header: "Actions",
         cell: ({ row }) => {
-        //   const item = row.original.identity;
-        const quote = row.original.status?.trim().toLowerCase();;
+          //   const item = row.original.identity;
+          const quote = row.original.status?.trim().toLowerCase();
           return (
             <div className="flex items-center gap-2">
-             {/* <NeumorphicButton
-            type="button"
-            variant="secondary"
-            size="secondary"
-            // className="h-3 w-3"
-            // onClick={handleResetClick}
-          > 
-            Details
-          </NeumorphicButton> */}
-          <NeumorphicButton
-            type="button"
-            variant="secondary"
-            size="secondary"
-            onClick={() => openModal(row.original)}
-          >
-            Details
-          </NeumorphicButton>
+              <NeumorphicButton
+                type="button"
+                variant="secondary"
+                size="secondary"
+                onClick={() => openModal(row.original)}
+              >
+                Details
+              </NeumorphicButton>
 
-            <Button
-            // onClick={() => openDetails(row.original.id)}
-            // className="h-6 border border-blue-500 bg-white text-blue-600 hover:bg-blue-50"
-            className="bg-blue-600 px-3 text-[11px] text-white hover:bg-blue-700"
-          >
-            Create Quotation
-          </Button>
+              <Button
+                // onClick={() => openDetails(row.original.id)}
+                className="bg-blue-600 px-3 text-[11px] text-white hover:bg-blue-700"
+              >
+                Create Quotation
+              </Button>
 
-          {quote === "quotation received" && (
+              {quote === "quotation received" && (
                 <Button
-                type="button" variant="resetPrimary" size="compactWhite"
-                //   onClick={() => openDetails(row.original.id)}
-                // className="h-6 border border-blue-500 bg-white text-blue-600 hover:bg-blue-50"
-                className="text-[11px]"
+                  type="button"
+                  variant="resetPrimary"
+                  size="compactWhite"
+                  //   onClick={() => openDetails(row.original.id)}
+                  // className="h-6 border border-blue-500 bg-white text-blue-600 hover:bg-blue-50"
+                  className="text-[11px]"
                 >
                   Sent for Approval
                 </Button>
@@ -150,9 +143,9 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
           );
         },
       }),
-    ],[]
+    ],
+    []
     // [handleDelete]
-    
   );
   const getNoDataText = () => {
     if (isLoading) {
@@ -160,6 +153,20 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
     }
     return "No Quotation Registration found";
   };
+
+  // const onSubmit = (data: QuotationReqData) => {
+  
+  //     const filtered = QUOTATION_MOCK_DATA.filter(quotation =>
+  //       (!data.quotReqDate || quotation.quotReqDate.toLowerCase().includes(data.quotReqDate.toLowerCase())) &&
+  //       (!data.quotReqDesc || quotation.quotReqDesc.toLowerCase().includes(data.quotReqDesc.toLowerCase())) &&
+  //       (!data.quotReqId || quotation.quotReqId.toLowerCase().includes(data.quotReqId.toLowerCase())) &&
+  //       (!data.quotReqItem || quotation.quotReqItem.toLowerCase().includes(data.quotReqItem.toLowerCase())) &&
+  //       (!data.status || quotation.status.toLowerCase().includes(data.status.toLowerCase()))
+
+  //     )
+  
+  //     setTableData(filtered)
+  //   }
 
   const table = useReactTable({
     data: tableData,
@@ -176,62 +183,65 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
 
   return (
     <>
-    <Grid>
-      <Grid.Item>
-        <CommonTable
-          table={table}
-          size="default"
-          noDataText={getNoDataText()}
-          className="w-full text-[9px] [&_td]:px-1 [&_td]:whitespace-nowrap [&_th]:px-1"
-        />
-        <div className="flex items-center justify-end gap-2 mt-4 text-sm">
-          <button
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            className="px-2 py-1 rounded text-gray-500 hover:text-gray-700 disabled:opacity-40"
-          >
-            ‹ Previous
-          </button>
+      <Grid>
+        <Grid.Item>
+          <CommonTable
+            table={table}
+            size="default"
+            noDataText={getNoDataText()}
+            className="w-full text-[9px] [&_td]:px-1 [&_td]:whitespace-nowrap [&_th]:px-1"
+          />
+          <div className="mt-4 flex items-center justify-end gap-2 text-sm">
+            <button
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+              className="rounded px-2 py-1 text-gray-500 hover:text-gray-700 disabled:opacity-40"
+            >
+              ‹ Previous
+            </button>
 
-          {Array.from({ length: table.getPageCount() }, (_, i) => {
-            const isActive = table.getState().pagination.pageIndex === i;
-          
-            return (
-              <button
-                key={i}
-                onClick={() => table.setPageIndex(i)}
-                className={`
-                  min-w-[20px] h-[20px] flex items-center justify-center
+            {Array.from({ length: table.getPageCount() }, (_, i) => {
+              const isActive = table.getState().pagination.pageIndex === i;
+
+              return (
+                <button
+                  key={i}
+                  onClick={() => table.setPageIndex(i)}
+                  className={`
+                  flex h-[20px] min-w-[20px] items-center justify-center
                   rounded-lg font-medium transition-all duration-200
-                  ${isActive
-                    ? "bg-white text-gray-700 shadow-[0_2px_6px_rgba(0,0,0,0.15)]"
-                    : "text-gray-500 hover:bg-white hover:text-gray-700 hover:shadow-[0_2px_6px_rgba(0,0,0,0.12)] hover:-translate-y-[1px]"
+                  ${
+                    isActive
+                      ? "bg-white text-gray-700 shadow-[0_2px_6px_rgba(0,0,0,0.15)]"
+                      : "text-gray-500 hover:-translate-y-[1px] hover:bg-white hover:text-gray-700 hover:shadow-[0_2px_6px_rgba(0,0,0,0.12)]"
                   }
                 `}
-              >
-                {i + 1}
-              </button>
-            );
-          })}
+                >
+                  {i + 1}
+                </button>
+              );
+            })}
 
-          <button
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            className="px-2 py-1 rounded text-gray-500 hover:text-gray-700 disabled:opacity-40"
-          >
-            Next ›
-          </button>
-        </div>
-      </Grid.Item>
-    </Grid>
+            <button
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+              className="rounded px-2 py-1 text-gray-500 hover:text-gray-700 disabled:opacity-40"
+            >
+              Next ›
+            </button>
+          </div>
+        </Grid.Item>
+      </Grid>
 
-    <QuotRegWithSupplierModal
-      isOpen={isModalOpen}
-      onClose={closeModal}
-      onToggleDisable={() => {
-      console.log("Optional toggle when modal closes");
-      }}
-    />
+      <QuotRegWithSupplierModal
+        // onSubmit
+        isSubmitting
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onToggleDisable={() => {
+          console.log("Optional toggle when modal closes");
+        }}
+      />
     </>
   );
 };
