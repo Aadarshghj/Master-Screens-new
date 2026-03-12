@@ -17,6 +17,8 @@ interface OrnamentNameFormProps {
   control: Control<OrnamentNameData>;
   errors: FieldErrors<OrnamentNameData>;
   register: UseFormRegister<OrnamentNameData>;
+  isEdit: boolean;
+  oTypesOption: { label: string; value: string }[];
   isSubmitting: boolean;
   onSubmit: () => void;
   onCancel: () => void;
@@ -27,10 +29,12 @@ export const OrnamentNameForm: React.FC<OrnamentNameFormProps> = ({
   control,
   errors,
   register,
+  isEdit,
   isSubmitting,
   onSubmit,
   onCancel,
   onReset,
+  oTypesOption
 }) => {
   return (
     <FormContainer className="px-0">
@@ -38,31 +42,26 @@ export const OrnamentNameForm: React.FC<OrnamentNameFormProps> = ({
         <div className="mt-2">
           <Form.Row className="py-2">
             <Form.Col lg={2} md={6} span={12}>
-                <Form.Field label="Ornament Type" error={errors.ornamentType}
-                // helperText="Select the appropriate ornament type"
-                >
-                  <Select
-                    placeholder="Select Ornament Type"
-                    options={[
-                      {
-                        label: "Bangle",
-                        value: "bangle",
-                      },
-                      {
-                        label: "Ring",
-                        value: "Ring",
-                      },
-                      {
-                        label: "Chain",
-                        value: "chain",
+              <Form.Field label="Ornament Type" error={errors.ornamentTypeIdentity}>
+                <Controller
+                  name="ornamentTypeIdentity"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      options={oTypesOption}
+                      placeholder={
+                        "Select Ornament Type"
                       }
-                    ]}
-                    size="form"
-                    variant="form"
-                    
-                    fullWidth
-                  />
-                </Form.Field>
+                      size="form"
+                      variant="form"
+                      fullWidth
+                      itemVariant="form"
+                    />
+                  )}
+                />
+              </Form.Field>
             </Form.Col>
 
             <Form.Col lg={2} md={3} span={12}>
@@ -93,6 +92,8 @@ export const OrnamentNameForm: React.FC<OrnamentNameFormProps> = ({
                 placeholder="Ornament Name"
                 size="form"
                 variant="form"
+                className="uppercase"
+                textTransform="uppercase"
                 />
                 </Form.Field>
             </Form.Col>
@@ -163,7 +164,7 @@ export const OrnamentNameForm: React.FC<OrnamentNameFormProps> = ({
                 disabled={isSubmitting}
             >
               <Save className="h-3 w-3" />
-              {isSubmitting ? "Saving..." : "Save Ornament Name" }
+              {isSubmitting ? "Saving..." : isEdit ? "Update Ornament Name": "Save Ornament Name" }
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>

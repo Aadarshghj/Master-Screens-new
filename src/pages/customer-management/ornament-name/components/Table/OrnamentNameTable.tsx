@@ -1,25 +1,31 @@
 import React, { useMemo } from "react";
-import { Grid, CommonTable, Button } from "@/components";
+import { Grid, CommonTable, ConfirmationModal, Button } from "@/components";
 import {
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Pencil, Trash2 } from "lucide-react";
-import type { OrnamentNameData } from "@/types/customer-management/ornament-name";
+import type { OrnamentNameTable } from "@/types/customer-management/ornament-name";
 import { useOrnamentNameTable } from "../Hooks/useOrnamentNameTable";
-import { ORNAMENT_NAME_SAMPLE_DATA } from "@/mocks/customer-management-master/ornament-name";
-import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
-const columnHelper = createColumnHelper<OrnamentNameData>();
+const columnHelper = createColumnHelper<OrnamentNameTable>();
 
 interface OrnamentNameTableProps {
+  onEdit: (identity: string) => void;
 }
 
-export const OrnamentNameTable: React.FC<OrnamentNameTableProps> = ({
-
+export const OrnamentNameTables: React.FC<OrnamentNameTableProps> = ({
+  onEdit
 }) => {
-  const { } = useOrnamentNameTable();
+  const {
+    data,
+    isFetching,
+    showDeleteModal,
+    openDeleteModal,
+    closeDeleteModal,
+    confirmDeleteOrnamentName
+   } = useOrnamentNameTable();
 
   const columns = useMemo(
     () => [
@@ -35,17 +41,17 @@ export const OrnamentNameTable: React.FC<OrnamentNameTableProps> = ({
 
       columnHelper.accessor("ornamentCode", {
         header: "Ornament Code",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: (info) => info.getValue(),
       }),
 
       columnHelper.accessor("ornamentName", {
         header: "Ornament Name",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: (info) => info.getValue(),
       }),
 
       columnHelper.accessor("description", {
         header: "Description",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: (info) => info.getValue(),
       }),
 
       columnHelper.accessor("isActive", {
@@ -67,38 +73,39 @@ export const OrnamentNameTable: React.FC<OrnamentNameTableProps> = ({
       columnHelper.display({
         id: "actions",
         header: "Actions",
-        cell: ({}) => {
+        cell: ({ row }) => {
           return (
             <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
                 size="xs"
-                // onClick={() => onEdit(row.original)}
-                // disabled={!row.original.isActive}
+                onClick={() => onEdit(row.original.identity)}
+                disabled={!row.original.isActive}
                 className="text-primary hover:bg-primary/50 h-6 w-6 p-0"
                 title="Edit"
               >
                 <Pencil className="h-3 w-3" />
               </Button>
 
-              <NeumorphicButton
-                variant="none"
-                // onClick={() => handleDelete(item)}
-                // disabled={!row.original.isActive}
+              <Button
+                variant="ghost"
+                title="Delete"
+                size="xs"
+                onClick={() => openDeleteModal(row.original.identity)}
                 className="text-status-error hover:bg-status-error-background h-6 w-6 p-0"
               >
                 <Trash2 size={13} />
-              </NeumorphicButton>
+              </Button>
             </div> 
           );   
         },
       }),
     ],
-    []
+    [openDeleteModal, onEdit]
   );
 
   const table = useReactTable({
-    data: ORNAMENT_NAME_SAMPLE_DATA,
+    data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -109,49 +116,23 @@ export const OrnamentNameTable: React.FC<OrnamentNameTableProps> = ({
         <Grid.Item>
           <CommonTable
             table={table}
-            // noDataText={ ? "Loading..." : "No Ornament Name"}
+            noDataText={ isFetching ? "Loading..." : "No Ornament Name"}
             className="bg-card"
         />
-         <div className="flex items-center justify-end gap-2 mt-4 text-sm">
-            <button
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-              className="px-2 py-1 rounded text-gray-500 hover:text-gray-700 disabled:opacity-40"
-            >
-              ‹ Previous
-            </button>
-  
-            {Array.from({ length: table.getPageCount() }, (_, i) => {
-              const isActive = table.getState().pagination.pageIndex === i;
-            
-              return (
-                <button
-                  key={i}
-                  onClick={() => table.setPageIndex(i)}
-                  className={`
-                    min-w-[20px] h-[20px] flex items-center justify-center
-                    rounded-lg font-medium transition-all duration-200
-                    ${isActive
-                      ? "bg-white text-gray-700 shadow-[0_2px_6px_rgba(0,0,0,0.15)]"
-                      : "text-gray-500 hover:bg-white hover:text-gray-700 hover:shadow-[0_2px_6px_rgba(0,0,0,0.12)] hover:-translate-y-[1px]"
-                    }
-                  `}
-                >
-                  {i + 1}
-                </button>
-              );
-            })}
-  
-            <button
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-              className="px-2 py-1 rounded text-gray-500 hover:text-gray-700 disabled:opacity-40"
-            >
-              Next ›
-            </button>
-          </div>
         </Grid.Item>
       </Grid>
+
+      <ConfirmationModal
+          isOpen={showDeleteModal}
+          onConfirm={confirmDeleteOrnamentName}
+          onCancel={closeDeleteModal}
+          title="Delete Ornament Name"
+          message="Are you sure you want to delete this ornament name? This action cannot be undone."
+          confirmText="Delete"
+          cancelText="Cancel"
+          type="error"
+          size="compact"
+        />
     </>
   );
 };
