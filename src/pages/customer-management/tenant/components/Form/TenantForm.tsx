@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { RotateCcw, Save, X } from "lucide-react";
 import {
   Controller,
   type Control,
   type FieldErrors,
+  type UseFormClearErrors,
   type UseFormRegister,
+  type UseFormSetValue,
   type UseFormWatch,
 } from "react-hook-form";
 import { FormContainer } from "@/components/ui/form-container";
@@ -29,6 +31,8 @@ interface TenantProps {
   errors: FieldErrors<TenantType>;
   register: UseFormRegister<TenantType>;
   watch: UseFormWatch<TenantType>;
+   setValue: UseFormSetValue<TenantType>;
+  clearErrors: UseFormClearErrors<TenantType>;
   isSubmitting: boolean;
   onSubmit: () => void;
   onCancel: () => void;
@@ -52,6 +56,8 @@ export const TenantForm: React.FC<TenantProps> = ({
   onSubmit,
   onCancel,
   onReset,
+  setValue,
+  clearErrors,
   tenantTypeOptions,
   addressTypeOptions,
   postOfficeOptions,
@@ -62,6 +68,14 @@ export const TenantForm: React.FC<TenantProps> = ({
   editId,
 }) => {
   const tenantTypeValue = watch("tenantType");
+
+useEffect(() => {
+  if (tenantTypeValue?.toLowerCase() !== "nbfc") {
+    setValue("rbiRegistrationNumber", "");
+    clearErrors("rbiRegistrationNumber");
+  }
+}, [tenantTypeValue, setValue, clearErrors]);
+
   const selectedFile = watch("chooseFile");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const isViewMode = mode === "view";
