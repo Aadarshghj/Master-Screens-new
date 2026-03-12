@@ -155,6 +155,8 @@ type TableProps<T> = {
   table: ReactTable<T>;
   className?: string;
   noDataText?: string;
+  isLoading?: boolean;
+  isError?: boolean;
 } & VariantProps<typeof tableVariants>;
 
 export function CommonTable<T>({
@@ -162,6 +164,8 @@ export function CommonTable<T>({
   className,
   noDataText = "No records found",
   size = "default",
+  isError,
+  isLoading,
 }: TableProps<T>) {
   return (
     <div className={cn(tableVariants({ size }), className, "table-scroll")}>
@@ -185,9 +189,26 @@ export function CommonTable<T>({
             </tr>
           ))}
         </thead>
-
         <tbody className={cn(tableBodyVariants({ size }))}>
-          {table.getRowModel().rows.length > 0 ? (
+          {isLoading ? (
+            <tr className={cn(tableRowVariantDefault())}>
+              <td
+                colSpan={table.getVisibleLeafColumns().length}
+                className={cn(tableCellVariants({ type: "empty", size }))}
+              >
+                Loading...
+              </td>
+            </tr>
+          ) : isError ? (
+            <tr className={cn(tableRowVariantDefault())}>
+              <td
+                colSpan={table.getVisibleLeafColumns().length}
+                className={cn(tableCellVariants({ type: "empty", size }))}
+              >
+                No records found
+              </td>
+            </tr>
+          ) : table.getRowModel().rows.length > 0 ? (
             table.getRowModel().rows.map(row => (
               <tr
                 key={row.id}
@@ -206,16 +227,8 @@ export function CommonTable<T>({
           ) : (
             <tr className={cn(tableRowVariantDefault())}>
               <td
-                colSpan={table.getAllColumns().length}
-                className={cn(
-                  tableCellVariants({
-                    type: "empty",
-                    size:
-                      size === "compact" || size === "small"
-                        ? "compact"
-                        : "default",
-                  })
-                )}
+                colSpan={table.getVisibleLeafColumns().length}
+                className={cn(tableCellVariants({ type: "empty", size }))}
               >
                 {noDataText}
               </td>

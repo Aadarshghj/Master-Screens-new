@@ -1,4 +1,4 @@
-import type { QuotationReqData, QuotationDetailsData } from "@/types/asset-management/quotation-registration-type";
+import type { QuotationReqData, QuotationDetailsData, OtherChargesData } from "@/types/asset-management/quotation-registration-type";
 
 export const QUOTATION_MOCK_DATA: QuotationReqData[] = [
   {
@@ -26,20 +26,50 @@ export const QUOTATION_MOCK_DATA: QuotationReqData[] = [
 
 export const SUPPLIER_MOCK_DATA: QuotationDetailsData[] = [
   {
-   itemName: "A",
-   itemSpec: "A",
-   model:"A",
-   qtyAvailable: 5,
-   qtyReq: 4,
-   uom: "A",
-   unitPrice: 100,
-   amount: 7,
-   sgstPercent: 5,
-   sgst: "5",
-   cgstPercent: 6,
-   cgst: "6",
-   igstPercent: 9,
-   igst: "9"
+   itemName: "Laptop",
+   itemSpec: "Ram-8Gb, Processor-i5, Display-14",
+   model:"Dell - Inspiron",
+   qtyAvailable: 2,
+   qtyReq: 1,
+   uom: "NOS",
+   unitPrice: undefined,
+   amount: undefined,
+   sgstPercent: undefined,
+   sgst: "",
+   cgstPercent: undefined,
+   cgst: "",
+   igstPercent: undefined,
+   igst: ""
   },
-
+  {
+   itemName: "Desktop",
+   itemSpec: "Ram-4Gb, Processor-i3, Display-24",
+   model:"Dell - Pro 24",
+   qtyAvailable: 2,
+   qtyReq: 1,
+   uom: "NOS",
+   unitPrice: undefined,
+   amount: undefined,
+   sgstPercent: undefined,
+   sgst: "",
+   cgstPercent: undefined,
+   cgst: "",
+   igstPercent: undefined,
+   igst: ""
+  },
 ];
+
+export const CHARGE_MOCK_DATA: OtherChargesData[] = [
+  {
+    chargeName: "Transportation Charges",
+    chargeAmount: 400
+  },
+  {
+    chargeName: "Moving Charges",
+    chargeAmount: 800
+  },
+  {
+    chargeName: "Duty Charges",
+    chargeAmount: 500
+  }
+]

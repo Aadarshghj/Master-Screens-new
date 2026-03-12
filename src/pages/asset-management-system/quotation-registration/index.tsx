@@ -5,9 +5,9 @@ import {
   TitleHeader,
   type BreadcrumbItem,
   PageWrapper,
-  ConfirmationModal,
+  // ConfirmationModal,
 } from "@/components";
-// import { useCoLendingBankConfigFormController } from "./components/Hooks/useCoLendingBankConfig";
+// import {  } from "./components/Hooks/useQuotationRegForm";
 // import { BankConfigForm } from "./components/Form/CoLendingBankConfigForm";
  import { QuotationFilterForm } from "./components/Form/QuotationRegFilter";
 import { QuotationRegistrationTable } from "./components/Table/QuotationRegistrationTable";
@@ -19,7 +19,7 @@ export const QuotationRegPage: React.FC = () => {
   const navigate = useNavigate();
  const {
     control,
-    handleSubmit,
+    // handleSubmit,
     formState:{errors},
   } = useForm<QuotationFilter>({
     defaultValues:{
@@ -47,7 +47,7 @@ export const QuotationRegPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <ConfirmationModal
+      {/* <ConfirmationModal
         // isOpen={showDeleteModal}
         // onConfirm={handleConfirmDelete}
         // onCancel={handleCancelDelete}
@@ -57,7 +57,7 @@ export const QuotationRegPage: React.FC = () => {
         cancelText="Cancel"
         type="error"
         size="compact"
-      />
+      /> */}
       <PageWrapper
         variant="default"
         padding="xl"
@@ -80,9 +80,9 @@ export const QuotationRegPage: React.FC = () => {
             //   register={register}
               errors={errors}
             //   isSubmitting={isSubmitting}
-            //   onSubmit={handleSubmit(onSubmit)}
+              // onSubmit={handleSubmit(onSubmit)}
             //   onCancel={handleHideForm}
-            //   onReset={onReset}
+              // onReset={onReset}
             />
           {/* )} */}
           </div>
@@ -92,6 +92,9 @@ export const QuotationRegPage: React.FC = () => {
           <QuotationRegistrationTable
             data={[]}
             isLoading={false}
+            currentPage={1}
+            totalPages={3}
+            // onPageChange={}
             // handleDelete={handle}
           />
         </section>

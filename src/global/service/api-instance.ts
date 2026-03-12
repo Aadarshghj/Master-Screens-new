@@ -11,6 +11,7 @@ export const apiInstance = createApi({
     "Tenant",
     "AdminUnitType",
     "ModuleMgmt",
+    "OrnamentName",
     "CustomerPhoto",
     "Customer",
     "Photo",

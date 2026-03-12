@@ -1,23 +1,27 @@
-import React, { useMemo } from "react";
-import { Grid, CommonTable } from "@/components";
+import React, { useMemo, useState } from "react";
+import { Grid, CommonTable, Input } from "@/components";
 import {
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import type { QuotationDetailsData } from "@/types/asset-management/quotation-registration-type";
-import { useQuotDetTable } from "../Hooks/useQuotationDetailsTable";
 import { SUPPLIER_MOCK_DATA } from "@/mocks/asset-management/quotation-registration";
 
 const columnHelper = createColumnHelper<QuotationDetailsData>();
 
-interface QuotationDetailsDataTableProps {
-}
+interface QuotationDetailsDataTableProps {}
 
-export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps> = ({
+export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps> = () => {
+  const [data, setData] = useState(SUPPLIER_MOCK_DATA);
 
-}) => {
-  const { } = useQuotDetTable();
+  const handleInputChange = (rowIndex: number, columnId: string, value: string) => {
+    setData((prevData) => {
+      const newData = [...prevData];
+      newData[rowIndex] = { ...newData[rowIndex], [columnId]: value };
+      return newData;
+    });
+  };
 
   const columns = useMemo(
     () => [
@@ -46,9 +50,22 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
         cell: (info) => info.getValue() || "- - - - - - - - -",
       }),
 
-      columnHelper.accessor("qtyAvailable", {
+      columnHelper.display({
+        id: "qtyAvailable",
         header: "QTY Available",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: ({ row }) => (
+          <Input
+            type="text"
+            value={row.original.amount}
+            onChange={(e) =>
+              handleInputChange(row.index, "qtyAvailable", e.target.value)
+            }
+            size="form"
+            variant="form"
+            placeholder="Enter Qty"
+            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          />
+        )
       }),
 
       columnHelper.accessor("uom", {
@@ -56,46 +73,152 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
         cell: (info) => info.getValue() || "- - - - - - - - -",
       }),
 
-      columnHelper.accessor("unitPrice", {
+      columnHelper.display({
+        id: "unitPrice",
         header: "Unit Price",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: ({ row }) => (
+          <Input
+            type="string"
+            value={row.original.unitPrice || ""}
+            onChange={(e) =>
+              handleInputChange(row.index, "unitPrice", e.target.value)
+            }
+            size="form"
+            variant="form"
+            placeholder="Enter Unit Price"
+            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          />
+        )
       }),
 
-      columnHelper.accessor("amount", {
+      columnHelper.display({
+        id: "amount",
         header: "Amount",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: ({ row }) => (
+          <Input
+            type="string"
+            value={row.original.amount}
+            onChange={(e) =>
+              handleInputChange(row.index, "amount", e.target.value)
+            }
+            size="form"
+            variant="form"
+            placeholder="Enter Amount"
+            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          />
+        )
       }),
 
-      columnHelper.accessor("sgstPercent", {
+      columnHelper.display({
+        id: "sgstPercent",
         header: "SGST %",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: ({ row }) => (
+          <Input
+            type="string"
+            value={row.original.sgstPercent}
+            onChange={(e) =>
+              handleInputChange(row.index, "sgstPercent", e.target.value)
+            }
+            size="form"
+            variant="form"
+            placeholder="Enter SGST %"
+            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          />
+        )
       }),
 
-      columnHelper.accessor("sgst", {
+      columnHelper.display({
+        id: "sgst",
         header: "SGST",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: ({ row }) => (
+          <Input
+            type="string"
+            value={row.original.sgst}
+            onChange={(e) =>
+              handleInputChange(row.index, "sgst", e.target.value)
+            }
+            size="form"
+            variant="form"
+            disabled
+            placeholder="Enter SGST"
+            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          />
+        )
       }),
 
-      columnHelper.accessor("cgstPercent", {
-        header: "CGST %",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
-      }),
-
-      columnHelper.accessor("cgst", {
+      columnHelper.display({
+        id: "cgstPercent",
         header: "CGST",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: ({ row }) => (
+          <Input
+            type="string"
+            value={row.original.cgstPercent}
+            onChange={(e) =>
+              handleInputChange(row.index, "cgstPercent", e.target.value)
+            }
+            size="form"
+            variant="form"
+            placeholder="Enter CGST %"
+            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          />
+        )
       }),
 
-      columnHelper.accessor("igstPercent", {
-        header: "IGST %",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+      columnHelper.display({
+        id: "cgst",
+        header: "CGST",
+        cell: ({ row }) => (
+          <Input
+            type="string"
+            value={row.original.cgst}
+            onChange={(e) =>
+              handleInputChange(row.index, "cgst", e.target.value)
+            }
+            size="form"
+            variant="form"
+            disabled
+            placeholder="Enter CGST"
+            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          />
+        )
       }),
 
-      columnHelper.accessor("igst", {
+      columnHelper.display({
+        id: "igstPercent",
         header: "IGST",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: ({ row }) => (
+          <Input
+            type="string"
+            value={row.original.igstPercent}
+            onChange={(e) =>
+              handleInputChange(row.index, "igstPercent", e.target.value)
+            }
+            size="form"
+            variant="form"
+            placeholder="Enter IGST %"
+            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          />
+        )
       }),
 
+      columnHelper.display({
+        id: "igst",
+        header: "IGST",
+        cell: ({ row }) => (
+          <Input
+            type="string"
+            value={row.original.igst}
+            onChange={(e) =>
+              handleInputChange(row.index, "igst", e.target.value)
+            }
+            size="form"
+            variant="form"
+            disabled
+            placeholder="Enter IGST"
+            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+          />
+        )
+      }),
     ],
     []
   );
@@ -107,15 +230,13 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
   });
 
   return (
-    <>
-      <Grid>
-        <Grid.Item>
-          <CommonTable
-            table={table}
-            className="bg-card"
+    <Grid>
+      <Grid.Item>
+        <CommonTable
+          table={table}
+          className="bg-card"
         />
-        </Grid.Item>
-      </Grid>
-    </>
+      </Grid.Item>
+    </Grid>
   );
 };
