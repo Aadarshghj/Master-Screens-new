@@ -1,4 +1,4 @@
-import { useForm , type Resolver } from "react-hook-form"
+import { useForm, type Resolver } from "react-hook-form"
 import { useState } from "react"
 import { RefreshCw, Search } from "lucide-react"
 
@@ -31,7 +31,6 @@ import { Pagination } from "@/components/ui/paginationUp"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { supplierSearchSchema } from "@/global/validation/asset-management-system/supplier-empanelment-validation"
 
-
 interface SupplierSearchProps {
   isOpen: boolean
   onClose: () => void
@@ -39,17 +38,28 @@ interface SupplierSearchProps {
 }
 
 export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearchProps) {
-
   const [tableData, setTableData] = useState<SupplierSearchResult[]>(MOCK_SUPPLIERS)
 
   const {
-  handleSubmit,
-  reset,
-  register,
-  formState: { errors }
-} = useForm<SupplierSearchForm>({
-  resolver: yupResolver(supplierSearchSchema) as Resolver<SupplierSearchForm>
-})
+    handleSubmit,
+    reset,
+    register,
+    watch,
+    formState: { errors }
+  } = useForm<SupplierSearchForm>({
+    resolver: yupResolver(supplierSearchSchema) as Resolver<SupplierSearchForm>
+  })
+
+  const supplierName = watch("supplierName")
+  const tradeName = watch("tradeName")
+  const panNumber = watch("panNumber")
+  const gstNumber = watch("gstNumber")
+
+  const isSearchDisabled =
+    !supplierName &&
+    !tradeName &&
+    !panNumber &&
+    !gstNumber
 
   const columnHelper = createColumnHelper<SupplierSearchResult>()
 
@@ -118,14 +128,12 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
   })
 
   const onSubmit = (data: SupplierSearchForm) => {
-
     const filtered = MOCK_SUPPLIERS.filter(supplier =>
       (!data.supplierName || supplier.supplierName.toLowerCase().includes(data.supplierName.toLowerCase())) &&
       (!data.tradeName || supplier.tradeName.toLowerCase().includes(data.tradeName.toLowerCase())) &&
       (!data.panNumber || supplier.panNumber.toLowerCase().includes(data.panNumber.toLowerCase())) &&
       (!data.gstNumber || supplier.gstNumber.toLowerCase().includes(data.gstNumber.toLowerCase()))
     )
-
     setTableData(filtered)
   }
 
@@ -143,13 +151,9 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
       titleVariant="small"
       className="!h-[60vh] !w-[95vw] !max-w-[95vw]"
     >
-
       <Form onSubmit={handleSubmit(onSubmit)}>
-
         <div className="space-y-4">
-
           <Form.Row className="gap-5">
-
             <Form.Col lg={2} md={3} span={12}>
               <Form.Field label="Supplier Name" error={errors.supplierName}>
                 <Input
@@ -201,71 +205,52 @@ export function SupplierSearchModal({ isOpen, onClose, onSelect }: SupplierSearc
                 />
               </Form.Field>
             </Form.Col>
-
           </Form.Row>
 
           <Flex justify="end" gap={2}>
-
-            <NeumorphicButton
-              type="button"
-              variant="secondary"
-              onClick={handleReset}
-            >
+            <NeumorphicButton type="button" variant="secondary" onClick={handleReset}>
               <RefreshCw width={12} />
               Reset
             </NeumorphicButton>
 
-            <NeumorphicButton type="submit" variant="default">
+            <NeumorphicButton type="submit" variant="default" disabled={isSearchDisabled}>
               <Search width={12} />
               Search
             </NeumorphicButton>
-
           </Flex>
-
         </div>
-
       </Form>
 
       <div className="mt-4">
-
         <HeaderWrapper>
           <TitleHeader title="Supplier Search View" className="pb-4 " />
         </HeaderWrapper>
 
         <div className="rounded-md border">
-          
-
           <CommonTable
             table={table}
             size="compact"
             noDataText="No suppliers found"
-            
           />
-
         </div>
-       {table.getRowModel().rows.length > 0 && table.getPageCount() > 0 && (
-         <div className="mt-4 flex items-center justify-end text-sm">
-       
-           <div className="flex items-center gap-3">
-             <Pagination
-               currentPage={table.getState().pagination.pageIndex}
-               totalPages={table.getPageCount()}
-               onPageChange={(page) => table.setPageIndex(page)}
-       
-               onPreviousPage={() => table.previousPage()}
-               onNextPage={() => table.nextPage()}
-       
-               canPreviousPage={table.getCanPreviousPage()}
-               canNextPage={table.getCanNextPage()}
-               maxVisiblePages={5}
-             />
-           </div>
-       
-         </div>
-       )}
-        
-      </div>
 
+        {table.getRowModel().rows.length > 0 && table.getPageCount() > 0 && (
+          <div className="mt-4 flex items-center justify-end text-sm">
+            <div className="flex items-center gap-3">
+              <Pagination
+                currentPage={table.getState().pagination.pageIndex}
+                totalPages={table.getPageCount()}
+                onPageChange={(page) => table.setPageIndex(page)}
+                onPreviousPage={() => table.previousPage()}
+                onNextPage={() => table.nextPage()}
+                canPreviousPage={table.getCanPreviousPage()}
+                canNextPage={table.getCanNextPage()}
+                maxVisiblePages={5}
+              />
+            </div>
+          </div>
+        )}
+      </div>
     </Modal>
   )
 }
