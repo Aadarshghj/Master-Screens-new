@@ -99,6 +99,8 @@ import { MenuSubmenuPage } from "@/pages/customer-management/create-mange-menu-s
 import UserTypePage from "@/pages/customer-management/user-type";
 
 
+import { LoanAssetClassificationPage } from "@/pages/customer-management/loan-asset-classification";
+import { SupplierEmpanelmentPage } from "@/pages/asset-management-system/supplier-empanelment";
 
 export const protectedRoutesList: RouteObject[] = [
   {
@@ -426,13 +428,13 @@ export const protectedRoutesList: RouteObject[] = [
       },
       {
         path: "/customer-management/master/risk-assessment-type-history",
-        children: [
-          {
-            index: true,
-            element: <RiskAssessmentTypeHistoryPage />,
-          },
-        ],
+        element: <RiskAssessmentTypeHistoryPage />,
       },
+      {
+        path: "/customer-management/master/loan-asset-classification",
+        element: <LoanAssetClassificationPage />,
+      },
+  
       {
         path: "/customer-management/master/user-role-mapping",
         element: <UserRoleMappingPage />,
@@ -655,6 +657,11 @@ export const protectedRoutesList: RouteObject[] = [
             element: <SupplierInformationPage />,
           },
          
+         {
+            path: "/asset-management/supplier-empanelment",
+            index: true,
+            element: <SupplierEmpanelmentPage/>,
+          },
         ],
         
       },

@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 export const assetgroupSchema = yup.object({
   id: yup.string(),
-  assetCode: yup.string(),
+  assetCode: yup.string().required("This field is required"),
   assetType: yup.string().required("This field is required"),
   assetName: yup.string().required("This field is required"),
   postingGL: yup.string().required("This field is required"),
