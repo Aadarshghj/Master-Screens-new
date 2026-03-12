@@ -50,6 +50,8 @@ import { menuSubmenu } from "./customer-management/create-manage-menu-submenu.ts
 import { BranchStaffMapping } from "./customer-management/branch-staff-api.ts";
 import { subModule } from "./customer-management/sub-module";
 import { moduleApi } from "./customer-management/sub-module";
+import { ornamentName, ornamentType } from "./customer-management/ornament-name.ts";
+import { LoanAssetClassifiApi} from "./customer-management/loan-asset-classification.ts";
 
 export const api = {
   tenant,
@@ -69,6 +71,8 @@ export const api = {
   customerGroup,
   adminUnitType,
   moduleMgmt,
+  ornamentName,
+  ornamentType,
   agentMaster,
   industryCategory,
   sitePremise,
@@ -103,6 +107,7 @@ export const api = {
   menuSubmenu,
   subModule,
   module: moduleApi,
+  LoanAssetClassifiApi
 
 };
 

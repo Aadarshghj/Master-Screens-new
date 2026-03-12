@@ -1,9 +1,19 @@
-import type { OrnamentNameData } from "@/types/customer-management/ornament-name";
+import type { OrnamentNameData, OrnamentNameTable } from "@/types/customer-management/ornament-name";
 
 export const ORNAMENT_NAME_DEFAULT_VALUES: OrnamentNameData = {
-  ornamentName : "",
-  ornamentCode : "",
-  ornamentType : "",
+  ornamentName: "",
+  ornamentCode: "",
+  ornamentTypeIdentity: "",
   description: "",
-  isActive: true, 
+  isActive: true,
+  identity: "",
 };
+
+export const ORNAMENT_NAME_TABLE_DEFAULT_VALUES: OrnamentNameTable = {
+  ornamentName: "",
+  ornamentCode: "",
+  ornamentType: "",
+  description: "",
+  isActive: true,
+  identity: "",
+}
