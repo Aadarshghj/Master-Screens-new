@@ -24,6 +24,7 @@ export const BranchStaffMappingContainer = () => {
     pendingCount,
     isModalOpen,
     staffToRemove,
+    branchStaffMap,
     setStaffToRemove,
     setBranchSearchQuery,
     setStaffSearchQuery,
@@ -44,6 +45,8 @@ export const BranchStaffMappingContainer = () => {
   const [viewMode, setViewMode] = useState<"assignment" | "overview">(
     "assignment"
   );
+
+  
 
   return (
     <div className="h-screen w-full overflow-hidden bg-[#f8fafc] font-sans">
@@ -141,6 +144,7 @@ export const BranchStaffMappingContainer = () => {
             searchQuery={branchSearchQuery}
             onSearchChange={setBranchSearchQuery}
             onBranchSelect={handleBranchSelect}
+            branchStaffMap={branchStaffMap}
           />
 
           <AssignedColumn
