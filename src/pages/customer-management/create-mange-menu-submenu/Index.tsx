@@ -13,7 +13,7 @@ import { MenuSubmenuForm } from "./components/Form/MenuSubmenuForm";
 import { MenuSubmenuTable } from "./components/Table/MenuSubmenuTable";
 import { useMenuSubMenu } from "./components/Hooks/useMenuSubmenu";
 import type { menuSubmenu } from "@/types/customer-management/create-manage-menus-submenu.type";
-import { useLazyGetMenuSubmenuByIdQuery } from "@/global/service/end-points/customer-management/create-update-menu-submenu";
+// import { useLazyGetMenuSubmenuByIdQuery } from "@/global/service/end-points/customer-management/create-update-menu-submenu";
 
 export const MenuSubmenuPage: React.FC = () => {
   const navigate = useNavigate();
@@ -22,17 +22,20 @@ export const MenuSubmenuPage: React.FC = () => {
   const [selectedRow, setSelectedRow] = useState<menuSubmenu | null>(
     null
   );
-  const [fetchMenuId] = useLazyGetMenuSubmenuByIdQuery()
+  // const [fetchMenuId] = useLazyGetMenuSubmenuByIdQuery()
   const {
-    control,
-    register,
-    handleSubmit,
-    errors,
-    isSubmitting,
-    onSubmit,
-    onReset,
-    onCancel,
-    reset
+  register,
+  control,
+  handleSubmit,
+  onSubmit,
+  errors,
+  setValue,
+  isSubmitting,
+  parentMenus,
+  isParentsLoading,
+  onCancel,
+  onReset,
+  reset
 
   } = useMenuSubMenu(selectedRow ?? undefined);
 
@@ -48,32 +51,18 @@ export const MenuSubmenuPage: React.FC = () => {
   }
 
 
-  const onEdit = async (data: menuSubmenu) => {
-    try {
-      const response = await fetchMenuId(data.menuIdentity).unwrap();
-
-      const result = Array.isArray(response) ? response[0] : response;
-
-      if (!result) {
-        console.error("No record found");
-        return;
-      }
-
-      setSelectedRow(result);
-      setShowform(true);
-      reset(result);
-
-      requestAnimationFrame(() => {
-        formRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "end",
-        });
-      });
-    } catch (error) {
-      console.error("Failed to fetch record:", error);
-    }
-  };
-
+  const onEdit = (data: menuSubmenu) => {
+   setSelectedRow(data);
+   setShowform(true);
+   reset(data);
+ 
+   setTimeout(() => {
+     formRef.current?.scrollIntoView({
+       behavior: "smooth",
+       block: "end",
+     });
+   }, 100);
+ };
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", href: "/", onClick: () => navigate("/") },
     {
@@ -105,18 +94,20 @@ export const MenuSubmenuPage: React.FC = () => {
             <TitleHeader title="Menus and Sub-Menus" className="py-4" />
             <section>
 
-              <NeumorphicButton
-                type="button"
-                variant="default"
-                size="default"
-                className="mx-2"
-                onClick={() =>
-                  navigate("/customer-management/master/menu-submenu-tree")
-                }
-              >
-                <PlusCircle width={13} />
-                View Menu
-              </NeumorphicButton>
+           <NeumorphicButton
+  type="button"
+  variant="default"
+  size="default"
+  className="mx-2"
+  onClick={() =>
+    navigate("/customer-management/master/menu-submenu-tree", {
+      state: { refresh: true },
+    })
+  }
+>
+  <PlusCircle width={13} />
+  View Menu
+</NeumorphicButton>
               <NeumorphicButton
                 type="button"
                 variant="default"
@@ -131,18 +122,22 @@ export const MenuSubmenuPage: React.FC = () => {
           </div>
 
           {showForm && (
-            <MenuSubmenuForm
-              control={control}
-              register={register}
-              errors={errors}
-              isSubmitting={isSubmitting}
-              onSubmit={handleSubmit(onSubmit)}
-              onCancel={handleCancelClick}
-              onReset={onReset}
-              isEdit={!!selectedRow}
-
-            />
-          )}
+  <div ref={formRef}>
+    <MenuSubmenuForm
+      control={control}
+      register={register}
+      errors={errors}
+      setValue={setValue}
+      parentMenus={parentMenus}
+      isLoading={isParentsLoading}
+      isSubmitting={isSubmitting}
+      onSubmit={handleSubmit(onSubmit)}
+      onCancel={handleCancelClick}
+      onReset={onReset}
+      isEdit={!!selectedRow}
+    />
+  </div>
+)}
 
         </section>
 

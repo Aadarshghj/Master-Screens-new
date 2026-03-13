@@ -4,27 +4,60 @@ export const MenuSubmenuSchema = yup.object({
     menuName: yup
         .string().trim()
         .required()
-        // .matches(/^[A-Z0-9_]+$/, "Only uppercase letters, numbers and _ allowed")
-        .max(20, "Maximum 20 characters allowed"),
+        .max(50, "Maximum 50 characters allowed"),
 
-    menucode: yup
+    menuCode: yup
         .string().trim()
         .required()
-        .matches(/^[0-9]+$/, "Only numbers are allowed")
-        .max(50, "Maximum 50 characters allowed"),
+        .max(20, "Maximum 20 characters allowed"),
         
     description: yup
-        .string().max(200, "Maximum 200 characters allowed").required(),
+        .string().max(150, "Maximum 150 characters allowed").required(),
 
     menuOrder: yup.string().required() .matches(/^[0-9]+$/, "Only numbers are allowed"),
 
-    parentMenu: yup.string().required(),
+    parent: yup.string(),
 
     isActive: yup.boolean().required(),
 
-    pageurl: yup.string().required(),
+   pageUrl: yup
+  .string()
+  .when("isUrl", {
+    is: true,
+    then: schema =>
+      schema
+        .required("Page URL is required")
+        .max(150, "Maximum 150 characters allowed")
+        .matches(/^\S+$/, "URL cannot contain spaces")
+        .matches(
+          /^(https?:\/\/)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=%]+$/,
+          "Invalid URL Format"
+        )
+        .test(
+          "not-only-numbers",
+          "URL cannot contain only Numbers",
+          value => !/^\d+$/.test(value ?? "")
+        )
+        .test(
+          "not-only-special",
+          "URL must contain at least one letter or number",
+          value => /[a-zA-Z0-9]/.test(value ?? "")
+        )
+        .test(
+          "no-double-slash",
+          "URL cannot contain double slashes",
+          value => !/\/\/+/.test(value ?? "")
+        )
+        .test(
+          "no-trailing-slash",
+          "URL should not end with /",
+          value => !value?.endsWith("/")
+        ),
+    otherwise: schema => schema.notRequired()
+  }),
 
-    url: yup.boolean().required(),
-    menuIdentity:yup.string().required()
+    isUrl: yup.boolean().required(),
+identity:yup.string()
+    
 
-}).required()
+})

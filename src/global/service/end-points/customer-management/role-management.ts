@@ -32,6 +32,8 @@ export const roleManagementApiService = apiInstance.injectEndpoints({
         response: RoleManagementResponseDto[]
       ): RoleManagementType[] =>
         response.map(item => ({
+           roleCode:item. roleCode,
+           accesslevel:item.accesslevel,
           roleName: item.roleName,
           roleShortDesc: item.roleShortDesc,
           isActive: item.isActive,
@@ -49,9 +51,12 @@ export const roleManagementApiService = apiInstance.injectEndpoints({
       transformResponse: (
         response: RoleManagementResponseDto
       ): RoleManagementType => ({
+        roleCode:response.roleCode,
         roleName: response.roleName,
         roleShortDesc: response.roleShortDesc,
         isActive: response.isActive,
+        accesslevel:response.accesslevel,
+        identity:response.identity
       }),
     }),
 

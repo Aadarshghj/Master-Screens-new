@@ -1,51 +1,90 @@
-import React from "react";
+import React, { useMemo, useEffect } from "react";
 import { RotateCcw, Save, X } from "lucide-react";
 import {
   type Control,
   type FieldErrors,
   type UseFormRegister,
+  type UseFormSetValue,
+  Controller,
+  useWatch,
 } from "react-hook-form";
-import { Controller, useWatch } from "react-hook-form";
+import { useLocation } from "react-router-dom";
+
 import { Flex, Input, Label, Switch, Select } from "@/components/ui";
 import { FormContainer } from "@/components/ui/form-container";
 import { Form } from "@/components";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-import type { menuSubmenu } from "@/types/customer-management/create-manage-menus-submenu.type";
-import { PARENT_MENU_OPTIONS } from "@/mocks/customer-management-master/create-manage-menu-submenu";
+
+import type {
+  menuSubmenu,
+  ParentMenu,
+} from "@/types/customer-management/create-manage-menus-submenu.type";
 
 interface MenuSubmenuProps {
   control: Control<menuSubmenu>;
   errors: FieldErrors<menuSubmenu>;
   register: UseFormRegister<menuSubmenu>;
+  setValue: UseFormSetValue<menuSubmenu>;
   isSubmitting: boolean;
-  onSubmit: () => void;
+  onSubmit: (e?: React.BaseSyntheticEvent) => void;
   onCancel: () => void;
   onReset: () => void;
-  isEdit: boolean
+  isEdit: boolean;
+  parentMenus: ParentMenu[];
+  isLoading: boolean;
 }
 
 export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
   control,
   errors,
   register,
+  setValue,
   isSubmitting,
   onSubmit,
   onCancel,
   onReset,
-  isEdit
+  isEdit,
+  parentMenus,
+  isLoading,
 }) => {
+  const location = useLocation();
 
-  const isUrlEnabled = useWatch({
-    control, name: "url"
-  })
+  const state = location.state as { parentPath?: string } | null;
+  const parentPathFromState = state?.parentPath || "";
+
+  const isUrlEnabled = useWatch({ control, name: "isUrl" });
+
+  const parentMenuOptions = useMemo(() => {
+    return parentMenus.map((menu) => ({
+      label: menu.menuName,
+      value: menu.identity,
+    }));
+  }, [parentMenus]);
+
+  useEffect(() => {
+    if (!parentPathFromState) return;
+    if (parentMenuOptions.length === 0) return;
+
+    const matchedOption = parentMenuOptions.find(
+      (option) => option.label.trim() === parentPathFromState.trim()
+    );
+
+    if (matchedOption) {
+      setValue("parentMenu", matchedOption.value, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    }
+  }, [parentMenuOptions, parentPathFromState, setValue]);
+
   return (
-    <FormContainer className="px-0 " >
+    <FormContainer className="px-0">
       <Form onSubmit={onSubmit}>
         <div className="mt-2">
           <Form.Row>
 
             <Form.Col lg={4} md={6} span={12}>
-              <Form.Field label="Menu Name" required error={errors.menuName} >
+              <Form.Field label="Menu Name" required error={errors.menuName}>
                 <Input
                   {...register("menuName")}
                   placeholder="Enter Menu Name"
@@ -57,9 +96,9 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
             </Form.Col>
 
             <Form.Col lg={4} md={6} span={12}>
-              <Form.Field label="Menu Code" required error={errors.menucode} >
+              <Form.Field label="Menu Code" required error={errors.menuCode}>
                 <Input
-                  {...register("menucode")}
+                  {...register("menuCode")}
                   placeholder="Page, Report, Action, External URL"
                   size="form"
                   variant="form"
@@ -68,9 +107,8 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
               </Form.Field>
             </Form.Col>
 
-
             <Form.Col lg={4} md={6} span={12}>
-              <Form.Field label="Menu Description" required error={errors.description} >
+              <Form.Field label="Menu Description" required error={errors.description}>
                 <Input
                   {...register("description")}
                   placeholder="Enter Description"
@@ -94,20 +132,22 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
             </Form.Col>
 
             <Form.Col lg={4} md={6} span={12} className="pr-6">
-              <Form.Field label="Parent Menu" required error={errors?.parentMenu}>
+              <Form.Field label="Parent Menu" error={errors.parentMenu}>
                 <Controller
                   name="parentMenu"
                   control={control}
                   render={({ field }) => (
                     <Select
-                      value={field.value}
+                    
+                      value={field.value ?? ""}
                       onValueChange={field.onChange}
-                      options={PARENT_MENU_OPTIONS}
-                      placeholder="Select "
+                      options={parentMenuOptions}
+                      placeholder={isLoading ? "Loading..." : "Select Parent Menu"}
                       size="form"
                       variant="form"
                       fullWidth
                       itemVariant="form"
+                      disabled={isLoading || !!parentPathFromState}
                     />
                   )}
                 />
@@ -119,7 +159,7 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
                 <Flex align="center" gap={2}>
                   <Controller
                     control={control}
-                    name="url"
+                    name="isUrl"
                     render={({ field }) => (
                       <Switch
                         checked={!!field.value}
@@ -132,24 +172,22 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
               </Flex>
             </Form.Col>
 
-            {
-              isUrlEnabled && (
-                <Form.Col lg={3} md={6} span={12}>
-                  <Form.Field label="Page URL" required error={errors.pageurl}>
-                    <Input
-                      {...register("pageurl")}
-                      placeholder="Enter URL"
-                      size="form"
-                      variant="form"
-                      className="uppercase "
-                    />
-                  </Form.Field>
-                </Form.Col>
-              )
-            }
+            {isUrlEnabled && (
+              <Form.Col lg={3} md={6} span={12}>
+                <Form.Field label="Page URL" required error={errors.pageUrl}>
+                  <Input
+                    {...register("pageUrl")}
+                    placeholder="Enter URL"
+                    size="form"
+                    variant="form"
+                    className="uppercase"
+                  />
+                </Form.Field>
+              </Form.Col>
+            )}
 
             <Form.Col lg={1} md={6} span={12}>
-              <Flex direction="col" gap={2} style={{ marginTop: '20px' }} >
+              <Flex direction="col" gap={2} style={{ marginTop: "20px" }}>
                 <Flex align="center" gap={2}>
                   <Controller
                     control={control}
@@ -166,9 +204,11 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
                 </Flex>
               </Flex>
             </Form.Col>
+
           </Form.Row>
 
           <Flex.ActionGroup className="mt-2 justify-end gap-4">
+
             <NeumorphicButton
               type="button"
               variant="grey"
@@ -176,8 +216,7 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
               onClick={onCancel}
               disabled={isSubmitting}
             >
-              <X className="h-3 w-3" />
-              Cancel
+              <X className="h-3 w-3" /> Cancel
             </NeumorphicButton>
 
             <NeumorphicButton
@@ -187,8 +226,7 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
               onClick={onReset}
               disabled={isSubmitting}
             >
-              <RotateCcw className="h-3 w-3" />
-              Reset
+              <RotateCcw className="h-3 w-3" /> Reset
             </NeumorphicButton>
 
             <NeumorphicButton
@@ -203,19 +241,13 @@ export const MenuSubmenuForm: React.FC<MenuSubmenuProps> = ({
                   ? "Updating..."
                   : "Saving..."
                 : isEdit
-                  ? "Update Menu"
-                  : "Save Menu"}
+                ? "Update Menu"
+                : "Save Menu"}
             </NeumorphicButton>
 
           </Flex.ActionGroup>
         </div>
       </Form>
     </FormContainer>
-
   );
 };
-
-
-
-
-

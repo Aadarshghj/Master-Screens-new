@@ -1,14 +1,12 @@
 import React, { useMemo } from "react";
-import { Grid, CommonTable, ConfirmationModal } from "@/components";
+import { Grid, CommonTable, ConfirmationModal, Button } from "@/components";
 import {
   createColumnHelper,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import type { RoleManagementType } from "@/types/customer-management/role-management";
-
-
-
+import { Pencil } from "lucide-react";
 import { useRoleManagementTable } from "../Hooks/useRoleManagementTable";
 
 const columnHelper = createColumnHelper<RoleManagementType>();
@@ -36,8 +34,14 @@ export const RoleManagementTable: React.FC<RoleManagementProps> = ({
         cell: ({ row }) => row.index + 1,
       }),
 
+      columnHelper.accessor("roleCode", {
+        header: "Role Code",
+      }),
       columnHelper.accessor("roleName", {
         header: "Role Name",
+      }),
+      columnHelper.accessor("accesslevel", {
+        header: "Access Level",
       }),
 
       columnHelper.accessor("roleShortDesc", {
@@ -60,7 +64,25 @@ export const RoleManagementTable: React.FC<RoleManagementProps> = ({
         },
       }),
 
-      
+       columnHelper.display({
+        id: "actions",
+        header: "Actions",
+         cell: ({row}) => (
+          
+          <div className="flex gap-2">
+          
+       <Button
+        variant="ghost"
+        className="text-primary hover:bg-primary/40 h-6 w-6 p-0"
+        onClick={()=>onEdit(row.original)}
+        title="Edit Property" >
+            <Pencil size={13} />
+      </Button>
+     
+
+          </div>
+        ),
+      })
     ],
     [openDeleteModal, onEdit]
   );

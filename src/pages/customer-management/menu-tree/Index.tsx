@@ -1,15 +1,13 @@
-
-import MenuTreeForm from "./components/Form/MenuTreeTreeForm"
-import { menuTreeData } from "./constants/menuTreeData"
+import MenuTreeForm from "./components/Form/MenuTreeTreeForm";
 
 const MenuTreePage = () => {
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md w-full">
+    <div className="bg-white p-6 rounded-xl  w-full">
       <h2 className="text-lg font-semibold">
         Menu SubMenu Tree
       </h2>
-      <MenuTreeForm data={menuTreeData} />
+      <MenuTreeForm/>
     </div>
   )
 }
-export default MenuTreePage
+export default MenuTreePage;
