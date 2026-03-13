@@ -3,8 +3,24 @@ import * as yup from "yup";
 
 export const roleManagementSchema: yup.ObjectSchema<RoleManagementType> =
   yup.object({
-  
-   roleName: yup
+     identity: yup.string(),
+
+roleCode: yup
+  .string()
+  .required("Role Code is required")
+  .test(
+    "not-only-numbers",
+    "Only numbers are not allowed",
+    (value) => {
+      if (!value) return true;
+      return !/^[0-9]+$/.test(value);
+    }
+  )
+  .matches(
+    /^[A-Za-z0-9_]+$/,
+    "Only alphabets, numbers and underscore (_) are allowed"
+  ),
+  roleName: yup
   .string()
   .required("Role Name is required")
   .max(50, "Maximum 50 characters allowed")
@@ -35,7 +51,8 @@ export const roleManagementSchema: yup.ObjectSchema<RoleManagementType> =
         return true;
       }),
     roleShortDesc: yup
-      .string().required("Role Description is required")
-      .max(150, "Maximum 150 characters allowed"),
+      .string()
+      .max(150, "Maximum 150 characters allowed").nullable(),
     isActive: yup.boolean().required(),
+   accesslevel:yup.string().required()
   });

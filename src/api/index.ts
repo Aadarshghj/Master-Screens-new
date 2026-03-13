@@ -50,6 +50,7 @@ import { menuSubmenu } from "./customer-management/create-manage-menu-submenu.ts
 import { BranchStaffMapping } from "./customer-management/branch-staff-api.ts";
 import { subModule } from "./customer-management/sub-module";
 import { moduleApi } from "./customer-management/sub-module";
+import { MenuTree } from "./customer-management/menu-tree.ts";
 import { loanSchemeType } from "./customer-management/loan-scheme-type.ts";
 import { ornamentName, ornamentType } from "./customer-management/ornament-name.ts";
 import { LoanAssetClassifiApi} from "./customer-management/loan-asset-classification.ts";
@@ -109,6 +110,7 @@ export const api = {
   BranchStaffMapping,
   menuSubmenu,
   subModule,
+  MenuTree,
   module: moduleApi,
   LoanAssetClassifiApi
 

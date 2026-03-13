@@ -1,15 +1,21 @@
-import type { menuSubmenu, menuSubmenuDto, menuSubmenuResponseDto } from "@/types/customer-management/create-manage-menus-submenu.type";
-import { apiInstance } from "../../api-instance";
+import type {
+  menuSubmenu,
+  menuSubmenuDto,
+  menuSubmenuResponseDto,
+  ParentMenu,
+  ParentMenuResponseDto,
+} from "@/types/customer-management/create-manage-menus-submenu.type";
 
+import { apiInstance } from "../../api-instance";
 import { api } from "@/api";
 
+
 export const menuSubmenuApiService = apiInstance.injectEndpoints({
-  endpoints: build => ({
-    saveMenuSubmenu: build.mutation<
-      menuSubmenu,
-      menuSubmenuDto
-    >({
-      query: payload => ({
+  endpoints: (build) => ({
+    
+ 
+    saveMenuSubmenu: build.mutation<menuSubmenu, menuSubmenuDto>({
+      query: (payload) => ({
         url: api.menuSubmenu.save(),
         method: "POST",
         data: payload,
@@ -17,46 +23,50 @@ export const menuSubmenuApiService = apiInstance.injectEndpoints({
       invalidatesTags: ["MenuSubMenu"],
     }),
 
+    
     getMasterMenuSubmenu: build.query<menuSubmenu[], void>({
       query: () => ({
         url: api.menuSubmenu.get(),
         method: "GET",
       }),
+
       providesTags: ["MenuSubMenu"],
+
       transformResponse: (
         response: menuSubmenuResponseDto[]
       ): menuSubmenu[] =>
-        response.map(item => ({
+        response.map((item) => ({
           menuName: item.menuName,
-          menucode: item.menucode,
+          menuCode: item.menuCode,
           description: item.description,
           menuOrder: item.menuOrder,
-          parentMenu: item.parentMenu,
-          url: item.url,
-          pageurl: item.pageurl,
+          parentMenu: item.parent?.identity,
+          isUrl: item.isUrl,
+          pageUrl: item.pageUrl,
           isActive: item.isActive,
-          menuIdentity: item.menuIdentity
+           identity: item.identity, 
         })),
     }),
 
     getMenuSubmenuById: build.query<menuSubmenu, string>({
-      query: menuIdentity => ({
+      query: (menuIdentity) => ({
         url: api.menuSubmenu.getById(menuIdentity),
         method: "GET",
       }),
+
       providesTags: ["MenuSubMenu"],
 
       transformResponse: (
         response: menuSubmenuResponseDto
       ): menuSubmenu => ({
         menuName: response.menuName,
-        menucode: response.menucode,
+        menuCode: response.menuCode,
         description: response.description,
         menuOrder: response.menuOrder,
-        parentMenu: response.parentMenu,
-        url: response.url,
-        pageurl: response.pageurl,
-        menuIdentity: response.menuIdentity,
+        parentMenu: response.parent?.identity,
+        isUrl: response.isUrl,
+        pageUrl: response.pageUrl,
+       identity: response.identity,
         isActive: response.isActive,
       }),
     }),
@@ -73,13 +83,33 @@ export const menuSubmenuApiService = apiInstance.injectEndpoints({
       invalidatesTags: ["MenuSubMenu"],
     }),
 
+
     deleteMenuSubmenu: build.mutation<void, string>({
-      query: roleName => ({
-        url: api.menuSubmenu.delete(roleName),
+      query: (menuIdentity) => ({
+        url: api.menuSubmenu.delete(menuIdentity),
         method: "DELETE",
       }),
       invalidatesTags: ["MenuSubMenu"],
     }),
+
+    getParentMenus: build.query<ParentMenu[], void>({
+      query: () => ({
+        url: api.menuSubmenu.parent(),
+        method: "GET",
+      }),
+
+      providesTags: ["MenuSubMenu"],
+
+      transformResponse: (
+        response: ParentMenuResponseDto[]
+      ): ParentMenu[] =>
+        response.map((item) => ({
+          identity: item.identity,
+          menuName: item.menuName,
+          parent: item.parent,
+        })),
+    }),
+
   }),
 });
 
@@ -88,9 +118,6 @@ export const {
   useUpdateMenuSubmenuMutation,
   useLazyGetMenuSubmenuByIdQuery,
   useDeleteMenuSubmenuMutation,
-  useGetMasterMenuSubmenuQuery
+  useGetMasterMenuSubmenuQuery,
+  useGetParentMenusQuery,
 } = menuSubmenuApiService;
-
-
-
-

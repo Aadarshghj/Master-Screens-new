@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PlusCircle } from "lucide-react";
 import {
@@ -14,6 +14,7 @@ import { useRoleManagement } from "./components/Hooks/useRoleManagement";
 import type { RoleManagementType } from "@/types/customer-management/role-management";
 
 export const RoleManagementPage: React.FC = () => {
+   const formRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   const [showForm, setShowform] = useState(false);
   const [selectedRow, setSelectedRow] = useState<RoleManagementType | null>(
@@ -42,7 +43,18 @@ export const RoleManagementPage: React.FC = () => {
     setSelectedRow(null);
     setShowform(false);
   };
+ const onEdit = (data: RoleManagementType) => {
+  setSelectedRow(data);
+  setShowform(true);
+  reset(data);
 
+  setTimeout(() => {
+    formRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  }, 100);
+};
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", href: "/", onClick: () => navigate("/") },
@@ -108,21 +120,24 @@ export const RoleManagementPage: React.FC = () => {
         </section>
       </PageWrapper>
 
-      <PageWrapper
-        variant="default"
-        padding="xl"
-        maxWidth="xl"
-        contentPadding="sm"
-        className="pt-0"
-      >
-        <section className="p-4 lg:p-8 xl:p-10">
-          <TitleHeader className="pb-4" title="List of Roles" />
-
-          <RoleManagementTable onEdit={function (identity: RoleManagementType): void {
-            throw new Error("Function not implemented.");
-          } }/>
-        </section>
-      </PageWrapper>
+      
+            <PageWrapper
+              variant="default"
+              padding="xl"
+              maxWidth="xl"
+              contentPadding="sm"
+              className="pt-0 md:pt-0 lg:pt-0"
+            >
+              <section className="p-4 lg:p-8 xl:p-10">
+                <TitleHeader
+                  className="pb-4"
+                  title="List of Roles "
+                />
+      
+                <RoleManagementTable
+                onEdit={onEdit}/>
+              </section>
+            </PageWrapper>
     </div>
   );
 };

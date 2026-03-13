@@ -5,9 +5,9 @@ import {
 } from "@/global/service/end-points/customer-management/role-management";
 import { logger } from "@/global/service";
 export const useRoleManagementTable = () => {
-  const [deleteRoleManagement] = useDeleteRoleManagementMutation();
-  const { data = [], isFetching } = useGetMasterRoleManagementQuery();
 
+  const [deleteRoleManagement] = useDeleteRoleManagementMutation();
+const { data = [], isFetching, refetch } = useGetMasterRoleManagementQuery();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedRoleId, setSelectedRoleId] = useState<string | null>(null);
   const openDeleteModal = useCallback((userId: string) => {
@@ -35,6 +35,6 @@ export const useRoleManagementTable = () => {
     closeDeleteModal,
     confirmDeleteRoleManagement,
     isFetching,
-    data,
+    data,  refetch
   };
 };

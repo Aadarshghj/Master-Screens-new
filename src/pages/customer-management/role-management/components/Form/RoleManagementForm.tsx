@@ -6,11 +6,12 @@ import {
   type UseFormRegister,
 } from "react-hook-form";
 import { Controller } from "react-hook-form";
-import { Flex, Input, Textarea, Label, Switch } from "@/components/ui";
+import { Flex, Input, Textarea, Label, Switch, Select } from "@/components/ui";
 import { FormContainer } from "@/components/ui/form-container";
 import { Form } from "@/components";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 import type { RoleManagementType } from "@/types/customer-management/role-management";
+import { ROLE_DROPDOWN_OPTION } from "@/mocks/customer-management-master/role-management";
 
 interface RoleManagementProps {
   control: Control<RoleManagementType>;
@@ -38,6 +39,17 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
       <Form onSubmit={onSubmit}>
         <div className="mt-2">
           <Form.Row>
+            <Form.Col lg={2} md={6} span={12}>
+              <Form.Field label="Role Code" required error={errors.roleCode}>
+                <Input
+                  {...register("roleCode")}
+                  placeholder="Enter Role Code"
+                  size="form"
+                  variant="form"
+                  className="uppercase"
+                />
+              </Form.Field>
+            </Form.Col>
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field label="Role Name" required error={errors.roleName}>
                 <Input
@@ -50,8 +62,29 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
               </Form.Field>
             </Form.Col>
 
-            <Form.Col lg={4} md={12} span={12}>
-              <Form.Field label="Description" required error={errors.roleShortDesc}>
+            <Form.Col lg={3} md={6} span={12}>
+              <Form.Field label="Access Level" required error={errors.accesslevel}>
+                <Controller
+                  name="accesslevel"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      options={ROLE_DROPDOWN_OPTION}
+                      placeholder="Select Access Level"
+                      size="form"
+                      variant="form"
+                      fullWidth
+                      itemVariant="form"
+                    />
+                  )}
+                />
+              </Form.Field>
+            </Form.Col>
+
+            <Form.Col lg={3} md={12} span={12}>
+              <Form.Field label="Description"  error={errors.roleShortDesc}>
                 <Textarea
                   {...register("roleShortDesc")}
                   placeholder="Enter Description"
@@ -62,6 +95,8 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
                 />
               </Form.Field>
             </Form.Col>
+
+             
 
             <Form.Col lg={2} md={6} span={12}>
               <Flex
@@ -110,20 +145,19 @@ export const RoleManagementForm: React.FC<RoleManagementProps> = ({
               Reset
             </NeumorphicButton>
 
-            <NeumorphicButton
+              <NeumorphicButton
               type="submit"
               variant="default"
               size="default"
               disabled={isSubmitting}
             >
-              <Save className="h-3 w-3" />
+              <Save width={13} />
               {isSubmitting
-                ? isEdit
-                  ? "Updating..."
-                  : "Saving..."
+                ? "Saving..."
                 : isEdit
-                  ? "Update Role"
-                  : "Save Role"}
+                ? "Update Role"
+                : "Save Role "}
+
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>

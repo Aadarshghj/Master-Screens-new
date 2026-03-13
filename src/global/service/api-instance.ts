@@ -96,6 +96,7 @@ export const apiInstance = createApi({
     "Branch",
     "Staff",
     "MenuSubMenu",
+    "MenuTree"
     "LoanAssetClassification"
     ],
 

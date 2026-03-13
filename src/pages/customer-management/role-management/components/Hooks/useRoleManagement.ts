@@ -9,12 +9,13 @@ import type {
 } from "@/types/customer-management/role-management";
 import {
   useSaveRoleManagementMutation,
+  useUpdateRoleManagementMutation,
 } from "@/global/service/end-points/customer-management/role-management";
 import { logger } from "@/global/service";
 
 export const useRoleManagement = (editData?: RoleManagementType) => {
   const [saveRoleManagement] = useSaveRoleManagementMutation();
-  
+  const[updateRoleManagement]=useUpdateRoleManagementMutation()
 
   const {
     control,
@@ -24,33 +25,47 @@ export const useRoleManagement = (editData?: RoleManagementType) => {
     formState: { errors, isSubmitting },
   } = useForm<RoleManagementType>({
     defaultValues: editData ?? ROLE_MANAGEMENT_DEFAULT_VALUES,
-    resolver: yupResolver(roleManagementSchema),
+    resolver: yupResolver(roleManagementSchema) ,
     mode: "onChange",
   });
 
 const onSubmit = useCallback(
   async (data: RoleManagementType) => {
     const payload: RoleManagementRequestDto = {
+      roleCode: data.roleCode,
       roleName: data.roleName.toUpperCase(),
       roleShortDesc: data.roleShortDesc,
       isActive: data.isActive,
+      accesslevel:data.accesslevel
     };
 
     try {
       console.log("Payload:", payload);
 
-      await saveRoleManagement(payload).unwrap();
-      logger.info("Role Saved Successfully", { toast: true });
+      if (data.identity) {
+        // UPDATE
+        await updateRoleManagement({
+          identity: data.identity,
+          payload: payload
+        }).unwrap();
 
-      console.log("Role saved successfully");
+        logger.info("Role Updated Successfully", { toast: true });
+
+      } else {
+        // CREATE
+        await saveRoleManagement(payload).unwrap();
+
+        logger.info("Role Saved Successfully", { toast: true });
+      }
 
       reset(ROLE_MANAGEMENT_DEFAULT_VALUES);
+
     } catch (error) {
-       logger.error("Same Role Already Exist", { toast: true });
+      logger.error("Save Failed", { toast: true });
       console.error("Save failed:", error);
     }
   },
-  [reset, saveRoleManagement]
+  [reset, saveRoleManagement, updateRoleManagement]
 );
 
   const onCancel = useCallback(() => {
