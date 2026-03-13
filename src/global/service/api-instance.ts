@@ -81,6 +81,7 @@ export const apiInstance = createApi({
     "RiskAssessmentType",
     "RoleManagement",
     "UserReg",
+    "LoanSchemeType",
 
     "MenuModuleMapping",
     "branchType",

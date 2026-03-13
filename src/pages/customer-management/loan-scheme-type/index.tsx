@@ -11,6 +11,7 @@ import { useLoanSchemeTypeForm } from "./components/Hooks/useLoanSchemeTypeForm"
 import { LoanSchemeTypeForm } from "./components/Form/LoanSchemeTypeForm";
 import { LoanSchemeTypeTable } from "./components/Table/LoanSchemeTypeTable";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
+import type { LoanSchemeTypeResponseDto } from "@/types/customer-management/loan-scheme-type";
 
 export const LoanSchemeTypePage: React.FC = () => {
   const navigate = useNavigate();
@@ -24,7 +25,8 @@ export const LoanSchemeTypePage: React.FC = () => {
     onCancel,
     onReset,
     errors,
-    control
+    control,
+    reset,
   } = useLoanSchemeTypeForm();
 
     const breadcrumbItems: BreadcrumbItem[] = [
@@ -49,6 +51,17 @@ export const LoanSchemeTypePage: React.FC = () => {
   const handleCancelClick = () => {
     onCancel();
     setShowForm(false);
+  };
+  const handleEditClick = (row: LoanSchemeTypeResponseDto) => {
+  
+    reset({
+      id: row.identity,
+      schemeTypeName: row.schemeTypeName,      
+      description: row.description, 
+      isActive: row.isActive,
+    });
+  
+    setShowForm(true);
   };
 
   return (
@@ -90,8 +103,19 @@ export const LoanSchemeTypePage: React.FC = () => {
             </div>
           )}
         </section>
-   <section className="px-8 pb-3 ">
-          <LoanSchemeTypeTable/>
+         </PageWrapper>
+        
+              <PageWrapper
+                variant="default"
+                padding="xl"
+                maxWidth="xl"
+                contentPadding="sm"
+                className="pt-0 md:pt-0 lg:pt-0"
+              > 
+   <section className="p-4 lg:p-8 xl:p-10 ">
+              <TitleHeader className="pb-4" title="List of Loan Scheme Type" />
+    
+          <LoanSchemeTypeTable onEdit={handleEditClick}/>
         </section>
       </PageWrapper>
     </div>

@@ -49,14 +49,14 @@ export const TenantPage: React.FC = () => {
   ];
 
   const handleAddClick = () => {
-  setMode("create");
-  setShowForm(true);
-};
+    setMode("create");
+    setShowForm(true);
+  };
 
-const handleResetClick = () => {
-  tenantHook.onReset();
-  setMode("create");
-};
+  const handleResetClick = () => {
+    tenantHook.onReset();
+    setMode("create");
+  };
 
   const handleCancelClick = () => {
     tenantHook.onCancel();
@@ -64,31 +64,31 @@ const handleResetClick = () => {
     setShowForm(false);
   };
 
- const handleEdit = async (data: TenantType) => {
-  setMode("edit");
-  setShowForm(true);
-  await tenantHook.onEdit(data);
+  const handleEdit = async (data: TenantType) => {
+    setMode("edit");
+    setShowForm(true);
+    await tenantHook.onEdit(data);
 
-  setTimeout(() => {
-    formRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-    });
-  }, 100);
-};
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }, 100);
+  };
 
-const handleView = async (data: TenantType) => {
-  setMode("view");
-  setShowForm(true);
-  await tenantHook.onView(data);
+  const handleView = async (data: TenantType) => {
+    setMode("view");
+    setShowForm(true);
+    await tenantHook.onView(data);
 
-  setTimeout(() => {
-    formRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-    });
-  }, 100);
-};
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }, 100);
+  };
   return (
     <div className="space-y-6">
       <PageWrapper
@@ -124,20 +124,22 @@ const handleView = async (data: TenantType) => {
                 onSubmit={tenantHook.handleSubmit(tenantHook.onSubmit)}
                 onCancel={handleCancelClick}
                 onReset={handleResetClick}
+                setValue={tenantHook.setValue}
+                clearErrors={tenantHook.clearErrors}
                 editId={tenantHook.editId}
                 tenantTypeOptions={tenantHook.tenantTypeOptions}
                 addressTypeOptions={tenantHook.addressTypeOptions}
                 postOfficeOptions={tenantHook.postOfficeOptions}
                 siteFactoryPremiseOptions={tenantHook.siteFactoryPremiseOptions}
                 timeZoneOptions={tenantHook.timeZoneOptions}
-                 watch={tenantHook.watch}
-                 keyValueTable={tenantHook.keyValueTable}
-                 mode={mode}
+                watch={tenantHook.watch}
+                keyValueTable={tenantHook.keyValueTable}
+                mode={mode}
               />
             </div>
           )}
         </section>
-      </PageWrapper>  
+      </PageWrapper>
 
       <PageWrapper
         variant="default"
@@ -152,7 +154,7 @@ const handleView = async (data: TenantType) => {
             data={data}
             isLoading={false}
             refetchTenants={fetchTenants}
-             onView={handleView}
+            onView={handleView}
             onEdit={handleEdit}
             onDeleted={handleDeletedTenant}
           />

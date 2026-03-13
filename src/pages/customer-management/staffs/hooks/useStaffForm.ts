@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { StaffFormData } from "@/types/customer-management/staffs";
@@ -7,6 +7,7 @@ import { staffSchema } from "@/global/validation/customer-management-master/staf
 import {
   useCreateStaffMutation,
   useDeleteStaffMutation,
+  useGetAppUsersQuery,
   useGetStaffDetailsQuery,
 } from "@/global/service/end-points/customer-management/staff";
 import { logger } from "@/global/service/logger";
@@ -32,6 +33,8 @@ export const useStaffFormController = () => {
     setShowForm(true);
   };
   const { data: tableData, refetch, isLoading } = useGetStaffDetailsQuery();
+  const { data: appUsers = [] } = useGetAppUsersQuery();
+
   const [createStaff] = useCreateStaffMutation();
   const [deleteStaff] = useDeleteStaffMutation();
   const reportingPersonOption = tableData?.map(item => {
@@ -42,6 +45,14 @@ export const useStaffFormController = () => {
       code: item.staffCode,
     };
   });
+   const appUserOption = useMemo(
+  () =>
+    appUsers.map(user => ({
+      value: user.identity,
+      label: user.userName, 
+    })),
+  [appUsers]
+);
 
   const appUser = watch("isAppUser");
 
@@ -90,6 +101,9 @@ export const useStaffFormController = () => {
   };
   const handleCancelDelete = () => {
     setShowDeleteModal(false);
+
+   
+
   };
   return {
     tableData,
@@ -110,5 +124,6 @@ export const useStaffFormController = () => {
     isLoading,
     appUser,
     reportingPersonOption,
+    appUserOption,
   };
 };

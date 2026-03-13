@@ -1,7 +1,7 @@
-import { UnitTypeRegistrationPage } from "./unitTypeRegistrationForm";
+import { AdminUnitRegistrationPage } from "../..";
 
 export const BranchRegistrationPage: React.FC = () => (
-  <UnitTypeRegistrationPage
+  <AdminUnitRegistrationPage
     unitTypeCode="BRANCH"
     unitLabel="Branch"
     pagePath="/organization-management-system/branch"

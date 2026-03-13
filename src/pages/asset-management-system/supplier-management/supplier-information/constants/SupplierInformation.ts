@@ -1,30 +1,58 @@
-import type {SupplierInformationType} from "@/types/asset-management-system/supplier-management/supplier-information"
+import type {
+  SupplierInformationType,
+  SupplierContactManagementType,
+  SupplierAssetGroupType,
+  AddressInfoType,
+  BankInfoType,
 
+} from "@/types/asset-management-system/supplier-management/supplier-information"
 
-export const DEFAULT_VALUES: SupplierInformationType = {
-  id: "",
+export const DEFAULT_SUPPLIER_DETAILS: SupplierInformationType = {
   supplierName: "",
   tradeName: "",
- supplierRiskCategory:"",
-
+  supplierRiskCategory: "",
   panNumber: "",
-  panFile: "",
-  panVerification: true,
-
   gstRegistrationType: "",
   gstin: "",
-  gstinFile:"",
-
   msmeRegistrationNo: "",
-  msmeFile:"",
   msmeType: "",
-
   cinOrLlpin: "",
-  cinFile:"",
-
   incorporationDate: "",
-
   contactPersonName: "",
   designation: "",
-  isActive: true,
-};
+  isActive: true
+}
+
+export const DEFAULT_CONTACT: SupplierContactManagementType = {
+  contactType: "",
+  contactValue: "",
+  isActive:true,
+  isPrimary:false,
+}
+export const DEFAULT_ASSET_GROUP: SupplierAssetGroupType = {
+  assetGroup: "",
+  isActive:true,
+}
+export const DEFAULT_ADDRESS: AddressInfoType = {
+  addressLine1: "",
+  addressLine2: "",
+  pincode: "",
+  city: "",
+  state: "",
+  country: ""
+}
+
+export const DEFAULT_BANK: BankInfoType = {
+  bankName: "",
+  branchName: "",
+  accountHolderName: "",
+  accountNumber: "",
+  confirmAccountNumber: "",
+  ifscCode: "",
+  pennyDropVerification: false,//
+  defaultGstRate: "",
+  isTds: true,//
+  tdsSection: "",//
+  tdsRate: "", 
+  isReverseChange: true
+}

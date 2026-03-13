@@ -3,6 +3,7 @@ import { Grid, CommonTable, ConfirmationModal, Button} from "@/components";
 import {
   createColumnHelper,
   getCoreRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -88,11 +89,17 @@ export const LoanAssetClassiTable: React.FC<LoanAssetClassiTableProps> = ({
     [openDeleteModal,onEdit]
   );
 
-  const table = useReactTable({
-    data ,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+ const table = useReactTable({
+  data,
+  columns,
+  getCoreRowModel: getCoreRowModel(),
+  getPaginationRowModel: getPaginationRowModel(),
+  initialState: {
+    pagination: {
+      pageSize: 5,
+    },
+  },
+});
 
   return (
     <>

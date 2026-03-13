@@ -1,25 +1,30 @@
 import React, { useMemo } from "react";
-import { Grid, CommonTable, Button } from "@/components";
-import { Pagination } from "@/components/ui/paginationUp";
+import { Grid, CommonTable, Button, ConfirmationModal } from "@/components";
 
 import {
   createColumnHelper,
   getCoreRowModel,
-  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Pencil, Trash2 } from "lucide-react";
 import { useLoanSchemeTypeTable } from "../Hooks/useLoanSchemeTypeTable";
-import type { LoanSchemeTypeType } from "@/types/customer-management/loan-scheme-type";
+import type { LoanSchemeTypeResponseDto } from "@/types/customer-management/loan-scheme-type";
 
-const columnHelper = createColumnHelper<LoanSchemeTypeType>();
+const columnHelper = createColumnHelper<LoanSchemeTypeResponseDto>();
+interface LoanSchemeTypeTableProps {
+  onEdit: (row: LoanSchemeTypeResponseDto) => void;
 
-export const LoanSchemeTypeTable: React.FC=()  => {
+}
+export const LoanSchemeTypeTable: React.FC<LoanSchemeTypeTableProps>  =( {
+  onEdit,
+  })=> {
   const {
     data,
     isFetching,
+    showDeleteModal,
     openDeleteModal,
-   onEdit,
+    closeDeleteModal,
+    confirmDeleteLoanSchemeType,
   } = useLoanSchemeTypeTable();
 
   const columns = useMemo(
@@ -34,7 +39,7 @@ export const LoanSchemeTypeTable: React.FC=()  => {
         header: "Scheme Type Name",
         size:80
       }),
-      columnHelper.accessor("schemeTypeDescription", {
+      columnHelper.accessor("description", {
         header: "Scheme Type Description",
         size:300
       }),
@@ -60,7 +65,7 @@ export const LoanSchemeTypeTable: React.FC=()  => {
 
       <button
         title="Delete"
-        onClick={() => openDeleteModal(row.original)}
+        onClick={() => openDeleteModal(row.original.identity)}
         className="text-destructive hover:opacity-80"
       >
         <Trash2 size={12} />
@@ -76,13 +81,6 @@ export const LoanSchemeTypeTable: React.FC=()  => {
   data,
   columns,
   getCoreRowModel: getCoreRowModel(),
-  getPaginationRowModel: getPaginationRowModel(),
-  initialState: {
-    pagination: {
-      pageIndex: 0,
-      pageSize: 5,
-    },
-  },
 });
   return (
     <>
@@ -97,6 +95,18 @@ export const LoanSchemeTypeTable: React.FC=()  => {
           />
         </Grid.Item>
       </Grid>
+      
+            <ConfirmationModal
+              isOpen={showDeleteModal}
+              onConfirm={confirmDeleteLoanSchemeType}
+              onCancel={closeDeleteModal}
+              title="Delete Loan Scheme Type"
+              message="Are you sure you want to delete this? This action cannot be undone."
+              confirmText="Delete"
+              cancelText="Cancel"
+              type="error"
+              size="compact"
+            />
     </>
   );
 };
