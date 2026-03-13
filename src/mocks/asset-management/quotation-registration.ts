@@ -1,4 +1,4 @@
-import type { QuotationReqData } from "@/types/asset-management/quotation-registration-type";
+import type { QuotationReqData, QuotationDetailsData } from "@/types/asset-management/quotation-registration-type";
 
 export const QUOTATION_MOCK_DATA: QuotationReqData[] = [
   {
@@ -22,4 +22,24 @@ export const QUOTATION_MOCK_DATA: QuotationReqData[] = [
     quotReqDate: "10-02-2026",
     status: "Quotation Received",
   },
+];
+
+export const SUPPLIER_MOCK_DATA: QuotationDetailsData[] = [
+  {
+   itemName: "A",
+   itemSpec: "A",
+   model:"A",
+   qtyAvailable: 5,
+   qtyReq: 4,
+   uom: "A",
+   unitPrice: 100,
+   amount: 7,
+   sgstPercent: 5,
+   sgst: "5",
+   cgstPercent: 6,
+   cgst: "6",
+   igstPercent: 9,
+   igst: "9"
+  },
+
 ];

@@ -20,7 +20,26 @@ import {
   type UseFormRegister,
 } from "react-hook-form";
 import type { UseFormTrigger } from "react-hook-form";
+import type { contactDetails } from "@/types/organisation/contact-details";
+import { ContactDetailsTable } from "../table/contactDetailsTable";
+import { useState } from "react";
 
+interface ContactDetailsTableState {
+  tableData: contactDetails[]
+  CONTACT_OPTIONS: { label: string; value: string }[]
+  addRow: () => void
+  removeRow: (index: number) => void
+  updateRow: (
+    index: number,
+    field: keyof contactDetails,
+    value: string | number
+  ) => void
+  resetTable: () => void
+  getFilteredOptions: (
+  rowIndex: number,
+  data: contactDetails[]
+) => { label: string; value: string }[] 
+}
 interface AdminUnitRegistrationProps {
   control: Control<AdminUnitDetails>;
   errors: FieldErrors<AdminUnitDetails>;
@@ -49,6 +68,8 @@ interface AdminUnitRegistrationProps {
   setShowPostOfficeDropdown: (value: boolean) => void;
   postOfficeLoading: boolean;
   postOfficeError?: string;
+  contactDetailsTable: ContactDetailsTableState
+
 }
 
 export const AdminUnitRegistrationForm: React.FC<
@@ -75,9 +96,12 @@ export const AdminUnitRegistrationForm: React.FC<
   postOfficeOptions,
   postOfficeLoading,
   postOfficeError,
+  contactDetailsTable,
+  
 }) => {
   const selectedUnitType = watch("adminUnitTypeIdentity");
   const selectedPostOffice = watch("postOfficeIdentity");
+  const [showContactTable, setShowContactTable] = useState(false)
 
   const selectedUnitLabel =
     adminUnitTypeOptions.find(o => o.value === selectedUnitType)?.label ??
@@ -107,10 +131,19 @@ export const AdminUnitRegistrationForm: React.FC<
     const matched = postOfficeOptions.find(o => o.value === value);
     if (matched) onPostOfficeSelect(matched);
   };
+  const handleSaveContacts = () => {
+  console.log(contactDetailsTable.tableData)
+}
 
   return (
     <FormContainer className="px-0">
-      <Form onSubmit={onSubmit}>
+    <Form
+  onSubmit={(e) => {
+    e.preventDefault()
+    onSubmit()
+    setShowContactTable(true)
+  }}
+>
         <div className="mt-2">
           <Form.Row>
             <Form.Col lg={2} md={6} span={12}>
@@ -717,6 +750,13 @@ export const AdminUnitRegistrationForm: React.FC<
                 {isSubmitting ? "Saving..." : "Save"}
               </NeumorphicButton>
             </Flex.ActionGroup>
+           {showContactTable && (
+  <ContactDetailsTable
+    {...contactDetailsTable}
+    onSaveContacts={handleSaveContacts}
+  />
+)}
+            
           </div>
         </section>
       </Form>

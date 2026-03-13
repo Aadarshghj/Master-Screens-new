@@ -15,6 +15,7 @@ import type { AdminUnitDetails } from "@/types/organisation/admin-unit";
 import type { UnitTypeCode } from "./components/hooks/useAdminUnitManagerBase";
 
 import { TABLE_LABELS } from "./constants/ZoneInformationConstants";
+import { useContactDetailsTable } from "./components/hooks/useContactDetailsTable";
 
 interface AdminUnitRegistrationPageProps {
   unitTypeCode: UnitTypeCode;
@@ -60,6 +61,7 @@ export const AdminUnitRegistrationPage: React.FC<
     setValue,
     languageOptions,
   } = useUnitTypeManager(unitTypeCode, editIdentity);
+  const contactDetailsTable = useContactDetailsTable()
 
   const handleFormSubmit = async (data: AdminUnitDetails) => {
     await onSubmit(data);
@@ -163,6 +165,8 @@ export const AdminUnitRegistrationPage: React.FC<
             parentOptions={parentOptions}
             timezoneOptions={timezoneOptions}
             languageOptions={languageOptions}
+            contactDetailsTable={contactDetailsTable}
+
           />
 
           <section className="bg-card mt-10 rounded-xl border p-6 shadow-sm">

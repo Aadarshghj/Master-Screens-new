@@ -6,7 +6,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { Button } from "@/components";
-import { Trash2, Pencil } from "lucide-react";
+import { Trash2, Pencil, Eye } from "lucide-react";
 import type { TenantType } from "@/types/customer-management/tenant";
 import { useTenantTable } from "../Hooks/useTenantTable";
 
@@ -15,6 +15,7 @@ interface TenantTableProps {
   data: TenantType[];
   isLoading: boolean;
   onEdit: (identity: TenantType) => void;
+  onView: (identity: TenantType) => void;
   refetchTenants: () => void;
   onDeleted?: (id: string) => void;
 }
@@ -22,6 +23,7 @@ export const TenantTable: React.FC<TenantTableProps> = ({
   data,
   isLoading = false,
   onEdit,
+  onView,
   refetchTenants,
   onDeleted,
 }) => {
@@ -33,39 +35,43 @@ export const TenantTable: React.FC<TenantTableProps> = ({
   } = useTenantTable(refetchTenants, onDeleted);
   const columns = useMemo(
     () => [
-      columnHelper.accessor("tenantCode", {
-        header: "Tenant Code",
-      }),
       columnHelper.accessor("tenantName", {
         header: "Tenant Name",
       }),
-       columnHelper.accessor("tenantAddress", {
-        header: "Tenant Address",
+      columnHelper.accessor("legalEntityName", {
+        header: "Legal Entity Name",
       }),
-
-      columnHelper.accessor("isActive", {
-        header: "Status",
-        cell: info => {
-          const isActive = Boolean(info.getValue());
-          return (
-            <span
-              className={`text-xs font-medium ${
-                isActive ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {isActive ? "ACTIVE" : "INACTIVE"}
-            </span>
-          );
-        },
+      columnHelper.accessor("tenantType", {
+        header: "Tenant Type",
+      }),
+      columnHelper.accessor("panNumber", {
+        header: "PAN Number",
+      }),
+      columnHelper.accessor("gstNumber", {
+        header: "GST Number",
+      }),
+      columnHelper.accessor("contactNumber", {
+        header: "Contact Number",
+      }),
+      columnHelper.accessor("businessEmail", {
+        header: "Email",
       }),
 
       columnHelper.display({
         id: "actions",
         header: "Actions",
         cell: ({ row }) => {
-
           return (
             <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="xs"
+                onClick={() => onView(row.original)}
+                className="text-primary hover:bg-primary/50 h-6 w-6 p-0"
+                title="View"
+              >
+                <Eye className="h-3 w-3" />
+              </Button>
               <Button
                 variant="ghost"
                 size="xs"

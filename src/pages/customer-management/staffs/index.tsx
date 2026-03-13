@@ -35,6 +35,7 @@ export const StaffPage: React.FC = () => {
     control,
     reportingPersonOption,
     appUser,
+    appUserOption,
   } = formController;
 
   const breadcrumbItems: BreadcrumbItem[] = [
@@ -97,6 +98,7 @@ export const StaffPage: React.FC = () => {
               onCancel={handleHideForm}
               onReset={onReset}
               reportingPersonOption={reportingPersonOption ?? []}
+              appUserOption={appUserOption}
             />
           )}
         </section>

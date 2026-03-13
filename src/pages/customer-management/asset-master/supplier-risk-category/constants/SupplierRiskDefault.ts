@@ -1,4 +1,4 @@
-import type { SupplierRiskType } from "@/types/customer-management/asset-management/supplier-risk";
+import type { SupplierRiskType } from "@/types/customer-management/asset-master/supplier-risk";
 
 export const SUPPLIER_RISK_DEFAULT_VALUE:
   SupplierRiskType = {

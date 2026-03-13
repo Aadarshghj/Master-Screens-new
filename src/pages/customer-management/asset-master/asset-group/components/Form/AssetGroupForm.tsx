@@ -2,14 +2,14 @@ import React from "react";
 import { RotateCcw, Save, X } from "lucide-react";
 import {
   Controller,
-  useWatch,
+  // useWatch,
   type Control,
   type FieldErrors,
   type UseFormRegister,
 } from "react-hook-form";
 
 import { FormContainer } from "@/components/ui/form-container";
-import { Flex, Input, Label, Select, Switch } from "@/components/ui";
+import { Flex, Input, InputWithSearch, Label, Select, Switch } from "@/components/ui";
 import { Form, Textarea } from "@/components";
 import type { AssetGroupType } from "@/types/customer-management/asset-master/asset-group.types";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
@@ -36,8 +36,8 @@ export const AssetGroupForm: React.FC<AssetGroupProps> = ({
   onReset,
   assetTypeOptions,
 }) => {
-  const assetTypeValue = useWatch({ control, name: "assetType" });
-  const enableAssetCode = !!assetTypeValue;
+  // const assetTypeValue = useWatch({ control, name: "assetType" });
+  // const enableAssetCode = !!assetTypeValue;
   return (
     <FormContainer className="px-0">
       <Form onSubmit={onSubmit}>
@@ -46,13 +46,15 @@ export const AssetGroupForm: React.FC<AssetGroupProps> = ({
             <Form.Col lg={3} md={6} span={12}>
               <Form.Field
                 label="Asset Group Code"
-                disabled={!enableAssetCode}
+                required
+                // disabled={!enableAssetCode}
                 error={errors.assetCode}
               >
                 <Input
                   {...register("assetCode")}
-                  placeholder="Enter Asset Code"
-                  disabled={!enableAssetCode}
+                  placeholder=" Enter Asset Group Code"
+                  // disabled={!enableAssetCode}
+                  // disabled
                   size="form"
                   variant="form"
                   className="uppercase"
@@ -106,9 +108,9 @@ export const AssetGroupForm: React.FC<AssetGroupProps> = ({
                 required
                 error={errors.postingGL}
               >
-                <Input
+                <InputWithSearch
                   {...register("postingGL")}
-                  placeholder="Enter Asset Posting GL"
+                  placeholder="Search Asset Posting GL"
                   size="form"
                   variant="form"
                   className="uppercase"
@@ -139,6 +141,7 @@ export const AssetGroupForm: React.FC<AssetGroupProps> = ({
                       <Switch
                         checked={!!field.value}
                         onCheckedChange={field.onChange}
+                        disabled
                       />
                     )}
                   />
@@ -147,6 +150,7 @@ export const AssetGroupForm: React.FC<AssetGroupProps> = ({
               </Flex>
             </Form.Col>
           </Form.Row>
+         
 
           <Flex.ActionGroup className="mt-2 justify-end gap-4">
             <NeumorphicButton
@@ -178,7 +182,7 @@ export const AssetGroupForm: React.FC<AssetGroupProps> = ({
               disabled={isSubmitting}
             >
               <Save className="h-3 w-3" />
-              {isSubmitting ? "Saving..." : "Save Designation"}
+              {isSubmitting ? "Saving..." : "Save Asset Group"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>

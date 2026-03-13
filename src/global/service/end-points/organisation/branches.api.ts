@@ -184,7 +184,20 @@ export const branchesApiService = apiInstance.injectEndpoints({
       query: () => ({ url: branches.getNextBranchCode(), method: "GET" }),
       keepUnusedDataFor: 0,
     }),
+   getChannel: build.query<Option[], void>({
+  query: () => ({ url: branches.getChannel(), method: "GET" }),
+  transformResponse: (
+    res: { identity: string; contactType: string; isActive: boolean }[]
+  ): Option[] =>
+    res
+      .filter(item => item.isActive && item.contactType !== "WHATSAPP")
+      .map(item => ({
+        label: item.contactType,
+        value: item.contactType,
+      })),
+}),
   }),
+
 });
 
 export const {
@@ -212,4 +225,5 @@ export const {
   useGetLanguagesQuery,
   useGetNextBranchCodeQuery,
   useLazyGetNextBranchCodeQuery,
+  useGetChannelQuery,
 } = branchesApiService;

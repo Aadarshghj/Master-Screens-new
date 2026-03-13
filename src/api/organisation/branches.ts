@@ -21,4 +21,5 @@ export const branches = {
   getTimezoneById: (id: string) => `/api/v1/master/timezones/${id}`,
   getPermissionTypes: () => "/api/v1/master/permission-types",
   getNextBranchCode: () => "/api/v1/master/branches/next-code",
+  getChannel: ()=> "/api/v1/master/contact-types",
 };

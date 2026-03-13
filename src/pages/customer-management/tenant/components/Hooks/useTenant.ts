@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useForm, type Resolver } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TENANT_DEFAULT_VALUES } from "../../constants/TenantDefault";
 import type {
@@ -14,9 +14,18 @@ import {
 import { tenantSchema } from "@/global/validation/customer-management-master/tenant";
 import toast from "react-hot-toast";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import {
+  POST_OFFICE_OPTIONS,
+  SITE_FACTORY_PREMISES_OPTIONS,
+  TENANT_ADDRESS_TYPE_OPTIONS,
+  TENANT_TYPE_OPTIONS,
+  TIME_ZONE_OPTIONS,
+} from "@/mocks/customer-management-master/tenant";
+import { useKeyValueTable } from "./useKeyValueTable";
 
 export const useTenant = () => {
   const [editId, setEditId] = useState<string | null>(null);
+  const keyValueTable = useKeyValueTable();
 
   const {
     control,
@@ -24,10 +33,11 @@ export const useTenant = () => {
     handleSubmit,
     reset,
     setError,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<TenantType>({
     defaultValues: TENANT_DEFAULT_VALUES,
-    resolver: yupResolver(tenantSchema) as Resolver<TenantType>,
+    resolver: yupResolver(tenantSchema),
     mode: "onChange",
   });
 
@@ -40,8 +50,8 @@ export const useTenant = () => {
       const payload: TenantRequestDto = {
         tenantName: data.tenantName,
         tenantCode: data.tenantCode,
-        isActive: data.isActive,
-        tenantAddress: data.tenantAddress
+        tenantAddress: "",
+        isActive: true,
       };
 
       try {
@@ -55,7 +65,7 @@ export const useTenant = () => {
 
         reset(TENANT_DEFAULT_VALUES);
         setEditId(null);
-    } catch (error) {
+      } catch (error) {
         let backendMessage = "Operation failed";
         let errorCode: string | undefined;
 
@@ -111,20 +121,28 @@ export const useTenant = () => {
   );
 
   const onEdit = async (tenant: TenantType) => {
-  const freshData = await fetchTenantById(tenant.id).unwrap();
-  reset(freshData);
-  setEditId(freshData.id);
-};
+    const freshData = await fetchTenantById(tenant.id).unwrap();
+    reset(freshData);
+    setEditId(freshData.id);
+  };
+
+  const onView = async (tenant: TenantType) => {
+    const freshData = await fetchTenantById(tenant.id).unwrap();
+    reset(freshData);
+    setEditId(freshData.id);
+  };
 
   const onCancel = useCallback(() => {
     reset(TENANT_DEFAULT_VALUES);
+    keyValueTable.resetTable();
     setEditId(null);
   }, [reset]);
 
   const onReset = useCallback(() => {
     reset(TENANT_DEFAULT_VALUES);
+    keyValueTable.resetTable();
     setEditId(null);
-  }, [reset]);
+  }, [reset, keyValueTable]);
 
   return {
     control,
@@ -135,9 +153,17 @@ export const useTenant = () => {
     handleDeletedTenant,
     onSubmit,
     onEdit,
+    onView,
+    tenantTypeOptions: TENANT_TYPE_OPTIONS,
+    addressTypeOptions: TENANT_ADDRESS_TYPE_OPTIONS,
+    postOfficeOptions: POST_OFFICE_OPTIONS,
+    siteFactoryPremiseOptions: SITE_FACTORY_PREMISES_OPTIONS,
+    timeZoneOptions: TIME_ZONE_OPTIONS,
     onCancel,
     onReset,
     reset,
     editId,
+    watch,
+    keyValueTable,
   };
 };

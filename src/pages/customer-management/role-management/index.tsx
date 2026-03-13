@@ -11,18 +11,14 @@ import { RoleManagementForm } from "./components/Form/RoleManagementForm";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 import { RoleManagementTable } from "./components/Table/RoleManagementTable";
 import { useRoleManagement } from "./components/Hooks/useRoleManagement";
-import { useLazyGetRoleByIdQuery } from "@/global/service/end-points/customer-management/role-management";
 import type { RoleManagementType } from "@/types/customer-management/role-management";
 
 export const RoleManagementPage: React.FC = () => {
   const navigate = useNavigate();
   const [showForm, setShowform] = useState(false);
-  const formRef = useRef<HTMLDivElement | null>(null);
   const [selectedRow, setSelectedRow] = useState<RoleManagementType | null>(
     null
   );
-
-  const [fetchRoleById] = useLazyGetRoleByIdQuery();
 
   const {
     control,
@@ -47,31 +43,6 @@ export const RoleManagementPage: React.FC = () => {
     setShowform(false);
   };
 
-  const onEdit = async (data: RoleManagementType) => {
-    try {
-      const response = await fetchRoleById(data.identity).unwrap();
-
-      const result = Array.isArray(response) ? response[0] : response;
-
-      if (!result) {
-        console.error("No record found");
-        return;
-      }
-
-      setSelectedRow(result);
-      setShowform(true);
-      reset(result);
-
-      requestAnimationFrame(() => {
-        formRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "end",
-        });
-      });
-    } catch (error) {
-      console.error("Failed to fetch record:", error);
-    }
-  };
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", href: "/", onClick: () => navigate("/") },
@@ -120,7 +91,15 @@ export const RoleManagementPage: React.FC = () => {
               register={register}
               errors={errors}
               isSubmitting={isSubmitting}
-              onSubmit={handleSubmit(onSubmit)}
+              onSubmit={handleSubmit(
+                (data) => {
+                  console.log("VALID DATA:", data);
+                  onSubmit(data);
+                },
+                (errors) => {
+                  console.log("VALIDATION ERRORS:", errors);
+                }
+              )}
               onCancel={handleCancelClick}
               onReset={onReset}
               isEdit={!!selectedRow}
@@ -139,7 +118,9 @@ export const RoleManagementPage: React.FC = () => {
         <section className="p-4 lg:p-8 xl:p-10">
           <TitleHeader className="pb-4" title="List of Roles" />
 
-          <RoleManagementTable onEdit={onEdit} />
+          <RoleManagementTable onEdit={function (identity: RoleManagementType): void {
+            throw new Error("Function not implemented.");
+          } }/>
         </section>
       </PageWrapper>
     </div>

@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-table";
 import { Pencil } from "lucide-react";
 import { useAssetGroupTable } from "../Hooks/useAssetGroupTable";
-import type { AssetGroupType } from "@/types/asset-management/asset-group.types";
+import type { AssetGroupType } from "@/types/customer-management/asset-master/asset-group.types";
 
 const columnHelper = createColumnHelper<AssetGroupType>();
 

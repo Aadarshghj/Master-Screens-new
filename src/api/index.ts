@@ -27,7 +27,7 @@ import { bank } from "./customer-management/bank";
 import { firmType } from "./customer-management/firm-type";
 import { sectoralPerformances } from "./customer-management/sectoral-performances";
 import { firmRole } from "./customer-management/firm-role";
-import { staff } from "./customer-management/staff";
+import { appUsers, staff } from "./customer-management/staff";
 import { sourceOfIncome } from "./customer-management/source-of-income";
 import { branchContact } from "./customer-management/branch-contact";
 import { customerCategory } from "./customer-management/customer-category";
@@ -98,6 +98,7 @@ export const api = {
   loanSchemeType,
   menuDetails,
   modules,
+  appUsers,
   riskAssessmentType,
   branchType,
   designationRoleMapping,

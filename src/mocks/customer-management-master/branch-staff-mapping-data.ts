@@ -5,31 +5,36 @@ export const MOCK_BRANCH: Branch[] = [
     id: "b1",
     branchName: "Kakkanad - Info",
     branchCode: "B-001",
-    adminUnitTypeIdentity: "mock-branch-type",
+    adminUnitTypeIdentity: " ",
+    adminUnitTypeName:""
   },
   {
     id: "b2",
     branchName: "Edappally - Info",
     branchCode: "B-002",
-    adminUnitTypeIdentity: "mock-branch-type",
+    adminUnitTypeIdentity: " ",
+     adminUnitTypeName:""
   },
   {
     id: "b3",
     branchName: "Fort Kochi - Info",
     branchCode: "B-003",
-    adminUnitTypeIdentity: "mock-branch-type",
+    adminUnitTypeIdentity: " ",
+     adminUnitTypeName:""
   },
   {
     id: "b4",
     branchName: "Aluva - Info",
     branchCode: "B-004",
-    adminUnitTypeIdentity: "mock-branch-type",
+    adminUnitTypeIdentity: " ",
+     adminUnitTypeName:""
   },
   {
     id: "b5",
     branchName: "Vyttila - Info",
     branchCode: "B-005",
-    adminUnitTypeIdentity: "mock-branch-type",
+    adminUnitTypeIdentity: " ",
+     adminUnitTypeName:""
   },
 ];
 
