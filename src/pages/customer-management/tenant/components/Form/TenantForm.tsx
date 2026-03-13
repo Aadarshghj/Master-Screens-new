@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { RotateCcw, Save, X } from "lucide-react";
 import {
   Controller,
   type Control,
   type FieldErrors,
+  type UseFormClearErrors,
   type UseFormRegister,
+  type UseFormSetValue,
   type UseFormWatch,
 } from "react-hook-form";
 import { FormContainer } from "@/components/ui/form-container";
@@ -29,6 +31,8 @@ interface TenantProps {
   errors: FieldErrors<TenantType>;
   register: UseFormRegister<TenantType>;
   watch: UseFormWatch<TenantType>;
+   setValue: UseFormSetValue<TenantType>;
+  clearErrors: UseFormClearErrors<TenantType>;
   isSubmitting: boolean;
   onSubmit: () => void;
   onCancel: () => void;
@@ -52,6 +56,8 @@ export const TenantForm: React.FC<TenantProps> = ({
   onSubmit,
   onCancel,
   onReset,
+  setValue,
+  clearErrors,
   tenantTypeOptions,
   addressTypeOptions,
   postOfficeOptions,
@@ -62,6 +68,14 @@ export const TenantForm: React.FC<TenantProps> = ({
   editId,
 }) => {
   const tenantTypeValue = watch("tenantType");
+
+useEffect(() => {
+  if (tenantTypeValue?.toLowerCase() !== "nbfc") {
+    setValue("rbiRegistrationNumber", "");
+    clearErrors("rbiRegistrationNumber");
+  }
+}, [tenantTypeValue, setValue, clearErrors]);
+
   const selectedFile = watch("chooseFile");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const isViewMode = mode === "view";
@@ -72,14 +86,18 @@ export const TenantForm: React.FC<TenantProps> = ({
         <div className="mt-2">
           <Form.Row className="mb-3">
             <Form.Col lg={2} md={6} span={12}>
-              <Form.Field label="Tenant Code" error={errors.tenantCode}>
+              <Form.Field
+                label="Tenant Code"
+                required
+                error={errors.tenantCode}
+              >
                 <Input
                   {...register("tenantCode")}
                   onInput={(e: React.FormEvent<HTMLInputElement>) => {
                     const input = e.currentTarget;
                     input.value = input.value.replace(/[^A-Za-z0-9_]/g, "");
                   }}
-                  placeholder="Enter Code"
+                  placeholder="Enter Tenant Code"
                   size="form"
                   variant="form"
                   className="uppercase"
@@ -98,7 +116,7 @@ export const TenantForm: React.FC<TenantProps> = ({
                 <Input
                   {...register("tenantName")}
                   readOnly={isViewMode}
-                  placeholder="Enter Name"
+                  placeholder="Enter Tenant Name"
                   size="form"
                   variant="form"
                   className="uppercase"
@@ -116,7 +134,7 @@ export const TenantForm: React.FC<TenantProps> = ({
                 <Input
                   {...register("legalEntityName")}
                   readOnly={isViewMode}
-                  placeholder="Enter Name"
+                  placeholder="Enter Legal Entity Name"
                   size="form"
                   variant="form"
                   className="uppercase"
@@ -163,12 +181,16 @@ export const TenantForm: React.FC<TenantProps> = ({
                 <Input
                   {...register("registrationNo")}
                   readOnly={isViewMode}
-                  placeholder="Enter Number"
+                  placeholder="Enter Registration Number"
                   size="form"
                   variant="form"
                   className="uppercase"
                   textTransform="uppercase"
                   maxLength={50}
+                  onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                    const input = e.currentTarget;
+                    input.value = input.value.replace(/[^A-Za-z0-9\/\-.]/g, "");
+                  }}
                 />
               </Form.Field>
             </Form.Col>
@@ -183,11 +205,18 @@ export const TenantForm: React.FC<TenantProps> = ({
               >
                 <Input
                   {...register("rbiRegistrationNumber")}
-                  placeholder="Enter Number"
+                  placeholder="Enter RBI Registration Number"
                   size="form"
                   variant="form"
                   className="uppercase"
                   textTransform="uppercase"
+                  maxLength={50}
+                  onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                    const input = e.currentTarget;
+                    input.value = input.value
+                      .toUpperCase()
+                      .replace(/[^A-Z0-9/.-]/g, "");
+                  }}
                 />
               </Form.Field>
             </Form.Col>
@@ -202,6 +231,12 @@ export const TenantForm: React.FC<TenantProps> = ({
                   className="uppercase"
                   textTransform="uppercase"
                   maxLength={10}
+                  onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                    const input = e.currentTarget;
+                    input.value = input.value
+                      .toUpperCase()
+                      .replace(/[^A-Z0-9]/g, "");
+                  }}
                 />
               </Form.Field>
             </Form.Col>
@@ -216,6 +251,12 @@ export const TenantForm: React.FC<TenantProps> = ({
                   className="uppercase"
                   textTransform="uppercase"
                   maxLength={15}
+                  onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                    const input = e.currentTarget;
+                    input.value = input.value
+                      .toUpperCase()
+                      .replace(/[^A-Z0-9]/g, "");
+                  }}
                 />
               </Form.Field>
             </Form.Col>
@@ -229,7 +270,13 @@ export const TenantForm: React.FC<TenantProps> = ({
                   variant="form"
                   className="uppercase"
                   textTransform="uppercase"
-                  maxLength={15}
+                  maxLength={21}
+                  onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                    const input = e.currentTarget;
+                    input.value = input.value
+                      .toUpperCase()
+                      .replace(/[^A-Z0-9]/g, "");
+                  }}
                 />
               </Form.Field>
             </Form.Col>
@@ -278,11 +325,15 @@ export const TenantForm: React.FC<TenantProps> = ({
               >
                 <Input
                   {...register("businessEmail")}
-                  placeholder="Enter business email"
+                  placeholder="Enter Business Email"
                   size="form"
                   variant="form"
                   className="email"
                   maxLength={100}
+                  onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                    const input = e.currentTarget;
+                    input.value = input.value.toLowerCase();
+                  }}
                 />
               </Form.Field>
             </Form.Col>

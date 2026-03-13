@@ -11,6 +11,7 @@ export const apiInstance = createApi({
     "Tenant",
     "AdminUnitType",
     "ModuleMgmt",
+    "OrnamentName",
     "CustomerPhoto",
     "Customer",
     "Photo",
@@ -94,7 +95,8 @@ export const apiInstance = createApi({
     "BranchStaffMapping",
     "Branch",
     "Staff",
-    "MenuSubMenu"
+    "MenuSubMenu",
+    "LoanAssetClassification"
     ],
 
   endpoints: () => ({}),

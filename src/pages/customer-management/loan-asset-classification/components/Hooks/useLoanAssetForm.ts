@@ -6,10 +6,12 @@ import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import type { AssetClassificationType, LoanAssetRequestDto } from "@/types/customer-management/loan-asset-classification";
 import { LOAN_ASSET_DEFAULT_VALUES } from "../../constants/LoanAssetDefault";
 import { LoanAssetClassifictionSchema } from "@/global/validation/customer-management-master/loan-asset";
+import { useSaveLoanAssetClassiMutation, useUpdateLoanAssetClassiMutation } from "@/global/service/end-points/customer-management/loan-asset-classification";
 
 export const useLoanAsset = (editData ?:AssetClassificationType) => {
 
-
+const[saveLoanAssetClassi]=useSaveLoanAssetClassiMutation();
+const[updateLoanAssetClassi]=useUpdateLoanAssetClassiMutation();
   const {
     control,
     register,
@@ -25,22 +27,23 @@ export const useLoanAsset = (editData ?:AssetClassificationType) => {
   
  const onSubmit = useCallback(
   async (data: AssetClassificationType) => {
-    const name = data.assetClassiName.toUpperCase();
+    const name = data.assetClassificationName.toUpperCase();
 
     const payload: LoanAssetRequestDto = {
-      assetClassiName: name,
+      assetClassificationName: name,
       description: data.description,
       isActive: data.isActive,
     };
 
     try {
       if (data.identity) {
-        await ({
+        await updateLoanAssetClassi({
           identity: data.identity.toString(),
           payload,
-        });
+        }).unwrap();
         toast.success(`${name} updated successfully`);
       } else {
+        await saveLoanAssetClassi(payload).unwrap();
         toast.success(`${name} added successfully`);
       }
       reset(LOAN_ASSET_DEFAULT_VALUES);
@@ -57,7 +60,7 @@ export const useLoanAsset = (editData ?:AssetClassificationType) => {
       toast.error(message ?? `Failed to save ${name}`);
     }
   },
-  [reset]
+  [reset,updateLoanAssetClassi,saveLoanAssetClassi]
 );
     
 const onCancel = useCallback( () => {

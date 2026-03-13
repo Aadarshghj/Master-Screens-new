@@ -3,7 +3,7 @@ export interface QuotationFilter {
     status: string;
 }
 
-export interface StatusOptions {
+export interface Options {
     value: string;
     label: string;
 }
@@ -49,8 +49,8 @@ export interface QuotationDetailsData {
 }
 
 export interface OtherChargesData {
-    chargeName: string;
-    chargeAmount: number;
+  chargeName: string;
+  chargeAmount: number | string;
 }
 
 export interface Terms {
@@ -59,5 +59,5 @@ export interface Terms {
 }
 
 export interface UploadQuot {
-    uploadQuot: File;
+    uploadQuot: File | null;
 }

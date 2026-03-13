@@ -32,10 +32,9 @@ export const TenantKeyValueTable: React.FC<TenantKeyValueTableProps> = ({
           <Input
             value={row.original.key}
             onChange={e => updateCell(row.index, "key", e.target.value)}
-            placeholder="Enter Attribute Key"
             size="form"
             variant="form"
-            className="w-48"
+            className="w-56"
           />
         ),
       }),
@@ -46,10 +45,9 @@ export const TenantKeyValueTable: React.FC<TenantKeyValueTableProps> = ({
           <Input
             value={row.original.value}
             onChange={e => updateCell(row.index, "value", e.target.value)}
-            placeholder="Enter Attribute Value"
             size="form"
             variant="form"
-            className="w-48"
+            className="w-56"
           />
         ),
       }),
@@ -66,16 +64,16 @@ export const TenantKeyValueTable: React.FC<TenantKeyValueTableProps> = ({
   return (
     <Grid>
       <Grid.Item>
-        <section className="flex items-start gap-3">
-          <section className="border-border w-[500px] rounded-md border">
+        <div className="flex items-start gap-3">
+          <div className="border-border w-[500px] rounded-md border">
             <CommonTable
               table={table}
               size="default"
-              noDataText="Click + to add"
+              noDataText="Click + to add row"
             />
-          </section>
+          </div>
 
-          <section className="mt-2 flex flex-row gap-2">
+          <div className="mt-2 flex flex-row gap-2">
             <Button
               type="button"
               variant="solid"
@@ -98,8 +96,8 @@ export const TenantKeyValueTable: React.FC<TenantKeyValueTableProps> = ({
             >
               <Minus className="h-4 w-4" />
             </Button>
-          </section>
-        </section>
+          </div>
+        </div>
       </Grid.Item>
     </Grid>
   );

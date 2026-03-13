@@ -6,7 +6,7 @@ export const LoanAssetClassifictionSchema =  yup.object({
 identity:yup
 .string(),
 
-    assetClassiName:yup
+    assetClassificationName:yup
     .string()
     .required("Asset Classification Name is required")
     .max(30,"Maximum 30 characters allowed")
@@ -22,7 +22,7 @@ identity:yup
 description: yup
   .string()
   .notRequired()
-  .max(40, "Maximum 40 characters allowed"),
+  .max(150, "Maximum 150 characters allowed"),
   
 
 isActive:yup

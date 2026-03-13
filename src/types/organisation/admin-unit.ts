@@ -190,6 +190,11 @@ export interface AdminUnitDetails {
   closingDate?: string | null;
   dateOfShift?: string | null;
 
+  landline: string;
+  mobileNumber1: string;
+  mobileNumber2: string;
+  email: string;
+
   doorNumber?: string;
   addressLine1?: string;
   addressLine2?: string;

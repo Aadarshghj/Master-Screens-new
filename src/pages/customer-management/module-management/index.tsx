@@ -58,7 +58,6 @@ export const ModuleMgmtPage: React.FC = () => {
 
   const handleHideForm = () => {
     onCancel();
-    // setIsEdit(false);
     setSelectedRow(null);
     setShowForm(false);
   };

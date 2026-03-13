@@ -143,6 +143,10 @@ const BLANK_FORM: AdminUnitDetails = {
   ddIssueAllowed: false,
   ttIssueAllowed: false,
   dedicatedIssueOperations: "",
+  landline: "",
+  mobileNumber1: "",
+  mobileNumber2: "",
+  email: ""
 };
 
 export const UNIT_TYPE_CODES_WITH_PAGES = [

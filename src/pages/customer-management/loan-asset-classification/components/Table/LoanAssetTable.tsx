@@ -3,13 +3,13 @@ import { Grid, CommonTable, ConfirmationModal, Button} from "@/components";
 import {
   createColumnHelper,
   getCoreRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
 import { Pencil, Trash2 } from "lucide-react";
 import type { AssetClassificationType } from "@/types/customer-management/loan-asset-classification";
 import { useLoanAssetClassificationTable } from "../Hooks/useLoanAssetTable";
-import { LOAN_ASSET } from "@/mocks/customer-management-master/loan-asset-classification";
 import { Pagination } from "@/components/ui/paginationUp";
 
 
@@ -22,7 +22,7 @@ export const LoanAssetClassiTable: React.FC<LoanAssetClassiTableProps> = ({
   onEdit,
 })=>{
    const {
-    //   data,
+      data,
       showDeleteModal,
       openDeleteModal,
       closeDeleteModal,
@@ -39,7 +39,7 @@ export const LoanAssetClassiTable: React.FC<LoanAssetClassiTableProps> = ({
         cell: ({ row }) => row.index + 1,
       }),
 
-      columnHelper.accessor("assetClassiName", {
+      columnHelper.accessor("assetClassificationName", {
         header: "Asset Classification Name ",
       }),
 
@@ -89,11 +89,17 @@ export const LoanAssetClassiTable: React.FC<LoanAssetClassiTableProps> = ({
     [openDeleteModal,onEdit]
   );
 
-  const table = useReactTable({
-    data : LOAN_ASSET,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+ const table = useReactTable({
+  data,
+  columns,
+  getCoreRowModel: getCoreRowModel(),
+  getPaginationRowModel: getPaginationRowModel(),
+  initialState: {
+    pagination: {
+      pageSize: 5,
+    },
+  },
+});
 
   return (
     <>
@@ -108,9 +114,9 @@ export const LoanAssetClassiTable: React.FC<LoanAssetClassiTableProps> = ({
         </Grid.Item>
       </Grid>
 {table.getRowModel().rows.length > 0 && table.getPageCount() > 0 && (
-  <div className="mt-4 flex items-center justify-between text-sm">
+  <div className="mt-4 flex items-center justify-end text-sm">
 
-    <div className="text-muted-foreground whitespace-nowrap">
+    {/* <div className="text-muted-foreground whitespace-nowrap">
       Showing {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} to{" "}
       {Math.min(
         (table.getState().pagination.pageIndex + 1) *
@@ -118,9 +124,9 @@ export const LoanAssetClassiTable: React.FC<LoanAssetClassiTableProps> = ({
         table.getFilteredRowModel().rows.length
       )}{" "}
       of {table.getFilteredRowModel().rows.length} entries
-    </div>
+    </div> */}
 
-    <div className="flex items-center gap-3">
+    <div className="flex items-center  gap-3">
       <Pagination
         currentPage={table.getState().pagination.pageIndex}
         totalPages={table.getPageCount()}
