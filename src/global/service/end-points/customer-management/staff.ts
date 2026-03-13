@@ -1,4 +1,5 @@
 import type {
+  AppUsersResponseDto,
   StaffData,
   StaffFormData,
 } from "@/types/customer-management/staffs";
@@ -28,11 +29,20 @@ export const staffApiService = apiInstance.injectEndpoints({
       }),
       invalidatesTags: ["Staff"],
     }),
-  }),
+
+       getAppUsers: build.query<AppUsersResponseDto[], void>({
+        query: () => ({
+          url: api.appUsers.get(),
+          method: "GET",
+        }),
+      }),
+      
+        }),
 });
 
 export const {
   useCreateStaffMutation,
   useGetStaffDetailsQuery,
   useDeleteStaffMutation,
+  useGetAppUsersQuery,
 } = staffApiService;

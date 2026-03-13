@@ -19,3 +19,13 @@ export interface StaffFormData {
   isAppUser: boolean;
   appUserRefId: string;
 }
+export interface Option {
+  value: string;
+  label: string;
+}
+
+export interface AppUsersResponseDto {
+  identity: string;
+  userName: string;
+}
+

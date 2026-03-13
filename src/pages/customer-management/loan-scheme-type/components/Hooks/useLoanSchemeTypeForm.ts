@@ -2,14 +2,17 @@ import { useCallback } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type {
+  LoanSchemeTypeRequestDto,
   LoanSchemeTypeType
 } from "@/types/customer-management/loan-scheme-type";
 import { logger } from "@/global/service";
 import { loanSchemeTypeSchema } from "@/global/validation/customer-management-master/loan-scheme-type";
 import { DEFAULT_VALUES } from "../../constants/LoanSchemeTypeDefaults";
+import { useSaveLoanSchemeTypeMutation, useUpdateLoanSchemeTypeMutation } from "@/global/service/end-points/customer-management/loan-scheme-type";
 
 export const useLoanSchemeTypeForm = () => {
-
+const [saveLoanSchemeType] = useSaveLoanSchemeTypeMutation();
+const [updateLoanSchemeType] = useUpdateLoanSchemeTypeMutation();
   const {
     control,
     register,
@@ -22,20 +25,21 @@ export const useLoanSchemeTypeForm = () => {
     mode: "onBlur",
   });
 
-  const onSubmit = useCallback(
-    async (data: LoanSchemeTypeType) => {
-      
-      try {
-        logger.info("Form submitted successfully", { toast: true });
-        console.log("Data:" ,data);
-        
-        reset(DEFAULT_VALUES);
-      } catch (error) {
-        logger.error(error, { toast: true });
-      }
-    },
-    [ reset]
-  );
+const onSubmit = async (data: LoanSchemeTypeType) => {
+  try {
+    if (data.id) {
+      await updateLoanSchemeType(data).unwrap();
+      logger.info("Updated successfully", { toast: true });
+    } else {
+      await saveLoanSchemeType(data).unwrap();
+      logger.info("Saved successfully", { toast: true });
+    }
+
+    reset();
+  } catch (err) {
+    logger.error(err, { toast: true });
+  }
+};
 
   const onCancel = useCallback(() => {
     reset(DEFAULT_VALUES);
@@ -54,5 +58,6 @@ export const useLoanSchemeTypeForm = () => {
     onSubmit,
     onCancel,
     onReset,
+    reset,
   };
 };

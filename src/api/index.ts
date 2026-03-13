@@ -27,7 +27,7 @@ import { bank } from "./customer-management/bank";
 import { firmType } from "./customer-management/firm-type";
 import { sectoralPerformances } from "./customer-management/sectoral-performances";
 import { firmRole } from "./customer-management/firm-role";
-import { staff } from "./customer-management/staff";
+import { appUsers, staff } from "./customer-management/staff";
 import { sourceOfIncome } from "./customer-management/source-of-income";
 import { branchContact } from "./customer-management/branch-contact";
 import { customerCategory } from "./customer-management/customer-category";
@@ -50,6 +50,7 @@ import { menuSubmenu } from "./customer-management/create-manage-menu-submenu.ts
 import { BranchStaffMapping } from "./customer-management/branch-staff-api.ts";
 import { subModule } from "./customer-management/sub-module";
 import { moduleApi } from "./customer-management/sub-module";
+import { loanSchemeType } from "./customer-management/loan-scheme-type.ts";
 import { ornamentName, ornamentType } from "./customer-management/ornament-name.ts";
 import { LoanAssetClassifiApi} from "./customer-management/loan-asset-classification.ts";
 
@@ -98,8 +99,10 @@ export const api = {
   roleManagement,
   userReg,
   menuModuleMapping,
+  loanSchemeType,
   menuDetails,
   modules,
+  appUsers,
   riskAssessmentType,
   branchType,
   designationRoleMapping,
