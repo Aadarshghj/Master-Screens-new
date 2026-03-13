@@ -31,7 +31,7 @@ export const QuotationFilterForm: React.FC<QuotationFilterFormProps> = ({
       <Form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-2">
           <Form.Row>
-            <Form.Col lg={2} md={6} span={9}>
+            <Form.Col lg={2} md={6} span={12}>
               <Form.Field label="Request ID" error={errors.reqId}>
                 <Controller
                   control={control}
