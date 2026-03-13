@@ -1,15 +1,15 @@
 import React from "react";
-import { 
-  Controller, 
+import {
+  Controller,
   type Control,
-  type FieldErrors, 
-  type UseFormRegister, 
+  type FieldErrors,
+  type UseFormRegister,
 } from "react-hook-form";
 
 import { FormContainer } from "@/components/ui/form-container";
 import { Input, InputWithSearch, DatePicker } from "@/components/ui";
 import { Form } from "@/components";
-import type { SupplierDetails } from "@/types/asset-management/quotation-registration-type";
+import type { SupplierDetails } from "@/types/asset-management-system/quotation-registration-type";
 
 interface SupplierDetailsFormProps {
   control: Control<SupplierDetails>;
@@ -25,10 +25,10 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsFormProps> = ({
   control,
   errors,
   register,
-//   isSubmitting,
+  //   isSubmitting,
   onSubmit,
-//   onCancel,
-//   onReset,
+  //   onCancel,
+  //   onReset,
 }) => {
   return (
     <FormContainer className="px-0">
@@ -36,15 +36,13 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsFormProps> = ({
         <div className="mt-2">
           <Form.Row className="py-2">
             <Form.Col lg={2} md={6} span={12}>
-                <Form.Field label="Supplier Name" error={errors.supplierName}
-                >
-                  <InputWithSearch
-                    placeholder="Select Supplier Name"
-                    size="form"
-                    variant="form"
-                    
-                  />
-                </Form.Field>
+              <Form.Field label="Supplier Name" error={errors.supplierName}>
+                <InputWithSearch
+                  placeholder="Select Supplier Name"
+                  size="form"
+                  variant="form"
+                />
+              </Form.Field>
             </Form.Col>
 
             <Form.Col lg={2} md={3} span={12}>
@@ -65,32 +63,32 @@ export const SupplierDetailsForm: React.FC<SupplierDetailsFormProps> = ({
             </Form.Col>
 
             <Form.Col lg={2} md={6} span={12}>
-             <Form.Field
-              label="Leave From"
-              error={errors.quotationDate}
-              required
-            >
-              <Controller
-                name="quotationDate"
-                control={control}
-                render={({ field }) => (
-                  <DatePicker
-                    value={field.value || undefined}
-                    onChange={(value: string) => {
-                      field.onChange(value);
-                      // trigger?.("leaveFrom");
-                    }}
-                    onBlur={() => field.onBlur()}
-                    placeholder="dd/mm/yyyy"
-                    allowManualEntry={true}
-                    size="form"
-                    variant="form"
-                    disableFutureDates={false}
-                  />
-                )}
-              />
-            </Form.Field>
-          </Form.Col>
+              <Form.Field
+                label="Leave From"
+                error={errors.quotationDate}
+                required
+              >
+                <Controller
+                  name="quotationDate"
+                  control={control}
+                  render={({ field }) => (
+                    <DatePicker
+                      value={field.value || undefined}
+                      onChange={(value: string) => {
+                        field.onChange(value);
+                        // trigger?.("leaveFrom");
+                      }}
+                      onBlur={() => field.onBlur()}
+                      placeholder="dd/mm/yyyy"
+                      allowManualEntry={true}
+                      size="form"
+                      variant="form"
+                      disableFutureDates={false}
+                    />
+                  )}
+                />
+              </Form.Field>
+            </Form.Col>
 
             <Form.Col lg={3} md={3} span={12}>
               <Form.Field

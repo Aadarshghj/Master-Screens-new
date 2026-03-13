@@ -5,23 +5,51 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { QuotationDetailsData } from "@/types/asset-management/quotation-registration-type";
-import { SUPPLIER_MOCK_DATA } from "@/mocks/asset-management/quotation-registration";
+import type { QuotationDetailsData } from "@/types/asset-management-system/quotation-registration-type";
+import { SUPPLIER_MOCK_DATA } from "@/mocks/asset-management-system/quotation-registration";
 
 const columnHelper = createColumnHelper<QuotationDetailsData>();
 
 interface QuotationDetailsDataTableProps {}
 
-export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps> = () => {
+export const QuotationDetailsDataTable: React.FC<
+  QuotationDetailsDataTableProps
+> = () => {
   const [data, setData] = useState(SUPPLIER_MOCK_DATA);
 
-  const handleInputChange = (rowIndex: number, columnId: string, value: string) => {
-    setData((prevData) => {
-      const newData = [...prevData];
-      newData[rowIndex] = { ...newData[rowIndex], [columnId]: value };
-      return newData;
-    });
-  };
+  const handleInputChange = (
+  rowIndex: number,
+  columnId: string,
+  value: string
+) => {
+  setData(prevData => {
+    const newData = [...prevData];
+
+    const row = { ...newData[rowIndex], [columnId]: value };
+
+    const qty = Number(row.qtyAvailable) || 0;
+    const unitPrice = Number(row.unitPrice) || 0;
+
+    const amount = qty * unitPrice;
+
+    const sgstPercent = Number(row.sgstPercent) || 0;
+    const cgstPercent = Number(row.cgstPercent) || 0;
+    const igstPercent = Number(row.igstPercent) || 0;
+
+    const sgst = (amount * sgstPercent) / 100;
+    const cgst = (amount * cgstPercent) / 100;
+    const igst = (amount * igstPercent) / 100;
+
+    row.amount = amount.toFixed(2);
+    row.sgst = sgst.toFixed(2);
+    row.cgst = cgst.toFixed(2);
+    row.igst = igst.toFixed(2);
+
+    newData[rowIndex] = row;
+
+    return newData;
+  });
+};
 
   const columns = useMemo(
     () => [
@@ -37,17 +65,17 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
 
       columnHelper.accessor("itemSpec", {
         header: "Item Specifications",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: info => info.getValue() || "- - - - - - - - -",
       }),
 
       columnHelper.accessor("model", {
         header: "Model/Man..",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: info => info.getValue() || "- - - - - - - - -",
       }),
 
       columnHelper.accessor("qtyReq", {
         header: "QTY Requested",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: info => info.getValue() || "- - - - - - - - -",
       }),
 
       columnHelper.display({
@@ -56,21 +84,21 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
         cell: ({ row }) => (
           <Input
             type="text"
-            value={row.original.amount}
-            onChange={(e) =>
+            value={row.original.qtyAvailable}
+            onChange={e =>
               handleInputChange(row.index, "qtyAvailable", e.target.value)
             }
             size="form"
             variant="form"
             placeholder="Enter Qty"
-            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+            className="w-11 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
           />
-        )
+        ),
       }),
 
       columnHelper.accessor("uom", {
         header: "UOM",
-        cell: (info) => info.getValue() || "- - - - - - - - -",
+        cell: info => info.getValue() || "- - - - - - - - -",
       }),
 
       columnHelper.display({
@@ -80,15 +108,15 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
           <Input
             type="string"
             value={row.original.unitPrice || ""}
-            onChange={(e) =>
+            onChange={e =>
               handleInputChange(row.index, "unitPrice", e.target.value)
             }
             size="form"
             variant="form"
             placeholder="Enter Unit Price"
-            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+            className="w-23 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
           />
-        )
+        ),
       }),
 
       columnHelper.display({
@@ -98,33 +126,33 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
           <Input
             type="string"
             value={row.original.amount}
-            onChange={(e) =>
+            onChange={e =>
               handleInputChange(row.index, "amount", e.target.value)
             }
             size="form"
             variant="form"
-            placeholder="Enter Amount"
-            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+            disabled
+            className="w-11 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
           />
-        )
+        ),
       }),
 
       columnHelper.display({
         id: "sgstPercent",
         header: "SGST %",
         cell: ({ row }) => (
-          <Input
-            type="string"
-            value={row.original.sgstPercent}
-            onChange={(e) =>
-              handleInputChange(row.index, "sgstPercent", e.target.value)
-            }
-            size="form"
-            variant="form"
-            placeholder="Enter SGST %"
-            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
-          />
-        )
+            <Input
+              type="text"
+              value={row.original.sgstPercent}
+              onChange={e =>
+                handleInputChange(row.index, "sgstPercent", e.target.value)
+              }
+              size="form"
+              variant="form"
+              className="w-11 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
+            />
+
+        ),
       }),
 
       columnHelper.display({
@@ -132,36 +160,33 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
         header: "SGST",
         cell: ({ row }) => (
           <Input
-            type="string"
+            type="text"
             value={row.original.sgst}
-            onChange={(e) =>
-              handleInputChange(row.index, "sgst", e.target.value)
-            }
+            onChange={e => handleInputChange(row.index, "sgst", e.target.value)}
             size="form"
             variant="form"
             disabled
-            placeholder="Enter SGST"
-            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+            className="w-11 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
           />
-        )
+        ),
       }),
 
       columnHelper.display({
         id: "cgstPercent",
-        header: "CGST",
+        header: "CGST %",
         cell: ({ row }) => (
-          <Input
-            type="string"
-            value={row.original.cgstPercent}
-            onChange={(e) =>
-              handleInputChange(row.index, "cgstPercent", e.target.value)
-            }
-            size="form"
-            variant="form"
-            placeholder="Enter CGST %"
-            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
-          />
-        )
+            <Input
+              type="text"
+              value={row.original.cgstPercent}
+              onChange={e =>
+                handleInputChange(row.index, "cgstPercent", e.target.value)
+              }
+              size="form"
+              variant="form"
+              className="w-12 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
+            />
+
+        ),
       }),
 
       columnHelper.display({
@@ -169,36 +194,33 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
         header: "CGST",
         cell: ({ row }) => (
           <Input
-            type="string"
+            type="text"
             value={row.original.cgst}
-            onChange={(e) =>
-              handleInputChange(row.index, "cgst", e.target.value)
-            }
+            onChange={e => handleInputChange(row.index, "cgst", e.target.value)}
             size="form"
             variant="form"
             disabled
-            placeholder="Enter CGST"
-            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+            className="w-11 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
           />
-        )
+        ),
       }),
 
       columnHelper.display({
         id: "igstPercent",
-        header: "IGST",
+        header: "IGST %",
         cell: ({ row }) => (
-          <Input
-            type="string"
-            value={row.original.igstPercent}
-            onChange={(e) =>
-              handleInputChange(row.index, "igstPercent", e.target.value)
-            }
-            size="form"
-            variant="form"
-            placeholder="Enter IGST %"
-            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
-          />
-        )
+            <Input
+              type="text"
+              value={row.original.igstPercent}
+              onChange={e =>
+                handleInputChange(row.index, "igstPercent", e.target.value)
+              }
+              size="form"
+              variant="form"
+              className="w-12 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
+            />
+
+        ),
       }),
 
       columnHelper.display({
@@ -206,25 +228,22 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
         header: "IGST",
         cell: ({ row }) => (
           <Input
-            type="string"
+            type="text"
             value={row.original.igst}
-            onChange={(e) =>
-              handleInputChange(row.index, "igst", e.target.value)
-            }
+            onChange={e => handleInputChange(row.index, "igst", e.target.value)}
             size="form"
             variant="form"
             disabled
-            placeholder="Enter IGST"
-            className="w-20 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600"
+            className="w-11 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
           />
-        )
+        ),
       }),
     ],
     []
   );
 
   const table = useReactTable({
-    data: SUPPLIER_MOCK_DATA,
+    data: data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
@@ -232,10 +251,7 @@ export const QuotationDetailsDataTable: React.FC<QuotationDetailsDataTableProps>
   return (
     <Grid>
       <Grid.Item>
-        <CommonTable
-          table={table}
-          className="bg-card"
-        />
+        <CommonTable table ={table} className="bg-card whitespace-nowrap" />
       </Grid.Item>
     </Grid>
   );
