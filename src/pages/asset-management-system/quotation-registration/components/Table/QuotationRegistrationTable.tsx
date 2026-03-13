@@ -6,7 +6,7 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { QUOTATION_MOCK_DATA } from "@/mocks/asset-management/quotation-registration";
+// import { QUOTATION_MOCK_DATA } from "@/mocks/asset-management-system/quotation-registration";
 import type { QuotationReqData } from "@/types/asset-management-system/quotation-registration-type";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 
@@ -24,21 +24,15 @@ interface TableProps {
   // handleDelete: (identity: string) => void;
 }
 export const QuotationRegistrationTable: React.FC<TableProps> = ({
-  data = QUOTATION_MOCK_DATA,
+  data,
   isLoading,
   //   handleEdit,
   //   handleDelete,
 }) => {
-  const [ tableData, 
-    // setTableData
-   ] =  useState<QuotationReqData[]>(QUOTATION_MOCK_DATA || data)
-    // const [tableData, setTableData] = useState<SupplierSearchResult[]>(MOCK_SUPPLIERS)
-  
+  const tableData = data ?? [];
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [
-    _,
-     setSelectedQuotation] = useState<QuotationReqData | null>(null);
-  
+  const [selectedQuotation, setSelectedQuotation] = useState<QuotationReqData | null>(null);
 
   const openModal = (rowData: QuotationReqData) => {
     setSelectedQuotation(rowData);
@@ -107,7 +101,6 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
         id: "actions",
         header: "Actions",
         cell: ({ row }) => {
-          //   const item = row.original.identity;
           const quote = row.original.status?.trim().toLowerCase();
           return (
             <div className="flex items-center gap-2">
@@ -121,7 +114,6 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
               </NeumorphicButton>
 
               <Button
-                // onClick={() => openDetails(row.original.id)}
                 className="bg-blue-600 px-3 text-[11px] text-white hover:bg-blue-700"
               >
                 Create Quotation
@@ -132,8 +124,6 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
                   type="button"
                   variant="resetPrimary"
                   size="compactWhite"
-                  //   onClick={() => openDetails(row.original.id)}
-                  // className="h-6 border border-blue-500 bg-white text-blue-600 hover:bg-blue-50"
                   className="text-[11px]"
                 >
                   Sent for Approval
@@ -145,7 +135,6 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
       }),
     ],
     []
-    // [handleDelete]
   );
   const getNoDataText = () => {
     if (isLoading) {
@@ -153,20 +142,6 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
     }
     return "No Quotation Registration found";
   };
-
-  // const onSubmit = (data: QuotationReqData) => {
-  
-  //     const filtered = QUOTATION_MOCK_DATA.filter(quotation =>
-  //       (!data.quotReqDate || quotation.quotReqDate.toLowerCase().includes(data.quotReqDate.toLowerCase())) &&
-  //       (!data.quotReqDesc || quotation.quotReqDesc.toLowerCase().includes(data.quotReqDesc.toLowerCase())) &&
-  //       (!data.quotReqId || quotation.quotReqId.toLowerCase().includes(data.quotReqId.toLowerCase())) &&
-  //       (!data.quotReqItem || quotation.quotReqItem.toLowerCase().includes(data.quotReqItem.toLowerCase())) &&
-  //       (!data.status || quotation.status.toLowerCase().includes(data.status.toLowerCase()))
-
-  //     )
-  
-  //     setTableData(filtered)
-  //   }
 
   const table = useReactTable({
     data: tableData,
@@ -234,10 +209,10 @@ export const QuotationRegistrationTable: React.FC<TableProps> = ({
       </Grid>
 
       <QuotRegWithSupplierModal
-        // onSubmit
         isSubmitting
         isOpen={isModalOpen}
         onClose={closeModal}
+        quotation={selectedQuotation}
         onToggleDisable={() => {
           console.log("Optional toggle when modal closes");
         }}

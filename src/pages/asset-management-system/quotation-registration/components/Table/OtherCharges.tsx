@@ -10,6 +10,7 @@ import {
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
 import { Trash2 } from "lucide-react";
 import { CHARGES_OPTIONS } from "../../constants/QuotationRegDefault";
+// import {CHARGE_MOCK_DATA} from "@/mocks/asset-management-system/quotation-registration"
 
 const columnHelper = createColumnHelper<OtherChargesData>();
 
@@ -20,7 +21,16 @@ interface OtherChargesTableProps {
 export const OtherChargesTable: React.FC<OtherChargesTableProps> = ({
   data,
 }) => {
-  const [tableData, setTableData] = useState<OtherChargesData[]>(data);
+  const [tableData, setTableData] = useState<OtherChargesData[]>(
+  data.map((row) => ({
+    ...row,
+    chargeName:
+      CHARGES_OPTIONS.find(
+        (opt) =>
+          opt.label.toLowerCase() === row.chargeName?.toLowerCase()
+      )?.value || "",
+  }))
+  );
 
   const updateRow = (
     rowIndex: number,
@@ -57,7 +67,7 @@ export const OtherChargesTable: React.FC<OtherChargesTableProps> = ({
           <div className="rounded-md focus-within:ring-1 focus-within:ring-blue-600">
             <Select
               options={CHARGES_OPTIONS}
-              value={row.original.chargeName || ""}
+              value={CHARGES_OPTIONS.find(option => option.value === row.original.chargeName)?.value || ""}
               onValueChange={value => updateRow(row.index, "chargeName", value)}
               size="form"
               fullWidth
@@ -72,14 +82,14 @@ export const OtherChargesTable: React.FC<OtherChargesTableProps> = ({
         cell: ({ row }) => (
           <Input
             type="text"
-            value={row.original.chargeAmount || ""}
+            value={row.original.chargeAmount}
             onChange={e =>
               handleInputChange(row.index, "chargeAmount", e.target.value)
             }
             size="form"
             variant="form"
             placeholder="Enter Charge Amount"
-            className="w-30 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
+            className="w-31 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none"
           />
         ),
       }),
@@ -111,7 +121,7 @@ export const OtherChargesTable: React.FC<OtherChargesTableProps> = ({
   return (
     <Grid>
       <Grid.Item>
-        <CommonTable table={table}></CommonTable>
+        <CommonTable table={table} className="bg-card whitespace-nowrap"/>
       </Grid.Item>
     </Grid>
   );

@@ -29,47 +29,51 @@ export const SUPPLIER_MOCK_DATA: QuotationDetailsData[] = [
    itemName: "Laptop",
    itemSpec: "Ram-8Gb, Processor-i5, Display-14",
    model:"Dell - Inspiron",
-   qtyAvailable: 2,
+   qtyAvailable: "2",
    qtyReq: 1,
    uom: "NOS",
-   unitPrice: undefined,
-   amount: undefined,
-   sgstPercent: undefined,
+   unitPrice: "",
+   amount: "",
+   sgstPercent: "",
    sgst: "",
-   cgstPercent: undefined,
+   cgstPercent: "",
    cgst: "",
-   igstPercent: undefined,
+   igstPercent: "",
    igst: ""
   },
   {
    itemName: "Desktop",
    itemSpec: "Ram-4Gb, Processor-i3, Display-24",
    model:"Dell - Pro 24",
-   qtyAvailable: 2,
+   qtyAvailable: "2",
    qtyReq: 1,
    uom: "NOS",
-   unitPrice: undefined,
-   amount: undefined,
-   sgstPercent: undefined,
+   unitPrice: "",
+   amount: "",
+   sgstPercent: "",
    sgst: "",
-   cgstPercent: undefined,
+   cgstPercent: "",
    cgst: "",
-   igstPercent: undefined,
+   igstPercent: "",
    igst: ""
   },
 ];
 
 export const CHARGE_MOCK_DATA: OtherChargesData[] = [
   {
-    chargeName: "Transportation Charges",
-    chargeAmount: 400
+    chargeName: "TRANSPORTATION CHARGES",
+    chargeAmount: ""
   },
   {
-    chargeName: "Moving Charges",
-    chargeAmount: 800
+    chargeName: "MOVING CHARGES",
+    chargeAmount: ""
   },
   {
-    chargeName: "Duty Charges",
-    chargeAmount: 500
+    chargeName: "DUTY CHARGES",
+    chargeAmount: ""
+  },
+  {
+    chargeName: "HANDLING CHARGES",
+    chargeAmount: ""
   }
 ]

@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { useForm, Controller, 
-  // type Resolver 
+import { useEffect, useState } from "react";
+import {
+  useForm,
+  Controller,
+  // type Resolver
 } from "react-hook-form";
 import { FormContainer } from "@/components/ui/form-container";
 import {
@@ -11,26 +13,35 @@ import {
   TitleHeader,
   Flex,
   Grid,
-  Textarea
+  Textarea,
 } from "@/components";
 import type {
-  // QuotationReqData,
+  Terms,
+  QuotationReqData,
   QuotReqDetails,
   SupplierDetails,
   UploadQuot,
 } from "@/types/asset-management-system/quotation-registration-type";
 import { QuotationDetailsDataTable } from "../Table/QuotationDetailsTable";
-import { Plus, RefreshCw, Save, Trash2, Upload } from "lucide-react";
+import {
+  Minus,
+  Plus,
+  RefreshCw,
+  Save,
+  Trash2,
+  Upload,
+  XCircle,
+} from "lucide-react";
 import { OtherChargesTable } from "../Table/OtherCharges";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-import { CHARGE_MOCK_DATA } from "@/mocks/asset-management/quotation-registration";
-// import { yupResolver } from "@hookform/resolvers/yup"
-// import { quotationRegistrationSchema } from "@/global/validation/asset-management-system/quotation-registration"
-
+import { CHARGE_MOCK_DATA } from "@/mocks/asset-management-system/quotation-registration";
+import { yupResolver } from "@hookform/resolvers/yup"
+import { quotationRegistrationSchema } from "@/global/validation/asset-management-system/quotation-registration"
 
 interface QuotRegWithSupplierModalProps {
   isOpen: boolean;
   onClose: () => void;
+  quotation?: QuotationReqData | null;
   onToggleDisable?: () => void;
   isSubmitting: boolean;
 }
@@ -38,6 +49,7 @@ interface QuotRegWithSupplierModalProps {
 export function QuotRegWithSupplierModal({
   isOpen,
   onClose,
+  quotation,
   isSubmitting,
   onToggleDisable = () => {},
 }: QuotRegWithSupplierModalProps) {
@@ -50,11 +62,14 @@ export function QuotRegWithSupplierModal({
     register,
     handleSubmit,
     control,
+    setValue,
+    reset,
     formState: { errors },
   } = useForm<{
     quotReq: QuotReqDetails;
     supplier: SupplierDetails;
     upload: UploadQuot;
+    terms: Terms;
   }>({
     defaultValues: {
       quotReq: {},
@@ -62,11 +77,22 @@ export function QuotRegWithSupplierModal({
       upload: {
         uploadQuot: null,
       },
+      terms: {}
     },
-// resolver: yupResolver(quotationRegistrationSchema)
-  });
+    resolver: yupResolver(quotationRegistrationSchema) as any
+  }); 
 
-  const [description, setDescription] = useState("");
+  useEffect(() => {
+  if (isOpen) {
+    reset();
+    setIsFetched(false);
+  }
+}, [isOpen]);
+
+  
+  const [showTermForm, setShowTermForm] = useState(true);
+  const [showChargeForm, setShowChargeForm] = useState(true);
+  const [isFetched, setIsFetched] = useState(false);
 
   const onSubmit = (data: {
     quotReq: QuotReqDetails;
@@ -86,9 +112,9 @@ export function QuotRegWithSupplierModal({
           className="absolute top-4 right-4 text-red-500 hover:text-red-700"
           onClick={handleClose}
         >
-          ✕
+          <XCircle />
         </button>
-        <TitleHeader title="Quotation Details" className="font-xxl py-4" />
+        <TitleHeader title="Quotation Details" className="font-xl py-4" />
         <FormContainer>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <div className="rounded-lg border bg-blue-50 p-5">
@@ -109,7 +135,15 @@ export function QuotRegWithSupplierModal({
                       render={({ field }) => (
                         <DatePicker
                           value={field.value || undefined}
-                          onChange={field.onChange}
+                          // onChange={field.onChange}
+                           onChange={(date)=> {field.onChange(date);
+                            if (quotation && date && !isFetched) {
+                              setValue("quotReq.quotReqId", quotation.quotReqId);
+                              setValue("quotReq.reqBy", "System");
+                              setValue("quotReq.description", quotation.quotReqDesc);
+                              setIsFetched(true);
+                            }
+                          }} 
                           onBlur={field.onBlur}
                           placeholder="dd/mm/yyyy"
                           allowManualEntry
@@ -161,8 +195,7 @@ export function QuotRegWithSupplierModal({
                     error={errors?.quotReq?.description}
                   >
                     <Input
-                      value={description}
-                      onChange={e => setDescription(e.target.value)}
+                      {...register("quotReq.description")}
                       placeholder="Enter Description"
                       size="form"
                       variant="form"
@@ -261,21 +294,30 @@ export function QuotRegWithSupplierModal({
               <Grid className="mt-6 rounded-lg border p-5">
                 <Form.Row className="items-start gap-12">
                   <Form.Col lg={7}>
-                    <div className="mb-2 flex items-center gap-2">
+                    <div className="mt-0 mb-2 flex items-center gap-2 ">
                       <h2 className="text-sm font-semibold">Other Charges</h2>
                       <button
                         type="button"
+                        onClick={() => setShowChargeForm(prev => !prev)}
                         className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-700 text-white"
                       >
-                        <Plus size={15} />
+                        {showChargeForm ? (
+                          <Minus size={15} />
+                        ) : (
+                          <Plus size={15} />
+                        )}
                       </button>
                     </div>
-                    <OtherChargesTable data={CHARGE_MOCK_DATA} />
+                    {showChargeForm && (
+                      <div className="max-h-41 overflow-y-auto rounded-md border">
+                        <OtherChargesTable data={CHARGE_MOCK_DATA} />
+                      </div>
+                    )}
                   </Form.Col>
 
                   <Form.Col lg={5}>
                     <Form.Field required error={errors?.upload?.uploadQuot}>
-                      <label className="mb-3 text-sm font-semibold">
+                      <label className="mt-0 mb-3 text-sm font-semibold">
                         Upload Quotation<span className="text-red-500">*</span>
                       </label>
                       <Controller
@@ -339,36 +381,47 @@ export function QuotRegWithSupplierModal({
                       </h3>
                       <button
                         type="button"
+                        onClick={() => setShowTermForm(prev => !prev)}
                         className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-700 text-white"
                       >
-                        <Plus size={15} />
+                        {showTermForm ? (
+                          <Minus size={15} />
+                        ) : (
+                          <Plus size={15} />
+                        )}
                       </button>
                     </div>
-                    <Textarea
-                      placeholder="Enter Terms & Conditions"
-                      size="form"
-                      variant="form"
-                      rows={4}
-                    />
+
+                    {showTermForm && (
+                      <Textarea
+                        placeholder="Enter Terms & Conditions"
+                        size="form"
+                        variant="form"
+                        rows={4}
+                      />
+                    )}
                   </Form.Col>
 
                   <Form.Col lg={3}>
                     <div className="mt-8 flex h-full flex-col gap-2 rounded-lg border bg-blue-100 p-3">
+                      <Form.Field error={errors?.terms?.totQuot}>
                       <h3 className="text-xs font-semibold">
-                        Total Quotation Amount
+                        Total Quotation Amount{" "}
+                        <span className="text-red-500">*</span>
                       </h3>
                       <Input
+                        {...register("terms.totQuot")}
                         placeholder="//Auto Calculated"
                         disabled
                         required
                       />
+                      </Form.Field>
                     </div>
                   </Form.Col>
                 </Form.Row>
               </Grid>
             </div>
-          </Form>
-        </FormContainer>
+          
 
         <div className="mt-6 flex justify-end gap-2">
           <Flex.ActionGroup className="mt-2 justify-end gap-4">
@@ -390,10 +443,12 @@ export function QuotRegWithSupplierModal({
               // disabled={isSubmitting}
             >
               <Save className="h-3 w-3" />
-              {isSubmitting ? "Saving..." : "Save Quotation Details"}
+              {!isSubmitting ? "Saving..." : "Save Quotation Details"}
             </NeumorphicButton>
           </Flex.ActionGroup>
         </div>
+        </Form>
+        </FormContainer>
       </div>
     </div>
   );

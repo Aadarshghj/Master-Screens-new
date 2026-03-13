@@ -1,65 +1,34 @@
-// import React, { useMemo } from "react";
-// import { Grid, CommonTable } from "@/components/ui";
-// import {
-//   createColumnHelper,
-//   getCoreRowModel,
-// //   getPaginationRowModel,
-//   useReactTable,
-// } from "@tanstack/react-table";
-// // import {  SquarePen, Trash2 } from "lucide-react";
-// import { useQuotRegTable } from '../Hooks/useQuotationRegistrationTable';
-// import type { QuotationReqData } from "@/types/asset-management-system/quotation-registration-type";
-// import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
+import { useState } from "react";
+import type { QuotationFilter } from "@/types/asset-management-system/quotation-registration-type";
 
-// const columnHelper = createColumnHelper<QuotationReqData>();
+export const useQuotationFilter = <T extends { quotReqId?: string; status?: string }>(
+  initialData: T[]
+) => {
+  const [filteredData, setFilteredData] = useState<T[]>(initialData);
 
-// interface ProductListTableProps {
-//   filters:{
-//     product: string;
-//     status: string;
-//   }
-// }
+  const applyFilter = (filters: QuotationFilter) => {
+    let result = [...initialData];
 
-// <QuotationRegistrationTable  />
-// console.log("Full Data:", data);
+    if (filters.reqId  && filters.reqId !== "ALL") {
+      result = result.filter(item =>
+        item.quotReqId?.toLowerCase().includes(filters.reqId.toLowerCase())
+      );
+    }
 
-// const filteredData = React.useMemo(() => {
-//   return data.filter((item) => {
-//     const matchProduct =
-//       !filters.product ||
-//       filters.product === "ALL" ||
-//       item.product.toLowerCase() === filters.product.toLowerCase();
+    if (filters.status && filters.status !== "ALL") {
+  const normalizedStatus = filters.status
+    .toLowerCase()
+    .replace(/_/g, " ");
 
-//     const matchStatus =
-//       !filters.status ||
-//       filters.status === "ALL" ||
-//       item.status.toLowerCase() === filters.status.toLowerCase();
+  result = result.filter(
+    item => item.status?.toLowerCase() === normalizedStatus
+  );
+}
+    setFilteredData(result);
+  };
 
-//     return matchProduct && matchStatus;
-//   });
-// }, [data, filters]);
-
-// console.log("Filters:", filters);
-// console.log("Filtered result:", filteredData);
-
-//   const table = useReactTable({
-//     data: filteredData,
-//     columns,
-//     getCoreRowModel: getCoreRowModel(),
-
-//   return (
-//     <>
-//       <Grid>
-//         <Grid.Item>
-//           <CommonTable
-//             table={table}
-//             size="default"
-//             noDataText={isFetching ? "Loading..." : "No records available"}
-//             className="bg-card"
-//           />
-          
-//         </Grid.Item>
-//       </Grid>
-//     </>
-//   );
-// };
+  return {
+    filteredData,
+    applyFilter,
+  };
+};
