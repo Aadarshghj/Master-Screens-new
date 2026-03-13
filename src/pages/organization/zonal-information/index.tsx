@@ -6,13 +6,26 @@ import {
   type BreadcrumbItem,
   PageWrapper,
 } from "@/components";
-import { useAdminUnitManager } from "./components/hooks/useAdminUnitManager";
+
+import { useUnitTypeManager } from "./components/hooks/useUnitTypeManager";
 import { AdminUnitRegistrationForm } from "./components/form/AdminUnitRegistrationForm";
 import { AdminUnitTable } from "./components/table/adminUnitTable";
-import type { AdminUnitDetails } from "@/types/organisation/admin-unit";
-import { BREADCRUMB, TABLE_LABELS } from "./constants/ZoneInformationConstants";
 
-export const AdminUnitRegistrationPage: React.FC = () => {
+import type { AdminUnitDetails } from "@/types/organisation/admin-unit";
+import type { UnitTypeCode } from "./components/hooks/useAdminUnitManagerBase";
+
+import { TABLE_LABELS } from "./constants/ZoneInformationConstants";
+import { useContactDetailsTable } from "./components/hooks/useContactDetailsTable";
+
+interface AdminUnitRegistrationPageProps {
+  unitTypeCode: UnitTypeCode;
+  unitLabel: string;
+  pagePath: string;
+}
+
+export const AdminUnitRegistrationPage: React.FC<
+  AdminUnitRegistrationPageProps
+> = ({ unitTypeCode, unitLabel, pagePath }) => {
   const navigate = useNavigate();
   const [editIdentity, setEditIdentity] = useState<string | undefined>();
   const formRef = useRef<HTMLDivElement>(null);
@@ -30,6 +43,7 @@ export const AdminUnitRegistrationPage: React.FC = () => {
     isBranch,
     selectedStatus,
     selectedUnitType,
+    isUnitTypeLocked,
     onPincodeSearch,
     onPostOfficeSelect,
     branchTypeOptions,
@@ -46,11 +60,8 @@ export const AdminUnitRegistrationPage: React.FC = () => {
     timezoneOptions,
     setValue,
     languageOptions,
-  } = useAdminUnitManager(editIdentity);
-
-  const selectedUnitLabel =
-    adminUnitTypeOptions.find(o => o.value === selectedUnitType)?.label ??
-    TABLE_LABELS.DEFAULT_UNIT;
+  } = useUnitTypeManager(unitTypeCode, editIdentity);
+  const contactDetailsTable = useContactDetailsTable()
 
   const handleFormSubmit = async (data: AdminUnitDetails) => {
     await onSubmit(data);
@@ -63,8 +74,12 @@ export const AdminUnitRegistrationPage: React.FC = () => {
 
   const handleEdit = (identity: string) => {
     setEditIdentity(identity);
+
     setTimeout(() => {
-      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }, 50);
   };
 
@@ -75,16 +90,24 @@ export const AdminUnitRegistrationPage: React.FC = () => {
 
   const breadcrumbItems: BreadcrumbItem[] = [
     {
-      label: BREADCRUMB.HOME,
-      href: BREADCRUMB.HOME_PATH,
-      onClick: () => navigate(BREADCRUMB.HOME_PATH),
+      label: "Home",
+      href: "/",
+      onClick: () => navigate("/"),
     },
     {
-      label: BREADCRUMB.ORG_MGMT,
-      href: BREADCRUMB.ORG_PATH,
-      onClick: () => navigate(BREADCRUMB.ORG_PATH),
+      label: "Organization Management",
+      href: "/organization-management-system",
+      onClick: () => navigate("/organization-management-system"),
     },
-    { label: BREADCRUMB.PAGE_LABEL, active: true },
+    {
+      label: "Organization",
+      href: pagePath,
+      onClick: () => navigate("/organization"),
+    },
+    {
+      label: editIdentity ? `Edit ${unitLabel}` : `${unitLabel} Registration`,
+      active: true,
+    },
   ];
 
   return (
@@ -102,12 +125,11 @@ export const AdminUnitRegistrationPage: React.FC = () => {
           <div className="flex items-center justify-between" ref={formRef}>
             <TitleHeader
               title={
-                editIdentity
-                  ? `Edit ${selectedUnitLabel}`
-                  : `${selectedUnitLabel} Registration`
+                editIdentity ? `Edit ${unitLabel}` : `${unitLabel} Registration`
               }
               className="py-4"
             />
+
             {editIdentity && (
               <span className="text-muted-foreground text-xs">
                 {TABLE_LABELS.EDITING_HINT}
@@ -126,6 +148,7 @@ export const AdminUnitRegistrationPage: React.FC = () => {
             onSubmit={handleSubmit(handleFormSubmit, handleFormError)}
             isBranch={isBranch}
             selectedStatus={selectedStatus}
+            isUnitTypeLocked={isUnitTypeLocked}
             onPincodeSearch={onPincodeSearch}
             onPostOfficeSelect={onPostOfficeSelect}
             branchTypeOptions={branchTypeOptions}
@@ -142,12 +165,15 @@ export const AdminUnitRegistrationPage: React.FC = () => {
             parentOptions={parentOptions}
             timezoneOptions={timezoneOptions}
             languageOptions={languageOptions}
+            contactDetailsTable={contactDetailsTable}
+
           />
 
           <section className="bg-card mt-10 rounded-xl border p-6 shadow-sm">
             <div className="mb-4">
-              <TitleHeader title="Admin Unit List" className="py-0" />
+              <TitleHeader title={`${unitLabel} List`} className="py-0" />
             </div>
+
             <AdminUnitTable
               onEdit={handleEdit}
               externalUnitType={selectedUnitType}

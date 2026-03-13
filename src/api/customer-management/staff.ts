@@ -3,3 +3,6 @@ export const staff = {
   get: () => "/api/v1/master/staff",
   delete: (identity: string) => `/api/v1/master/${identity}/staff`,
 };
+export const appUsers ={
+    get: () => `/api/v1/users`,
+}

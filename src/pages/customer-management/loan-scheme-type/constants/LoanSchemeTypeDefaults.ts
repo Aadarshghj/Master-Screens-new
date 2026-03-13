@@ -3,6 +3,6 @@ import type { LoanSchemeTypeType } from "@/types/customer-management/loan-scheme
 export const DEFAULT_VALUES: LoanSchemeTypeType = {
   id: "",
   schemeTypeName: "",
-  schemeTypeDescription: "",
+  description: "",
   isActive:true,
 };

@@ -22,7 +22,7 @@ identity:yup
 description: yup
   .string()
   .notRequired()
-  .max(40, "Maximum 40 characters allowed"),
+  .max(150, "Maximum 150 characters allowed"),
   
 
 isActive:yup

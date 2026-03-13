@@ -67,9 +67,9 @@ export const LoanSchemeTypeForm: React.FC<LoanSchemeTypeProps> = ({
             </Form.Col>
 
             <Form.Col lg={3} md={6} span={12}>
-              <Form.Field label="Scheme Type Description" required error={errors.schemeTypeDescription}>
+              <Form.Field label="Scheme Type Description" required error={errors.description}>
                 <Textarea
-                  {...register("schemeTypeDescription")}
+                  {...register("description")}
                   placeholder="Enter Scheme Type Description"
                   size="form"
                   variant="form"

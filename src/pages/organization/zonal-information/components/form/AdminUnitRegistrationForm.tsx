@@ -20,7 +20,26 @@ import {
   type UseFormRegister,
 } from "react-hook-form";
 import type { UseFormTrigger } from "react-hook-form";
+import type { contactDetails } from "@/types/organisation/contact-details";
+import { ContactDetailsTable } from "../table/contactDetailsTable";
+import { useState } from "react";
 
+interface ContactDetailsTableState {
+  tableData: contactDetails[]
+  CONTACT_OPTIONS: { label: string; value: string }[]
+  addRow: () => void
+  removeRow: (index: number) => void
+  updateRow: (
+    index: number,
+    field: keyof contactDetails,
+    value: string | number
+  ) => void
+  resetTable: () => void
+  getFilteredOptions: (
+  rowIndex: number,
+  data: contactDetails[]
+) => { label: string; value: string }[] 
+}
 interface AdminUnitRegistrationProps {
   control: Control<AdminUnitDetails>;
   errors: FieldErrors<AdminUnitDetails>;
@@ -49,6 +68,8 @@ interface AdminUnitRegistrationProps {
   setShowPostOfficeDropdown: (value: boolean) => void;
   postOfficeLoading: boolean;
   postOfficeError?: string;
+  contactDetailsTable: ContactDetailsTableState
+
 }
 
 export const AdminUnitRegistrationForm: React.FC<
@@ -75,9 +96,12 @@ export const AdminUnitRegistrationForm: React.FC<
   postOfficeOptions,
   postOfficeLoading,
   postOfficeError,
+  contactDetailsTable,
+  
 }) => {
   const selectedUnitType = watch("adminUnitTypeIdentity");
   const selectedPostOffice = watch("postOfficeIdentity");
+  const [showContactTable, setShowContactTable] = useState(false)
 
   const selectedUnitLabel =
     adminUnitTypeOptions.find(o => o.value === selectedUnitType)?.label ??
@@ -107,10 +131,19 @@ export const AdminUnitRegistrationForm: React.FC<
     const matched = postOfficeOptions.find(o => o.value === value);
     if (matched) onPostOfficeSelect(matched);
   };
+  const handleSaveContacts = () => {
+  console.log(contactDetailsTable.tableData)
+}
 
   return (
     <FormContainer className="px-0">
-      <Form onSubmit={onSubmit}>
+    <Form
+  onSubmit={(e) => {
+    e.preventDefault()
+    onSubmit()
+    setShowContactTable(true)
+  }}
+>
         <div className="mt-2">
           <Form.Row>
             <Form.Col lg={2} md={6} span={12}>
@@ -533,7 +566,11 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Col>
 
               <Form.Col lg={3} md={6} span={12}>
-                <Form.Field label="Address Line 2" error={errors.addressLine2}>
+                <Form.Field
+                  label="Address Line 2"
+                  error={errors.addressLine2}
+                  required
+                >
                   <Input
                     {...register("addressLine2")}
                     placeholder="Enter Address Line 2"
@@ -545,7 +582,7 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Col>
 
               <Form.Col lg={3} md={6} span={12}>
-                <Form.Field label="Landmark" error={errors.landmark}>
+                <Form.Field label="Landmark" error={errors.landmark} required>
                   <Input
                     {...register("landmark")}
                     placeholder="Enter Landmark"
@@ -557,7 +594,11 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Col>
 
               <Form.Col lg={4} md={6} span={12}>
-                <Form.Field label="Place Name" error={errors.placeName}>
+                <Form.Field
+                  label="Place Name"
+                  error={errors.placeName}
+                  required
+                >
                   <Input
                     {...register("placeName")}
                     placeholder="Street / Land Name"
@@ -687,65 +728,6 @@ export const AdminUnitRegistrationForm: React.FC<
               </Form.Col>
             </Form.Row>
 
-            <section className="mt-6">
-              <div className="flex items-center justify-between">
-                <TitleHeader title="Contact Information" className="py-4" />
-              </div>
-
-              <Form.Row>
-                <Form.Col lg={3} md={6} span={12}>
-                  <Form.Field label="Landline">
-                    <Input
-                      {...register("landline")}
-                      placeholder="Enter Landline Number"
-                      size="form"
-                      variant="form"
-                      restriction="numeric"
-                      maxLength={12}
-                    />
-                  </Form.Field>
-                </Form.Col>
-
-                <Form.Col lg={3} md={6} span={12}>
-                  <Form.Field label="Mobile Number 1">
-                    <Input
-                      {...register("mobileNumber1")}
-                      placeholder="Enter Mobile Number"
-                      size="form"
-                      variant="form"
-                      restriction="numeric"
-                      maxLength={10}
-                    />
-                  </Form.Field>
-                </Form.Col>
-
-                <Form.Col lg={3} md={6} span={12}>
-                  <Form.Field label="Mobile Number 2">
-                    <Input
-                      {...register("mobileNumber2")}
-                      placeholder="Enter Alternate Mobile"
-                      size="form"
-                      variant="form"
-                      restriction="numeric"
-                      maxLength={10}
-                    />
-                  </Form.Field>
-                </Form.Col>
-
-                <Form.Col lg={3} md={6} span={12}>
-                  <Form.Field label="Email">
-                    <Input
-                      {...register("email")}
-                      placeholder="Enter Email Address"
-                      size="form"
-                      variant="form"
-                      type="email"
-                    />
-                  </Form.Field>
-                </Form.Col>
-              </Form.Row>
-            </section>
-
             <Flex.ActionGroup className="mt-2 justify-end gap-4">
               <NeumorphicButton
                 type="button"
@@ -768,6 +750,13 @@ export const AdminUnitRegistrationForm: React.FC<
                 {isSubmitting ? "Saving..." : "Save"}
               </NeumorphicButton>
             </Flex.ActionGroup>
+           {showContactTable && (
+  <ContactDetailsTable
+    {...contactDetailsTable}
+    onSaveContacts={handleSaveContacts}
+  />
+)}
+            
           </div>
         </section>
       </Form>
