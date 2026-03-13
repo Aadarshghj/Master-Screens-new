@@ -42,10 +42,10 @@ export const LoanAssetClassificationForm: React.FC<
               <Form.Field
                 label="Asset Classification Name"
                 required
-                error={errors.assetClassiName}
+                error={errors.assetClassificationName}
               >
                 <Input
-                  {...register("assetClassiName")}
+                  {...register("assetClassificationName")}
                   placeholder="Enter asset classification name"
                   size="form"
                   variant="form"

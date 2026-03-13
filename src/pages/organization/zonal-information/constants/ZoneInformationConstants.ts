@@ -12,14 +12,6 @@ export const ADMIN_UNIT_CODES = {
   ZONE: "ZONE",
 } as const;
 
-export const BRANCH_STATUS = {
-  CREATED: "CREATED",
-  CLOSED: "CLOSED",
-  SHIFTED: "SHIFTED",
-  MERGED: "MERGED",
-  ACTIVE: "ACTIVE",
-} as const;
-
 export const BRANCH_CODE_PREFIX = "BR";
 export const BRANCH_CODE_PAD = 3;
 
@@ -73,14 +65,6 @@ export const VALIDATION_MESSAGES = {
   AUTH_DEALER_CODE_MAX: "Maximum 10 characters allowed",
   TBA_MAIN_KEY_MAX: "Maximum 20 characters allowed",
   REG_DIR_CODE_MAX: "Maximum 10 characters allowed",
-} as const;
-
-export const BREADCRUMB = {
-  HOME: "Home",
-  HOME_PATH: "/home",
-  ORG_MGMT: "Organization Management System",
-  ORG_PATH: "/organization-management-system",
-  PAGE_LABEL: "Branch/Region/Zone Registration",
 } as const;
 
 export const TABLE_LABELS = {

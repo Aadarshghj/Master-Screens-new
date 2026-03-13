@@ -47,6 +47,7 @@ export interface ParentBranchDto {
 
 export interface BranchResponseDto {
   identity: string;
+  id:string;
   message: string;
   branchCode: string;
   branchName: string;
@@ -189,6 +190,11 @@ export interface AdminUnitDetails {
   closingDate?: string | null;
   dateOfShift?: string | null;
 
+  landline: string;
+  mobileNumber1: string;
+  mobileNumber2: string;
+  email: string;
+
   doorNumber?: string;
   addressLine1?: string;
   addressLine2?: string;
@@ -245,4 +251,44 @@ export interface AdminUnitDetails {
   ddIssueAllowed?: boolean;
   ttIssueAllowed?: boolean;
   dedicatedIssueOperations?: string;
+}
+
+export interface PincodeDetails {
+  pincodeIdentity: string;
+  postOfficeIdentity: string;
+  postOffice: string;
+  cityIdentity: string;
+  cityName: string;
+  districtIdentity: string;
+  districtName: string;
+  stateIdentity: string;
+  stateName: string;
+  countryIdentity: string;
+  countryName: string;
+  language: string;
+}
+
+export interface PostOfficeDto {
+  officeName: string;
+  identity: string;
+}
+
+export interface PincodeApiResponse {
+  pincode: string;
+  districtName: string;
+  districtIdentity?: string;
+  stateName: string;
+  stateIdentity?: string;
+  postOffices: PostOfficeDto[];
+  latitude: number;
+  longitude: number;
+  identity: string;
+}
+
+export interface TimezoneDto {
+  identity: string;
+  timezoneName: string;
+  utcOffset: string;
+  name: string;
+  isActive: boolean;
 }

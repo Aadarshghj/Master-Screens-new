@@ -11,7 +11,7 @@ import { FormContainer } from "@/components/ui/form-container";
 import { Flex, Input, Label, Select, Switch } from "@/components/ui";
 import { Form } from "@/components";
 import NeumorphicButton from "@/components/ui/neumorphic-button/neumorphic-button";
-import type { StaffFormData } from "@/types/customer-management/staffs";
+import type { Option, StaffFormData } from "@/types/customer-management/staffs";
 import type { SelectOption } from "@/types";
 
 interface StaffProps {
@@ -23,6 +23,7 @@ interface StaffProps {
   onCancel: () => void;
   onReset: () => void;
   reportingPersonOption: SelectOption[];
+  appUserOption: Option[];
   appUser: boolean;
 }
 
@@ -35,6 +36,7 @@ export const StaffForm: React.FC<StaffProps> = ({
   onCancel,
   onReset,
   reportingPersonOption,
+  appUserOption,
   appUser,
 }) => {
   return (
@@ -153,19 +155,44 @@ export const StaffForm: React.FC<StaffProps> = ({
 
             {appUser && (
               <Form.Col lg={3} md={6} span={12}>
-                <Form.Field
-                  label="AppUser Reference Id"
-                  required
-                  error={errors.appUserRefId}
-                >
-                  <Input
-                    {...register("appUserRefId")}
-                    placeholder="Enter AppUser Reference Id"
-                    size="form"
-                    variant="form"
-                  />
-                </Form.Field>
-              </Form.Col>
+              <Form.Field
+                label="AppUser Reference Id"
+                required
+                error={errors.appUserRefId}
+              >
+                <Controller
+                  name="appUserRefId"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      placeholder="Select"
+                      size="form"
+                      variant="form"
+                      fullWidth={true}
+                      itemVariant="form"
+                      options={appUserOption}
+                      onBlur={() => field.onBlur()}
+                    />
+                  )}
+                />
+              </Form.Field>
+            </Form.Col>
+              // <Form.Col lg={3} md={6} span={12}>
+              //   <Form.Field
+              //     label="AppUser Reference Id"
+              //     required
+              //     error={errors.appUserRefId}
+              //   >
+              //     <Input
+              //       {...register("appUserRefId")}
+              //       placeholder="Enter AppUser Reference Id"
+              //       size="form"
+              //       variant="form"
+              //     />
+              //   </Form.Field>
+              // </Form.Col>
             )}
           </Form.Row>
 

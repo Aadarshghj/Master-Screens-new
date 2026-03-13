@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { Briefcase, Check } from "lucide-react";
 import { KanbanColumn } from "@/components/ui/kanban/KanbanColumn";
 import { cn } from "@/utils";
+import { Select} from "@/components/ui";
 import type { Branch, AssignedStaff } from "@/types/customer-management/branch-staff";
-import { useGetAssignedStaffQuery } from "@/global/service/end-points/customer-management/branch-staff-mapping";
 
 interface BranchColumnProps {
   branch: Branch[];
@@ -11,7 +11,8 @@ interface BranchColumnProps {
   searchQuery: string;
   onSearchChange: (q: string) => void;
   onBranchSelect: (id: string) => void;
-  branchAssignments: Record<string, AssignedStaff[]>; 
+  branchAssignments: Record<string, AssignedStaff[]>;
+  branchStaffMap: Record<string, AssignedStaff[]>;
 }
 
 export const BranchColumn: React.FC<BranchColumnProps> = ({
@@ -21,33 +22,65 @@ export const BranchColumn: React.FC<BranchColumnProps> = ({
   onSearchChange,
   onBranchSelect,
   branchAssignments,
+  branchStaffMap,
 }) => {
+  const [sortOrder, setSortOrder] = useState<""|"none" | "asc" | "desc">("");
+
+  const sortedBranches = useMemo(() => {
+  if (sortOrder === "" || sortOrder === "none") {
+    return branch
+  }
+
+  const sorted = [...branch].sort((a, b) =>
+    a.branchName.localeCompare(b.branchName)
+  )
+
+  return sortOrder === "asc" ? sorted : sorted.reverse()
+}, [branch, sortOrder])
+
   return (
     <KanbanColumn
       title="Branch"
       icon={<Briefcase size={18} className="text-blue-600" />}
-      count={branch.length}
+      count={sortedBranches.length}
     >
-      <input
-        type="text"
-        placeholder="Search Branch..."
-        value={searchQuery}
-        onChange={(e) => onSearchChange(e.target.value)}
-        className="mb-3 w-full rounded border border-slate-200 bg-white p-2 text-xs"
-      />
+      <div className="mb-3 flex gap-2 overflow-hidden">
+         <input
+    placeholder="Search Branch..."
+    value={searchQuery}
+    onChange={(e) => onSearchChange(e.target.value)}
+    className="flex-[6] rounded border border-slate-200 bg-white p-2 text-xs "
+  />
 
-      {branch.length === 0 ? (
+         <Select
+  value={sortOrder}
+  onValueChange={(value) =>
+    setSortOrder(value as "" | "none" | "asc" | "desc")
+  }
+  options={[
+    { label: "None", value: "none" },
+    { label: "A-Z", value: "asc" },
+    { label: "Z-A", value: "desc" },
+  ]}
+  placeholder="Sort By"
+  size="form"
+  triggerClassName="w-[110px] flex-none text-xs focus:outline-none"
+/>
+      </div>
+
+      {sortedBranches.length === 0 ? (
         <div className="text-xs text-slate-400 text-center mt-4">
           No branches found
         </div>
       ) : (
-        branch.map((item) => (
+        sortedBranches.map((item) => (
           <BranchItem
-            key={item.id}
+            key={item.identity}
             item={item}
             selectedBranchId={selectedBranchId}
             onBranchSelect={onBranchSelect}
-            branchAssignments={branchAssignments} 
+            branchAssignments={branchAssignments}
+            branchStaffMap={branchStaffMap}
           />
         ))
       )}
@@ -59,7 +92,8 @@ interface BranchItemProps {
   item: Branch;
   selectedBranchId: string;
   onBranchSelect: (id: string) => void;
-  branchAssignments: Record<string, AssignedStaff[]>; 
+  branchAssignments: Record<string, AssignedStaff[]>;
+  branchStaffMap: Record<string, AssignedStaff[]>;
 }
 
 const BranchItem: React.FC<BranchItemProps> = ({
@@ -67,24 +101,21 @@ const BranchItem: React.FC<BranchItemProps> = ({
   selectedBranchId,
   onBranchSelect,
   branchAssignments,
+  branchStaffMap,
 }) => {
-  
-  const { data: branchStaff = [] } = useGetAssignedStaffQuery(item.id);
+  const backendStaff = branchStaffMap[item.identity] || [];
+  const localStaff = branchAssignments[item.identity] || [];
 
-  
-  const allStaff: AssignedStaff[] = [
-    ...branchStaff,
-    ...(branchAssignments[item.id] || []),
-  ];
+  const allStaff: AssignedStaff[] = [...backendStaff, ...localStaff];
 
   const activeCount = allStaff.filter((r) => r.status === "Active").length;
   const pendingCount = allStaff.filter((r) => r.status === "Pending").length;
 
-  const isSelected = selectedBranchId === item.id;
+  const isSelected = selectedBranchId === item.identity;
 
   return (
     <div
-      onClick={() => onBranchSelect(item.id)}
+      onClick={() => onBranchSelect(item.identity)}
       className={cn(
         "group relative mb-1.5 cursor-pointer rounded-lg border p-2 transition-all hover:shadow-sm",
         isSelected
@@ -112,15 +143,12 @@ const BranchItem: React.FC<BranchItemProps> = ({
         </div>
 
         <div className="min-w-0 flex-1">
-         <h4 className="truncate text-xs font-medium text-slate-800">
-  {item.branchName}
-  
-</h4>
+          <h4 className="truncate text-xs font-medium text-slate-800">
+            {item.branchName}
+          </h4>
+
           <p className="truncate text-[10px] text-slate-400">
-            {item.branchCode || "No Code"}
-          </p>
-          <p className="truncate text-[10px] text-slate-400">
-            {item.adminUnitTypeName}
+            {item.branchCode} - {item.adminUnitTypeName}
           </p>
         </div>
 

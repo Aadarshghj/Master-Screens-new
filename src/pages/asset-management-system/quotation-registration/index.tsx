@@ -5,27 +5,33 @@ import {
   TitleHeader,
   type BreadcrumbItem,
   PageWrapper,
-  ConfirmationModal,
+  // ConfirmationModal,
 } from "@/components";
-// import { useCoLendingBankConfigFormController } from "./components/Hooks/useCoLendingBankConfig";
+import { useQuotationFilter } from "./components/Hooks/useQuotationRegFilter";
 // import { BankConfigForm } from "./components/Form/CoLendingBankConfigForm";
- import { QuotationFilterForm } from "./components/Form/QuotationRegFilter";
+import { QuotationFilterForm } from "./components/Form/QuotationRegFilter";
 import { QuotationRegistrationTable } from "./components/Table/QuotationRegistrationTable";
 import { useForm } from "react-hook-form";
-import type { QuotationFilter } from "@/types/asset-management/quotation-registration-type";
-// import {BANK_TABLE_DATA} from "@/mocks/bank/bank-config";            Mock data
+import type { QuotationFilter } from "@/types/asset-management-system/quotation-registration-type";
+import { QUOTATION_MOCK_DATA } from "@/mocks/asset-management-system/quotation-registration";
 
 export const QuotationRegPage: React.FC = () => {
   const navigate = useNavigate();
- const {
+
+  const { filteredData, applyFilter } = useQuotationFilter(QUOTATION_MOCK_DATA);
+  const handlePageChange = (page: number) => {
+  console.log("Page changed:", page);
+};
+
+  const {
     control,
     handleSubmit,
-    formState:{errors},
+    formState: { errors },
   } = useForm<QuotationFilter>({
-    defaultValues:{
-      reqId:"ALL",
-      status:"ALL",
-    }
+    defaultValues: {
+      reqId: "",
+      status: "ALL",
+    },
   });
 
   const breadcrumbItems: BreadcrumbItem[] = [
@@ -47,17 +53,6 @@ export const QuotationRegPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <ConfirmationModal
-        // isOpen={showDeleteModal}
-        // onConfirm={handleConfirmDelete}
-        // onCancel={handleCancelDelete}
-        title="Delete"
-        message="Are you Sure you want to delete Quotation ?"
-        confirmText="Delete"
-        cancelText="Cancel"
-        type="error"
-        size="compact"
-      />
       <PageWrapper
         variant="default"
         padding="xl"
@@ -68,31 +63,26 @@ export const QuotationRegPage: React.FC = () => {
         <section className="p-4 lg:p-8 xl:p-10">
           <Breadcrumb items={breadcrumbItems} variant="default" size="sm" />
           <div className="flex items-center justify-between">
-            <TitleHeader
-              title="Quotation Request List"
-              className="py-4"
-            />
+            <TitleHeader title="Quotation Request List" className="py-4" />
           </div>
-          {/* {showForm && ( */}
-          <div className="rounded-lg border bg-secondary p-2 shadow-sm">
-            <QuotationFilterForm 
+          <div className="bg-secondary rounded-lg border p-2 shadow-sm">
+            <QuotationFilterForm
               control={control}
-            //   register={register}
               errors={errors}
-            //   isSubmitting={isSubmitting}
-            //   onSubmit={handleSubmit(onSubmit)}
-            //   onCancel={handleHideForm}
-            //   onReset={onReset}
+              handleSubmit={handleSubmit}
+                // isSubmitting={isSubmitting}
+              onSubmit={applyFilter}
             />
-          {/* )} */}
           </div>
         </section>
 
         <section className="p-4 lg:p-8 xl:p-10">
           <QuotationRegistrationTable
-            data={[]}
+            data={filteredData}
             isLoading={false}
-            // handleDelete={handle}
+            currentPage={1}
+            totalPages={3}
+            onPageChange={handlePageChange}
           />
         </section>
       </PageWrapper>

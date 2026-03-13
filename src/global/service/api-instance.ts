@@ -11,6 +11,7 @@ export const apiInstance = createApi({
     "Tenant",
     "AdminUnitType",
     "ModuleMgmt",
+    "OrnamentName",
     "CustomerPhoto",
     "Customer",
     "Photo",
@@ -80,6 +81,7 @@ export const apiInstance = createApi({
     "RiskAssessmentType",
     "RoleManagement",
     "UserReg",
+    "LoanSchemeType",
 
     "MenuModuleMapping",
     "branchType",
@@ -95,6 +97,7 @@ export const apiInstance = createApi({
     "Staff",
     "MenuSubMenu",
     "MenuTree"
+    "LoanAssetClassification"
     ],
 
   endpoints: () => ({}),

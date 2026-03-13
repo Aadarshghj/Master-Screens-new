@@ -5,51 +5,17 @@ import type {
   BranchCategoryDto,
   DropdownDto,
   ParentBranchDto,
+  TimezoneDto,
+  PincodeApiResponse
+
+
 } from "@/types/organisation/admin-unit";
 import { apiInstance } from "../../api-instance";
 import { branches } from "@/api/organisation/branches";
 import { master } from "@/api/master/master.api";
 import type { Option } from "@/types/customer-management/designation";
 
-export interface PincodeDetails {
-  pincodeIdentity: string;
-  postOfficeIdentity: string;
-  postOffice: string;
-  cityIdentity: string;
-  cityName: string;
-  districtIdentity: string;
-  districtName: string;
-  stateIdentity: string;
-  stateName: string;
-  countryIdentity: string;
-  countryName: string;
-  language: string;
-}
 
-export interface PostOfficeDto {
-  officeName: string;
-  identity: string;
-}
-
-export interface PincodeApiResponse {
-  pincode: string;
-  districtName: string;
-  districtIdentity?: string;
-  stateName: string;
-  stateIdentity?: string;
-  postOffices: PostOfficeDto[];
-  latitude: number;
-  longitude: number;
-  identity: string;
-}
-
-export interface TimezoneDto {
-  identity: string;
-  timezoneName: string;
-  utcOffset: string;
-  name: string;
-  isActive: boolean;
-}
 
 export const branchesApiService = apiInstance.injectEndpoints({
   endpoints: build => ({
@@ -218,7 +184,20 @@ export const branchesApiService = apiInstance.injectEndpoints({
       query: () => ({ url: branches.getNextBranchCode(), method: "GET" }),
       keepUnusedDataFor: 0,
     }),
+   getChannel: build.query<Option[], void>({
+  query: () => ({ url: branches.getChannel(), method: "GET" }),
+  transformResponse: (
+    res: { identity: string; contactType: string; isActive: boolean }[]
+  ): Option[] =>
+    res
+      .filter(item => item.isActive && item.contactType !== "WHATSAPP")
+      .map(item => ({
+        label: item.contactType,
+        value: item.contactType,
+      })),
+}),
   }),
+
 });
 
 export const {
@@ -246,4 +225,5 @@ export const {
   useGetLanguagesQuery,
   useGetNextBranchCodeQuery,
   useLazyGetNextBranchCodeQuery,
+  useGetChannelQuery,
 } = branchesApiService;

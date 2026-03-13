@@ -3,7 +3,7 @@ export interface QuotationFilter {
     status: string;
 }
 
-export interface StatusOptions {
+export interface Options {
     value: string;
     label: string;
 }
@@ -36,21 +36,21 @@ export interface QuotationDetailsData {
     itemSpec: string;
     model: string;
     qtyReq: number | undefined;
-    qtyAvailable: number | undefined;
+    qtyAvailable: string;
     uom: string;
-    unitPrice: number | undefined;
-    amount: number | undefined;
-    sgstPercent: number | undefined;
+    unitPrice: string;
+    amount: string;
+    sgstPercent: string;
     sgst: string;
-    cgstPercent: number | undefined;
+    cgstPercent: string;
     cgst: string;
-    igstPercent: number | undefined;
+    igstPercent: string;
     igst: string;
 }
 
 export interface OtherChargesData {
-    chargeName: string;
-    chargeAmount: number;
+  chargeName: string;
+  chargeAmount: number | string;
 }
 
 export interface Terms {
@@ -59,5 +59,5 @@ export interface Terms {
 }
 
 export interface UploadQuot {
-    uploadQuot: File;
+    uploadQuot: File | null;
 }

@@ -25,13 +25,14 @@ export const TenantPage: React.FC = () => {
   }, [fetchTenants]);
 
   const tenantHook = useTenant();
+  const [mode, setMode] = useState<"create" | "edit" | "view">("create");
   const handleDeletedTenant = (deletedId: string) => {
-  if (tenantHook.editId === deletedId) {
-    tenantHook.onReset();
-    setShowForm(true);    
-  }
-};
-   
+    if (tenantHook.editId === deletedId) {
+      tenantHook.onReset();
+      setShowForm(true);
+    }
+  };
+
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", href: "/", onClick: () => navigate("/") },
     {
@@ -48,26 +49,46 @@ export const TenantPage: React.FC = () => {
   ];
 
   const handleAddClick = () => {
+    setMode("create");
     setShowForm(true);
+  };
+
+  const handleResetClick = () => {
+    tenantHook.onReset();
+    setMode("create");
   };
 
   const handleCancelClick = () => {
     tenantHook.onCancel();
+    setMode("create");
     setShowForm(false);
   };
 
-  const handleEdit = (data: TenantType) => {
+  const handleEdit = async (data: TenantType) => {
+    setMode("edit");
     setShowForm(true);
-    tenantHook.onEdit(data);
+    await tenantHook.onEdit(data);
 
     setTimeout(() => {
       formRef.current?.scrollIntoView({
         behavior: "smooth",
         block: "end",
       });
-    }, 150);
+    }, 100);
   };
 
+  const handleView = async (data: TenantType) => {
+    setMode("view");
+    setShowForm(true);
+    await tenantHook.onView(data);
+
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }, 100);
+  };
   return (
     <div className="space-y-6">
       <PageWrapper
@@ -81,7 +102,7 @@ export const TenantPage: React.FC = () => {
           <Breadcrumb items={breadcrumbItems} variant="default" size="sm" />
 
           <div className="flex items-center justify-between">
-            <TitleHeader title="Tenant" className="py-4" />
+            <TitleHeader title="Tenant Information" className="py-4" />
             <NeumorphicButton
               type="button"
               variant="default"
@@ -102,8 +123,18 @@ export const TenantPage: React.FC = () => {
                 isSubmitting={tenantHook.isSubmitting}
                 onSubmit={tenantHook.handleSubmit(tenantHook.onSubmit)}
                 onCancel={handleCancelClick}
-                onReset={tenantHook.onReset}
+                onReset={handleResetClick}
+                setValue={tenantHook.setValue}
+                clearErrors={tenantHook.clearErrors}
                 editId={tenantHook.editId}
+                tenantTypeOptions={tenantHook.tenantTypeOptions}
+                addressTypeOptions={tenantHook.addressTypeOptions}
+                postOfficeOptions={tenantHook.postOfficeOptions}
+                siteFactoryPremiseOptions={tenantHook.siteFactoryPremiseOptions}
+                timeZoneOptions={tenantHook.timeZoneOptions}
+                watch={tenantHook.watch}
+                keyValueTable={tenantHook.keyValueTable}
+                mode={mode}
               />
             </div>
           )}
@@ -123,6 +154,7 @@ export const TenantPage: React.FC = () => {
             data={data}
             isLoading={false}
             refetchTenants={fetchTenants}
+            onView={handleView}
             onEdit={handleEdit}
             onDeleted={handleDeletedTenant}
           />

@@ -7,12 +7,12 @@ export const SUPPLIER_EMPANELMENT: supplierEmpanelmentForm ={
       description: "",
       validuptoDate: "",
     
-      supplierName: "",
+      supplierNameSearch: "",
       registrationNumber: "",
       email: "",
       contact: "",
       empanelmentType: "RATEWISE",
-    
+      amount:"",
       termsAndConditions: "",
       document: null,
     
