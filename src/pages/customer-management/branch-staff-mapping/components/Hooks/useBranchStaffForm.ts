@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import  { useState, useMemo } from "react";
 import type {
   AssignedStaff,
   AvailableStaff,
@@ -29,14 +29,20 @@ export const useBranchStaffMapping = () => {
   const { data: assignedStaffBackend = [] } = useGetAssignedStaffQuery(selectedBranchId, { skip: !selectedBranchId });
   const { data: adminUnitTypes = [] } = useGetAdminUnitTypesQuery();
   
-  const adminUnitTypeMap = React.useMemo<Record<string, string>>(() => {
-  return adminUnitTypes.reduce((acc, type) => {
-    if (type.isActive) {
-      acc[type.identity] = type.name;
+const adminUnitTypeMap = useMemo(() => {
+  const map: Record<string, { name: string; hierarchyLevel: number }> = {}
+
+  adminUnitTypes?.forEach((type) => {
+    if (type?.value) {
+      map[String(type.value)] = {
+        name: type.label,
+        hierarchyLevel: type.hierarchyLevel
+      }
     }
-    return acc;
-  }, {} as Record<string, string>);
-}, [adminUnitTypes]);
+  })
+
+  return map
+}, [adminUnitTypes])
 
   const { data: allBranchStaffMappings = [] } = useGetAllBranchStaffMappingsQuery();
   const [saveBranchStaffMapping] = useSaveBranchStaffMappingMutation();
@@ -44,27 +50,35 @@ export const useBranchStaffMapping = () => {
 
 
  const branches = useMemo(() => {
-  const enhancedBranches = branchesData.map((b) => ({
-    ...b,
-    adminUnitTypeName:
-      adminUnitTypeMap[b.adminUnitTypeIdentity] || "",
-  }));
+  const enhancedBranches = branchesData.map((b) => {
+    const unit = adminUnitTypeMap[String(b.adminUnitTypeIdentity)]
 
-  if (!branchSearchQuery) return enhancedBranches;
+    return {
+      ...b,
+      adminUnitTypeName: unit?.name || "",
+      hierarchyLevel: unit?.hierarchyLevel || 0
+    }
+  })
 
-  const lower = branchSearchQuery.toLowerCase();
+  const sortedBranches = enhancedBranches.sort(
+    (a, b) => b.hierarchyLevel - a.hierarchyLevel
+  )
 
-  return enhancedBranches.filter(
+  if (!branchSearchQuery) return sortedBranches
+
+  const lower = branchSearchQuery.toLowerCase()
+
+  return sortedBranches.filter(
     (b) =>
       b.branchName?.toLowerCase().includes(lower) ||
       b.branchCode?.toLowerCase().includes(lower) ||
       b.adminUnitTypeName?.toLowerCase().includes(lower)
-  );
-}, [branchesData, branchSearchQuery, adminUnitTypeMap]);
+  )
+}, [branchesData, branchSearchQuery, adminUnitTypeMap])
 
   const selectedBranch = useMemo(
     () =>
-      branchesData.find((b) => b.id === selectedBranchId) || null,
+      branchesData.find((b) => b.identity === selectedBranchId) || null,
     [branchesData, selectedBranchId]
   );
 
@@ -89,6 +103,28 @@ export const useBranchStaffMapping = () => {
     };
   }, [assignedStaffBackend, selectedBranchId]);
 
+  const branchStaffMap = useMemo(() => {
+  const map: Record<string, AssignedStaff[]> = {}
+
+  allBranchStaffMappings.forEach((m) => {
+    if (!map[m.branchIdentity]) {
+      map[m.branchIdentity] = []
+    }
+
+    map[m.branchIdentity].push({
+      identity: m.identity,
+      staffIdentity: m.staffIdentity,
+      staffName: m.staffName,
+      staffCode: "",
+      branchIdentity: m.branchIdentity,
+      branchName: m.branchName,
+      isActive: m.isActive,
+      status: m.isActive ? "Active" : "Pending"
+    })
+  })
+
+  return map
+}, [allBranchStaffMappings])
 
   const combinedAssignments = useMemo<
     Record<string, AssignedStaff[]>
@@ -270,7 +306,9 @@ export const useBranchStaffMapping = () => {
       setIsModalOpen(false);
     }
   };
-
+console.log(branchesData)
+console.log(adminUnitTypes)
+console.log(adminUnitTypeMap)
 
   return {
     branches,
@@ -285,6 +323,7 @@ export const useBranchStaffMapping = () => {
     pendingCount,
     isModalOpen,
     staffToRemove,
+    branchStaffMap,
     setStaffToRemove,
     setBranchSearchQuery,
     setStaffSearchQuery,

@@ -12,7 +12,7 @@ export const SUPPLIER_EMPANELMENT: supplierEmpanelmentForm ={
       email: "",
       contact: "",
       empanelmentType: "RATEWISE",
-    
+      amount:"",
       termsAndConditions: "",
       document: null,
     

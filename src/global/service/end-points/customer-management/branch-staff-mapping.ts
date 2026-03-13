@@ -66,7 +66,7 @@ export const BranchStaffMappingApi = apiInstance.injectEndpoints({
       providesTags: ["Branch"],
       transformResponse: (response: BranchApiResponse[]): Branch[] =>
         response.map((item) => ({
-          id: item.identity,
+          identity: item.identity,
           branchName: item.branchName,
           branchCode: item.branchCode,
           adminUnitTypeIdentity:item.adminUnitTypeIdentity,

@@ -1,5 +1,5 @@
 export interface Branch {
-  id: string;
+  identity: string;
   branchName: string;
   branchCode: string;
   adminUnitTypeIdentity: string;
@@ -13,8 +13,8 @@ export interface AvailableStaff {
 }
 
 export interface AdminUnitType {
-  identity: string;
-  name: string;
+  value: string;
+  label: string;
   code: string;
   description: string;
   hierarchyLevel: number;

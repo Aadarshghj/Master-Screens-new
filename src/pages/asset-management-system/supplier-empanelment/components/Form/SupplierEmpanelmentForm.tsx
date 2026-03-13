@@ -24,13 +24,17 @@ interface EmpanelItemsTableState {
   ITEM_OPTIONS: { label: string; value: string }[]
   MODEL_OPTIONS: { label: string; value: string }[]
   addRow: () => void
-  removeRow: (index: number) => void
   updateRow: (
     index: number,
     field: keyof empanelItem,
     value: string | number
   ) => void
   resetTable: () => void
+
+  openDeleteModal: (index: number) => void
+  closeDeleteModal: () => void
+  handleConfirmDelete: () => void
+  showDeleteModal: boolean
 }
 
 interface SupplierEmpanelmentFormProps {
